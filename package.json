@@ -1,5 +1,1 @@
-{
-	"devDependencies": {
-		"ctrf": "^0.0.17"
-	}
-}
+{"dependencies":{"ctrf":"^0.0.17"}}

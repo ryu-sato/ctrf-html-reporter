@@ -7,7 +7,7 @@ settings:
 importers:
 
   .:
-    devDependencies:
+    dependencies:
       ctrf:
         specifier: ^0.0.17
         version: 0.0.17
