@@ -1,1 +1,29 @@
-{"dependencies":{"ctrf":"^0.0.17"}}
+{
+  "name": "ctrf-html-reporter",
+  "version": "1.0.0",
+  "description": "This is a test result analysis and file output (HTML) tool that fully supports CTRF (Common Test Report Format).",
+  "keywords": [
+    "ctrf",
+    "reporter",
+    "html"
+  ],
+  "homepage": "https://github.com/ryu-sato/ctrf-html-reporter#readme",
+  "bugs": {
+    "url": "https://github.com/ryu-sato/ctrf-html-reporter/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryu-sato/ctrf-html-reporter.git"
+  },
+  "license": "MIT",
+  "author": "Ryu Sato",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "pnpm test"
+  },
+  "dependencies": {
+    "ctrf": "^0.0.17"
+  },
+  "devDependencies": {}
+}
