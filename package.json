@@ -20,7 +20,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "pnpm test"
+    "test": "pnpm test",
+    "src:dev": "vitepress dev src --host 0.0.0.0",
+    "src:build": "vitepress build src",
+    "src:preview": "vitepress preview src"
   },
   "dependencies": {
     "commander": "^14.0.2",
@@ -28,6 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.0.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitepress": "2.0.0-alpha.15"
   }
 }
