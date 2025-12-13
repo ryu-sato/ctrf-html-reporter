@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { data as report } from './report.data.js';
 import { data as testTree } from './organizeTestsBySuite.data.js';
 import { Chart, registerables } from 'chart.js';
@@ -27,6 +27,95 @@ const startTime = new Date(summary.start * 1000).toISOString();
 
 // Format duration with seconds unit (duration is already in seconds if calculated from start/stop)
 const durationInSeconds = summary.duration;
+
+// Prepare stats for TestStats component (from report.results.summary)
+const reportStatsData = computed(() => {
+  if (!summary) return null;
+  
+  const additionalMetrics = [];
+  
+  if (summary.pending !== undefined) {
+    additionalMetrics.push({
+      label: 'Pending',
+      value: summary.pending,
+      style: { color: '#8b5cf6' }
+    });
+  }
+  
+  if (summary.flaky !== undefined && summary.flaky > 0) {
+    additionalMetrics.push({
+      label: 'Flaky',
+      value: summary.flaky,
+      style: { color: '#f97316' }
+    });
+  }
+  
+  if (summary.other !== undefined && summary.other > 0) {
+    additionalMetrics.push({
+      label: 'Other',
+      value: summary.other,
+      style: { color: '#6b7280' }
+    });
+  }
+  
+  if (summary.suites !== undefined) {
+    additionalMetrics.push({
+      label: 'Suites',
+      value: summary.suites
+    });
+  }
+  
+  return {
+    stats: {
+      total: summary.tests,
+      passed: summary.passed,
+      failed: summary.failed,
+      skipped: summary.skipped
+    },
+    additionalMetrics: additionalMetrics
+  };
+});
+
+// Prepare stats for TestStats component (from testTree.summary)
+const treeStatsData = computed(() => {
+  if (!treeSummary) return null;
+  
+  const additionalMetrics = [];
+  
+  if (treeSummary.pending !== undefined) {
+    additionalMetrics.push({
+      label: 'Pending',
+      value: treeSummary.pending,
+      style: { color: '#8b5cf6' }
+    });
+  }
+  
+  if (treeSummary.flaky !== undefined && treeSummary.flaky > 0) {
+    additionalMetrics.push({
+      label: 'Flaky',
+      value: treeSummary.flaky,
+      style: { color: '#f97316' }
+    });
+  }
+  
+  if (treeSummary.other !== undefined && treeSummary.other > 0) {
+    additionalMetrics.push({
+      label: 'Other',
+      value: treeSummary.other,
+      style: { color: '#6b7280' }
+    });
+  }
+  
+  return {
+    stats: {
+      total: treeSummary.tests,
+      passed: treeSummary.passed,
+      failed: treeSummary.failed,
+      skipped: treeSummary.skipped
+    },
+    additionalMetrics: additionalMetrics
+  };
+});
 
 Chart.register(...registerables);
 const chartCanvas = ref(null);
@@ -171,20 +260,22 @@ duration: {{ durationInSeconds }} sec
 
 ### Test Results (from report.results.summary)
 
-|               tests |               passed |               failed |               skipped |               pending |               other |
-| ------------------: | -------------------: | -------------------: | --------------------: | --------------------: | ------------------: |
-| {{ summary.tests }} | {{ summary.passed }} | {{ summary.failed }} | {{ summary.skipped }} | {{ summary.pending }} | {{ summary.other }} |
-
-|               flaky |               suites |               extra |
-| ------------------: | -------------------: | ------------------: |
-| {{ summary.flaky }} | {{ summary.suites }} | {{ summary.extra }} |
+<TestStats 
+  v-if="reportStatsData"
+  :stats="reportStatsData.stats"
+  :additionalMetrics="reportStatsData.additionalMetrics"
+  :totalDuration="summary.duration * 1000"
+  :showAvgDuration="false"
+  :showTotalDuration="true"
+/>
 
 ### Organized Test Results (from testTree.summary)
 
-|               tests |               passed |               failed |               skipped |               pending |               other |
-| ------------------: | -------------------: | -------------------: | --------------------: | --------------------: | ------------------: |
-| {{ treeSummary.tests }} | {{ treeSummary.passed }} | {{ treeSummary.failed }} | {{ treeSummary.skipped }} | {{ treeSummary.pending }} | {{ treeSummary.other }} |
-
-|               flaky |               duration |
-| ------------------: | ---------------------: |
-| {{ treeSummary.flaky }} | {{ treeSummary.duration }} ms |
+<TestStats 
+  v-if="treeStatsData"
+  :stats="treeStatsData.stats"
+  :additionalMetrics="treeStatsData.additionalMetrics"
+  :totalDuration="treeSummary.duration"
+  :showAvgDuration="false"
+  :showTotalDuration="true"
+/>
