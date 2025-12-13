@@ -193,7 +193,7 @@ const testStatsData = computed(() => {
 }
 </style>
 
-# Test Insights
+# Insights
 
 <div class="insights-container">
 
@@ -202,8 +202,6 @@ const testStatsData = computed(() => {
 </div>
 
 <div v-else-if="aggregatedInsights">
-
-## Overview Metrics
 
 <TestStats 
   v-if="testStatsData"
