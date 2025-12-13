@@ -21,6 +21,7 @@
   "main": "index.js",
   "scripts": {
     "test": "pnpm test",
+    "bin:build": "tsc -p tsconfig.json",
     "src:dev": "vitepress dev src --host 0.0.0.0",
     "src:build": "vitepress build src",
     "src:preview": "vitepress preview src"
