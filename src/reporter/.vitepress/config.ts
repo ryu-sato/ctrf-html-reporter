@@ -4,37 +4,39 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "CTCF HTML Reporter",
   description: "Report test result of CTRF (Common Test Report Format)",
-  vite: {
-    resolve: {
-      alias: {
-        'ctrf': 'ctrf'
-      }
+    vite: {
+      resolve: {
+        alias: {
+          'ctrf': 'ctrf'
+        }
+      },
+      ssr: {
+        noExternal: ['ctrf', 'chart.js']
+      },
     },
-    ssr: {
-      noExternal: ['ctrf', 'chart.js']
+    themeConfig: {
+      // https://vitepress.dev/reference/default-theme-config
+      nav: [
+        { text: 'Home', link: '/' },
+        { text: 'Overview', link: '/overview' },
+        { text: 'Suites', link: '/suites' },
+        { text: 'Insights', link: '/insights' },
+        { text: 'Timeline', link: '/timeline' },
+      ],
+
+      sidebar: [
+        {
+          text: 'Examples',
+          items: [
+            { text: 'Markdown Examples', link: '/markdown-examples' },
+            { text: 'Runtime API Examples', link: '/api-examples' }
+          ]
+        }
+      ],
+
+      socialLinks: [
+        { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      ]
     },
   },
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Overview', link: '/overview' },
-      { text: 'Suites', link: '/suites' },
-      { text: 'Insights', link: '/insights' }
-    ],
-
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
-  },
-})
+);
