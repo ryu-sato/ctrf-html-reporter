@@ -22,6 +22,8 @@
   "scripts": {
     "test": "pnpm test",
     "bin:build": "tsc -p tsconfig.json",
+    "prebin:build": "npm run bin:copy-files",
+    "bin:copy-files": "cp -r ./src/reporter/ ./dist",
     "reporter:dev": "vitepress dev src/reporter --host 0.0.0.0",
     "reporter:build": "vitepress build src/reporter",
     "reporter:preview": "vitepress preview src/reporter"
