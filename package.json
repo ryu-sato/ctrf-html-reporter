@@ -1,7 +1,7 @@
 {
   "name": "ctrf-html-reporter",
   "version": "1.0.0",
-  "description": "This is a test result analysis and file output (HTML) tool that fully supports CTRF (Common Test Report Format).",
+  "description": "Report test result of CTRF (Common Test Report Format) as HTML.",
   "keywords": [
     "ctrf",
     "reporter",
@@ -23,7 +23,11 @@
     "test": "pnpm test"
   },
   "dependencies": {
+    "commander": "^14.0.2",
     "ctrf": "^0.0.17"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "^25.0.1",
+    "typescript": "^5.9.3"
+  }
 }
