@@ -161,29 +161,6 @@ onMounted(() => {
   margin-bottom: 2rem;
 }
 
-.timeline-stats {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.stat-label {
-  font-size: 0.875rem;
-  color: #6b7280;
-}
-
-.stat-value {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
 .filter-controls {
   margin-bottom: 2rem;
   padding: 1rem;
@@ -310,10 +287,6 @@ onMounted(() => {
   padding: 3rem;
   color: #6b7280;
 }
-
-.status-passed { color: #10b981; }
-.status-failed { color: #ef4444; }
-.status-skipped { color: #f59e0b; }
 </style>
 
 <div class="timeline-container">
@@ -322,32 +295,10 @@ onMounted(() => {
     <p>Gantt chart visualization of test execution timeline with duration filtering</p>
   </div>
 
-  <div class="timeline-stats">
-    <div class="stat-item">
-      <span class="stat-label">Total Tests</span>
-      <span class="stat-value">{{ stats.total }}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Passed</span>
-      <span class="stat-value status-passed">{{ stats.passed }}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Failed</span>
-      <span class="stat-value status-failed">{{ stats.failed }}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Skipped</span>
-      <span class="stat-value status-skipped">{{ stats.skipped }}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Avg Duration</span>
-      <span class="stat-value">{{ formatDuration(stats.avgDuration) }}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Total Duration</span>
-      <span class="stat-value">{{ formatDuration(timeRange.duration) }}</span>
-    </div>
-  </div>
+  <TestStats 
+    :stats="stats" 
+    :totalDuration="timeRange.duration"
+  />
 
   <div class="filter-controls">
     <div class="filter-group">
