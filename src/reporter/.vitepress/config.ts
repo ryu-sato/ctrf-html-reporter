@@ -19,7 +19,8 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Overview', link: '/overview' },
-      { text: 'Suites', link: '/suites' }
+      { text: 'Suites', link: '/suites' },
+      { text: 'Insights', link: '/insights' }
     ],
 
     sidebar: [
