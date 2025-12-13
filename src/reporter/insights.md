@@ -118,6 +118,47 @@ const testStatsData = computed(() => {
     ]
   };
 });
+
+// Prepare summary stats for TestStats component
+const summaryStatsData = computed(() => {
+  if (!richReportWithInsights?.results?.summary) return null;
+  
+  const summary = richReportWithInsights.results.summary;
+  const additionalMetrics = [];
+  
+  if (summary.pending !== undefined) {
+    additionalMetrics.push({
+      label: 'Pending',
+      value: summary.pending,
+      style: { color: '#8b5cf6' }
+    });
+  }
+  
+  if (summary.flaky !== undefined && summary.flaky > 0) {
+    additionalMetrics.push({
+      label: 'Flaky',
+      value: summary.flaky,
+      style: { color: '#f97316' }
+    });
+  }
+  
+  if (summary.suites !== undefined) {
+    additionalMetrics.push({
+      label: 'Suites',
+      value: summary.suites
+    });
+  }
+  
+  return {
+    stats: {
+      total: summary.tests,
+      passed: summary.passed,
+      failed: summary.failed,
+      skipped: summary.skipped
+    },
+    additionalMetrics: additionalMetrics
+  };
+});
 </script>
 
 <style scoped>
@@ -211,6 +252,14 @@ const testStatsData = computed(() => {
   :showTotalDuration="false"
 />
 
+<TestStats 
+  v-if="summaryStatsData"
+  :stats="summaryStatsData.stats"
+  :additionalMetrics="summaryStatsData.additionalMetrics"
+  :showAvgDuration="false"
+  :showTotalDuration="false"
+/>
+
 <div class="section">
 
 ## Notable Tests (Sorted by Flaky Rate)
@@ -273,16 +322,6 @@ const testStatsData = computed(() => {
 - **Timestamp**: {{ new Date(richReportWithInsights.timestamp).toLocaleString('en-US') }}
 - **Tool**: {{ richReportWithInsights.results.tool.name }} v{{ richReportWithInsights.results.tool.version }}
 - **Duration**: {{ richReportWithInsights.results.summary.duration }}ms
-
-### Summary
-
-- **Total Tests**: {{ richReportWithInsights.results.summary.tests }}
-- **Passed**: {{ richReportWithInsights.results.summary.passed }}
-- **Failed**: {{ richReportWithInsights.results.summary.failed }}
-- **Skipped**: {{ richReportWithInsights.results.summary.skipped }}
-- **Pending**: {{ richReportWithInsights.results.summary.pending }}
-- **Flaky**: {{ richReportWithInsights.results.summary.flaky }}
-- **Suites**: {{ richReportWithInsights.results.summary.suites }}
 
 </div>
 
