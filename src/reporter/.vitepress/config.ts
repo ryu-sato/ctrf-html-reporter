@@ -18,7 +18,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Overview', link: '/overview' },
+      { text: 'Suites', link: '/suites' }
     ],
 
     sidebar: [

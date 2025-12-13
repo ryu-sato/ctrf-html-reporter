@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { data as report } from './report.data.js';
+import { data as testTree } from './organizeTestsBySuite.data.js';
 import { Chart, registerables } from 'chart.js';
 
 // Tool
@@ -15,6 +16,9 @@ const tests = report.results.tests
 // Summary
 const summary = report.results.summary;
 summary.duration ||= (summary.stop - summary.start);
+
+// Tree Summary (from organizeTestsBySuite)
+const treeSummary = testTree.summary;
 
 const summaryStatus = summary.failed > 0 ? 'Failed' : 'Succeeded';
 
@@ -165,6 +169,8 @@ duration: {{ durationInSeconds }} sec
   <canvas ref="chartCanvas"></canvas>
 </div>
 
+### Test Results (from report.results.summary)
+
 |               tests |               passed |               failed |               skipped |               pending |               other |
 | ------------------: | -------------------: | -------------------: | --------------------: | --------------------: | ------------------: |
 | {{ summary.tests }} | {{ summary.passed }} | {{ summary.failed }} | {{ summary.skipped }} | {{ summary.pending }} | {{ summary.other }} |
@@ -172,3 +178,13 @@ duration: {{ durationInSeconds }} sec
 |               flaky |               suites |               extra |
 | ------------------: | -------------------: | ------------------: |
 | {{ summary.flaky }} | {{ summary.suites }} | {{ summary.extra }} |
+
+### Organized Test Results (from testTree.summary)
+
+|               tests |               passed |               failed |               skipped |               pending |               other |
+| ------------------: | -------------------: | -------------------: | --------------------: | --------------------: | ------------------: |
+| {{ treeSummary.tests }} | {{ treeSummary.passed }} | {{ treeSummary.failed }} | {{ treeSummary.skipped }} | {{ treeSummary.pending }} | {{ treeSummary.other }} |
+
+|               flaky |               duration |
+| ------------------: | ---------------------: |
+| {{ treeSummary.flaky }} | {{ treeSummary.duration }} ms |
