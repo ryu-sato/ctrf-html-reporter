@@ -22,9 +22,6 @@ const treeSummary = testTree.summary;
 
 const summaryStatus = summary.failed > 0 ? 'Failed' : 'Succeeded';
 
-// Format start time as ISO8601 (summary.start is in seconds, so multiply by 1000)
-const startTime = new Date(summary.start * 1000).toISOString();
-
 // Format duration with seconds unit (duration is already in seconds if calculated from start/stop)
 const durationInSeconds = summary.duration;
 
@@ -251,7 +248,7 @@ name: {{ tool.name }}
 
 <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
 
-start: {{ startTime }}  
+start: <DateTimeFormatter :timestamp="summary.start * 1000" />  
 duration: {{ durationInSeconds }} sec
 
 <div style="max-width: 500px; margin: 2rem auto;">
