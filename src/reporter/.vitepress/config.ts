@@ -26,16 +26,18 @@ export default defineConfig({
 
       sidebar: [
         {
-          text: 'Examples',
+          text: 'Report',
           items: [
-            { text: 'Markdown Examples', link: '/markdown-examples' },
-            { text: 'Runtime API Examples', link: '/api-examples' }
+            { text: 'Overview', link: '/overview' },
+            { text: 'Suites', link: '/suites' },
+            { text: 'Insights', link: '/insights' },
+            { text: 'Timeline', link: '/timeline' }
           ]
         }
       ],
 
       socialLinks: [
-        { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+        { icon: 'github', link: 'https://github.com/ryu-sato/ctrf-html-reporter' }
       ]
     },
   },
