@@ -7,12 +7,8 @@ hero:
   text: "Report test result of CTRF (Common Test Report Format)"
   tagline: My great project tagline
   actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+    - text: Overview
+      link: /overview
 
 features:
   - title: Feature A
