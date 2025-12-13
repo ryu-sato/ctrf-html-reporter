@@ -54,8 +54,6 @@ const testStatsData = computed(() => {
 
 # Suites
 
-## Summary
-
 <TestStats 
   v-if="testStatsData"
   :stats="testStatsData.stats"
@@ -65,11 +63,9 @@ const testStatsData = computed(() => {
   :showTotalDuration="true"
 />
 
-## Test Suites
-
 <div v-for="(root, index) in testTree.roots" :key="index" style="margin-bottom: 2rem;">
   
-### {{ root.name }}
+## {{ root.name }}
 
 <Badge :type="getStatusType(root.status)">{{ root.status }}</Badge>
 <span style="margin-left: 0.5rem; color: var(--vp-c-text-2);">Duration: {{ root.duration }}ms</span>
@@ -88,7 +84,7 @@ const testStatsData = computed(() => {
 <div v-if="root.suites && root.suites.length > 0" style="margin-left: 1rem;">
   <div v-for="(suite, suiteIndex) in root.suites" :key="suiteIndex" style="margin-bottom: 1rem; padding-left: 1rem; border-left: 2px solid var(--vp-c-divider);">
     
-#### {{ suite.name }}
+### {{ suite.name }}
 
 <Badge :type="getStatusType(suite.status)">{{ suite.status }}</Badge>
 <span style="margin-left: 0.5rem; color: var(--vp-c-text-2); font-size: 0.875rem;">{{ suite.duration }}ms</span>
