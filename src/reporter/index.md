@@ -3,19 +3,19 @@
 layout: home
 
 hero:
-  name: "CTCF HTML Reporter"
+  name: "CTRF HTML Reporter"
   text: "Report test result of CTRF (Common Test Report Format)"
-  tagline: My great project tagline
+  tagline: Beautiful HTML reports from your test results
   actions:
     - text: Overview
       link: /overview
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Rich Visualization
+    details: Transform CTRF test results into beautiful, interactive HTML reports with detailed insights and statistics
+  - title: Timeline View
+    details: Visualize test execution timeline to identify bottlenecks and understand test performance at a glance
+  - title: Suite Organization
+    details: Automatically organize and display test results by suite with pass/fail rates and detailed test information
 ---
 
