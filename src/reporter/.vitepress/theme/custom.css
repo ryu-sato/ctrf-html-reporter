@@ -1,0 +1,17 @@
+:root {
+  --vp-badge-success-border: transparent;
+  --vp-badge-success-text: var(--vp-c-text-1);
+  --vp-badge-success-bg: var(--vp-c-green-soft);
+}
+
+/* Badge success type styling */
+.VPBadge.success {
+  border-color: transparent;
+  color: var(--vp-c-text-1);
+  background-color: var(--vp-c-green-soft);
+}
+
+.dark .VPBadge.success {
+  color: var(--vp-c-text-1);
+  background-color: var(--vp-c-green-soft);
+}

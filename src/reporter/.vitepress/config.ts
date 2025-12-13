@@ -4,6 +4,16 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "CTCF HTML Reporter",
   description: "Report test result of CTRF (Common Test Report Format)",
+  vite: {
+    resolve: {
+      alias: {
+        'ctrf': 'ctrf'
+      }
+    },
+    ssr: {
+      noExternal: ['ctrf', 'chart.js']
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

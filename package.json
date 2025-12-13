@@ -36,6 +36,7 @@
     "reporter:preview": "vitepress preview src/reporter"
   },
   "dependencies": {
+    "chart.js": "^4.5.1",
     "commander": "^14.0.2",
     "ctrf": "^0.0.17",
     "vitepress": "2.0.0-alpha.15"
