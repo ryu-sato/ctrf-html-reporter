@@ -1,6 +1,7 @@
 /node_modules
 /.pnpm-store
-/dist
+/dist/bin
 
 # VitePress
-/src/.vitepress/cache
+/src/reporter/.vitepress/cache
+/src/reporter/.vitepress/dist
