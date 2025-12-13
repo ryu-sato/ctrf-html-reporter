@@ -78,40 +78,52 @@ const getPassRateColor = (rate) => {
   if (r >= 80) return '#f59e0b';
   return '#ef4444';
 };
+
+// Prepare stats for TestStats component
+const testStatsData = computed(() => {
+  if (!aggregatedInsights.value) return null;
+  
+  return {
+    stats: {
+      total: aggregatedInsights.value.totalTests
+    },
+    additionalMetrics: [
+      {
+        label: 'Tests with Insights',
+        value: aggregatedInsights.value.testsWithInsights
+      },
+      {
+        label: 'Average Pass Rate',
+        value: aggregatedInsights.value.avgPassRate,
+        suffix: '%',
+        style: { color: getPassRateColor(aggregatedInsights.value.avgPassRate) }
+      },
+      {
+        label: 'Average Flaky Rate',
+        value: aggregatedInsights.value.avgFlakyRate,
+        suffix: '%',
+        style: { color: aggregatedInsights.value.avgFlakyRate > 5 ? '#ef4444' : '#10b981' }
+      },
+      {
+        label: 'Average Fail Rate',
+        value: aggregatedInsights.value.avgFailRate,
+        suffix: '%',
+        style: { color: aggregatedInsights.value.avgFailRate > 10 ? '#ef4444' : '#10b981' }
+      },
+      {
+        label: 'Average Duration',
+        value: aggregatedInsights.value.avgDuration,
+        suffix: 'ms'
+      }
+    ]
+  };
+});
 </script>
 
 <style scoped>
 .insights-container {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-
-.metric-card {
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.metric-value {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0.5rem 0;
-}
-
-.metric-label {
-  color: var(--vp-c-text-2);
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .tests-table {
@@ -193,43 +205,13 @@ const getPassRateColor = (rate) => {
 
 ## Overview Metrics
 
-<div class="metrics-grid">
-  <div class="metric-card">
-    <div class="metric-label">Total Tests</div>
-    <div class="metric-value">{{ aggregatedInsights.totalTests }}</div>
-  </div>
-  
-  <div class="metric-card">
-    <div class="metric-label">Tests with Insights</div>
-    <div class="metric-value">{{ aggregatedInsights.testsWithInsights }}</div>
-  </div>
-  
-  <div class="metric-card">
-    <div class="metric-label">Average Pass Rate</div>
-    <div class="metric-value" :style="{ color: getPassRateColor(aggregatedInsights.avgPassRate) }">
-      {{ aggregatedInsights.avgPassRate }}%
-    </div>
-  </div>
-  
-  <div class="metric-card">
-    <div class="metric-label">Average Flaky Rate</div>
-    <div class="metric-value" :style="{ color: aggregatedInsights.avgFlakyRate > 5 ? '#ef4444' : '#10b981' }">
-      {{ aggregatedInsights.avgFlakyRate }}%
-    </div>
-  </div>
-  
-  <div class="metric-card">
-    <div class="metric-label">Average Fail Rate</div>
-    <div class="metric-value" :style="{ color: aggregatedInsights.avgFailRate > 10 ? '#ef4444' : '#10b981' }">
-      {{ aggregatedInsights.avgFailRate }}%
-    </div>
-  </div>
-  
-  <div class="metric-card">
-    <div class="metric-label">Average Duration</div>
-    <div class="metric-value">{{ aggregatedInsights.avgDuration }}ms</div>
-  </div>
-</div>
+<TestStats 
+  v-if="testStatsData"
+  :stats="testStatsData.stats"
+  :additionalMetrics="testStatsData.additionalMetrics"
+  :showAvgDuration="false"
+  :showTotalDuration="false"
+/>
 
 <div class="section">
 

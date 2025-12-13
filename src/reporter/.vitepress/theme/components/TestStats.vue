@@ -4,25 +4,39 @@
       <span class="stat-label">{{ labels.total }}</span>
       <span class="stat-value">{{ stats.total }}</span>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" v-if="stats.passed !== undefined">
       <span class="stat-label">{{ labels.passed }}</span>
       <span class="stat-value status-passed">{{ stats.passed }}</span>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" v-if="stats.failed !== undefined">
       <span class="stat-label">{{ labels.failed }}</span>
       <span class="stat-value status-failed">{{ stats.failed }}</span>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" v-if="stats.skipped !== undefined">
       <span class="stat-label">{{ labels.skipped }}</span>
       <span class="stat-value status-skipped">{{ stats.skipped }}</span>
     </div>
-    <div class="stat-item" v-if="showAvgDuration">
+    <div class="stat-item" v-if="showAvgDuration && stats.avgDuration !== undefined">
       <span class="stat-label">{{ labels.avgDuration }}</span>
       <span class="stat-value">{{ formatDuration(stats.avgDuration) }}</span>
     </div>
     <div class="stat-item" v-if="showTotalDuration">
       <span class="stat-label">{{ labels.totalDuration }}</span>
       <span class="stat-value">{{ formatDuration(totalDuration) }}</span>
+    </div>
+    <!-- Additional custom metrics -->
+    <div 
+      class="stat-item" 
+      v-for="(metric, index) in additionalMetrics" 
+      :key="index"
+    >
+      <span class="stat-label">{{ metric.label }}</span>
+      <span 
+        class="stat-value" 
+        :style="metric.style"
+      >
+        {{ metric.value }}{{ metric.suffix || '' }}
+      </span>
     </div>
   </div>
 </template>
@@ -35,10 +49,7 @@ const props = defineProps({
     type: Object,
     required: true,
     validator: (value) => {
-      return typeof value.total === 'number' &&
-             typeof value.passed === 'number' &&
-             typeof value.failed === 'number' &&
-             typeof value.skipped === 'number';
+      return typeof value.total === 'number';
     }
   },
   totalDuration: {
@@ -63,6 +74,16 @@ const props = defineProps({
       avgDuration: 'Avg Duration',
       totalDuration: 'Total Duration'
     })
+  },
+  additionalMetrics: {
+    type: Array,
+    default: () => [],
+    validator: (value) => {
+      return value.every(metric => 
+        metric.label && 
+        metric.value !== undefined
+      );
+    }
   }
 });
 

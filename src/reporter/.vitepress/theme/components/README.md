@@ -72,6 +72,32 @@ Custom labels. Default:
 }
 ```
 
+### additionalMetrics (Optional)
+
+An array of custom metrics to display alongside the standard metrics. Each metric should have:
+
+```typescript
+{
+  label: string;        // Label to display
+  value: any;          // Value to display
+  suffix?: string;     // Optional suffix (e.g., '%', 'ms')
+  style?: object;      // Optional inline styles
+}
+```
+
+Example:
+
+```javascript
+[
+  {
+    label: 'Custom Metric',
+    value: 95.5,
+    suffix: '%',
+    style: { color: '#10b981' }
+  }
+]
+```
+
 ## Customization Examples
 
 ### Custom Labels
@@ -96,6 +122,35 @@ Custom labels. Default:
 ```vue
 <TestStats 
   :stats="stats" 
+  :showAvgDuration="false"
+  :showTotalDuration="false"
+/>
+```
+
+### Using Additional Custom Metrics
+
+```vue
+<script setup>
+const stats = { total: 100 };
+const customMetrics = [
+  {
+    label: 'Pass Rate',
+    value: 95.5,
+    suffix: '%',
+    style: { color: '#10b981' }
+  },
+  {
+    label: 'Coverage',
+    value: 87.2,
+    suffix: '%',
+    style: { color: '#f59e0b' }
+  }
+];
+</script>
+
+<TestStats 
+  :stats="stats"
+  :additionalMetrics="customMetrics"
   :showAvgDuration="false"
   :showTotalDuration="false"
 />
