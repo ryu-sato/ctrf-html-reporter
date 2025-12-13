@@ -22,17 +22,17 @@
   "scripts": {
     "test": "pnpm test",
     "bin:build": "tsc -p tsconfig.json",
-    "report:dev": "vitepress dev src --host 0.0.0.0",
-    "report:build": "vitepress build src",
-    "report:preview": "vitepress preview src"
+    "reporter:dev": "vitepress dev src/reporter --host 0.0.0.0",
+    "reporter:build": "vitepress build src/reporter",
+    "reporter:preview": "vitepress preview src/reporter"
   },
   "dependencies": {
     "commander": "^14.0.2",
-    "ctrf": "^0.0.17"
+    "ctrf": "^0.0.17",
+    "vitepress": "2.0.0-alpha.15"
   },
   "devDependencies": {
     "@types/node": "^25.0.1",
-    "typescript": "^5.9.3",
-    "vitepress": "2.0.0-alpha.15"
+    "typescript": "^5.9.3"
   }
 }
