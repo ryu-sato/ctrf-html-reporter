@@ -18,7 +18,14 @@
   "license": "MIT",
   "author": "Ryu Sato",
   "type": "module",
-  "main": "index.js",
+  "main": "index.mjs",
+  "bin": {
+    "ctrf-html-reporter": "index.mjs"
+  },
+  "files": [
+    "index.mjs",
+    "reporter/**/*"
+  ],
   "scripts": {
     "test": "pnpm test",
     "bin:build": "tsc -p tsconfig.json",
@@ -35,6 +42,8 @@
   },
   "devDependencies": {
     "@types/node": "^25.0.1",
-    "typescript": "^5.9.3"
+    "copy-file": "^11.1.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.7"
   }
 }

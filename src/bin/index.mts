@@ -1,13 +1,23 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import { version, description } from './package-info.mjs';
+import { build } from 'vitepress';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const program = new Command();
 
 program
   .version(version)
   .description(description)
+  .argument('<report.ctrf.json>', 'Path to the CTRF report file')
   .action((options) => {
-    console.log('Hello World!');
+    console.log(`Processing report file...: ${options.reportFile}`);
+    const reporterPath = path.resolve(__dirname, 'reporter');
+    build(reporterPath);
   });
 
 program.parse(process.argv);

@@ -1,4 +1,6 @@
-import packageJson from '../../package.json' with { type: 'json' };
+import { gPackageVersion, gPackageDescription } from "./globals.mjs";
 
-const { name, version, description, keywords, homepage, bugs, repository, author } = packageJson;
-export { name, version, description, keywords, homepage, bugs, repository, author };
+const version = gPackageVersion;
+const description = gPackageDescription;
+
+export { version, description };
