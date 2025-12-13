@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { data as testTree } from './organizeTestsBySuite.data.js';
 
 // Function to get status badge type
@@ -17,44 +17,53 @@ const getStatusType = (status) => {
 const renderSuite = (suite, level = 0) => {
   return suite;
 };
+
+// Prepare stats for TestStats component
+const testStatsData = computed(() => {
+  if (!testTree.summary) return null;
+  
+  const additionalMetrics = [];
+  
+  if (testTree.summary.pending !== undefined) {
+    additionalMetrics.push({
+      label: 'Pending',
+      value: testTree.summary.pending,
+      style: { color: '#8b5cf6' }
+    });
+  }
+  
+  if (testTree.summary.flaky !== undefined && testTree.summary.flaky > 0) {
+    additionalMetrics.push({
+      label: 'Flaky',
+      value: testTree.summary.flaky,
+      style: { color: '#f97316' }
+    });
+  }
+  
+  return {
+    stats: {
+      total: testTree.summary.tests,
+      passed: testTree.summary.passed,
+      failed: testTree.summary.failed,
+      skipped: testTree.summary.skipped
+    },
+    additionalMetrics: additionalMetrics
+  };
+});
 </script>
 
 # Suites
 
 ## Summary
 
-<div style="padding: 1rem; background-color: var(--vp-c-bg-soft); border-radius: 8px; margin-bottom: 2rem;">
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem;">
-    <div style="text-align: center;">
-      <div style="font-size: 2rem; font-weight: bold; color: var(--vp-c-brand);">{{ testTree.summary.tests }}</div>
-      <div style="font-size: 0.875rem; color: var(--vp-c-text-2);">Total Tests</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-size: 2rem; font-weight: bold; color: #10b981;">{{ testTree.summary.passed }}</div>
-      <div style="font-size: 0.875rem; color: var(--vp-c-text-2);">Passed</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-size: 2rem; font-weight: bold; color: #ef4444;">{{ testTree.summary.failed }}</div>
-      <div style="font-size: 0.875rem; color: var(--vp-c-text-2);">Failed</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-size: 2rem; font-weight: bold; color: #f59e0b;">{{ testTree.summary.skipped }}</div>
-      <div style="font-size: 0.875rem; color: var(--vp-c-text-2);">Skipped</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-size: 2rem; font-weight: bold; color: #8b5cf6;">{{ testTree.summary.pending }}</div>
-      <div style="font-size: 0.875rem; color: var(--vp-c-text-2);">Pending</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-size: 2rem; font-weight: bold; color: #f97316;">{{ testTree.summary.flaky }}</div>
-      <div style="font-size: 0.875rem; color: var(--vp-c-text-2);">Flaky</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-size: 2rem; font-weight: bold; color: var(--vp-c-text-1);">{{ testTree.summary.duration }}</div>
-      <div style="font-size: 0.875rem; color: var(--vp-c-text-2);">Duration (ms)</div>
-    </div>
-  </div>
-</div>
+<TestStats 
+  v-if="testStatsData"
+  :stats="testStatsData.stats"
+  :additionalMetrics="testStatsData.additionalMetrics"
+  :totalDuration="testTree.summary.duration"
+  :showAvgDuration="false"
+  :showTotalDuration="true"
+/>
 
 ## Test Suites
 
