@@ -17,8 +17,7 @@ export default defineConfig({
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
-        { text: 'Home', link: '/' },
-        { text: 'Overview', link: '/overview' },
+        { text: 'Overview', link: '/' },
         { text: 'Suites', link: '/suites' },
         { text: 'Insights', link: '/insights' },
         { text: 'Timeline', link: '/timeline' },
@@ -28,7 +27,7 @@ export default defineConfig({
         {
           text: 'Report',
           items: [
-            { text: 'Overview', link: '/overview' },
+            { text: 'Overview', link: '/' },
             { text: 'Suites', link: '/suites' },
             { text: 'Insights', link: '/insights' },
             { text: 'Timeline', link: '/timeline' }
