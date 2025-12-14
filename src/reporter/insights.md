@@ -153,12 +153,9 @@ const testStatsData = computed(() => {
 
 <div v-else-if="richReportWithInsights.insights">
 
-<TestStats 
-  v-if="testStatsData"
-  :stats="testStatsData.stats"
-  :additionalMetrics="testStatsData.additionalMetrics"
-  :showAvgDuration="false"
-  :showTotalDuration="false"
+<TestInsights 
+  v-if="richReportWithInsights.insights"
+  :insights="richReportWithInsights.insights"
 />
 
 :::details Extra
