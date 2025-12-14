@@ -1,7 +1,5 @@
 ---
 layout: report
-navbar: true
-sidebar: true
 ---
 
 <script setup>
