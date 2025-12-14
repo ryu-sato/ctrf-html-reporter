@@ -1,7 +1,14 @@
+---
+layout: report
+---
+
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, inject } from 'vue';
 import { data as richReportWithInsights } from './richReportWithInsights.data.js';
 import { formatPercent, formatDuration } from './.vitepress/helpers/formatter.js';
+
+// Get test selection function from ReportLayout
+const selectTest = inject('selectTest');
 
 // Get tests with most interesting insights
 const notableTests = computed(() => {
@@ -19,11 +26,19 @@ const notableTests = computed(() => {
       failRate: (test.insights.failRate?.current * 100).toFixed(1),
       avgDuration: test.insights.averageTestDuration?.current,
       executedInRuns: test.insights.executedInRuns,
-      suite: test.suite?.join(' > ') || 'N/A'
+      suite: test.suite?.join(' > ') || 'N/A',
+      originalTest: test  // Keep reference to original test object
     }))
     .sort((a, b) => parseFloat(b.flakyRate) - parseFloat(a.flakyRate))
     .slice(0, 10);
 });
+
+// Handle test row click
+const handleTestClick = (test) => {
+  if (selectTest && test.originalTest) {
+    selectTest(test.originalTest);
+  }
+};
 
 // Get status color
 const getStatusColor = (status) => {
@@ -124,6 +139,20 @@ const testStatsData = computed(() => {
   color: var(--vp-c-text-2);
 }
 
+.tests-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tests-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.tests-table tbody tr:hover {
+  background-color: var(--vp-c-bg-soft);
+}
+
 .section {
   margin: 3rem 0;
 }
@@ -192,7 +221,7 @@ const testStatsData = computed(() => {
     </tr>
   </thead>
   <tbody>
-    <tr v-for="test in notableTests" :key="test.name">
+    <tr v-for="test in notableTests" :key="test.name" @click="handleTestClick(test)">
       <td>
         <div class="test-name" :title="test.name">{{ test.name }}</div>
       </td>
