@@ -1,7 +1,7 @@
 <template>
   <div class="test-tree-view">
     <div v-for="(root, index) in nodes" :key="index" class="tree-root">
-      <h2>{{ root.name }}</h2>
+      <h2 :id="'test-tree-' + root.name">{{ root.name }}</h2>
       
       <div class="status-line">
         <Badge :type="getStatusType(root.status)">{{ root.status }}</Badge>
