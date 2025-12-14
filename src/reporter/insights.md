@@ -12,8 +12,8 @@ const selectTest = inject('selectTest');
 
 // Handle test row click
 const handleTestClick = (test) => {
-  if (selectTest && test.originalTest) {
-    selectTest(test.originalTest);
+  if (selectTest) {
+    selectTest(test);
   }
 };
 
