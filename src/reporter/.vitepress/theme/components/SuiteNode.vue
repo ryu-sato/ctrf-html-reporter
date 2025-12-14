@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { defineProps, inject } from 'vue';
+import { inject } from 'vue';
 
 const props = defineProps({
   suite: {

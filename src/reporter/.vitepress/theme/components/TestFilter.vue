@@ -68,8 +68,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue';
-
 const props = defineProps({
   selectedStatuses: {
     type: Array,

@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import { defineProps, inject, onMounted, ref, computed } from 'vue';
+import { inject, onMounted, ref, computed } from 'vue';
 import SuiteNode from './SuiteNode.vue';
 import TestFilter from './TestFilter.vue';
 
