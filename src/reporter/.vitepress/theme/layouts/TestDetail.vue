@@ -223,8 +223,8 @@
         <div v-if="test.insights.passRate" class="insight-metric">
           <div class="metric-label">Pass Rate</div>
           <div class="metric-values">
-            <span>Current: {{ formatPercent(test.insights.passRate.current) }}</span>
-            <span>Baseline: {{ formatPercent(test.insights.passRate.baseline) }}</span>
+            <span>Current: {{ formatPercentString(test.insights.passRate.current, 2) }}</span>
+            <span>Baseline: {{ formatPercentString(test.insights.passRate.baseline, 2) }}</span>
             <span :class="['metric-change', test.insights.passRate.change >= 0 ? 'positive' : 'negative']">
               Change: {{ formatChange(test.insights.passRate.change) }}
             </span>
@@ -233,8 +233,8 @@
         <div v-if="test.insights.failRate" class="insight-metric">
           <div class="metric-label">Fail Rate</div>
           <div class="metric-values">
-            <span>Current: {{ formatPercent(test.insights.failRate.current) }}</span>
-            <span>Baseline: {{ formatPercent(test.insights.failRate.baseline) }}</span>
+            <span>Current: {{ formatPercentString(test.insights.failRate.current, 2) }}</span>
+            <span>Baseline: {{ formatPercentString(test.insights.failRate.baseline, 2) }}</span>
             <span :class="['metric-change', test.insights.failRate.change <= 0 ? 'positive' : 'negative']">
               Change: {{ formatChange(test.insights.failRate.change) }}
             </span>
@@ -243,8 +243,8 @@
         <div v-if="test.insights.flakyRate" class="insight-metric">
           <div class="metric-label">Flaky Rate</div>
           <div class="metric-values">
-            <span>Current: {{ formatPercent(test.insights.flakyRate.current) }}</span>
-            <span>Baseline: {{ formatPercent(test.insights.flakyRate.baseline) }}</span>
+            <span>Current: {{ formatPercentString(test.insights.flakyRate.current, 2) }}</span>
+            <span>Baseline: {{ formatPercentString(test.insights.flakyRate.baseline, 2) }}</span>
             <span :class="['metric-change', test.insights.flakyRate.change <= 0 ? 'positive' : 'negative']">
               Change: {{ formatChange(test.insights.flakyRate.change) }}
             </span>
@@ -292,6 +292,7 @@
 </template>
 
 <script setup>
+import { formatPercentString } from '../../helpers/formatter'
 
 defineProps({
   test: {
@@ -319,13 +320,9 @@ const formatDateTime = (timestamp) => {
   })
 }
 
-const formatPercent = (value) => {
-  return `${(value * 100).toFixed(2)}%`
-}
-
 const formatChange = (value) => {
   const prefix = value >= 0 ? '+' : ''
-  return `${prefix}${(value * 100).toFixed(2)}%`
+  return `${prefix}${formatPercentString(value, 2)}`
 }
 </script>
 
