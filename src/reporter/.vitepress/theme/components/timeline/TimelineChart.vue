@@ -49,10 +49,10 @@
               }"
               :title="`${testItem?.name || 'Unknown'}\nStatus: ${testItem?.status || 'unknown'}\nDuration: ${formatDuration(testItem?.duration || 0)}\nStart: ${formatTime(testItem?.start || 0)}\nEnd: ${formatTime(testItem?.stop || 0)}`"
             >
-              <span class="test-bar-label" v-if="testItem?.duration > 1000">
-                {{ formatDuration(testItem?.duration || 0) }}
-              </span>
             </div>
+            <span class="test-duration-label">
+              {{ formatDuration(testItem?.duration || 0) }}
+            </span>
           </div>
           <div class="test-info">
             {{ formatDuration(testItem?.duration || 0) }}
@@ -306,6 +306,8 @@ onMounted(() => {
   height: 24px;
   background: var(--vp-c-bg-mute);
   border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
 }
 
 .test-bar {
@@ -314,12 +316,6 @@ onMounted(() => {
   border-radius: 0.25rem;
   transition: opacity 0.2s;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: white;
-  font-weight: 500;
   overflow: hidden;
 }
 
@@ -327,9 +323,20 @@ onMounted(() => {
   opacity: 0.8;
 }
 
-.test-bar-label {
-  padding: 0 0.25rem;
+.test-duration-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  color: var(--vp-c-text-1);
+  font-weight: 500;
   white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .test-info {
