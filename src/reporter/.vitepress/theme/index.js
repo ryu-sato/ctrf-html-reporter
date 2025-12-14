@@ -8,6 +8,7 @@ import SummaryView from './components/SummaryView.vue'
 import TestTreeView from './components/TestTreeView.vue'
 import SuiteNode from './components/SuiteNode.vue'
 import TestDetail from './components/TestDetail.vue'
+import TimelineChart from './components/TimelineChart.vue'
 import Layout from './layouts/Layout.vue'
 
 export default {
@@ -22,5 +23,6 @@ export default {
     app.component('TestTreeView', TestTreeView)
     app.component('SuiteNode', SuiteNode)
     app.component('TestDetail', TestDetail)
+    app.component('TimelineChart', TimelineChart)
   }
 }
