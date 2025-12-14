@@ -7,9 +7,12 @@ import EnvironmentInfo from './components/EnvironmentInfo.vue'
 import SummaryView from './components/SummaryView.vue'
 import TestTreeView from './components/TestTreeView.vue'
 import SuiteNode from './components/SuiteNode.vue'
+import TestDetail from './components/TestDetail.vue'
+import Layout from './layouts/Layout.vue'
 
 export default {
   extends: DefaultTheme,
+  Layout: Layout,
   enhanceApp({ app }) {
     app.component('TestStats', TestStats)
     app.component('DateTimeFormatter', DateTimeFormatter)
@@ -18,5 +21,6 @@ export default {
     app.component('SummaryView', SummaryView)
     app.component('TestTreeView', TestTreeView)
     app.component('SuiteNode', SuiteNode)
+    app.component('TestDetail', TestDetail)
   }
 }

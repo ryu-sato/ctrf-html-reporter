@@ -15,3 +15,114 @@
   color: var(--vp-c-text-1);
   background-color: var(--vp-c-green-soft);
 }
+
+/* Report Layout Additional Styles */
+.report-layout,
+.Layout {
+  --report-sidebar-width: 272px;
+  --report-nav-height: 56px;
+}
+
+/* サイドバーが常に表示されるようにする */
+@media (min-width: 960px) {
+  .VPSidebar {
+    padding-top: var(--vp-nav-height);
+    width: var(--vp-sidebar-width);
+    max-width: 100vw;
+    background-color: var(--vp-sidebar-bg-color);
+    opacity: 1;
+    visibility: visible;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--vp-z-index-sidebar);
+    padding-left: max(32px, calc((100% - (var(--vp-layout-max-width) - 64px)) / 2));
+    width: calc(100vw - (100vw - var(--vp-layout-max-width)) / 2);
+    transform: translateX(0);
+  }
+}
+
+.Layout.no-navbar .VPSidebar {
+  padding-top: 0;
+}
+
+.report-container {
+  margin-top: var(--report-nav-height);
+  height: calc(100vh - var(--report-nav-height));
+}
+
+.Layout.no-navbar .report-container,
+.report-container.no-navbar {
+  margin-top: 0;
+  height: 100vh;
+}
+
+/* リサイザーのカーソルスタイル */
+.report-resizer {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+body.resizing {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+
+/* スクロールバーのスタイル */
+.report-content::-webkit-scrollbar,
+.report-detail::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.report-content::-webkit-scrollbar-track,
+.report-detail::-webkit-scrollbar-track {
+  background: var(--vp-c-bg);
+}
+
+.report-content::-webkit-scrollbar-thumb,
+.report-detail::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 4px;
+}
+
+.report-content::-webkit-scrollbar-thumb:hover,
+.report-detail::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
+
+/* テスト詳細のアニメーション */
+.detail-content {
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* モバイル対応 */
+@media (max-width: 960px) {
+  .report-layout {
+    --report-sidebar-width: 0px;
+  }
+  
+  .report-sidebar {
+    position: fixed;
+    left: -100%;
+    transition: left 0.3s;
+  }
+  
+  .report-sidebar.open {
+    left: 0;
+  }
+}
