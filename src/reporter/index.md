@@ -167,7 +167,7 @@ onMounted(() => {
 * start: <DateTimeFormatter :timestamp="richReportWithInsights.results.summary.start * 1000" />
 * stop: <DateTimeFormatter :timestamp="richReportWithInsights.results.summary.stop * 1000" />
 
-<div style="max-width: 500px; margin: 2rem auto;">
+<div style="max-width: 300px; margin: 2rem auto;">
   <canvas ref="chartCanvas"></canvas>
 </div>
 
