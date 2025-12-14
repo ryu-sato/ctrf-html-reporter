@@ -27,7 +27,7 @@
 
     <!-- Tests in this suite -->
     <div v-if="suite.tests && suite.tests.length > 0" class="suite-tests">
-      <details>
+      <details open>
         <summary class="tests-summary">
           Show {{ suite.tests.length }} test(s)
         </summary>
@@ -37,6 +37,9 @@
             <span class="test-name">{{ test.name }}</span>
             <span class="test-duration">({{ test.duration }}ms)</span>
             <span v-if="test.flaky" class="test-flaky">⚡ Flaky</span>
+            <div v-if="test.tags && test.tags.length > 0" class="test-tags">
+              <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
+            </div>
           </li>
         </ul>
       </details>
@@ -159,6 +162,7 @@ const getStatusType = (status) => {
   padding: 0.5rem;
   border-radius: 4px;
   transition: background-color 0.2s;
+  flex-wrap: wrap;
 }
 
 .test-item:hover {
@@ -171,6 +175,7 @@ const getStatusType = (status) => {
 
 .test-name {
   flex: 1;
+  min-width: 200px;
 }
 
 .test-duration {
@@ -179,5 +184,23 @@ const getStatusType = (status) => {
 
 .test-flaky {
   color: #f97316;
+}
+
+.test-tags {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  background-color: var(--vp-c-bg-mute);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: var(--vp-c-text-2);
 }
 </style>
