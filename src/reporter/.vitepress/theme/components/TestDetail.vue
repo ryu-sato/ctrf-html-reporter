@@ -125,7 +125,7 @@
     <div class="detail-section" v-if="test.tags && test.tags.length > 0">
       <h4>Tags</h4>
       <div class="tags">
-        <span v-for="tag in test.tags" :key="tag" class="tag">{{ tag }}</span>
+        <Badge v-for="tag in test.tags" :key="tag" :type="tip">{{ tag }}</Badge>
       </div>
     </div>
 
