@@ -67,6 +67,14 @@ const props = defineProps({
   }
 });
 
+// Get CSS variable color
+const getCssColor = (varName) => {
+  if (typeof window !== 'undefined') {
+    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+  }
+  return '';
+};
+
 // Prepare stats for TestStats component
 const statsData = computed(() => {
   const s = props.summary;
@@ -78,7 +86,7 @@ const statsData = computed(() => {
     additionalMetrics.push({
       label: 'Pending',
       value: s.pending,
-      style: { color: '#8b5cf6' }
+      style: { color: 'var(--vp-c-purple-1)' }
     });
   }
   
@@ -86,7 +94,7 @@ const statsData = computed(() => {
     additionalMetrics.push({
       label: 'Flaky',
       value: s.flaky,
-      style: { color: '#f97316' }
+      style: { color: 'var(--vp-c-orange-1)' }
     });
   }
   
@@ -94,7 +102,7 @@ const statsData = computed(() => {
     additionalMetrics.push({
       label: 'Other',
       value: s.other,
-      style: { color: '#6b7280' }
+      style: { color: 'var(--vp-c-text-2)' }
     });
   }
   
@@ -138,7 +146,7 @@ const centerTextPlugin = {
       ctx.font = 'bold 2rem sans-serif';
       ctx.textBaseline = 'middle';
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#10b981'; // green
+      ctx.fillStyle = getCssColor('--vp-c-green-1') || '#10b981';
       
       const text = `${passedPercentage}%`;
       const textX = width / 2;
@@ -148,7 +156,7 @@ const centerTextPlugin = {
       
       // Add "Passed" label
       ctx.font = '0.9rem sans-serif';
-      ctx.fillStyle = '#6b7280'; // gray
+      ctx.fillStyle = getCssColor('--vp-c-text-2') || '#6b7280';
       ctx.fillText('Passed', textX, textY + 30);
       
       ctx.save();
@@ -174,15 +182,15 @@ onMounted(() => {
             s.flaky || 0
           ],
           backgroundColor: [
-            '#10b981', // green - passed
-            '#ef4444', // red - failed
-            '#f59e0b', // amber - skipped
-            '#8b5cf6', // purple - pending
-            '#6b7280', // gray - other
-            '#f97316'  // orange - flaky
+            getCssColor('--vp-c-green-1') || '#10b981',
+            getCssColor('--vp-c-red-1') || '#ef4444',
+            getCssColor('--vp-c-yellow-1') || '#f59e0b',
+            getCssColor('--vp-c-purple-1') || '#8b5cf6',
+            getCssColor('--vp-c-text-2') || '#6b7280',
+            getCssColor('--vp-c-orange-1') || '#f97316'
           ],
           borderWidth: 1,
-          borderColor: '#fff'
+          borderColor: getCssColor('--vp-c-bg') || '#fff'
         }]
       },
       options: {

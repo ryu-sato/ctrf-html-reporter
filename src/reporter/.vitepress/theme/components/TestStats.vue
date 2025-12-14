@@ -109,7 +109,7 @@ const formatDuration = (ms) => {
 
 .stat-label {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--vp-c-text-2);
 }
 
 .stat-value {
@@ -118,14 +118,14 @@ const formatDuration = (ms) => {
 }
 
 .status-passed { 
-  color: #10b981; 
+  color: var(--vp-c-green-1); 
 }
 
 .status-failed { 
-  color: #ef4444; 
+  color: var(--vp-c-red-1); 
 }
 
 .status-skipped { 
-  color: #f59e0b; 
+  color: var(--vp-c-yellow-1); 
 }
 </style>

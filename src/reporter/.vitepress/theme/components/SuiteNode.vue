@@ -112,23 +112,23 @@ const getStatusType = (status) => {
 }
 
 .suite-summary .passed {
-  color: #10b981;
+  color: var(--vp-c-green-1);
 }
 
 .suite-summary .failed {
-  color: #ef4444;
+  color: var(--vp-c-red-1);
 }
 
 .suite-summary .skipped {
-  color: #f59e0b;
+  color: var(--vp-c-yellow-1);
 }
 
 .suite-summary .pending {
-  color: #8b5cf6;
+  color: var(--vp-c-purple-1);
 }
 
 .suite-summary .flaky {
-  color: #f97316;
+  color: var(--vp-c-orange-1);
 }
 
 .nested-suites {
@@ -183,7 +183,7 @@ const getStatusType = (status) => {
 }
 
 .test-flaky {
-  color: #f97316;
+  color: var(--vp-c-orange-1);
 }
 
 .test-tags {

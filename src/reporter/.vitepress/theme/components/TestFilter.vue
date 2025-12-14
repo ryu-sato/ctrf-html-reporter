@@ -166,19 +166,19 @@ const clearFilters = () => {
 }
 
 .status-label.passed {
-  color: #10b981;
+  color: var(--vp-c-green-1);
 }
 
 .status-label.failed {
-  color: #ef4444;
+  color: var(--vp-c-red-1);
 }
 
 .status-label.skipped {
-  color: #f59e0b;
+  color: var(--vp-c-yellow-1);
 }
 
 .status-label.pending {
-  color: #8b5cf6;
+  color: var(--vp-c-purple-1);
 }
 
 .filter-tags {
