@@ -148,10 +148,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.timeline-header {
-  margin-bottom: 2rem;
-}
-
 .filter-controls {
   margin-bottom: 2rem;
   padding: 1rem;
