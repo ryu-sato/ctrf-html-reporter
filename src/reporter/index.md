@@ -212,83 +212,9 @@ onMounted(() => {
 
 # Overview
 
-<ReportInfo :report="report" />
+<ReportInfo v-if="report" :report="report" />
 
-<div v-if="environment">
-
-::: info Environment
-
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-
-<!-- Report Information -->
-<div v-if="environment.reportName">
-  <h4 style="margin: 0 0 0.5rem 0;">Report</h4>
-  <div style="padding-left: 1rem; font-size: 0.9em;">
-    {{ environment.reportName }}
-  </div>
-</div>
-
-<!-- Application & Test Environment -->
-<div v-if="environment.appName || environment.appVersion || environment.testEnvironment || environment.healthy !== undefined">
-  <h4 style="margin: 0 0 0.5rem 0;">Application</h4>
-  <div style="padding-left: 1rem; font-size: 0.9em;">
-    <span v-if="environment.appName">{{ environment.appName }}</span>
-    <code v-if="environment.appVersion">v{{ environment.appVersion }}</code>
-    <span v-if="environment.testEnvironment" style="opacity: 0.7;"> ({{ environment.testEnvironment }})</span>
-    <Badge v-if="environment.healthy !== undefined" :type="environment.healthy ? 'success' : 'danger'" style="margin-left: 0.5rem;">
-      {{ environment.healthy ? 'Healthy' : 'Unhealthy' }}
-    </Badge>
-  </div>
-</div>
-
-<!-- Build & Repository Information -->
-<div v-if="environment.buildId || environment.buildName || environment.buildNumber || environment.buildUrl || environment.repositoryName || environment.repositoryUrl || environment.commit || environment.branchName">
-  <h4 style="margin: 0 0 0.5rem 0;">Build & Repository</h4>
-  <div style="padding-left: 1rem; font-size: 0.9em;">
-    <div v-if="environment.repositoryName || environment.branchName || environment.commit">
-      <a v-if="environment.repositoryUrl" :href="environment.repositoryUrl" target="_blank" rel="noopener noreferrer">{{ environment.repositoryName || 'Repository' }}</a>
-      <span v-else-if="environment.repositoryName">{{ environment.repositoryName }}</span>
-      <code v-if="environment.branchName" style="margin-left: 0.5rem;">{{ environment.branchName }}</code>
-      <code v-if="environment.commit" style="font-size: 0.85em; margin-left: 0.5rem;">{{ environment.commit.substring(0, 7) }}</code>
-    </div>
-    <div v-if="environment.buildName || environment.buildNumber || environment.buildId" style="margin-top: 0.25rem;">
-      <span v-if="environment.buildName">
-        <a v-if="environment.buildUrl" :href="environment.buildUrl" target="_blank" rel="noopener noreferrer">{{ environment.buildName }}</a>
-        <span v-else>{{ environment.buildName }}</span>
-      </span>
-      <span v-if="environment.buildNumber">
-        <a v-if="environment.buildUrl && !environment.buildName" :href="environment.buildUrl" target="_blank" rel="noopener noreferrer">#{{ environment.buildNumber }}</a>
-        <span v-else>#{{ environment.buildNumber }}</span>
-      </span>
-      <code v-if="environment.buildId" style="font-size: 0.85em; margin-left: 0.5rem;">{{ environment.buildId }}</code>
-    </div>
-  </div>
-</div>
-
-<!-- Operating System Information -->
-<div v-if="environment.osPlatform || environment.osRelease || environment.osVersion">
-  <h4 style="margin: 0 0 0.5rem 0;">OS</h4>
-  <div style="padding-left: 1rem; font-size: 0.9em;">
-    <span v-if="environment.osPlatform">{{ environment.osPlatform }}</span>
-    <span v-if="environment.osRelease || environment.osVersion">
-      {{ environment.osRelease }}{{ environment.osVersion ? ' ' + environment.osVersion : '' }}
-    </span>
-  </div>
-</div>
-
-<!-- Extra Information -->
-<div v-if="environment.extra" style="grid-column: 1 / -1;">
-  <h4 style="margin: 0 0 0.5rem 0;">Additional</h4>
-  <div style="padding-left: 1rem; font-size: 0.9em;">
-    {{ environment.extra }}
-  </div>
-</div>
-
-</div>
-
-:::
-
-</div>
+<EnvironmentInfo v-if="environment" :environment="environment" />
 
 ## Summary
 
