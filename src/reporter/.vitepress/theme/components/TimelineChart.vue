@@ -41,7 +41,7 @@
       </div>
       <div v-for="(groupItem, groupIndex) in testGroups" :key="groupItem?.suite || `group-${groupIndex}`" class="suite-group">
         <div class="suite-header">{{ groupItem?.suite || 'Unknown Suite' }}</div>
-        <div v-for="(testItem, testIndex) in (groupItem?.tests || [])" :key="testItem?.id || `test-${groupIndex}-${testIndex}`" class="test-row">
+        <div v-for="(testItem, testIndex) in (groupItem?.tests || [])" :key="testItem?.id || `test-${groupIndex}-${testIndex}`" class="test-row" @click="handleTestClick(testItem)">
           <div class="test-label" :title="testItem?.name || ''">
             {{ testItem?.name || 'Unknown Test' }}
           </div>
@@ -75,8 +75,19 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, inject } from 'vue';
 import { data as sortedReportsByTimestamp } from '../../../sortedReportsByTimestamp.data.js';
+import TestStats from './TestStats.vue';
+
+// Inject selectTest function from ReportLayout
+const selectTest = inject('selectTest', null);
+
+// Handle test click
+const handleTestClick = (test) => {
+  if (selectTest) {
+    selectTest(test);
+  }
+};
 
 // Get all tests from all reports
 const allTests = computed(() => {
@@ -291,6 +302,14 @@ onMounted(() => {
   align-items: center;
   margin-bottom: 0.5rem;
   min-height: 32px;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.test-row:hover {
+  background-color: var(--vp-c-bg-soft);
 }
 
 .test-label {
