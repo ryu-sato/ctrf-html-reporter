@@ -2,17 +2,19 @@
  * Format a decimal value as a percentage number
  * @param value - The value to format (0-1 range, e.g., 0.856 = 85.6%)
  * @param digitsToFixed - Number of decimal places (default: 1)
- * @returns Formatted percentage as a number
+ * @returns Formatted percentage as a number, or 0 if value is undefined/null
  * @example
  * formatPercent(0.856) // 85.6
  * formatPercent(0.8567, 2) // 85.67
+ * formatPercent(undefined) // 0
  */
-export const formatPercent = (value: number, digitsToFixed = 1): number => {
+export const formatPercent = (value: number | undefined | null, digitsToFixed = 1): number => {
+  if (value === undefined || value === null) return 0;
   try {
     return Number((value * 100).toFixed(digitsToFixed));
   } catch (error) {
     console.error('Error formatting percent:', error);
-    return Number(value);
+    return 0;
   }
 };
 
@@ -21,18 +23,20 @@ export const formatPercent = (value: number, digitsToFixed = 1): number => {
  * @param value - The value to format (0-1 range, e.g., 0.856 = 85.6%)
  * @param digitsToFixed - Number of decimal places (default: 1)
  * @param unit - Whether to include the % symbol (default: true)
- * @returns Formatted percentage string
+ * @returns Formatted percentage string, or "0%" (or "0" if unit=false) if value is undefined/null
  * @example
  * formatPercentString(0.856) // "85.6%"
  * formatPercentString(0.856, 1, false) // "85.6"
  * formatPercentString(0.8567, 2) // "85.67%"
+ * formatPercentString(undefined) // "0%"
  */
-export const formatPercentString = (value: number, digitsToFixed = 1, unit = true): string => {
+export const formatPercentString = (value: number | undefined | null, digitsToFixed = 1, unit = true): string => {
+  if (value === undefined || value === null) return unit ? '0%' : '0';
   try {
     return (value * 100).toFixed(digitsToFixed) + (unit ? '%' : '');
   } catch (error) {
     console.error('Error formatting percent:', error);
-    return String(value);
+    return unit ? '0%' : '0';
   }
 };
 

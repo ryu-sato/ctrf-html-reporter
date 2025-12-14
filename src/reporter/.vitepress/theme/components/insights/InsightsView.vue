@@ -174,6 +174,7 @@
 import { ref, computed, inject, watch } from 'vue';
 import type { Report } from 'ctrf';
 import PercentFormatter from '../PercentFormatter.vue';
+import { formatPercent } from '../../../helpers/formatter';
 
 interface Props {
   report: Report;
@@ -209,12 +210,6 @@ const enrichedReport = computed(() => {
     return null;
   }
 });
-
-// Format helper functions
-const formatPercent = (value: number | undefined): number => {
-  if (value === undefined) return 0;
-  return Math.round(value * 100) / 100;
-};
 
 const formatDuration = (ms: number | undefined): string => {
   if (ms === undefined) return '0ms';
