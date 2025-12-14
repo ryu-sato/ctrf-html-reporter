@@ -1,10 +1,5 @@
 <template>
   <div>
-    <TestStats 
-      :stats="stats" 
-      :totalDuration="timeRange.duration"
-    />
-
     <div class="filter-controls">
       <div class="filter-group">
         <label class="filter-label">
@@ -74,18 +69,17 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, inject } from 'vue';
-import TestStats from '../TestStats.vue';
+import type { Report, Test } from 'ctrf';
 
 const props = defineProps({
-  reports: {
-    type: Array,
-    default: () => [],
-    validator: (value) => {
-      // Report should have at least some basic properties
+  report: {
+    type: Object,
+    default: null,
+    validator: (value: Report) => {
       if (!value) return true; // null/undefined is acceptable (shows empty state)
-      return Array.isArray(value) && value.every(item => typeof item === 'object');
+      return typeof value === 'object' && value !== null;
     }
   }
 });
@@ -94,32 +88,21 @@ const props = defineProps({
 const selectTest = inject('selectTest', null);
 
 // Handle test click
-const handleTestClick = (test) => {
+const handleTestClick = (test: Test) => {
   if (selectTest) {
     selectTest(test);
   }
 };
 
 // Get all tests from all reports
-const allTests = computed(() => {
-  const tests = [];
-  const reports = Array.isArray(props.reports) ? props.reports : [props.reports];
-  
-  reports.forEach(report => {
-    if (report && report.results && report.results.tests) {
-      report.results.tests.forEach(test => {
-        // Only include tests with valid start/stop timestamps
-        if (test.start && test.stop && test.duration) {
-          tests.push({
-            ...test,
-            reportId: report.reportId,
-            toolName: report.results.tool?.name || 'Unknown'
-          });
-        }
-      });
-    }
-  });
-  return tests.sort((a, b) => a.start - b.start);
+const allTests = computed((): Test[] => {
+  if (props.report && props.report.results && props.report.results.tests) {
+    return props.report.results.tests.filter((test: Test) => {
+      // Only include tests with valid start/stop timestamps
+      return test.start && test.stop && test.duration;
+    }).sort((a: Test, b: Test) => (a?.start || 0) - (b?.start || 0));
+  }
+  return [];
 });
 
 // Calculate time range
@@ -127,8 +110,8 @@ const timeRange = computed(() => {
   if (allTests.value.length === 0) {
     return { min: 0, max: 0, duration: 0 };
   }
-  const starts = allTests.value.map(t => t.start);
-  const stops = allTests.value.map(t => t.stop);
+  const starts = allTests.value.map((t: Test) => t.start);
+  const stops = allTests.value.map((t: Test) => t.stop);
   const min = Math.min(...starts);
   const max = Math.max(...stops);
   return { min, max, duration: max - min };
@@ -138,12 +121,12 @@ const timeRange = computed(() => {
 const minDuration = ref(0);
 const maxDurationInTests = computed(() => {
   if (allTests.value.length === 0) return 0;
-  return Math.max(...allTests.value.map(t => t.duration));
+  return Math.max(...allTests.value.map((t: Test) => t.duration));
 });
 
 // Filtered tests based on duration
 const filteredTests = computed(() => {
-  return allTests.value.filter(test => test.duration >= minDuration.value);
+  return allTests.value.filter((test: Test) => test.duration >= minDuration.value);
 });
 
 // Group tests by suite for better visualization
@@ -219,19 +202,9 @@ const getStatusColor = (status) => {
   return colors[status] || colors.other;
 };
 
-// Statistics
-const stats = computed(() => ({
-  total: filteredTests.value.length,
-  passed: filteredTests.value.filter(t => t.status === 'passed').length,
-  failed: filteredTests.value.filter(t => t.status === 'failed').length,
-  skipped: filteredTests.value.filter(t => t.status === 'skipped').length,
-  avgDuration: filteredTests.value.length > 0 
-    ? filteredTests.value.reduce((sum, t) => sum + t.duration, 0) / filteredTests.value.length 
-    : 0
-}));
-
 // Debug: Log data to console
 onMounted(() => {
+  console.log('report:', props.report);
   console.log('allTests:', allTests.value);
   console.log('testGroups:', testGroups.value);
   console.log('testGroups length:', testGroups.value.length);

@@ -3,13 +3,21 @@ layout: report
 ---
 
 <script setup>
-import { data as sortedReportsByTimestamp } from './sortedReportsByTimestamp.data.js';
+import { data as richReportWithInsights } from './richReportWithInsights.data.js';
 </script>
 
 # Timeline
 
 Gantt chart visualization of test execution timeline with duration filtering
 
+:::details Summary
+
+<SummaryView 
+  :summary="richReportWithInsights.results?.summary"
+/>
+
+:::
+
 <TimelineChart
-  :reports="sortedReportsByTimestamp"
+  :report="richReportWithInsights"
 />
