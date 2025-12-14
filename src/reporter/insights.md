@@ -1,43 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { data as richReportWithInsights } from './richReportWithInsights.data.js';
-
-// Compute aggregated insights
-const aggregatedInsights = computed(() => {
-  if (!richReportWithInsights?.results?.tests) return null;
-  
-  const tests = richReportWithInsights.results.tests;
-  const totalTests = tests.length;
-  
-  // Calculate average metrics
-  let totalPassRate = 0;
-  let totalFlakyRate = 0;
-  let totalFailRate = 0;
-  let totalAvgDuration = 0;
-  let totalP95Duration = 0;
-  let testsWithInsights = 0;
-  
-  tests.forEach(test => {
-    if (test.insights) {
-      testsWithInsights++;
-      totalPassRate += test.insights.passRate?.current || 0;
-      totalFlakyRate += test.insights.flakyRate?.current || 0;
-      totalFailRate += test.insights.failRate?.current || 0;
-      totalAvgDuration += test.insights.averageTestDuration?.current || 0;
-      totalP95Duration += test.insights.p95TestDuration?.current || 0;
-    }
-  });
-  
-  return {
-    avgPassRate: testsWithInsights > 0 ? (totalPassRate / testsWithInsights * 100).toFixed(2) : 0,
-    avgFlakyRate: testsWithInsights > 0 ? (totalFlakyRate / testsWithInsights * 100).toFixed(2) : 0,
-    avgFailRate: testsWithInsights > 0 ? (totalFailRate / testsWithInsights * 100).toFixed(2) : 0,
-    avgDuration: testsWithInsights > 0 ? (totalAvgDuration / testsWithInsights).toFixed(0) : 0,
-    avgP95Duration: testsWithInsights > 0 ? (totalP95Duration / testsWithInsights).toFixed(0) : 0,
-    totalTests,
-    testsWithInsights
-  };
-});
+import { formatPercent, formatDuration } from './.vitepress/helpers/formatter.js';
 
 // Get tests with most interesting insights
 const notableTests = computed(() => {
@@ -81,82 +45,46 @@ const getPassRateColor = (rate) => {
 
 // Prepare stats for TestStats component
 const testStatsData = computed(() => {
-  if (!aggregatedInsights.value) return null;
+  const insight = richReportWithInsights.insights;
+  if (!insight) return null;
   
   return {
     stats: {
-      total: aggregatedInsights.value.totalTests
+      total: richReportWithInsights.results.summary.tests,
     },
     additionalMetrics: [
       {
-        label: 'Tests with Insights',
-        value: aggregatedInsights.value.testsWithInsights
+        label: 'Average Run Duration',
+        value: formatDuration(insight.averageRunDuration.current),
       },
       {
-        label: 'Average Pass Rate',
-        value: aggregatedInsights.value.avgPassRate,
+        label: 'Average Test Duration',
+        value: formatDuration(insight.averageTestDuration.current),
+      },
+      {
+        label: '95 Percentile Run Duration',
+        value: insight.p95RunDuration.current,
+        suffix: 'ms',
+      },
+      {
+        label: 'Fail Rate',
+        value: formatPercent(insight.failRate.current, 1),
         suffix: '%',
-        style: { color: getPassRateColor(aggregatedInsights.value.avgPassRate) }
+        style: { color: formatPercent(insight.failRate.current, 1) > 10 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' },
       },
       {
-        label: 'Average Flaky Rate',
-        value: aggregatedInsights.value.avgFlakyRate,
+        label: 'Flaky Rate',
+        value: formatPercent(insight.flakyRate.current),
         suffix: '%',
-        style: { color: aggregatedInsights.value.avgFlakyRate > 5 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }
+        style: { color: formatPercent(insight.flakyRate.current) > 10 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' },
       },
       {
-        label: 'Average Fail Rate',
-        value: aggregatedInsights.value.avgFailRate,
+        label: 'Pass Rate',
+        value: formatPercent(insight.passRate.current),
         suffix: '%',
-        style: { color: aggregatedInsights.value.avgFailRate > 10 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }
+        style: { color: getPassRateColor(formatPercent(insight.passRate.current)) },
       },
-      {
-        label: 'Average Duration',
-        value: aggregatedInsights.value.avgDuration,
-        suffix: 'ms'
-      }
     ]
-  };
-});
-
-// Prepare summary stats for TestStats component
-const summaryStatsData = computed(() => {
-  if (!richReportWithInsights?.results?.summary) return null;
-  
-  const summary = richReportWithInsights.results.summary;
-  const additionalMetrics = [];
-  
-  if (summary.pending !== undefined) {
-    additionalMetrics.push({
-      label: 'Pending',
-      value: summary.pending,
-      style: { color: 'var(--vp-c-purple-1)' }
-    });
-  }
-  
-  if (summary.flaky !== undefined && summary.flaky > 0) {
-    additionalMetrics.push({
-      label: 'Flaky',
-      value: summary.flaky,
-      style: { color: 'var(--vp-c-orange-1)' }
-    });
-  }
-  
-  if (summary.suites !== undefined) {
-    additionalMetrics.push({
-      label: 'Suites',
-      value: summary.suites
-    });
-  }
-  
-  return {
-    stats: {
-      total: summary.tests,
-      passed: summary.passed,
-      failed: summary.failed,
-      skipped: summary.skipped
-    },
-    additionalMetrics: additionalMetrics
   };
 });
 </script>
@@ -165,31 +93,6 @@ const summaryStatsData = computed(() => {
 .insights-container {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.tests-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 2rem 0;
-  font-size: 0.875rem;
-}
-
-.tests-table th,
-.tests-table td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
-.tests-table th {
-  background: var(--vp-c-bg-soft);
-  font-weight: 600;
-  position: sticky;
-  top: 0;
-}
-
-.tests-table tr:hover {
-  background: var(--vp-c-bg-soft);
 }
 
 .status-badge {
@@ -242,7 +145,7 @@ const summaryStatsData = computed(() => {
   <strong>Error:</strong> {{ richReportWithInsights.error }}
 </div>
 
-<div v-else-if="aggregatedInsights">
+<div v-else-if="richReportWithInsights.insights">
 
 <TestStats 
   v-if="testStatsData"
@@ -252,13 +155,24 @@ const summaryStatsData = computed(() => {
   :showTotalDuration="false"
 />
 
-<TestStats 
-  v-if="summaryStatsData"
-  :stats="summaryStatsData.stats"
-  :additionalMetrics="summaryStatsData.additionalMetrics"
+:::details Extra
+
+<pre>{{ richReportWithInsights.insights.extra }}</pre>
+
+:::
+
+:::details Summary
+
+<SummaryView 
+  v-if="richReportWithInsights.results.summary"
+  :summary="richReportWithInsights.results.summary"
+  :showChart="true"
+  :showTimeInfo="true"
   :showAvgDuration="false"
-  :showTotalDuration="false"
+  :showTotalDuration="true"
 />
+
+:::
 
 <div class="section">
 
