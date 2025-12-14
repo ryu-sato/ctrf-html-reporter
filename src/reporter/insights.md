@@ -491,7 +491,34 @@ const testStatsData = computed(() => {
     Showing {{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ Math.min(currentPage * itemsPerPage, filteredAndSortedTests.length) }} of {{ filteredAndSortedTests.length }} tests
   </div>
 </div>
-
+<div class="pagination" v-if="totalPages > 1">
+  <button 
+    class="pagination-btn" 
+    @click="goToPage(currentPage - 1)" 
+    :disabled="currentPage === 1"
+  >
+    Previous
+  </button>
+  <div class="pagination-pages">
+    <button
+      v-for="page in totalPages"
+      :key="page"
+      class="pagination-page"
+      :class="{ active: page === currentPage }"
+      @click="goToPage(page)"
+      v-show="Math.abs(page - currentPage) < 3 || page === 1 || page === totalPages"
+    >
+      {{ page }}
+    </button>
+  </div>
+  <button 
+    class="pagination-btn" 
+    @click="goToPage(currentPage + 1)" 
+    :disabled="currentPage === totalPages"
+  >
+    Next
+  </button>
+</div>
 <div class="tests-grid">
   <div 
     v-for="test in paginatedTests" 
