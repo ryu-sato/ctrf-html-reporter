@@ -23,7 +23,7 @@
   --report-nav-height: 56px;
 }
 
-/* サイドバーが常に表示されるようにする */
+/* Keep the sidebar always visible */
 @media (min-width: 960px) {
   .VPSidebar {
     padding-top: var(--vp-nav-height);
@@ -58,7 +58,7 @@
   height: 100vh;
 }
 
-/* リサイザーのカーソルスタイル */
+/* Resizer Cursor Style */
 .report-resizer {
   user-select: none;
   -webkit-user-select: none;
@@ -71,7 +71,7 @@ body.resizing {
   user-select: none !important;
 }
 
-/* スクロールバーのスタイル */
+/* Scrollbar style */
 .report-content::-webkit-scrollbar,
 .report-detail::-webkit-scrollbar {
   width: 8px;
@@ -94,7 +94,7 @@ body.resizing {
   background: var(--vp-c-text-3);
 }
 
-/* テスト詳細のアニメーション */
+/* Test Details Animation */
 .detail-content {
   animation: fadeIn 0.2s ease-in;
 }
@@ -110,7 +110,7 @@ body.resizing {
   }
 }
 
-/* モバイル対応 */
+/* Mobile-friendly */
 @media (max-width: 960px) {
   .report-layout {
     --report-sidebar-width: 0px;
