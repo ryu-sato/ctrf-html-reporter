@@ -10,29 +10,6 @@ import { formatPercent, formatDuration } from './.vitepress/helpers/formatter.js
 // Get test selection function from ReportLayout
 const selectTest = inject('selectTest');
 
-// Get tests with most interesting insights
-const notableTests = computed(() => {
-  if (!richReportWithInsights?.results?.tests) return [];
-  
-  return richReportWithInsights.results.tests
-    .filter(test => test.insights)
-    .map(test => ({
-      name: test.name,
-      status: test.status,
-      duration: test.duration,
-      flaky: test.flaky,
-      passRate: (test.insights.passRate?.current * 100).toFixed(1),
-      flakyRate: (test.insights.flakyRate?.current * 100).toFixed(1),
-      failRate: (test.insights.failRate?.current * 100).toFixed(1),
-      avgDuration: test.insights.averageTestDuration?.current,
-      executedInRuns: test.insights.executedInRuns,
-      suite: test.suite?.join(' > ') || 'N/A',
-      originalTest: test  // Keep reference to original test object
-    }))
-    .sort((a, b) => parseFloat(b.flakyRate) - parseFloat(a.flakyRate))
-    .slice(0, 10);
-});
-
 // Handle test row click
 const handleTestClick = (test) => {
   if (selectTest && test.originalTest) {
@@ -205,7 +182,7 @@ const testStatsData = computed(() => {
 
 <div class="section">
 
-## Notable Tests (Sorted by Flaky Rate)
+## Tests
 
 <table class="tests-table">
   <thead>
@@ -217,11 +194,12 @@ const testStatsData = computed(() => {
       <th>Flaky Rate</th>
       <th>Fail Rate</th>
       <th>Avg Duration</th>
+      <th>95 Percentile Duration</th>
       <th>Runs</th>
     </tr>
   </thead>
   <tbody>
-    <tr v-for="test in notableTests" :key="test.name" @click="handleTestClick(test)">
+    <tr v-for="test in richReportWithInsights.results.tests" :key="test.name" @click="handleTestClick(test)">
       <td>
         <div class="test-name" :title="test.name">{{ test.name }}</div>
       </td>
@@ -234,22 +212,23 @@ const testStatsData = computed(() => {
         </span>
       </td>
       <td>
-        <span class="rate-badge" :style="{ background: getPassRateColor(test.passRate) }">
-          {{ test.passRate }}%
+        <span class="rate-badge" :style="{ background: getPassRateColor(formatPercent(test.insights?.passRate?.current)) }">
+          <PercentFormatter :value="test.insights?.passRate?.current" />
         </span>
       </td>
       <td>
-        <span class="rate-badge" :style="{ background: parseFloat(test.flakyRate) > 5 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }">
-          {{ test.flakyRate }}%
+        <span class="rate-badge" :style="{ background: formatPercent(test.insights?.flakyRate?.current) > 5 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }">
+          <PercentFormatter :value="test.insights?.flakyRate?.current" />
         </span>
       </td>
       <td>
-        <span class="rate-badge" :style="{ background: parseFloat(test.failRate) > 10 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }">
-          {{ test.failRate }}%
+        <span class="rate-badge" :style="{ background: formatPercent(test.insights?.failRate?.current) > 10 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }">
+          <PercentFormatter :value="test.insights?.failRate?.current" />
         </span>
       </td>
-      <td>{{ test.avgDuration }}ms</td>
-      <td>{{ test.executedInRuns }}</td>
+      <td>{{ test.insights?.averageTestDuration?.current }}ms</td>
+      <td>{{ test.insights?.p95TestDuration?.current }}ms</td>
+      <td>{{ test.insights?.executedInRuns }}</td>
     </tr>
   </tbody>
 </table>
