@@ -112,11 +112,11 @@ const calculateBarStyle = (test) => {
 // Get color based on test status
 const getStatusColor = (status) => {
   const colors = {
-    passed: '#10b981',
-    failed: '#ef4444',
-    skipped: '#f59e0b',
-    pending: '#8b5cf6',
-    other: '#6b7280'
+    passed: 'var(--vp-c-green-1)',
+    failed: 'var(--vp-c-red-1)',
+    skipped: 'var(--vp-c-yellow-1)',
+    pending: 'var(--vp-c-purple-1)',
+    other: 'var(--vp-c-text-2)'
   };
   return colors[status] || colors.other;
 };
@@ -151,7 +151,7 @@ onMounted(() => {
 .filter-controls {
   margin-bottom: 2rem;
   padding: 1rem;
-  background: #f9fafb;
+  background: var(--vp-c-bg-soft);
   border-radius: 0.5rem;
 }
 
@@ -180,7 +180,7 @@ onMounted(() => {
 .duration-input input[type="number"] {
   width: 100px;
   padding: 0.5rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--vp-c-divider);
   border-radius: 0.25rem;
 }
 
@@ -193,8 +193,8 @@ onMounted(() => {
   justify-content: space-between;
   padding: 0.5rem 0;
   font-size: 0.75rem;
-  color: #6b7280;
-  border-bottom: 1px solid #e5e7eb;
+  color: var(--vp-c-text-2);
+  border-bottom: 1px solid var(--vp-c-divider);
   margin-bottom: 1rem;
 }
 
@@ -206,8 +206,8 @@ onMounted(() => {
   font-weight: 600;
   font-size: 0.95rem;
   padding: 0.5rem 0;
-  color: #374151;
-  border-bottom: 1px solid #e5e7eb;
+  color: var(--vp-c-text-1);
+  border-bottom: 1px solid var(--vp-c-divider);
   margin-bottom: 0.5rem;
 }
 
@@ -232,7 +232,7 @@ onMounted(() => {
   flex: 1;
   position: relative;
   height: 24px;
-  background: #f3f4f6;
+  background: var(--vp-c-bg-mute);
   border-radius: 0.25rem;
 }
 
@@ -264,7 +264,7 @@ onMounted(() => {
   width: 120px;
   padding-left: 1rem;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--vp-c-text-2);
   text-align: right;
   flex-shrink: 0;
 }
@@ -272,7 +272,7 @@ onMounted(() => {
 .no-tests {
   text-align: center;
   padding: 3rem;
-  color: #6b7280;
+  color: var(--vp-c-text-2);
 }
 </style>
 
@@ -306,7 +306,7 @@ Gantt chart visualization of test execution timeline with duration filtering
         :step="100"
         placeholder="ms"
       />
-      <span style="font-size: 0.875rem; color: #6b7280;">
+      <span style="font-size: 0.875rem; color: var(--vp-c-text-2);">
         Showing {{ filteredTests.length }} / {{ allTests.length }} tests
       </span>
     </div>

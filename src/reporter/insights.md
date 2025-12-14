@@ -64,19 +64,19 @@ const notableTests = computed(() => {
 // Get status color
 const getStatusColor = (status) => {
   const colors = {
-    passed: '#10b981',
-    failed: '#ef4444',
-    skipped: '#f59e0b',
-    pending: '#6b7280'
+    passed: 'var(--vp-c-green-1)',
+    failed: 'var(--vp-c-red-1)',
+    skipped: 'var(--vp-c-yellow-1)',
+    pending: 'var(--vp-c-text-2)'
   };
-  return colors[status] || '#6b7280';
+  return colors[status] || 'var(--vp-c-text-2)';
 };
 
 const getPassRateColor = (rate) => {
   const r = parseFloat(rate);
-  if (r >= 95) return '#10b981';
-  if (r >= 80) return '#f59e0b';
-  return '#ef4444';
+  if (r >= 95) return 'var(--vp-c-green-1)';
+  if (r >= 80) return 'var(--vp-c-yellow-1)';
+  return 'var(--vp-c-red-1)';
 };
 
 // Prepare stats for TestStats component
@@ -102,13 +102,13 @@ const testStatsData = computed(() => {
         label: 'Average Flaky Rate',
         value: aggregatedInsights.value.avgFlakyRate,
         suffix: '%',
-        style: { color: aggregatedInsights.value.avgFlakyRate > 5 ? '#ef4444' : '#10b981' }
+        style: { color: aggregatedInsights.value.avgFlakyRate > 5 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }
       },
       {
         label: 'Average Fail Rate',
         value: aggregatedInsights.value.avgFailRate,
         suffix: '%',
-        style: { color: aggregatedInsights.value.avgFailRate > 10 ? '#ef4444' : '#10b981' }
+        style: { color: aggregatedInsights.value.avgFailRate > 10 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }
       },
       {
         label: 'Average Duration',
@@ -130,7 +130,7 @@ const summaryStatsData = computed(() => {
     additionalMetrics.push({
       label: 'Pending',
       value: summary.pending,
-      style: { color: '#8b5cf6' }
+      style: { color: 'var(--vp-c-purple-1)' }
     });
   }
   
@@ -138,7 +138,7 @@ const summaryStatsData = computed(() => {
     additionalMetrics.push({
       label: 'Flaky',
       value: summary.flaky,
-      style: { color: '#f97316' }
+      style: { color: 'var(--vp-c-orange-1)' }
     });
   }
   
@@ -227,10 +227,10 @@ const summaryStatsData = computed(() => {
 
 .error-message {
   padding: 1rem;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: var(--vp-c-danger-soft);
+  border: 1px solid var(--vp-c-danger-1);
   border-radius: 8px;
-  color: #991b1b;
+  color: var(--vp-c-danger-1);
 }
 </style>
 
@@ -296,12 +296,12 @@ const summaryStatsData = computed(() => {
         </span>
       </td>
       <td>
-        <span class="rate-badge" :style="{ background: parseFloat(test.flakyRate) > 5 ? '#ef4444' : '#10b981' }">
+        <span class="rate-badge" :style="{ background: parseFloat(test.flakyRate) > 5 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }">
           {{ test.flakyRate }}%
         </span>
       </td>
       <td>
-        <span class="rate-badge" :style="{ background: parseFloat(test.failRate) > 10 ? '#ef4444' : '#10b981' }">
+        <span class="rate-badge" :style="{ background: parseFloat(test.failRate) > 10 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }">
           {{ test.failRate }}%
         </span>
       </td>
