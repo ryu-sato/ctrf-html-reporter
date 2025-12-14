@@ -10,7 +10,7 @@
             :checked="selectedStatuses.includes('passed')"
             @change="toggleStatus('passed')"
           />
-          <span class="status-label passed">✓ Passed</span>
+          <span class="status-label passed"><CheckCircle :size="16" :stroke-width="2" />Passed</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -19,7 +19,7 @@
             :checked="selectedStatuses.includes('failed')"
             @change="toggleStatus('failed')"
           />
-          <span class="status-label failed">✗ Failed</span>
+          <span class="status-label failed"><XCircle :size="16" :stroke-width="2" />Failed</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -28,7 +28,7 @@
             :checked="selectedStatuses.includes('skipped')"
             @change="toggleStatus('skipped')"
           />
-          <span class="status-label skipped">⊘ Skipped</span>
+          <span class="status-label skipped"><MinusCircle :size="16" :stroke-width="2" />Skipped</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -37,7 +37,7 @@
             :checked="selectedStatuses.includes('pending')"
             @change="toggleStatus('pending')"
           />
-          <span class="status-label pending">⋯ Pending</span>
+          <span class="status-label pending"><Clock :size="16" :stroke-width="2" />Pending</span>
         </label>
       </div>
     </div>
@@ -68,6 +68,8 @@
 </template>
 
 <script setup>
+import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
+
 const props = defineProps({
   selectedStatuses: {
     type: Array,
@@ -162,6 +164,9 @@ const clearFilters = () => {
 }
 
 .status-label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
   font-size: 0.875rem;
 }
 

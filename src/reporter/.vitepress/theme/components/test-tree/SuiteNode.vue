@@ -9,11 +9,11 @@
 
     <div v-if="suite.summary" class="suite-summary">
       Tests: {{ suite.summary.tests || suite.tests?.length || 0 }} |
-      <span class="passed">Passed: {{ suite.summary.passed || 0 }}</span> |
-      <span class="failed">Failed: {{ suite.summary.failed || 0 }}</span> |
-      <span class="skipped">Skipped: {{ suite.summary.skipped || 0 }}</span> |
-      <span class="pending">Pending: {{ suite.summary.pending || 0 }}</span>
-      <span v-if="suite.summary.flaky" class="flaky"> | Flaky: {{ suite.summary.flaky }}</span>
+      <span class="passed"><CheckCircle :size="14" :stroke-width="2" /> {{ suite.summary.passed || 0 }}</span> |
+      <span class="failed"><XCircle :size="14" :stroke-width="2" /> {{ suite.summary.failed || 0 }}</span> |
+      <span class="skipped"><MinusCircle :size="14" :stroke-width="2" /> {{ suite.summary.skipped || 0 }}</span> |
+      <span class="pending"><Clock :size="14" :stroke-width="2" /> {{ suite.summary.pending || 0 }}</span>
+      <span v-if="suite.summary.flaky" class="flaky"> | <Zap :size="14" :stroke-width="2" /> {{ suite.summary.flaky }}</span>
     </div>
 
     <!-- Nested suites -->
@@ -36,7 +36,7 @@
             <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
             <span class="test-name">{{ test.name }}</span>
             <span class="test-duration">({{ test.duration }}ms)</span>
-            <span v-if="test.flaky" class="test-flaky">⚡ Flaky</span>
+            <span v-if="test.flaky" class="test-flaky"><Zap :size="14" :stroke-width="2" /> Flaky</span>
             <div v-if="test.tags && test.tags.length > 0" class="test-tags">
               <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
             </div>
@@ -49,6 +49,8 @@
 
 <script setup>
 import { inject } from 'vue';
+import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
+import { VPBadge as Badge } from 'vitepress/theme';
 
 const props = defineProps({
   suite: {
@@ -109,6 +111,16 @@ const getStatusType = (status) => {
   font-size: 0.875rem;
   color: var(--vp-c-text-2);
   margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.suite-summary span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .suite-summary .passed {
@@ -184,6 +196,9 @@ const getStatusType = (status) => {
 
 .test-flaky {
   color: var(--vp-c-orange-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .test-tags {

@@ -25,11 +25,11 @@
       <div v-if="root.summary" class="summary-box">
         <div class="summary-stats">
           <span>Tests: {{ root.summary.tests || root.tests?.length || 0 }}</span>
-          <span class="passed">✓ {{ root.summary.passed || 0 }}</span>
-          <span class="failed">✗ {{ root.summary.failed || 0 }}</span>
-          <span class="skipped">⊘ {{ root.summary.skipped || 0 }}</span>
-          <span class="pending">⋯ {{ root.summary.pending || 0 }}</span>
-          <span v-if="root.summary.flaky" class="flaky">⚡ {{ root.summary.flaky }}</span>
+          <span class="passed"><CheckCircle :size="16" :stroke-width="2" /> {{ root.summary.passed || 0 }}</span>
+          <span class="failed"><XCircle :size="16" :stroke-width="2" /> {{ root.summary.failed || 0 }}</span>
+          <span class="skipped"><MinusCircle :size="16" :stroke-width="2" /> {{ root.summary.skipped || 0 }}</span>
+          <span class="pending"><Clock :size="16" :stroke-width="2" /> {{ root.summary.pending || 0 }}</span>
+          <span v-if="root.summary.flaky" class="flaky"><Zap :size="16" :stroke-width="2" /> {{ root.summary.flaky }}</span>
         </div>
       </div>
 
@@ -51,7 +51,7 @@
               <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
               <span class="test-name">{{ test.name }}</span>
               <span class="test-duration">({{ test.duration }}ms)</span>
-              <span v-if="test.flaky" class="test-flaky">⚡ Flaky</span>
+              <span v-if="test.flaky" class="test-flaky"><Zap :size="14" :stroke-width="2" /> Flaky</span>
               <div v-if="test.tags && test.tags.length > 0" class="test-tags">
                 <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
               </div>
@@ -65,6 +65,8 @@
 
 <script setup>
 import { inject, onMounted, ref, computed } from 'vue';
+import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
+import { VPBadge as Badge } from 'vitepress/theme';
 import SuiteNode from './SuiteNode.vue';
 import TestFilter from './TestFilter.vue';
 
@@ -279,6 +281,12 @@ const getStatusType = (status) => {
   flex-wrap: wrap;
 }
 
+.summary-stats span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .summary-stats .passed {
   color: var(--vp-c-green-1);
 }
@@ -353,6 +361,9 @@ const getStatusType = (status) => {
 
 .test-flaky {
   color: var(--vp-c-orange-1);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .test-tags {
