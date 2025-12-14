@@ -1,14 +1,44 @@
 <template>
   <div class="summary-view">
     <!-- Test Stats -->
-    <TestStats 
-      v-if="statsData"
-      :stats="statsData.stats"
-      :additionalMetrics="statsData.additionalMetrics"
-      :totalDuration="summary.duration"
-      :showAvgDuration="showAvgDuration"
-      :showTotalDuration="showTotalDuration"
-    />
+    <div class="timeline-stats">
+      <div class="stat-item">
+        <span class="stat-label">Total Tests</span>
+        <span class="stat-value">{{ summary.tests }}</span>
+      </div>
+      <div class="stat-item" v-if="summary.passed !== undefined">
+        <span class="stat-label">Passed</span>
+        <span class="stat-value status-passed">{{ summary.passed }}</span>
+      </div>
+      <div class="stat-item" v-if="summary.failed !== undefined">
+        <span class="stat-label">Failed</span>
+        <span class="stat-value status-failed">{{ summary.failed }}</span>
+      </div>
+      <div class="stat-item" v-if="summary.skipped !== undefined">
+        <span class="stat-label">Skipped</span>
+        <span class="stat-value status-skipped">{{ summary.skipped }}</span>
+      </div>
+      <div class="stat-item" v-if="summary.pending !== undefined">
+        <span class="stat-label">Pending</span>
+        <span class="stat-value" style="color: var(--vp-c-purple-1)">{{ summary.pending }}</span>
+      </div>
+      <div class="stat-item" v-if="summary.flaky !== undefined && summary.flaky > 0">
+        <span class="stat-label">Flaky</span>
+        <span class="stat-value" style="color: var(--vp-c-orange-1)">{{ summary.flaky }}</span>
+      </div>
+      <div class="stat-item" v-if="summary.other !== undefined && summary.other > 0">
+        <span class="stat-label">Other</span>
+        <span class="stat-value" style="color: var(--vp-c-text-2)">{{ summary.other }}</span>
+      </div>
+      <div class="stat-item" v-if="summary.suites !== undefined">
+        <span class="stat-label">Suites</span>
+        <span class="stat-value">{{ summary.suites }}</span>
+      </div>
+      <div class="stat-item" v-if="showTotalDuration">
+        <span class="stat-label">Total Duration</span>
+        <span class="stat-value">{{ formatDuration(summary.duration) }}</span>
+      </div>
+    </div>
 
     <!-- Chart -->
     <div v-if="showChart" :style="chartContainerStyle">
@@ -30,7 +60,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Chart, registerables } from 'chart.js';
 
 const props = defineProps({
@@ -48,10 +78,6 @@ const props = defineProps({
   showTimeInfo: {
     type: Boolean,
     default: true
-  },
-  showAvgDuration: {
-    type: Boolean,
-    default: false
   },
   showTotalDuration: {
     type: Boolean,
@@ -75,54 +101,11 @@ const getCssColor = (varName) => {
   return '';
 };
 
-// Prepare stats for TestStats component
-const statsData = computed(() => {
-  const s = props.summary;
-  if (!s) return null;
-  
-  const additionalMetrics = [];
-  
-  if (s.pending !== undefined) {
-    additionalMetrics.push({
-      label: 'Pending',
-      value: s.pending,
-      style: { color: 'var(--vp-c-purple-1)' }
-    });
-  }
-  
-  if (s.flaky !== undefined && s.flaky > 0) {
-    additionalMetrics.push({
-      label: 'Flaky',
-      value: s.flaky,
-      style: { color: 'var(--vp-c-orange-1)' }
-    });
-  }
-  
-  if (s.other !== undefined && s.other > 0) {
-    additionalMetrics.push({
-      label: 'Other',
-      value: s.other,
-      style: { color: 'var(--vp-c-text-2)' }
-    });
-  }
-  
-  if (s.suites !== undefined) {
-    additionalMetrics.push({
-      label: 'Suites',
-      value: s.suites
-    });
-  }
-  
-  return {
-    stats: {
-      total: s.tests,
-      passed: s.passed,
-      failed: s.failed,
-      skipped: s.skipped
-    },
-    additionalMetrics: additionalMetrics
-  };
-});
+// Format duration
+const formatDuration = (ms) => {
+  if (!ms || ms < 1000) return `${ms || 0}ms`;
+  return `${(ms / 1000).toFixed(2)}s`;
+};
 
 Chart.register(...registerables);
 const chartCanvas = ref(null);
@@ -226,6 +209,41 @@ onMounted(() => {
 <style scoped>
 .summary-view {
   margin: 1rem 0;
+}
+
+.timeline-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2);
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.status-passed { 
+  color: var(--vp-c-green-1); 
+}
+
+.status-failed { 
+  color: var(--vp-c-red-1); 
+}
+
+.status-skipped { 
+  color: var(--vp-c-yellow-1); 
 }
 
 .time-info {
