@@ -212,13 +212,7 @@ onMounted(() => {
 
 # Overview
 
-::: info Tool
-
-name: {{ tool.name }}
-<div v-if="tool.version">version: {{ tool.version }}</div>
-<div v-if="tool.extra">extra: {{ tool.extra }}</div>
-
-:::
+<ReportInfo :report="report" />
 
 <div v-if="environment">
 
