@@ -1,3 +1,9 @@
+---
+layout: report
+navbar: true
+sidebar: true
+---
+
 <script setup>
 import { data as testTree } from './organizeTestsBySuite.data.js';
 </script>

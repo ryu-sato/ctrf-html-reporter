@@ -33,7 +33,7 @@
             Show {{ root.tests.length }} test(s)
           </summary>
           <ul class="tests-list">
-            <li v-for="(test, testIndex) in root.tests" :key="testIndex" class="test-item">
+            <li v-for="(test, testIndex) in root.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
               <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
               <span class="test-name">{{ test.name }}</span>
               <span class="test-duration">({{ test.duration }}ms)</span>
@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, inject } from 'vue';
 import SuiteNode from './SuiteNode.vue';
 
 const props = defineProps({
@@ -59,6 +59,16 @@ const props = defineProps({
     }
   }
 });
+
+// Inject selectTest function from ReportLayout
+const selectTest = inject('selectTest', null);
+
+// Handle test click
+const handleTestClick = (test) => {
+  if (selectTest) {
+    selectTest(test);
+  }
+};
 
 // Function to get status badge type
 const getStatusType = (status) => {
@@ -160,6 +170,14 @@ const getStatusType = (status) => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.test-item:hover {
+  background-color: var(--vp-c-bg-soft);
 }
 
 .test-badge {
