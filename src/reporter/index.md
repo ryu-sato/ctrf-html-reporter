@@ -162,16 +162,7 @@ onMounted(() => {
 
 ## Summary
 
-<Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
-
-* start: <DateTimeFormatter :timestamp="richReportWithInsights.results.summary.start * 1000" />
-* stop: <DateTimeFormatter :timestamp="richReportWithInsights.results.summary.stop * 1000" />
-
-<div style="max-width: 300px; margin: 2rem auto;">
-  <canvas ref="chartCanvas"></canvas>
-</div>
-
-### Test Results
+Status: <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
 
 <TestStats 
   v-if="reportStatsData"
@@ -181,3 +172,14 @@ onMounted(() => {
   :showAvgDuration="false"
   :showTotalDuration="true"
 />
+
+<div style="max-width: 300px; margin: 2rem auto;">
+  <canvas ref="chartCanvas"></canvas>
+</div>
+
+:::info
+
+* start: <DateTimeFormatter :timestamp="richReportWithInsights.results.summary.start * 1000" />
+* stop: <DateTimeFormatter :timestamp="richReportWithInsights.results.summary.stop * 1000" />
+
+:::
