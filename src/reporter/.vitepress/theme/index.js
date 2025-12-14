@@ -1,6 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
 import './custom.css'
-import TestInsights from './components/TestInsights.vue'
+import TestInsights from './components/insights/TestInsights.vue'
 import DateTimeFormatter from './components/DateTimeFormatter.vue'
 import ReportInfo from './components/report/ReportInfo.vue'
 import EnvironmentInfo from './components/report/EnvironmentInfo.vue'
