@@ -53,7 +53,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import DateTimeFormatter from './DateTimeFormatter.vue';
+import DateTimeFormatter from '../DateTimeFormatter.vue';
 
 const props = defineProps({
   report: {
