@@ -222,7 +222,7 @@ name: {{ tool.name }}
 
 <div v-if="environment">
 
-::: details Environment
+::: info Environment
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
 
