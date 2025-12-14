@@ -1,6 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
 import './custom.css'
-import TestStats from './components/TestStats.vue'
 import TestInsights from './components/TestInsights.vue'
 import DateTimeFormatter from './components/DateTimeFormatter.vue'
 import ReportInfo from './components/report/ReportInfo.vue'
@@ -18,7 +17,6 @@ export default {
   extends: DefaultTheme,
   Layout: Layout,
   enhanceApp({ app }) {
-    app.component('TestStats', TestStats)
     app.component('TestInsights', TestInsights)
     app.component('DateTimeFormatter', DateTimeFormatter)
     app.component('ReportInfo', ReportInfo)
