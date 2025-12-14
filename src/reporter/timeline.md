@@ -1,7 +1,3 @@
----
-layout: doc
----
-
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue';
 import { data as sortedReportsByTimestamp } from './sortedReportsByTimestamp.data.js';
@@ -152,11 +148,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.timeline-container {
-  padding: 2rem;
-  max-width: 100%;
-}
-
 .timeline-header {
   margin-bottom: 2rem;
 }
@@ -289,81 +280,78 @@ onMounted(() => {
 }
 </style>
 
-<div class="timeline-container">
-  <div class="timeline-header">
-    <h1>Test Timeline</h1>
-    <p>Gantt chart visualization of test execution timeline with duration filtering</p>
+# Timeline
+
+Gantt chart visualization of test execution timeline with duration filtering
+
+<TestStats 
+  :stats="stats" 
+  :totalDuration="timeRange.duration"
+/>
+
+<div class="filter-controls">
+  <div class="filter-group">
+    <label class="filter-label">
+      Filter by minimum duration: {{ formatDuration(minDuration) }}
+    </label>
+    <div class="duration-input">
+      <input 
+        type="range" 
+        v-model.number="minDuration" 
+        :min="0" 
+        :max="maxDurationInTests" 
+        :step="100"
+      />
+      <input 
+        type="number" 
+        v-model.number="minDuration" 
+        :min="0" 
+        :max="maxDurationInTests"
+        :step="100"
+        placeholder="ms"
+      />
+      <span style="font-size: 0.875rem; color: #6b7280;">
+        Showing {{ filteredTests.length }} / {{ allTests.length }} tests
+      </span>
+    </div>
   </div>
+</div>
 
-  <TestStats 
-    :stats="stats" 
-    :totalDuration="timeRange.duration"
-  />
-
-  <div class="filter-controls">
-    <div class="filter-group">
-      <label class="filter-label">
-        Filter by minimum duration: {{ formatDuration(minDuration) }}
-      </label>
-      <div class="duration-input">
-        <input 
-          type="range" 
-          v-model.number="minDuration" 
-          :min="0" 
-          :max="maxDurationInTests" 
-          :step="100"
-        />
-        <input 
-          type="number" 
-          v-model.number="minDuration" 
-          :min="0" 
-          :max="maxDurationInTests"
-          :step="100"
-          placeholder="ms"
-        />
-        <span style="font-size: 0.875rem; color: #6b7280;">
-          Showing {{ filteredTests.length }} / {{ allTests.length }} tests
-        </span>
+<div class="timeline-chart" v-if="filteredTests.length > 0 && testGroups.length > 0">
+  <div class="time-scale">
+    <span>{{ formatTime(timeRange.min) }}</span>
+    <span>Timeline</span>
+    <span>{{ formatTime(timeRange.max) }}</span>
+  </div>
+  <div v-for="(groupItem, groupIndex) in testGroups" :key="groupItem?.suite || `group-${groupIndex}`" class="suite-group">
+    <div class="suite-header">{{ groupItem?.suite || 'Unknown Suite' }}</div>
+    <div v-for="(testItem, testIndex) in (groupItem?.tests || [])" :key="testItem?.id || `test-${groupIndex}-${testIndex}`" class="test-row">
+      <div class="test-label" :title="testItem?.name || ''">
+        {{ testItem?.name || 'Unknown Test' }}
+      </div>
+      <div class="test-timeline">
+        <div 
+          class="test-bar" 
+          :style="{
+            ...calculateBarStyle(testItem),
+            backgroundColor: getStatusColor(testItem?.status)
+          }"
+          :title="`${testItem?.name || 'Unknown'}\nStatus: ${testItem?.status || 'unknown'}\nDuration: ${formatDuration(testItem?.duration || 0)}\nStart: ${formatTime(testItem?.start || 0)}\nEnd: ${formatTime(testItem?.stop || 0)}`"
+        >
+          <span class="test-bar-label" v-if="testItem?.duration > 1000">
+            {{ formatDuration(testItem?.duration || 0) }}
+          </span>
+        </div>
+      </div>
+      <div class="test-info">
+        {{ formatDuration(testItem?.duration || 0) }}
       </div>
     </div>
   </div>
-
-  <div class="timeline-chart" v-if="filteredTests.length > 0 && testGroups.length > 0">
-    <div class="time-scale">
-      <span>{{ formatTime(timeRange.min) }}</span>
-      <span>Timeline</span>
-      <span>{{ formatTime(timeRange.max) }}</span>
-    </div>
-    <div v-for="(groupItem, groupIndex) in testGroups" :key="groupItem?.suite || `group-${groupIndex}`" class="suite-group">
-      <div class="suite-header">{{ groupItem?.suite || 'Unknown Suite' }}</div>
-      <div v-for="(testItem, testIndex) in (groupItem?.tests || [])" :key="testItem?.id || `test-${groupIndex}-${testIndex}`" class="test-row">
-        <div class="test-label" :title="testItem?.name || ''">
-          {{ testItem?.name || 'Unknown Test' }}
-        </div>
-        <div class="test-timeline">
-          <div 
-            class="test-bar" 
-            :style="{
-              ...calculateBarStyle(testItem),
-              backgroundColor: getStatusColor(testItem?.status)
-            }"
-            :title="`${testItem?.name || 'Unknown'}\nStatus: ${testItem?.status || 'unknown'}\nDuration: ${formatDuration(testItem?.duration || 0)}\nStart: ${formatTime(testItem?.start || 0)}\nEnd: ${formatTime(testItem?.stop || 0)}`"
-          >
-            <span class="test-bar-label" v-if="testItem?.duration > 1000">
-              {{ formatDuration(testItem?.duration || 0) }}
-            </span>
-          </div>
-        </div>
-        <div class="test-info">
-          {{ formatDuration(testItem?.duration || 0) }}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div v-else class="no-tests">
-    <p>No tests match the current filter criteria.</p>
-    <p style="font-size: 0.875rem; margin-top: 0.5rem;">
-      Try adjusting the minimum duration filter.
-    </p>
-  </div>
+</div>
+<div v-else class="no-tests">
+  <p>No tests match the current filter criteria.</p>
+  <p style="font-size: 0.875rem; margin-top: 0.5rem;">
+    Try adjusting the minimum duration filter.
+  </p>
 </div>
