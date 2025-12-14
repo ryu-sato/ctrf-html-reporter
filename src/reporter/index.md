@@ -1,32 +1,14 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { data as report } from './report.data.js';
-import { data as testTree } from './organizeTestsBySuite.data.js';
+import { data as richReportWithInsights } from './richReportWithInsights.data.js';
 import { Chart, registerables } from 'chart.js';
 
-// Tool
-const tool = report.results.tool;
-
-// Environment
-const environment = report.results.environment;
-
-// Tests
-const tests = report.results.tests
-
 // Summary
-const summary = report.results.summary;
-summary.duration ||= (summary.stop - summary.start);
-
-// Tree Summary (from organizeTestsBySuite)
-const treeSummary = testTree.summary;
-
-const summaryStatus = summary.failed > 0 ? 'Failed' : 'Succeeded';
-
-// Format duration with seconds unit (duration is already in seconds if calculated from start/stop)
-const durationInSeconds = summary.duration;
+const summaryStatus = richReportWithInsights.results.summary.failed > 0 ? 'Failed' : 'Succeeded';
 
 // Prepare stats for TestStats component (from report.results.summary)
 const reportStatsData = computed(() => {
+  const summary = richReportWithInsights.results.summary;
   if (!summary) return null;
   
   const additionalMetrics = [];
@@ -73,47 +55,6 @@ const reportStatsData = computed(() => {
   };
 });
 
-// Prepare stats for TestStats component (from testTree.summary)
-const treeStatsData = computed(() => {
-  if (!treeSummary) return null;
-  
-  const additionalMetrics = [];
-  
-  if (treeSummary.pending !== undefined) {
-    additionalMetrics.push({
-      label: 'Pending',
-      value: treeSummary.pending,
-      style: { color: '#8b5cf6' }
-    });
-  }
-  
-  if (treeSummary.flaky !== undefined && treeSummary.flaky > 0) {
-    additionalMetrics.push({
-      label: 'Flaky',
-      value: treeSummary.flaky,
-      style: { color: '#f97316' }
-    });
-  }
-  
-  if (treeSummary.other !== undefined && treeSummary.other > 0) {
-    additionalMetrics.push({
-      label: 'Other',
-      value: treeSummary.other,
-      style: { color: '#6b7280' }
-    });
-  }
-  
-  return {
-    stats: {
-      total: treeSummary.tests,
-      passed: treeSummary.passed,
-      failed: treeSummary.failed,
-      skipped: treeSummary.skipped
-    },
-    additionalMetrics: additionalMetrics
-  };
-});
-
 Chart.register(...registerables);
 const chartCanvas = ref(null);
 
@@ -122,6 +63,8 @@ const centerTextPlugin = {
   id: 'centerText',
   beforeDraw: (chart) => {
     if (chart.config.type === 'doughnut') {
+      const summary = richReportWithInsights.results.summary;
+
       const ctx = chart.ctx;
       const width = chart.width;
       const height = chart.height;
@@ -154,6 +97,7 @@ const centerTextPlugin = {
 
 onMounted(() => {
   if (chartCanvas.value) {
+    const summary = richReportWithInsights.results.summary;
     const ctx = chartCanvas.value.getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
@@ -212,39 +156,28 @@ onMounted(() => {
 
 # Overview
 
-<ReportInfo v-if="report" :report="report" />
+<ReportInfo v-if="richReportWithInsights" :report="richReportWithInsights" />
 
-<EnvironmentInfo v-if="environment" :environment="environment" />
+<EnvironmentInfo v-if="richReportWithInsights.results.environment" :environment="richReportWithInsights.results.environment" />
 
 ## Summary
 
 <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
 
-start: <DateTimeFormatter :timestamp="summary.start * 1000" />  
-duration: {{ durationInSeconds }} sec
+* start: <DateTimeFormatter :timestamp="richReportWithInsights.results.summary.start * 1000" />
+* stop: <DateTimeFormatter :timestamp="richReportWithInsights.results.summary.stop * 1000" />
 
 <div style="max-width: 500px; margin: 2rem auto;">
   <canvas ref="chartCanvas"></canvas>
 </div>
 
-### Test Results (from report.results.summary)
+### Test Results
 
 <TestStats 
   v-if="reportStatsData"
   :stats="reportStatsData.stats"
   :additionalMetrics="reportStatsData.additionalMetrics"
-  :totalDuration="summary.duration * 1000"
-  :showAvgDuration="false"
-  :showTotalDuration="true"
-/>
-
-### Organized Test Results (from testTree.summary)
-
-<TestStats 
-  v-if="treeStatsData"
-  :stats="treeStatsData.stats"
-  :additionalMetrics="treeStatsData.additionalMetrics"
-  :totalDuration="treeSummary.duration"
+  :totalDuration="richReportWithInsights.results.summary.duration"
   :showAvgDuration="false"
   :showTotalDuration="true"
 />
