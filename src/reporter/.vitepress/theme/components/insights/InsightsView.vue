@@ -174,7 +174,7 @@
 import { ref, computed, inject, watch } from 'vue';
 import type { Report } from 'ctrf';
 import PercentFormatter from '../PercentFormatter.vue';
-import { formatPercent } from '../../../helpers/formatter';
+import { formatPercent, formatDuration } from '../../../helpers/formatter';
 
 interface Props {
   report: Report;
@@ -210,11 +210,6 @@ const enrichedReport = computed(() => {
     return null;
   }
 });
-
-const formatDuration = (ms: number | undefined): string => {
-  if (ms === undefined) return '0ms';
-  return `${ms}ms`;
-};
 
 // Get status color
 const getStatusColor = (status: string): string => {

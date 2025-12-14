@@ -117,6 +117,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { formatLabel, formatValue } from '../../../helpers/formatter';
 
 const props = defineProps({
   environment: {
@@ -169,22 +170,6 @@ const hasBuildOrRepoInfo = computed(() => {
     env.branchName
   );
 });
-
-// Format label from camelCase or snake_case to Title Case
-const formatLabel = (key) => {
-  return key
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/_/g, ' ')
-    .replace(/^./, (str) => str.toUpperCase())
-    .trim();
-};
-
-// Format value for display
-const formatValue = (value) => {
-  if (value === null || value === undefined) return 'N/A';
-  if (typeof value === 'object') return JSON.stringify(value);
-  return String(value);
-};
 </script>
 
 <style scoped>

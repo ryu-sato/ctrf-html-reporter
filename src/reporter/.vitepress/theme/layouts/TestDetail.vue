@@ -292,7 +292,7 @@
 </template>
 
 <script setup>
-import { formatPercentString } from '../../helpers/formatter'
+import { formatPercentString, formatDuration, formatDateTime, formatChange } from '../../helpers/formatter'
 
 defineProps({
   test: {
@@ -300,30 +300,6 @@ defineProps({
     required: true
   }
 })
-
-const formatDuration = (ms) => {
-  if (ms < 1000) return `${ms}ms`
-  const seconds = (ms / 1000).toFixed(2)
-  return `${seconds}s`
-}
-
-const formatDateTime = (timestamp) => {
-  if (!timestamp) return 'N/A'
-  const date = new Date(timestamp)
-  return date.toLocaleString('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  })
-}
-
-const formatChange = (value) => {
-  const prefix = value >= 0 ? '+' : ''
-  return `${prefix}${formatPercentString(value, 2)}`
-}
 </script>
 
 <style scoped>

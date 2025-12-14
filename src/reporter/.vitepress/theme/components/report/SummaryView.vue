@@ -62,6 +62,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { Chart, registerables } from 'chart.js';
+import { formatDuration } from '../../../helpers/formatter';
 
 const props = defineProps({
   summary: {
@@ -99,12 +100,6 @@ const getCssColor = (varName) => {
     return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
   }
   return '';
-};
-
-// Format duration
-const formatDuration = (ms) => {
-  if (!ms || ms < 1000) return `${ms || 0}ms`;
-  return `${(ms / 1000).toFixed(2)}s`;
 };
 
 Chart.register(...registerables);

@@ -30,7 +30,7 @@
             class="metric-value change" 
             :class="getChangeClass(metric.change, metric.invertChange)"
           >
-            {{ formatChange(metric.change, metric.type) }}
+            {{ formatChangeLocal(metric.change, metric.type) }}
           </span>
         </div>
       </div>
@@ -59,6 +59,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { formatDuration, formatChange } from '../../../helpers/formatter';
 
 const props = defineProps({
   insights: {
@@ -173,7 +174,7 @@ const formatValue = (value, type) => {
   }
 };
 
-const formatChange = (change, type) => {
+const formatChangeLocal = (change, type) => {
   if (change === undefined || change === null) return '-';
   
   const prefix = change > 0 ? '+' : '';
@@ -186,11 +187,6 @@ const formatChange = (change, type) => {
     default:
       return `${prefix}${change}`;
   }
-};
-
-const formatDuration = (ms) => {
-  if (!ms || ms < 1000) return `${ms || 0}ms`;
-  return `${(ms / 1000).toFixed(2)}s`;
 };
 
 const getChangeClass = (change, invert) => {

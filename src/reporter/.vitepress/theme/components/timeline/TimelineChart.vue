@@ -72,6 +72,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, inject } from 'vue';
 import type { Report, Test } from 'ctrf';
+import { formatDuration, formatDateTime } from '../../../helpers/formatter';
 
 const props = defineProps({
   report: {
@@ -131,9 +132,9 @@ const filteredTests = computed(() => {
 
 // Group tests by suite for better visualization
 const testGroups = computed(() => {
-  const groups = new Map();
+  const groups = new Map<string, Test[]>();
   
-  filteredTests.value.forEach(test => {
+  filteredTests.value.forEach((test: Test) => {
     // Handle suite as array or string
     let suiteName = 'Uncategorized';
     if (test.suite) {
@@ -147,33 +148,27 @@ const testGroups = computed(() => {
     if (!groups.has(suiteName)) {
       groups.set(suiteName, []);
     }
-    groups.get(suiteName).push(test);
+    groups.get(suiteName)!.push(test);
   });
   
   return Array.from(groups.entries()).map(([suite, tests]) => ({
     suite,
-    tests: tests.sort((a, b) => a.start - b.start)
+    tests: tests.sort((a: Test, b: Test) => (a.start || 0) - (b.start || 0))
   }));
 });
 
 // Format time for display
-const formatTime = (timestamp) => {
-  return new Date(timestamp).toLocaleTimeString('ja-JP', {
+const formatTime = (timestamp: number) => {
+  return formatDateTime(timestamp, 'ja-JP', {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
     fractionalSecondDigits: 3
-  });
-};
-
-// Format duration
-const formatDuration = (ms) => {
-  if (ms < 1000) return `${ms}ms`;
-  return `${(ms / 1000).toFixed(2)}s`;
+  } as Intl.DateTimeFormatOptions);
 };
 
 // Calculate position and width for gantt chart
-const calculateBarStyle = (test) => {
+const calculateBarStyle = (test: Test) => {
   if (!test || !test.start || !test.stop) {
     return { left: '0%', width: '0%' };
   }
@@ -191,8 +186,8 @@ const calculateBarStyle = (test) => {
 };
 
 // Get color based on test status
-const getStatusColor = (status) => {
-  const colors = {
+const getStatusColor = (status: string) => {
+  const colors: Record<string, string> = {
     passed: 'var(--vp-c-green-1)',
     failed: 'var(--vp-c-red-1)',
     skipped: 'var(--vp-c-yellow-1)',

@@ -54,6 +54,7 @@
 <script setup>
 import { computed } from 'vue';
 import DateTimeFormatter from '../DateTimeFormatter.vue';
+import { formatDuration, formatLabel, formatValue } from '../../../helpers/formatter';
 
 const props = defineProps({
   report: {
@@ -96,45 +97,6 @@ const duration = computed(() => {
   
   return null;
 });
-
-// Format duration in milliseconds to human-readable format
-const formatDuration = (ms) => {
-  if (ms === null || ms === undefined) return 'N/A';
-  
-  if (ms < 1000) {
-    return `${ms}ms`;
-  }
-  
-  const seconds = Math.floor(ms / 1000);
-  const remainingMs = ms % 1000;
-  
-  if (seconds < 60) {
-    return remainingMs > 0 
-      ? `${seconds}.${String(remainingMs).padStart(3, '0').substring(0, 2)}s`
-      : `${seconds}s`;
-  }
-  
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  
-  return `${minutes}m ${remainingSeconds}s`;
-};
-
-// Format label from camelCase or snake_case to Title Case
-const formatLabel = (key) => {
-  return key
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/_/g, ' ')
-    .replace(/^./, (str) => str.toUpperCase())
-    .trim();
-};
-
-// Format value for display
-const formatValue = (value) => {
-  if (value === null || value === undefined) return 'N/A';
-  if (typeof value === 'object') return JSON.stringify(value);
-  return String(value);
-};
 </script>
 
 <style scoped>
