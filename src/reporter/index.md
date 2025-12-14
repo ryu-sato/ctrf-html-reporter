@@ -7,9 +7,15 @@ const summaryStatus = richReportWithInsights.results.summary.failed > 0 ? 'Faile
 
 # Overview
 
-<ReportInfo v-if="richReportWithInsights" :report="richReportWithInsights" />
+<ReportInfo
+  v-if="richReportWithInsights"
+  :report="richReportWithInsights"
+/>
 
-<EnvironmentInfo v-if="richReportWithInsights.results.environment" :environment="richReportWithInsights.results.environment" />
+<EnvironmentInfo
+  v-if="richReportWithInsights.results.environment"
+  :environment="richReportWithInsights.results.environment"
+/>
 
 ## Summary
 
