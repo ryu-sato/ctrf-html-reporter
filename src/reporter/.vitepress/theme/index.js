@@ -12,7 +12,7 @@ import TestDetail from './components/TestDetail.vue'
 import TimelineChart from './components/TimelineChart.vue'
 import PercentFormatter from './components/PercentFormatter.vue'
 import Layout from './layouts/Layout.vue'
-import InsightsView from './components/InsightsView.vue';
+import InsightsView from './components/insights/InsightsView.vue';
 
 export default {
   extends: DefaultTheme,

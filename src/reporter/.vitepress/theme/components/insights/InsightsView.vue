@@ -173,7 +173,7 @@
 <script setup lang="ts">
 import { ref, computed, inject, watch } from 'vue';
 import type { Report } from 'ctrf';
-import PercentFormatter from './PercentFormatter.vue';
+import PercentFormatter from '../PercentFormatter.vue';
 
 interface Props {
   report: Report;
