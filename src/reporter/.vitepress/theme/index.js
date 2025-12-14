@@ -9,7 +9,7 @@ import SummaryView from './components/report/SummaryView.vue'
 import TestTreeView from './components/TestTreeView.vue'
 import SuiteNode from './components/SuiteNode.vue'
 import TestDetail from './components/TestDetail.vue'
-import TimelineChart from './components/TimelineChart.vue'
+import TimelineChart from './components/timeline/TimelineChart.vue'
 import PercentFormatter from './components/PercentFormatter.vue'
 import Layout from './layouts/Layout.vue'
 import InsightsView from './components/insights/InsightsView.vue';

@@ -76,8 +76,19 @@
 
 <script setup>
 import { ref, computed, onMounted, inject } from 'vue';
-import { data as sortedReportsByTimestamp } from '../../../sortedReportsByTimestamp.data.js';
-import TestStats from './TestStats.vue';
+import TestStats from '../TestStats.vue';
+
+const props = defineProps({
+  reports: {
+    type: Array,
+    default: () => [],
+    validator: (value) => {
+      // Report should have at least some basic properties
+      if (!value) return true; // null/undefined is acceptable (shows empty state)
+      return Array.isArray(value) && value.every(item => typeof item === 'object');
+    }
+  }
+});
 
 // Inject selectTest function from ReportLayout
 const selectTest = inject('selectTest', null);
@@ -92,7 +103,7 @@ const handleTestClick = (test) => {
 // Get all tests from all reports
 const allTests = computed(() => {
   const tests = [];
-  const reports = Array.isArray(sortedReportsByTimestamp) ? sortedReportsByTimestamp : [sortedReportsByTimestamp];
+  const reports = Array.isArray(props.reports) ? props.reports : [props.reports];
   
   reports.forEach(report => {
     if (report && report.results && report.results.tests) {
@@ -221,7 +232,6 @@ const stats = computed(() => ({
 
 // Debug: Log data to console
 onMounted(() => {
-  console.log('sortedReportsByTimestamp:', sortedReportsByTimestamp);
   console.log('allTests:', allTests.value);
   console.log('testGroups:', testGroups.value);
   console.log('testGroups length:', testGroups.value.length);
