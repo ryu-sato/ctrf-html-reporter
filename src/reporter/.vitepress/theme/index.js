@@ -12,6 +12,7 @@ import TestDetail from './components/TestDetail.vue'
 import TimelineChart from './components/TimelineChart.vue'
 import PercentFormatter from './components/PercentFormatter.vue'
 import Layout from './layouts/Layout.vue'
+import InsightsView from './components/InsightsView.vue';
 
 export default {
   extends: DefaultTheme,
@@ -28,5 +29,6 @@ export default {
     app.component('TestDetail', TestDetail)
     app.component('TimelineChart', TimelineChart)
     app.component('PercentFormatter', PercentFormatter)
+    app.component('InsightsView', InsightsView)
   }
 }
