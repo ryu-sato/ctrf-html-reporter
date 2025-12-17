@@ -30,7 +30,6 @@ provide(layoutInfoInjectionKey, { heroImageSlotExists })
 </script>
 
 <template>
-  <DefaultLayout v-if="frontmatter.layout !== 'report'" />
   <div
     v-if="frontmatter.layout === 'report'"
     class="Layout"
@@ -79,7 +78,7 @@ provide(layoutInfoInjectionKey, { heroImageSlotExists })
     <VPFooter />
     <slot name="layout-bottom" />
   </div>
-  <Content v-else />
+  <DefaultLayout v-else />
 </template>
 
 <style scoped>
