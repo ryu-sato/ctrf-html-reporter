@@ -133,10 +133,6 @@ onUnmounted(() => {
   width: 100%;
 }
 
-.report-container.no-navbar {
-  padding-top: 0;
-}
-
 .container {
   margin: 0 auto;
   width: 100%;
@@ -146,26 +142,11 @@ onUnmounted(() => {
 .report-main-area {
   display: flex;
   width: 100%;
-  height: calc(100vh);
+  height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
-.report-container.no-navbar .report-main-area {
-  height: 100vh;
-}
-
-@media (min-width: 960px) {
-  .report-main-area {
-  }
-  
-}
-
-@media (min-width: 1440px) {
-  .report-main-area {
-    padding-left: calc((100vw - var(--vp-layout-max-width)) / 2);
-  }
-}
 
 .report-content {
   overflow-y: auto;
@@ -174,23 +155,6 @@ onUnmounted(() => {
   position: relative;
   padding: 48px 48px 0;
   margin: auto;
-}
-/* 
-.content {
-  padding: 0 32px 96px;
-  width: 100%;
-} */
-
-@media (min-width: 768px) {
-  .content {
-    padding: 0 48px 96px;
-  }
-}
-
-@media (min-width: 960px) {
-  .content {
-    padding: 0 64px 96px;
-  }
 }
 
 .content-container {
