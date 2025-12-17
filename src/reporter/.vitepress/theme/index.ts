@@ -10,7 +10,7 @@ import SuiteNode from './components/test-tree/SuiteNode.vue'
 import TestDetail from './layouts/TestDetail.vue'
 import TimelineChart from './components/timeline/TimelineChart.vue'
 import PercentFormatter from './components/PercentFormatter.vue'
-import ReportLayout from './layouts/ReportLayout.vue'
+import ReportLayout from './layouts/report-layout/ReportLayout.vue'
 import InsightsView from './components/insights/InsightsView.vue';
 
 export default {

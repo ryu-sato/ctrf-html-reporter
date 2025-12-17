@@ -72,7 +72,7 @@ import VPLocalNav from 'vitepress/dist/client/theme-default/components/VPLocalNa
 import VPSidebar from 'vitepress/dist/client/theme-default/components/VPSidebar.vue'
 import VPBackdrop from 'vitepress/dist/client/theme-default/components/VPBackdrop.vue'
 import { registerWatchers } from 'vitepress/dist/client/theme-default/composables/layout.js'
-import TestDetail from './TestDetail.vue'
+import TestDetail from '../TestDetail.vue'
 
 const { frontmatter } = useData()
 const route = useRoute()
