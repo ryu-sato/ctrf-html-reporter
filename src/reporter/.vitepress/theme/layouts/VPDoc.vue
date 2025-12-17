@@ -1,38 +1,19 @@
 <template>
   <div class="Layout">
-    <slot name="layout-top" />
+    <slot name="report-top" />
     
-    <!-- Navigation Bar -->
-    <VPNav v-if="showNavbar" />
-    
-    <!-- Background -->
-    <VPLocalNav v-if="showNavbar" :open="sidebarOpen" @open-menu="toggleSidebar" />
-    
-    <VPSidebar :open="sidebarOpen" @close="closeSidebar">
-      <template #sidebar-nav-before>
-        <slot name="sidebar-nav-before" />
-      </template>
-      <template #sidebar-nav-after>
-        <slot name="sidebar-nav-after" />
-      </template>
-    </VPSidebar>
-    
-    <VPBackdrop class="backdrop" :show="sidebarOpen" @click="closeSidebar" />
-    
-    <div class="report-container" :class="{ 'no-navbar': !showNavbar }">
+    <div class="report-container">
       <div class="container">
         <!-- Main Content Area -->
         <div class="report-main-area">
           <!-- Content Area -->
           <div class="report-content" :style="{ width: contentWidth + '%' }">
-            <div class="content">
-              <div class="content-container">
-                <slot name="doc-before" />
-                <main class="main">
-                  <Content class="vp-doc" />
-                </main>
-                <slot name="doc-after" />
-              </div>
+            <div class="content-container">
+              <slot name="report-before" />
+              <main class="main">
+                <Content class="vp-doc" />
+              </main>
+              <slot name="report-after" />
             </div>
           </div>
           
@@ -60,42 +41,13 @@
       </div>
     </div>
     
-    <slot name="layout-bottom" />
+    <slot name="report-bottom" />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, provide, onUnmounted, watch } from 'vue'
-import { useData, useRoute } from 'vitepress'
-import VPNav from 'vitepress/dist/client/theme-default/components/VPNav.vue'
-import VPLocalNav from 'vitepress/dist/client/theme-default/components/VPLocalNav.vue'
-import VPSidebar from 'vitepress/dist/client/theme-default/components/VPSidebar.vue'
-import VPBackdrop from 'vitepress/dist/client/theme-default/components/VPBackdrop.vue'
-import { registerWatchers } from 'vitepress/dist/client/theme-default/composables/layout.js'
-import TestDetail from '../TestDetail.vue'
-
-const { frontmatter } = useData()
-const route = useRoute()
-
-// Navbar visibility control
-const showNavbar = computed(() => frontmatter.value.navbar !== false)
-
-// Sidebar visibility control (always visible on desktop, toggleable on mobile)
-const sidebarOpen = ref(false)
-
-const toggleSidebar = () => {
-  sidebarOpen.value = !sidebarOpen.value
-}
-
-const closeSidebar = () => {
-  sidebarOpen.value = false
-}
-
-// Register VitePress layout watchers
-registerWatchers({ closeSidebar })
-
-// Close sidebar on route change
-watch(() => route.path, closeSidebar)
+import { ref, computed, provide, onUnmounted } from 'vue'
+import TestDetail from './TestDetail.vue'
 
 // Selected test item
 const selectedTest = ref(null)
@@ -179,7 +131,6 @@ onUnmounted(() => {
 .report-container {
   margin: 0 auto;
   width: 100%;
-  padding-top: var(--vp-nav-height);
 }
 
 .report-container.no-navbar {
@@ -195,7 +146,7 @@ onUnmounted(() => {
 .report-main-area {
   display: flex;
   width: 100%;
-  height: calc(100vh - var(--vp-nav-height));
+  height: calc(100vh);
   overflow: hidden;
   position: relative;
 }
@@ -206,19 +157,13 @@ onUnmounted(() => {
 
 @media (min-width: 960px) {
   .report-main-area {
-    padding-left: var(--vp-sidebar-width);
   }
   
-  /* Always show sidebar */
-  :deep(.VPSidebar) {
-    transform: translateX(0) !important;
-    opacity: 1 !important;
-  }
 }
 
 @media (min-width: 1440px) {
   .report-main-area {
-    padding-left: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width));
+    padding-left: calc((100vw - var(--vp-layout-max-width)) / 2);
   }
 }
 
@@ -227,12 +172,14 @@ onUnmounted(() => {
   overflow-x: hidden;
   transition: width 0.1s ease;
   position: relative;
+  padding: 48px 48px 0;
+  margin: auto;
 }
-
+/* 
 .content {
   padding: 0 32px 96px;
   width: 100%;
-}
+} */
 
 @media (min-width: 768px) {
   .content {
@@ -331,15 +278,4 @@ onUnmounted(() => {
   }
 }
 
-/* Sidebar style adjustments */
-:deep(.VPSidebar) {
-  z-index: var(--vp-z-index-sidebar);
-}
-
-@media (min-width: 960px) {
-  :deep(.VPSidebar) {
-    opacity: 1;
-    visibility: visible;
-  }
-}
 </style>
