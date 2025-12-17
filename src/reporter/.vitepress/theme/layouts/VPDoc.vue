@@ -125,7 +125,6 @@ onUnmounted(() => {
 .Layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .report-container {
@@ -142,7 +141,7 @@ onUnmounted(() => {
 .report-main-area {
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - var(--vp-nav-height) - 0);
   overflow: hidden;
   position: relative;
 }
@@ -154,7 +153,7 @@ onUnmounted(() => {
   transition: width 0.1s ease;
   position: relative;
   padding: 48px 48px 0;
-  margin: auto;
+  height: 100%;
 }
 
 .content-container {
