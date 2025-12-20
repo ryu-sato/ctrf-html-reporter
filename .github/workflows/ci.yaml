@@ -53,7 +53,7 @@ jobs:
         run: |
           echo "::group::Building and packing project"
           pnpm run build
-          pnpm pack --pack-destination ./package-tmp
+          pnpm pack --pack-destination ../package-tmp
           echo "::endgroup::"
 
       - name: (prepare) Install packed package
