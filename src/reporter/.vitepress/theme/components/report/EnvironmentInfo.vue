@@ -11,7 +11,7 @@
 
       <!-- Application & Test Environment -->
       <div 
-        v-if="environment.appName || environment.appVersion || environment.testEnvironment || environment.healthy !== undefined"
+        v-if="environment.appName || environment.appVersion || environment.testEnvironment"
         class="info-section"
       >
         <h4 class="section-title">Application</h4>
@@ -19,13 +19,6 @@
           <span v-if="environment.appName">{{ environment.appName }}</span>
           <code v-if="environment.appVersion">v{{ environment.appVersion }}</code>
           <span v-if="environment.testEnvironment" class="test-env"> ({{ environment.testEnvironment }})</span>
-          <Badge 
-            v-if="environment.healthy !== undefined" 
-            :type="environment.healthy ? 'success' : 'danger'"
-            class="health-badge"
-          >
-            {{ environment.healthy ? 'Healthy' : 'Unhealthy' }}
-          </Badge>
         </div>
       </div>
 
@@ -118,10 +111,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { formatLabel, formatValue } from '../../../helpers/formatter';
+import type { Environment } from 'ctrf';
 
 const props = defineProps({
   environment: {
-    type: Object,
+    type: Object as () => Environment,
     default: () => ({}),
     validator: (value) => {
       // Environment should be an object
@@ -140,7 +134,6 @@ const hasEnvironmentData = computed(() => {
     env.appName ||
     env.appVersion ||
     env.testEnvironment ||
-    env.healthy !== undefined ||
     env.buildId ||
     env.buildName ||
     env.buildNumber ||

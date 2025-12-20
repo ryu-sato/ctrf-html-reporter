@@ -60,6 +60,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { formatDuration, formatChange } from '../../../helpers/formatter';
+import type { RootInsights } from 'ctrf';
 
 interface MetricValue {
   current: number;
@@ -86,7 +87,7 @@ interface DisplayMetric {
 
 const props = defineProps({
   insights: {
-    type: Object,
+    type: Object as () => RootInsights,
     required: true,
     validator: (value: unknown) => {
       return typeof value === 'object';

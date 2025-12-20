@@ -55,10 +55,11 @@
 import { computed } from 'vue';
 import DateTimeFormatter from '../DateTimeFormatter.vue';
 import { formatDuration, formatLabel, formatValue } from '../../../helpers/formatter';
+import type { Report } from 'ctrf';
 
 const props = defineProps({
   report: {
-    type: Object,
+    type: Object as () => Report,
     default: null,
     validator: (value) => {
       // Report should have at least some basic properties

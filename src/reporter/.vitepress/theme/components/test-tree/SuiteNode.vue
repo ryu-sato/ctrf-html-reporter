@@ -51,10 +51,11 @@
 import { inject } from 'vue';
 import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
 import { VPBadge as Badge } from 'vitepress/theme';
+import type { TreeNode } from 'ctrf';
 
 const props = defineProps({
   suite: {
-    type: Object,
+    type: Object as () => TreeNode,
     required: true
   }
 });

@@ -76,7 +76,7 @@ import { formatDuration, formatDateTime } from '../../../helpers/formatter';
 
 const props = defineProps({
   report: {
-    type: Object,
+    type: Object as () => Report,
     default: null,
     validator: (value: Report) => {
       if (!value) return true; // null/undefined is acceptable (shows empty state)
@@ -86,7 +86,7 @@ const props = defineProps({
 });
 
 // Inject selectTest function from ReportLayout
-const selectTest = inject('selectTest', null);
+const selectTest = inject<((test: Test) => void) | null>('selectTest', null);
 
 // Handle test click
 const handleTestClick = (test: Test) => {
@@ -111,8 +111,11 @@ const timeRange = computed(() => {
   if (allTests.value.length === 0) {
     return { min: 0, max: 0, duration: 0 };
   }
-  const starts = allTests.value.map((t: Test) => t.start);
-  const stops = allTests.value.map((t: Test) => t.stop);
+  const starts = allTests.value.map((t: Test) => t.start).filter((s): s is number => s !== undefined);
+  const stops = allTests.value.map((t: Test) => t.stop).filter((s): s is number => s !== undefined);
+  if (starts.length === 0 || stops.length === 0) {
+    return { min: 0, max: 0, duration: 0 };
+  }
   const min = Math.min(...starts);
   const max = Math.max(...stops);
   return { min, max, duration: max - min };

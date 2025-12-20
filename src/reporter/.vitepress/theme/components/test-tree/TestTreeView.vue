@@ -69,10 +69,11 @@ import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
 import { VPBadge as Badge } from 'vitepress/theme';
 import SuiteNode from './SuiteNode.vue';
 import TestFilter from './TestFilter.vue';
+import type { TreeNode } from 'ctrf';
 
 const props = defineProps({
   nodes: {
-    type: Array,
+    type: Array as () => TreeNode[],
     required: true,
     validator: (value) => {
       return Array.isArray(value);
@@ -158,7 +159,7 @@ const filteredNodes = computed(() => {
     return props.nodes;
   }
   
-  return props.nodes.map((node: any) => {
+  return props.nodes.map((node) => {
     const filteredNode = { ...node };
     
     // Filter tests at root level
@@ -178,7 +179,7 @@ const filteredNodes = computed(() => {
     }
     
     return filteredNode;
-  }).filter((node: any) => {
+  }).filter((node) => {
     // Keep node if it has tests or non-empty suites
     const hasTests = node.tests && node.tests.length > 0;
     const hasSuites = node.suites && node.suites.length > 0;

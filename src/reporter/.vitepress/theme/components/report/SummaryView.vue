@@ -63,10 +63,11 @@
 import { ref, onMounted } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import { formatDuration } from '../../../helpers/formatter';
+import type { Summary } from 'ctrf';
 
 const props = defineProps({
   summary: {
-    type: Object,
+    type: Object as () => Summary,
     required: true,
     validator: (value: any) => {
       return value.tests !== undefined;
