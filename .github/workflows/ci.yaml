@@ -57,14 +57,14 @@ jobs:
           echo "::endgroup::"
 
       - name: (prepare) Install packed package
-        working-directory: ./package-tmp
+        working-directory: ../package-tmp
         run: |
           echo "::group::Installing packed package"
           pnpm install ./ctrf-html-reporter-*.tgz
           echo "::endgroup::"
 
       - name: (main) Verify bin field exists in package.json
-        working-directory: ./package-tmp
+        working-directory: ../package-tmp
         run: |
           echo "::group::✅ Verifying bin field in package.json"
           BIN_NAME=$(jq -r '.bin | to_entries | .[0].key // empty' package.json)
@@ -78,7 +78,7 @@ jobs:
           echo "::endgroup::"
 
       - name: (main) Check bin file exists in node_modules
-        working-directory: ./package-tmp
+        working-directory: ../package-tmp
         run: |
           echo "::group::✅ Checking bin file existence"
           if [ ! -f "$BIN_PATH" ]; then
@@ -89,7 +89,7 @@ jobs:
           echo "::endgroup::"
 
       - name: (main) Verify bin file is executable
-        working-directory: ./package-tmp
+        working-directory: ../package-tmp
         run: |
           echo "::group::✅ Verifying bin file is executable"
           if [ ! -x "$BIN_PATH" ]; then
