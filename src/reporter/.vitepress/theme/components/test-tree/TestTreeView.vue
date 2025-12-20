@@ -187,26 +187,6 @@ const filteredNodes = computed(() => {
     return hasTests || hasSuites;
   });
 });
-
-onMounted(() => {
-  // Debug: Check if test data has tags
-  if (props.nodes && props.nodes.length > 0) {
-    const firstNode = props.nodes[0] as any;
-    console.log('TestTreeView - First node:', firstNode.name);
-    
-    if (firstNode.suites && firstNode.suites.length > 0) {
-      const firstSuite = firstNode.suites[0];
-      if (firstSuite.tests && firstSuite.tests.length > 0) {
-        console.log('TestTreeView - First test in suite has tags:', firstSuite.tests[0].tags);
-      }
-    }
-    
-    if (firstNode.tests && firstNode.tests.length > 0) {
-      console.log('TestTreeView - First test in root has tags:', firstNode.tests[0].tags);
-    }
-  }
-});
-
 // Inject selectTest function from ReportLayout
 const selectTest = inject<((test: any) => void) | null>('selectTest', null);
 
