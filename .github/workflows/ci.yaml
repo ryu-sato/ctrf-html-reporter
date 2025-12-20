@@ -49,7 +49,9 @@ jobs:
       - *setup-pnpm-step
       - *setup-node-step
       - *install-dependencies-step
-      - *build-step
+
+      - name: (prepare) Build project
+        run: pnpm run build
 
       - name: (prepare) Packing package
         run: |
@@ -62,7 +64,6 @@ jobs:
           echo "::group::Installing packed package"
           mkdir verify-package-env
           cd verify-package-env
-          pnpm init -y
           pnpm install ../package-tmp/ctrf-html-reporter-*.tgz
           echo "::endgroup::"
 
