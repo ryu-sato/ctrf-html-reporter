@@ -4,6 +4,7 @@ import { version, description } from './package-info.mjs';
 import { build } from 'vitepress';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { commanderToCommandArguments } from './command-parameters.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,7 +16,8 @@ program
   .description(description)
   .argument('<report.ctrf.json>', 'Path to the CTRF report file')
   .action((options) => {
-    console.log(`Processing report file...: ${options.reportFile}`);
+    const commandArgs = commanderToCommandArguments(program); 
+    console.log(`Processing report file...: ${commandArgs.inputFilePath}`);
     const reporterPath = path.resolve(__dirname, 'reporter');
     build(reporterPath);
   });
