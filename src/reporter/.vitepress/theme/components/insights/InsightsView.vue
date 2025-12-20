@@ -174,7 +174,7 @@
 import { ref, computed, inject, watch } from 'vue';
 import type { Report } from 'ctrf';
 import PercentFormatter from '../PercentFormatter.vue';
-import { formatPercent, formatDuration } from '../../../helpers/formatter';
+import { formatPercent } from '../../../helpers/formatter';
 
 interface Props {
   report: Report;
