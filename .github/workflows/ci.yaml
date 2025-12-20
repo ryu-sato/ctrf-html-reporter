@@ -49,17 +49,25 @@ jobs:
       - *setup-node-step
       - *install-dependencies-step
 
-      - name: (prepare) Build project
+      - name: (prepare) Build and pack project
         run: |
-          echo "::group::Installing packed package"
+          echo "::group::Building and packing project"
           pnpm run build
           pnpm pack --pack-destination ./package-tmp
-          mkdir verify-package-env
-          cd verify-package-env
+          echo "::endgroup::"
+
+      - name: (prepare) Create verify environment
+        run: mkdir -p verify-package-env
+
+      - name: (prepare) Install packed package
+        working-directory: ./verify-package-env
+        run: |
+          echo "::group::Installing packed package"
           pnpm install ../package-tmp/ctrf-html-reporter-*.tgz
           echo "::endgroup::"
 
       - name: (main) Verify bin field exists in package.json
+        working-directory: ./verify-package-env
         run: |
           echo "::group::✅ Verifying bin field in package.json"
           BIN_NAME=$(jq -r '.bin | to_entries | .[0].key // empty' package.json)
@@ -73,6 +81,7 @@ jobs:
           echo "::endgroup::"
 
       - name: (main) Check bin file exists in node_modules
+        working-directory: ./verify-package-env
         run: |
           echo "::group::✅ Checking bin file existence"
           if [ ! -f "$BIN_PATH" ]; then
@@ -83,6 +92,7 @@ jobs:
           echo "::endgroup::"
 
       - name: (main) Verify bin file is executable
+        working-directory: ./verify-package-env
         run: |
           echo "::group::✅ Verifying bin file is executable"
           if [ ! -x "$BIN_PATH" ]; then
@@ -93,6 +103,7 @@ jobs:
           echo "::endgroup::"
 
       - name: (main) Test bin execution
+        working-directory: ./verify-package-env
         run: |
           echo "::group::✅ Testing bin execution"
           $BIN_PATH --version
