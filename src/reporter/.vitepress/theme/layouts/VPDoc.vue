@@ -223,6 +223,41 @@ onUnmounted(() => {
 
 .detail-content {
   width: 100%;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar styles */
+.report-content::-webkit-scrollbar,
+.report-detail::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.report-content::-webkit-scrollbar-track,
+.report-detail::-webkit-scrollbar-track {
+  background: var(--vp-c-bg);
+}
+
+.report-content::-webkit-scrollbar-thumb,
+.report-detail::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 4px;
+}
+
+.report-content::-webkit-scrollbar-thumb:hover,
+.report-detail::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
 }
 
 /* Responsive styles */

@@ -204,25 +204,31 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* =========================
+   Container
+   ========================= */
 .summary-view {
-  margin: 1rem 0;
+  margin: var(--report-spacing-lg) 0;
 }
 
+/* =========================
+   Statistics
+   ========================= */
 .timeline-stats {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
+  gap: var(--report-spacing-2xl);
+  margin-bottom: var(--report-spacing-xl);
   flex-wrap: wrap;
 }
 
 .stat-item {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
 }
 
 .stat-label {
-  font-size: 0.875rem;
+  font-size: var(--report-control-font-size);
   color: var(--vp-c-text-2);
 }
 
@@ -232,30 +238,33 @@ onMounted(() => {
 }
 
 .status-passed { 
-  color: var(--vp-c-green-1); 
+  color: var(--report-status-passed);
 }
 
 .status-failed { 
-  color: var(--vp-c-red-1); 
+  color: var(--report-status-failed);
 }
 
 .status-skipped { 
-  color: var(--vp-c-yellow-1); 
+  color: var(--report-status-skipped);
 }
 
+/* =========================
+   Time Information
+   ========================= */
 .time-info {
-  margin-top: 1.5rem;
-  padding: 1rem;
+  margin-top: var(--report-spacing-xl);
+  padding: var(--report-spacing-lg);
   background-color: var(--vp-c-bg-soft);
-  border-radius: 8px;
+  border-radius: var(--report-card-border-radius);
   border-left: 4px solid var(--vp-c-brand);
 }
 
 .time-info-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
+  gap: var(--report-spacing-sm);
+  margin: var(--report-spacing-sm) 0;
 }
 
 .time-label {

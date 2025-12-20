@@ -215,6 +215,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* =========================
+   Filter Controls
+   ========================= */
 .filter-controls {
   margin-bottom: 2rem;
   padding: 1rem;
@@ -249,8 +252,13 @@ onMounted(() => {
   padding: 0.5rem;
   border: 1px solid var(--vp-c-divider);
   border-radius: 0.25rem;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
 }
 
+/* =========================
+   Timeline Chart
+   ========================= */
 .timeline-chart {
   margin-bottom: 2rem;
 }
@@ -265,6 +273,9 @@ onMounted(() => {
   margin-bottom: 1rem;
 }
 
+/* =========================
+   Suite Group
+   ========================= */
 .suite-group {
   margin-bottom: 2rem;
 }
@@ -278,6 +289,9 @@ onMounted(() => {
   margin-bottom: 0.5rem;
 }
 
+/* =========================
+   Test Row
+   ========================= */
 .test-row {
   display: flex;
   align-items: center;
@@ -303,6 +317,9 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
+/* =========================
+   Timeline Bar
+   ========================= */
 .test-timeline {
   flex: 1;
   position: relative;
@@ -351,6 +368,9 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
+/* =========================
+   No Tests
+   ========================= */
 .no-tests {
   text-align: center;
   padding: 3rem;
