@@ -4,9 +4,9 @@ import { resolve } from 'path';
 export default {
   async load() {
     try {
-      // Resolve the path to the sample report file
-      // [TODO] CHANGE THIS TO DYNAMIC PATH
-      const reportPath = resolve(process.cwd(), 'sample-ctrf-result.json');
+      // Resolve the path to the report file
+      // Use environment variable if set, otherwise fall back to sample file
+      const reportPath = resolve(process.cwd(), process.env.CTRF_REPORT_PATH || 'sample-ctrf-result.json');
 
       const report = await readReportFromFile(reportPath);
       const tree = organizeTestsBySuite(report.results.tests);

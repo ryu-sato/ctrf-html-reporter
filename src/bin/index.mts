@@ -18,6 +18,10 @@ program
   .action((options) => {
     const commandArgs = commanderToCommandArguments(program); 
     console.log(`Processing report file...: ${commandArgs.inputFilePath}`);
+    
+    // Set the report path as an environment variable for VitePress data loaders
+    process.env.CTRF_REPORT_PATH = commandArgs.inputFilePath;
+    
     const reporterPath = path.resolve(__dirname, 'reporter');
     build(reporterPath);
   });
