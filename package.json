@@ -20,17 +20,16 @@
   "type": "module",
   "main": "index.mjs",
   "bin": {
-    "ctrf-html-reporter": "index.mjs"
+    "ctrf-html-reporter": "dist/index.mjs"
   },
   "files": [
-    "index.mjs",
-    "reporter/**/*"
+    "dist/index.mjs",
+    "dist/reporter/**/*"
   ],
   "scripts": {
-    "test": "pnpm test",
+    "test": "npm test",
+    "build": "pnpm exec vite build",
     "bin:build": "tsc -p tsconfig.json",
-    "prebin:build": "npm run bin:copy-files",
-    "bin:copy-files": "cp -r ./src/reporter/ ./dist",
     "reporter:dev": "vitepress dev src/reporter --host 0.0.0.0",
     "reporter:build": "vitepress build src/reporter",
     "reporter:preview": "vitepress preview src/reporter"
@@ -40,7 +39,8 @@
     "commander": "^14.0.2",
     "ctrf": "^0.0.17",
     "lucide-vue-next": "^0.561.0",
-    "vitepress": "2.0.0-alpha.15"
+    "vitepress": "2.0.0-alpha.15",
+    "vue": "^3.5.26"
   },
   "devDependencies": {
     "@types/node": "^25.0.1",
