@@ -1,0 +1,10 @@
+# Ignore files for npm publish
+/.devcontainer
+/.github
+/.pnpm-store
+/.ctrf
+/coverage
+/dist/reporter/.vitepress/cache
+/dist/reporter/.vitepress/dist
+/node_modules
+/src
