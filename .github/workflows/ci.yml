@@ -1,9 +1,12 @@
 name: CI
 
 on:
-  pull_request:
-    branches:
-      - main
+  # pull_request:
+  #   branches:
+  #     - main
+
+  # [TODO] Remove on push after testing
+  push
 
 jobs:
   build:
