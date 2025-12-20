@@ -6,3 +6,4 @@
 # VitePress
 /src/reporter/.vitepress/cache
 /src/reporter/.vitepress/dist
+/coverage
