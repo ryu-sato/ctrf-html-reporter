@@ -60,7 +60,7 @@ jobs:
         working-directory: ./package-tmp
         run: |
           echo "::group::Installing packed package"
-          pnpm install ../package-tmp/ctrf-html-reporter-*.tgz
+          pnpm install ./ctrf-html-reporter-*.tgz
           echo "::endgroup::"
 
       - name: (main) Verify bin field exists in package.json
