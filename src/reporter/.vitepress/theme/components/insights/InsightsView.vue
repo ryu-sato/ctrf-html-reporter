@@ -445,6 +445,7 @@ const changeSortOrFilter = () => {
   margin-bottom: var(--report-spacing-lg);
   padding-bottom: var(--report-spacing-md);
   border-bottom: 1px solid var(--vp-c-divider);
+  word-break: break-all;
 }
 
 .test-card-metrics {

@@ -279,6 +279,7 @@ onMounted(() => {
   color: var(--vp-c-text-1);
   border-bottom: 1px solid var(--vp-c-divider);
   margin-bottom: 0.5rem;
+  word-break: break-word;
 }
 
 /* =========================
