@@ -19,7 +19,7 @@ const resolveOutputPath = (outputPath: string): string => {
 const resolveReporterPath = (): string => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  return path.resolve(__dirname, 'reporter');
+  return path.resolve(__dirname, '..', 'reporter');
 };
 
 /**
