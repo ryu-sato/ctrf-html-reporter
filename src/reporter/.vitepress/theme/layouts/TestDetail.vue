@@ -415,6 +415,7 @@ defineProps({
 
 .suite-name {
   color: var(--vp-c-text-1);
+  word-break: break-word;
 }
 
 .separator {
