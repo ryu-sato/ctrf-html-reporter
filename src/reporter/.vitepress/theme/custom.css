@@ -23,41 +23,6 @@
   --report-nav-height: 56px;
 }
 
-/* Keep the sidebar always visible */
-@media (min-width: 960px) {
-  .VPSidebar {
-    padding-top: var(--vp-nav-height);
-    width: var(--vp-sidebar-width);
-    max-width: 100vw;
-    background-color: var(--vp-sidebar-bg-color);
-    opacity: 1;
-    visibility: visible;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: var(--vp-z-index-sidebar);
-    padding-left: max(32px, calc((100% - (var(--vp-layout-max-width) - 64px)) / 2));
-    width: calc(100vw - (100vw - var(--vp-layout-max-width)) / 2);
-    transform: translateX(0);
-  }
-}
-
-.Layout.no-navbar .VPSidebar {
-  padding-top: 0;
-}
-
-.report-container {
-  margin-top: var(--report-nav-height);
-  height: calc(100vh - var(--report-nav-height));
-}
-
-.Layout.no-navbar .report-container,
-.report-container.no-navbar {
-  margin-top: 0;
-  height: 100vh;
-}
-
 /* Resizer Cursor Style */
 .report-resizer {
   user-select: none;
