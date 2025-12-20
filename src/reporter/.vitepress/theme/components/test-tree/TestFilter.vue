@@ -67,27 +67,27 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
 
 const props = defineProps({
   selectedStatuses: {
-    type: Array,
+    type: Array as () => string[],
     default: () => []
   },
   selectedTags: {
-    type: Array,
+    type: Array as () => string[],
     default: () => []
   },
   availableTags: {
-    type: Array,
+    type: Array as () => string[],
     default: () => []
   }
 });
 
 const emit = defineEmits(['update:selectedStatuses', 'update:selectedTags', 'clear']);
 
-const toggleStatus = (status) => {
+const toggleStatus = (status: string) => {
   const newStatuses = [...props.selectedStatuses];
   const index = newStatuses.indexOf(status);
   
@@ -100,7 +100,7 @@ const toggleStatus = (status) => {
   emit('update:selectedStatuses', newStatuses);
 };
 
-const toggleTag = (tag) => {
+const toggleTag = (tag: string) => {
   const newTags = [...props.selectedTags];
   const index = newTags.indexOf(tag);
   

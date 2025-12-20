@@ -63,7 +63,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { inject, onMounted, ref, computed } from 'vue';
 import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
 import { VPBadge as Badge } from 'vitepress/theme';
@@ -81,39 +81,39 @@ const props = defineProps({
 });
 
 // Filter states
-const selectedStatuses = ref([]);
-const selectedTags = ref([]);
+const selectedStatuses = ref<string[]>([]);
+const selectedTags = ref<string[]>([]);
 
 // Get all available tags from tests
 const availableTags = computed(() => {
-  const tags = new Set();
+  const tags = new Set<string>();
   
-  const extractTags = (node) => {
+  const extractTags = (node: any) => {
     // Extract tags from tests at this level
     if (node.tests && Array.isArray(node.tests)) {
-      node.tests.forEach(test => {
+      node.tests.forEach((test: any) => {
         if (test.tags && Array.isArray(test.tags)) {
-          test.tags.forEach(tag => tags.add(tag));
+          test.tags.forEach((tag: string) => tags.add(tag));
         }
       });
     }
     
     // Recursively extract tags from suites
     if (node.suites && Array.isArray(node.suites)) {
-      node.suites.forEach(suite => extractTags(suite));
+      node.suites.forEach((suite: any) => extractTags(suite));
     }
   };
   
-  props.nodes.forEach(node => extractTags(node));
+  props.nodes.forEach((node: any) => extractTags(node));
   
   return Array.from(tags).sort();
 });
 
 // Filter tests based on selected statuses and tags
-const filterTests = (tests) => {
+const filterTests = (tests: any) => {
   if (!tests || !Array.isArray(tests)) return tests;
   
-  return tests.filter(test => {
+  return tests.filter((test: any) => {
     // Filter by status
     const statusMatch = selectedStatuses.value.length === 0 || 
                        selectedStatuses.value.includes(test.status);
@@ -128,7 +128,7 @@ const filterTests = (tests) => {
 };
 
 // Filter suites recursively
-const filterSuite = (suite) => {
+const filterSuite = (suite: any): any => {
   const filteredSuite = { ...suite };
   
   // Filter tests in this suite
@@ -139,8 +139,8 @@ const filterSuite = (suite) => {
   // Filter nested suites
   if (filteredSuite.suites && Array.isArray(filteredSuite.suites)) {
     filteredSuite.suites = filteredSuite.suites
-      .map(s => filterSuite(s))
-      .filter(s => {
+      .map((s: any) => filterSuite(s))
+      .filter((s: any) => {
         // Keep suite if it has tests or non-empty nested suites
         const hasTests = s.tests && s.tests.length > 0;
         const hasSubSuites = s.suites && s.suites.length > 0;
@@ -158,7 +158,7 @@ const filteredNodes = computed(() => {
     return props.nodes;
   }
   
-  return props.nodes.map(node => {
+  return props.nodes.map((node: any) => {
     const filteredNode = { ...node };
     
     // Filter tests at root level
@@ -169,8 +169,8 @@ const filteredNodes = computed(() => {
     // Filter suites
     if (filteredNode.suites && Array.isArray(filteredNode.suites)) {
       filteredNode.suites = filteredNode.suites
-        .map(s => filterSuite(s))
-        .filter(s => {
+        .map((s: any) => filterSuite(s))
+        .filter((s: any) => {
           const hasTests = s.tests && s.tests.length > 0;
           const hasSubSuites = s.suites && s.suites.length > 0;
           return hasTests || hasSubSuites;
@@ -178,7 +178,7 @@ const filteredNodes = computed(() => {
     }
     
     return filteredNode;
-  }).filter(node => {
+  }).filter((node: any) => {
     // Keep node if it has tests or non-empty suites
     const hasTests = node.tests && node.tests.length > 0;
     const hasSuites = node.suites && node.suites.length > 0;
@@ -189,7 +189,7 @@ const filteredNodes = computed(() => {
 onMounted(() => {
   // Debug: Check if test data has tags
   if (props.nodes && props.nodes.length > 0) {
-    const firstNode = props.nodes[0];
+    const firstNode = props.nodes[0] as any;
     console.log('TestTreeView - First node:', firstNode.name);
     
     if (firstNode.suites && firstNode.suites.length > 0) {
@@ -206,17 +206,17 @@ onMounted(() => {
 });
 
 // Inject selectTest function from ReportLayout
-const selectTest = inject('selectTest', null);
+const selectTest = inject<((test: any) => void) | null>('selectTest', null);
 
 // Handle test click
-const handleTestClick = (test) => {
+const handleTestClick = (test: any) => {
   if (selectTest) {
     selectTest(test);
   }
 };
 
 // Function to get status badge type
-const getStatusType = (status) => {
+const getStatusType = (status: string) => {
   switch(status) {
     case 'passed': return 'success';
     case 'failed': return 'danger';
