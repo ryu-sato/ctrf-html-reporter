@@ -164,6 +164,14 @@ To develop the command:
 pnpm run bin:dev path/to/report.ctrf.json
 ```
 
+and
+
+```bash
+npx serve .ctrf/report -p 3000
+```
+
+This will start the Web server, and you can access it in your browser at `http://localhost:3000`.
+
 ### Build
 
 To build the project:
@@ -229,12 +237,6 @@ ctrf-html-reporter/
    - Use TypeScript
    - Follow the existing code style
    - Add tests as needed
-
-### Development Tips
-
-- **Local Testing**: You can use `pnpm link` to test the package locally
-- **Debugging**: Use Node.js debugger to debug the CLI tool
-- **Reporter Preview**: You can preview the built reporter with `pnpm run reporter:preview`
 
 ## License
 
