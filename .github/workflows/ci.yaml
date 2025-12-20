@@ -43,7 +43,6 @@ jobs:
   verify-package:
     name: Verify Package
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - *checkout-step
       - *setup-pnpm-step
