@@ -27,6 +27,7 @@
     "dist/reporter/**/*"
   ],
   "scripts": {
+    "test": "pnpm run bin:test",
     "build": "pnpm exec vite build",
     "bin:test": "vitest run",
     "bin:test:watch": "vitest",
