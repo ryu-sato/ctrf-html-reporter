@@ -156,18 +156,23 @@ pnpm run reporter:dev
 
 This will start the VitePress development server, and you can access it in your browser at `http://localhost:5173`.
 
+4. **Build the report via commander**
+
+To develop the command:
+
+```bash
+pnpm run bin:dev path/to/report.ctrf.json
+```
+
 ### Build
 
 To build the project:
 
 ```bash
-# Build the CLI tool
-pnpm run bin:build
-
 # Build the reporter UI
-pnpm run reporter:build
+CTRF_REPORT_PATH=path/to/report.ctrf.json pnpm run reporter:build
 
-# Build both
+# Build bin and reporter
 pnpm run build
 ```
 
@@ -177,13 +182,13 @@ To run tests:
 
 ```bash
 # Run tests once
-pnpm test
+pnpm run bin:test
 
 # Run tests in watch mode
-pnpm run test:watch
+pnpm run bin:test:watch
 
 # Run tests with coverage report
-pnpm run test:coverage
+pnpm run bin:test:coverage
 ```
 
 ### Project Structure
