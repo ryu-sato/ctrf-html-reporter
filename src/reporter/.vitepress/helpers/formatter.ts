@@ -53,7 +53,7 @@ export const formatDuration = (ms: number | null | undefined): string => {
   if (ms === null || ms === undefined) return 'N/A';
   
   if (ms < 1000) {
-    return `${ms}ms`;
+    return `${ms.toFixed(2)}ms`;
   }
   
   const seconds = Math.floor(ms / 1000);
