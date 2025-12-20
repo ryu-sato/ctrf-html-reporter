@@ -27,11 +27,11 @@
     "dist/reporter/**/*"
   ],
   "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
     "build": "pnpm exec vite build",
-    "bin:build": "tsc -p tsconfig.json",
+    "bin:test": "vitest run",
+    "bin:test:watch": "vitest",
+    "bin:test:coverage": "vitest run --coverage",
+    "bin:dev": "pnpm exec vite-node src/bin/index.mts",
     "reporter:dev": "vitepress dev src/reporter --host 0.0.0.0",
     "reporter:build": "vitepress build src/reporter",
     "reporter:preview": "vitepress preview src/reporter"
@@ -51,6 +51,7 @@
     "copy-file": "^11.1.0",
     "typescript": "^5.9.3",
     "vite": "^7.2.7",
+    "vite-node": "^5.2.0",
     "vitest": "^2.1.8"
   },
   "engines": {
