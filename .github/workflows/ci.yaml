@@ -67,7 +67,7 @@ jobs:
         working-directory: ../package-tmp
         run: |
           echo "::group::✅ Verifying bin field in package.json"
-          BIN_NAME=$(jq -r '.bin | to_entries | .[0].key // empty' package.json)
+          BIN_NAME=$(jq -r '.bin | to_entries | .[0].key // empty' node_modules/ctrf-html-reporter/package.json)
           if [ -z "$BIN_NAME" ]; then
             echo "::error title=Bin field not found::❌ bin field not found or empty in package.json"
             exit 1
