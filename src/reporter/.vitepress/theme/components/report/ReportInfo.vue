@@ -40,7 +40,7 @@
           v-for="(value, key) in report.extra" 
           :key="`extra-${key}`"
         >
-          <span class="info-label">{{ formatLabel(key) }}</span>
+          <span class="info-label">{{ formatLabel(String(key)) }}</span>
           <span class="info-value">{{ formatValue(value) }}</span>
         </div>
       </template>
@@ -51,7 +51,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import DateTimeFormatter from '../DateTimeFormatter.vue';
 import { formatDuration, formatLabel, formatValue } from '../../../helpers/formatter';

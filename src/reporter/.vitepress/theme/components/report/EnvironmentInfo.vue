@@ -99,7 +99,7 @@
         <div class="section-content">
           <template v-if="typeof environment.extra === 'object'">
             <div v-for="(value, key) in environment.extra" :key="`extra-${key}`" class="extra-item">
-              <span class="extra-label">{{ formatLabel(key) }}:</span>
+              <span class="extra-label">{{ formatLabel(String(key)) }}:</span>
               <span class="extra-value">{{ formatValue(value) }}</span>
             </div>
           </template>
@@ -115,7 +115,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import { formatLabel, formatValue } from '../../../helpers/formatter';
 

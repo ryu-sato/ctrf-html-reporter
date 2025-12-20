@@ -45,7 +45,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, provide, onUnmounted } from 'vue'
 import TestDetail from './TestDetail.vue'
 
@@ -61,9 +61,9 @@ const isResizing = ref(false)
 const startX = ref(0)
 const startContentWidth = ref(0)
 
-const startResize = (event) => {
+const startResize = (event: MouseEvent | TouchEvent) => {
   isResizing.value = true
-  startX.value = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX
+  startX.value = event.type.includes('mouse') ? (event as MouseEvent).clientX : (event as TouchEvent).touches[0].clientX
   startContentWidth.value = contentWidth.value
   
   document.addEventListener('mousemove', handleResize)
@@ -76,14 +76,14 @@ const startResize = (event) => {
   event.preventDefault()
 }
 
-const handleResize = (event) => {
+const handleResize = (event: MouseEvent | TouchEvent) => {
   if (!isResizing.value) return
   
-  const currentX = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX
+  const currentX = event.type.includes('mouse') ? (event as MouseEvent).clientX : (event as TouchEvent).touches[0].clientX
   const container = document.querySelector('.report-main-area')
   if (!container) return
   
-  const containerWidth = container.offsetWidth
+  const containerWidth = (container as HTMLElement).offsetWidth
   const deltaX = currentX - startX.value
   const deltaPercent = (deltaX / containerWidth) * 100
   
@@ -105,7 +105,7 @@ const stopResize = () => {
 }
 
 // Provide test selection globally
-const selectTest = (test) => {
+const selectTest = (test: any) => {
   selectedTest.value = test
 }
 

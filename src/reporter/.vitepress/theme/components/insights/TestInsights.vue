@@ -57,24 +57,47 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import { formatDuration, formatChange } from '../../../helpers/formatter';
+
+interface MetricValue {
+  current: number;
+  baseline?: number;
+  change?: number;
+}
+
+interface AdditionalMetric {
+  label: string;
+  value: string | number;
+  suffix?: string;
+  style?: Record<string, string>;
+}
+
+interface DisplayMetric {
+  label: string;
+  current: number;
+  baseline?: number;
+  change?: number;
+  type: 'percent' | 'duration' | 'number';
+  invertChange: boolean;
+  currentStyle: Record<string, string>;
+}
 
 const props = defineProps({
   insights: {
     type: Object,
     required: true,
-    validator: (value) => {
+    validator: (value: unknown) => {
       return typeof value === 'object';
     }
   },
   showMetrics: {
-    type: Array,
+    type: Array as () => string[],
     default: () => ['passRate', 'failRate', 'flakyRate', 'averageTestDuration', 'averageRunDuration', 'p95RunDuration', 'p95TestDuration']
   },
   labels: {
-    type: Object,
+    type: Object as () => Record<string, string>,
     default: () => ({
       passRate: 'Pass Rate',
       failRate: 'Fail Rate',
@@ -88,10 +111,11 @@ const props = defineProps({
     })
   },
   additionalMetrics: {
-    type: Array,
+    type: Array as () => AdditionalMetric[],
     default: () => [],
-    validator: (value) => {
-      return value.every(metric => 
+    validator: (value: unknown) => {
+      if (!Array.isArray(value)) return false;
+      return value.every((metric: any) => 
         metric.label && 
         metric.value !== undefined
       );
@@ -100,10 +124,10 @@ const props = defineProps({
 });
 
 const metricsToDisplay = computed(() => {
-  const metrics = {};
+  const metrics: Record<string, DisplayMetric> = {};
   
   props.showMetrics.forEach(key => {
-    const value = props.insights[key];
+    const value = (props.insights as Record<string, any>)[key];
     
     if (value !== undefined) {
       // Handle both object format (with current/baseline/change) and simple number
@@ -126,6 +150,7 @@ const metricsToDisplay = computed(() => {
           label: props.labels[key] || key,
           current: value,
           type: getMetricType(key),
+          invertChange: isInvertedMetric(key),
           currentStyle: getCurrentStyle(key, value, getMetricType(key))
         };
       }
@@ -135,18 +160,18 @@ const metricsToDisplay = computed(() => {
   return metrics;
 });
 
-const getMetricType = (key) => {
+const getMetricType = (key: string): 'percent' | 'duration' | 'number' => {
   if (key.includes('Rate')) return 'percent';
   if (key.includes('Duration')) return 'duration';
   return 'number';
 };
 
-const isInvertedMetric = (key) => {
+const isInvertedMetric = (key: string): boolean => {
   // For these metrics, positive change is bad (should be red)
   return key === 'failRate' || key === 'flakyRate' || key.includes('Duration');
 };
 
-const getCurrentStyle = (key, value, type) => {
+const getCurrentStyle = (key: string, value: number, type: string): Record<string, string> => {
   if (type === 'percent') {
     if (key === 'passRate') {
       if (value >= 95) return { color: 'var(--vp-c-green-1)', fontWeight: 'bold' };
@@ -161,7 +186,7 @@ const getCurrentStyle = (key, value, type) => {
   return { fontWeight: 'bold' };
 };
 
-const formatValue = (value, type) => {
+const formatValue = (value: number | undefined | null, type: string): string => {
   if (value === undefined || value === null) return '-';
   
   switch (type) {
@@ -170,11 +195,11 @@ const formatValue = (value, type) => {
     case 'duration':
       return formatDuration(value);
     default:
-      return value;
+      return value.toString();
   }
 };
 
-const formatChangeLocal = (change, type) => {
+const formatChangeLocal = (change: number | undefined | null, type: string): string => {
   if (change === undefined || change === null) return '-';
   
   const prefix = change > 0 ? '+' : '';
@@ -189,7 +214,7 @@ const formatChangeLocal = (change, type) => {
   }
 };
 
-const getChangeClass = (change, invert) => {
+const getChangeClass = (change: number, invert: boolean): string => {
   if (change === 0) return 'neutral';
   
   // If invert is true, positive change is bad

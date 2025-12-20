@@ -5,7 +5,8 @@ import { formatPercent } from '../../helpers/formatter.js';
 const props = defineProps({
   value: {
     type: [Number],
-    required: true
+    required: false,
+    default: undefined
   },
   digitsToFixed: {
     type: Number,
@@ -18,6 +19,9 @@ const props = defineProps({
 });
 
 const formattedPercent = computed(() => {
+  if (props.value === undefined || props.value === null) {
+    return '-';
+  }
   return String(formatPercent(props.value, props.digitsToFixed)) + (props.unit ? '%' : '');
 });
 </script>

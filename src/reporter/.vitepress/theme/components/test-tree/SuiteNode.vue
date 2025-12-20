@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { inject } from 'vue';
 import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
 import { VPBadge as Badge } from 'vitepress/theme';
@@ -60,17 +60,17 @@ const props = defineProps({
 });
 
 // Inject selectTest function from ReportLayout
-const selectTest = inject('selectTest', null);
+const selectTest = inject<((test: any) => void) | null>('selectTest', null);
 
 // Handle test click
-const handleTestClick = (test) => {
+const handleTestClick = (test: any) => {
   if (selectTest) {
     selectTest(test);
   }
 };
 
 // Function to get status badge type
-const getStatusType = (status) => {
+const getStatusType = (status: string) => {
   switch(status) {
     case 'passed': return 'success';
     case 'failed': return 'danger';

@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import { formatDuration } from '../../../helpers/formatter';
@@ -68,7 +68,7 @@ const props = defineProps({
   summary: {
     type: Object,
     required: true,
-    validator: (value) => {
+    validator: (value: any) => {
       return value.tests !== undefined;
     }
   },
@@ -95,7 +95,7 @@ const props = defineProps({
 });
 
 // Get CSS variable color
-const getCssColor = (varName) => {
+const getCssColor = (varName: string) => {
   if (typeof window !== 'undefined') {
     return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
   }
@@ -103,12 +103,12 @@ const getCssColor = (varName) => {
 };
 
 Chart.register(...registerables);
-const chartCanvas = ref(null);
+const chartCanvas = ref<HTMLCanvasElement | null>(null);
 
 // Custom Plugin: Display Pass Rate at the Center of the Doughnut Chart
 const centerTextPlugin = {
   id: 'centerText',
-  beforeDraw: (chart) => {
+  beforeDraw: (chart: any) => {
     if (chart.config.type === 'doughnut') {
       const s = props.summary;
 
@@ -146,6 +146,7 @@ onMounted(() => {
   if (props.showChart && chartCanvas.value) {
     const s = props.summary;
     const ctx = chartCanvas.value.getContext('2d');
+    if (!ctx) return;
     new Chart(ctx, {
       type: 'doughnut',
       data: {

@@ -125,7 +125,7 @@
     <div class="detail-section" v-if="test.tags && test.tags.length > 0">
       <h4>Tags</h4>
       <div class="tags">
-        <Badge v-for="tag in test.tags" :key="tag" :type="tip">{{ tag }}</Badge>
+        <Badge v-for="tag in test.tags" :key="tag" type="tip">{{ tag }}</Badge>
       </div>
     </div>
 
@@ -291,12 +291,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { formatPercentString, formatDuration, formatDateTime, formatChange } from '../../helpers/formatter'
+import type { Test } from 'ctrf';
 
 defineProps({
   test: {
-    type: Object,
+    type: Object as () => Test,
     required: true
   }
 })
