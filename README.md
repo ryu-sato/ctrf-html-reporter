@@ -125,12 +125,6 @@ The Timeline view displays test execution in chronological order. This visualiza
 
 - Node.js >= 20.19.0
 
-## Related Links
-
-- [CTRF Official Site](https://ctrf.io/)
-- [GitHub Repository](https://github.com/ryu-sato/ctrf-html-reporter)
-- [Report Issues](https://github.com/ryu-sato/ctrf-html-reporter/issues)
-
 ## Contributing
 
 Contributions are welcome! Feel free to participate with bug reports, feature requests, pull requests, and more.
