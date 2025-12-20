@@ -50,14 +50,10 @@ jobs:
       - *install-dependencies-step
 
       - name: (prepare) Build project
-        run: pnpm run build
-
-      - name: (prepare) Packing package
-        run: pnpm pack --pack-destination ./package-tmp
-
-      - name: (prepare) Install packed package
         run: |
           echo "::group::Installing packed package"
+          pnpm run build
+          pnpm pack --pack-destination ./package-tmp
           mkdir verify-package-env
           cd verify-package-env
           pnpm install ../package-tmp/ctrf-html-reporter-*.tgz
