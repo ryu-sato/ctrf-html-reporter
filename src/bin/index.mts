@@ -10,6 +10,7 @@ program
   .version(version)
   .description(description)
   .argument('<report.ctrf.json>', 'Path to the CTRF report file')
+  .option('-o, --output-path <path>', 'Output path for the HTML report', '.ctrf/report')
   .action((options) => {
     const commandArgs = commanderToCommandArguments(program);
     buildReport(commandArgs);

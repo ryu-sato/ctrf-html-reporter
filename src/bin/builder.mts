@@ -5,6 +5,7 @@ import type { CommandArguments } from './command-parameters.mjs';
 
 const buildReport = (commandArgs: CommandArguments) => {
   console.log(`Processing report file...: ${commandArgs.inputFilePath}`);
+  console.log(`Output path: ${commandArgs.outputPath}`);
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
@@ -13,7 +14,9 @@ const buildReport = (commandArgs: CommandArguments) => {
   process.env.CTRF_REPORT_PATH = commandArgs.inputFilePath;
 
   const reporterPath = path.resolve(__dirname, 'reporter');
-  build(reporterPath);
+  const outputPath = path.resolve(process.cwd(), commandArgs.outputPath);
+  
+  build(reporterPath, { outDir: outputPath });
 };
 
 export {
