@@ -19,7 +19,7 @@
       
       <div class="status-line">
         <Badge :type="getStatusType(root.status)">{{ root.status }}</Badge>
-        <span class="duration-text">Duration: {{ root.duration }}ms</span>
+        <span class="duration-text">Duration: {{ formatDuration(root.duration) }}</span>
       </div>
 
       <div v-if="root.summary" class="summary-box">
@@ -50,7 +50,7 @@
             <li v-for="(test, testIndex) in root.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
               <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
               <span class="test-name">{{ test.name }}</span>
-              <span class="test-duration">({{ test.duration }}ms)</span>
+              <span class="test-duration">({{ formatDuration(test.duration) }})</span>
               <span v-if="test.flaky" class="test-flaky"><Zap :size="14" :stroke-width="2" /> Flaky</span>
               <div v-if="test.tags && test.tags.length > 0" class="test-tags">
                 <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
@@ -70,6 +70,7 @@ import { VPBadge as Badge } from 'vitepress/theme';
 import SuiteNode from './SuiteNode.vue';
 import TestFilter from './TestFilter.vue';
 import type { TreeNode } from 'ctrf';
+import { formatDuration } from '../../../helpers/formatter';
 
 const props = defineProps({
   nodes: {

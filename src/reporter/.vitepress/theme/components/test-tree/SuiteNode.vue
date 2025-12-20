@@ -4,7 +4,7 @@
     
     <div class="suite-header">
       <Badge :type="getStatusType(suite.status)">{{ suite.status }}</Badge>
-      <span class="suite-duration">{{ suite.duration }}ms</span>
+      <span class="suite-duration">{{ formatDuration(suite.duration) }}</span>
     </div>
 
     <div v-if="suite.summary" class="suite-summary">
@@ -35,7 +35,7 @@
           <li v-for="(test, testIndex) in suite.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
             <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
             <span class="test-name">{{ test.name }}</span>
-            <span class="test-duration">({{ test.duration }}ms)</span>
+            <span class="test-duration">({{ formatDuration(test.duration) }})</span>
             <span v-if="test.flaky" class="test-flaky"><Zap :size="14" :stroke-width="2" /> Flaky</span>
             <div v-if="test.tags && test.tags.length > 0" class="test-tags">
               <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
@@ -52,6 +52,7 @@ import { inject } from 'vue';
 import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
 import { VPBadge as Badge } from 'vitepress/theme';
 import type { TreeNode } from 'ctrf';
+import { formatDuration } from '../../../helpers/formatter';
 
 const props = defineProps({
   suite: {

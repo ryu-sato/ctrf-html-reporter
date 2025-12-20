@@ -47,15 +47,15 @@
                 ...calculateBarStyle(testItem),
                 backgroundColor: getStatusColor(testItem?.status)
               }"
-              :title="`${testItem?.name || 'Unknown'}\nStatus: ${testItem?.status || 'unknown'}\nDuration: ${formatDuration(testItem?.duration || 0)}\nStart: ${formatTime(testItem?.start || 0)}\nEnd: ${formatTime(testItem?.stop || 0)}`"
+              :title="`${testItem?.name || 'Unknown'}\nStatus: ${testItem?.status || 'unknown'}\nDuration: ${formatDuration(testItem?.duration)}\nStart: ${formatTime(testItem?.start || 0)}\nEnd: ${formatTime(testItem?.stop || 0)}`"
             >
             </div>
             <span class="test-duration-label">
-              {{ formatDuration(testItem?.duration || 0) }}
+              {{ formatDuration(testItem?.duration) }}
             </span>
           </div>
           <div class="test-info">
-            {{ formatDuration(testItem?.duration || 0) }}
+            {{ formatDuration(testItem?.duration) }}
           </div>
         </div>
       </div>
