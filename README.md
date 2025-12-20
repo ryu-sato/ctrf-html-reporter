@@ -19,6 +19,34 @@ https://github.com/user-attachments/assets/cd7e59e9-edbf-4859-9527-d4ba7d4a9396
 - Simple command-line interface
 - Support for multiple package managers
 
+## Usage
+
+### Using with npx
+
+You can also run it directly without installation:
+
+```bash
+npx ctrf-html-reporter path/to/report.ctrf.json
+```
+
+### Basic Usage
+
+Generate an HTML report from a CTRF report file:
+
+```bash
+ctrf-html-reporter path/to/report.ctrf.json
+```
+
+By default, the report is generated in the `.ctrf/report` directory.
+
+### Custom Output Path
+
+To specify the output destination:
+
+```bash
+ctrf-html-reporter path/to/report.ctrf.json --output-path ./html-report
+```
+
 ## Installation
 
 Choose your package manager to install:
@@ -46,34 +74,6 @@ yarn add ctrf-html-reporter
 pnpm add ctrf-html-reporter
 ```
 </details>
-
-## Usage
-
-### Basic Usage
-
-Generate an HTML report from a CTRF report file:
-
-```bash
-ctrf-html-reporter path/to/report.ctrf.json
-```
-
-By default, the report is generated in the `.ctrf/report` directory.
-
-### Custom Output Path
-
-To specify the output destination:
-
-```bash
-ctrf-html-reporter path/to/report.ctrf.json --output-path ./html-report
-```
-
-### Using with npx
-
-You can also run it directly without installation:
-
-```bash
-npx ctrf-html-reporter path/to/report.ctrf.json
-```
 
 ## Report Features
 
