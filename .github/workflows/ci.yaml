@@ -54,17 +54,14 @@ jobs:
         run: pnpm run build
 
       - name: (prepare) Packing package
-        run: |
-          echo "::group::Packing package"
-          pnpm pack --pack-destination ./package-tmp
-          echo "::endgroup::"
+        run: pnpm pack --pack-destination ./package-tmp
 
       - name: (prepare) Install packed package
         run: |
           echo "::group::Installing packed package"
           mkdir verify-package-env
           cd verify-package-env
-          pnpm install ../package-tmp/ctrf-html-reporter-*.tgz
+          pnpm install ./package-tmp/ctrf-html-reporter-*.tgz
           echo "::endgroup::"
 
       - name: (main) Verify bin field exists in package.json
