@@ -2,7 +2,7 @@
 layout: report
 ---
 
-<script setup>
+<script setup lang="ts">
 import { data as richReportWithInsights } from './richReportWithInsights.data.js';
 </script>
 

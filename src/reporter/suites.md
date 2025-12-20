@@ -2,7 +2,7 @@
 layout: report
 ---
 
-<script setup>
+<script setup lang="ts">
 import { data as testTree } from './organizeTestsBySuite.data.js';
 </script>
 
