@@ -18,12 +18,12 @@
   "license": "MIT",
   "author": "Ryu Sato",
   "type": "module",
-  "main": "index.mjs",
+  "main": "dist/bin/index.mjs",
   "bin": {
-    "ctrf-html-reporter": "dist/index.mjs"
+    "ctrf-html-reporter": "dist/bin/index.mjs"
   },
   "files": [
-    "dist/index.mjs",
+    "dist/bin/index.mjs",
     "dist/reporter/**/*"
   ],
   "scripts": {
