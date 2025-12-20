@@ -30,9 +30,9 @@
 
     <div class="timeline-chart" v-if="filteredTests.length > 0 && testGroups.length > 0">
       <div class="time-scale">
-        <span>{{ formatTime(timeRange.min) }}</span>
+        <span>{{ formatDateTime(timeRange.min, 'ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 }) }}</span>
         <span>Timeline</span>
-        <span>{{ formatTime(timeRange.max) }}</span>
+        <span>{{ formatDateTime(timeRange.max, 'ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 }) }}</span>
       </div>
       <div v-for="(groupItem, groupIndex) in testGroups" :key="groupItem?.suite || `group-${groupIndex}`" class="suite-group">
         <div class="suite-header">{{ groupItem?.suite || 'Unknown Suite' }}</div>
@@ -47,7 +47,7 @@
                 ...calculateBarStyle(testItem),
                 backgroundColor: getStatusColor(testItem?.status)
               }"
-              :title="`${testItem?.name || 'Unknown'}\nStatus: ${testItem?.status || 'unknown'}\nDuration: ${formatDuration(testItem?.duration)}\nStart: ${formatTime(testItem?.start || 0)}\nEnd: ${formatTime(testItem?.stop || 0)}`"
+              :title="`${testItem?.name || 'Unknown'}\nStatus: ${testItem?.status || 'unknown'}\nDuration: ${formatDuration(testItem?.duration)}\nStart: ${formatDateTime(testItem?.start || 0, 'ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 })}\nEnd: ${formatDateTime(testItem?.stop || 0, 'ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 })}`"
             >
             </div>
             <span class="test-duration-label">
@@ -160,15 +160,7 @@ const testGroups = computed(() => {
   }));
 });
 
-// Format time for display
-const formatTime = (timestamp: number) => {
-  return formatDateTime(timestamp, 'ja-JP', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    fractionalSecondDigits: 3
-  } as Intl.DateTimeFormatOptions);
-};
+
 
 // Calculate position and width for gantt chart
 const calculateBarStyle = (test: Test) => {

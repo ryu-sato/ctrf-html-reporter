@@ -1,36 +1,237 @@
 <template>
   <div class="test-insights">
+    <!-- Pass Rate -->
     <div 
-      v-for="(metric, key) in metricsToDisplay" 
-      :key="key"
+      v-if="insights.passRate !== undefined"
       class="insight-card"
     >
       <div class="insight-header">
-        <span class="insight-label">{{ metric.label }}</span>
+        <span class="insight-label">{{ labels.passRate }}</span>
       </div>
       <div class="insight-content">
         <div class="metric-row">
           <span class="metric-key">Current</span>
           <span 
             class="metric-value current" 
-            :style="metric.currentStyle"
+            :style="getCurrentStyle('passRate', formatPercent(insights.passRate.current), 'percent')"
           >
-            {{ formatValue(metric.current, metric.type) }}
+            {{ formatPercentString(insights.passRate.current) }}
           </span>
         </div>
-        <div class="metric-row" v-if="metric.baseline !== undefined">
+        <div class="metric-row" v-if="insights.passRate.baseline !== undefined">
           <span class="metric-key">Baseline</span>
           <span class="metric-value baseline">
-            {{ formatValue(metric.baseline, metric.type) }}
+            {{ formatPercentString(insights.passRate.baseline) }}
           </span>
         </div>
-        <div class="metric-row" v-if="metric.change !== undefined">
+        <div class="metric-row" v-if="insights.passRate.change !== undefined">
           <span class="metric-key">Change</span>
           <span 
             class="metric-value change" 
-            :class="getChangeClass(metric.change, metric.invertChange)"
+            :class="getChangeClass(insights.passRate.change, false)"
           >
-            {{ formatChangeLocal(metric.change, metric.type) }}
+            {{ formatPercentString(insights.passRate.change) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fail Rate -->
+    <div 
+      v-if="insights.failRate !== undefined"
+      class="insight-card"
+    >
+      <div class="insight-header">
+        <span class="insight-label">{{ labels.failRate }}</span>
+      </div>
+      <div class="insight-content">
+        <div class="metric-row">
+          <span class="metric-key">Current</span>
+          <span 
+            class="metric-value current" 
+            :style="getCurrentStyle('failRate', formatPercent(insights.failRate.current), 'percent')"
+          >
+            {{ formatPercentString(insights.failRate.current) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.failRate.baseline !== undefined">
+          <span class="metric-key">Baseline</span>
+          <span class="metric-value baseline">
+            {{ formatPercentString(insights.failRate.baseline) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.failRate.change !== undefined">
+          <span class="metric-key">Change</span>
+          <span 
+            class="metric-value change" 
+            :class="getChangeClass(insights.failRate.change, true)"
+          >
+            {{ formatPercentString(insights.failRate.change) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flaky Rate -->
+    <div 
+      v-if="insights.flakyRate !== undefined"
+      class="insight-card"
+    >
+      <div class="insight-header">
+        <span class="insight-label">{{ labels.flakyRate }}</span>
+      </div>
+      <div class="insight-content">
+        <div class="metric-row">
+          <span class="metric-key">Current</span>
+          <span 
+            class="metric-value current" 
+            :style="getCurrentStyle('flakyRate', formatPercent(insights.flakyRate.current), 'percent')"
+          >
+            {{ formatPercentString(insights.flakyRate.current) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.flakyRate.baseline !== undefined">
+          <span class="metric-key">Baseline</span>
+          <span class="metric-value baseline">
+            {{ formatPercentString(insights.flakyRate.baseline) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.flakyRate.change !== undefined">
+          <span class="metric-key">Change</span>
+          <span 
+            class="metric-value change" 
+            :class="getChangeClass(insights.flakyRate.change, true)"
+          >
+            {{ formatPercentString(insights.flakyRate.change) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Average Test Duration -->
+    <div 
+      v-if="insights.averageTestDuration !== undefined"
+      class="insight-card"
+    >
+      <div class="insight-header">
+        <span class="insight-label">{{ labels.averageTestDuration }}</span>
+      </div>
+      <div class="insight-content">
+        <div class="metric-row">
+          <span class="metric-key">Current</span>
+          <span 
+            class="metric-value current" 
+            :style="getCurrentStyle('averageTestDuration', insights.averageTestDuration.current, 'duration')"
+          >
+            {{ formatDuration(insights.averageTestDuration.current) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.averageTestDuration.baseline !== undefined">
+          <span class="metric-key">Baseline</span>
+          <span class="metric-value baseline">
+            {{ formatDuration(insights.averageTestDuration.baseline) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.averageTestDuration.change !== undefined">
+          <span class="metric-key">Change</span>
+          <span 
+            class="metric-value change" 
+            :class="getChangeClass(insights.averageTestDuration.change, true)"
+          >
+            {{ formatDuration(insights.averageTestDuration.change) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Average Run Duration -->
+    <div 
+      v-if="insights.averageRunDuration !== undefined"
+      class="insight-card"
+    >
+      <div class="insight-header">
+        <span class="insight-label">{{ labels.averageRunDuration }}</span>
+      </div>
+      <div class="insight-content">
+        <div class="metric-row">
+          <span class="metric-key">Current</span>
+          <span 
+            class="metric-value current" 
+            :style="getCurrentStyle('averageRunDuration', insights.averageRunDuration.current, 'duration')"
+          >
+            {{ formatDuration(insights.averageRunDuration.current) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.averageRunDuration.baseline !== undefined">
+          <span class="metric-key">Baseline</span>
+          <span class="metric-value baseline">
+            {{ formatDuration(insights.averageRunDuration.baseline) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.averageRunDuration.change !== undefined">
+          <span class="metric-key">Change</span>
+          <span 
+            class="metric-value change" 
+            :class="getChangeClass(insights.averageRunDuration.change, true)"
+          >
+            {{ formatDuration(insights.averageRunDuration.change) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P95 Run Duration -->
+    <div 
+      v-if="insights.p95RunDuration !== undefined"
+      class="insight-card"
+    >
+      <div class="insight-header">
+        <span class="insight-label">{{ labels.p95RunDuration }}</span>
+      </div>
+      <div class="insight-content">
+        <div class="metric-row">
+          <span class="metric-key">Current</span>
+          <span 
+            class="metric-value current" 
+            :style="getCurrentStyle('p95RunDuration', insights.p95RunDuration.current, 'duration')"
+          >
+            {{ formatDuration(insights.p95RunDuration.current) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.p95RunDuration.baseline !== undefined">
+          <span class="metric-key">Baseline</span>
+          <span class="metric-value baseline">
+            {{ formatDuration(insights.p95RunDuration.baseline) }}
+          </span>
+        </div>
+        <div class="metric-row" v-if="insights.p95RunDuration.change !== undefined">
+          <span class="metric-key">Change</span>
+          <span 
+            class="metric-value change" 
+            :class="getChangeClass(insights.p95RunDuration.change, true)"
+          >
+            {{ formatDuration(insights.p95RunDuration.change) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Runs Analyzed -->
+    <div 
+      v-if="insights.runsAnalyzed !== undefined"
+      class="insight-card"
+    >
+      <div class="insight-header">
+        <span class="insight-label">{{ labels.runsAnalyzed }}</span>
+      </div>
+      <div class="insight-content">
+        <div class="metric-row">
+          <span class="metric-key">Current</span>
+          <span 
+            class="metric-value current" 
+            :style="getCurrentStyle('runsAnalyzed', insights.runsAnalyzed!, 'number')"
+          >
+            {{ insights.runsAnalyzed }}
           </span>
         </div>
       </div>
@@ -58,31 +259,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { formatDuration, formatChange } from '../../../helpers/formatter';
+import { formatDuration, formatPercent, formatPercentString } from '../../../helpers/formatter';
 import type { RootInsights } from 'ctrf';
-
-interface MetricValue {
-  current: number;
-  baseline?: number;
-  change?: number;
-}
 
 interface AdditionalMetric {
   label: string;
   value: string | number;
   suffix?: string;
   style?: Record<string, string>;
-}
-
-interface DisplayMetric {
-  label: string;
-  current: number;
-  baseline?: number;
-  change?: number;
-  type: 'percent' | 'duration' | 'number';
-  invertChange: boolean;
-  currentStyle: Record<string, string>;
 }
 
 const props = defineProps({
@@ -93,10 +277,6 @@ const props = defineProps({
       return typeof value === 'object';
     }
   },
-  showMetrics: {
-    type: Array as () => string[],
-    default: () => ['passRate', 'failRate', 'flakyRate', 'averageTestDuration', 'averageRunDuration', 'p95RunDuration', 'p95TestDuration']
-  },
   labels: {
     type: Object as () => Record<string, string>,
     default: () => ({
@@ -106,9 +286,7 @@ const props = defineProps({
       averageTestDuration: 'Avg Test Duration',
       averageRunDuration: 'Avg Run Duration',
       p95RunDuration: 'P95 Run Duration',
-      p95TestDuration: 'P95 Test Duration',
-      runsAnalyzed: 'Runs Analyzed',
-      executedInRuns: 'Executed in Runs'
+      runsAnalyzed: 'Runs Analyzed'
     })
   },
   additionalMetrics: {
@@ -124,54 +302,6 @@ const props = defineProps({
   }
 });
 
-const metricsToDisplay = computed(() => {
-  const metrics: Record<string, DisplayMetric> = {};
-  
-  props.showMetrics.forEach(key => {
-    const value = (props.insights as Record<string, any>)[key];
-    
-    if (value !== undefined) {
-      // Handle both object format (with current/baseline/change) and simple number
-      if (typeof value === 'object' && value !== null) {
-        const metricType = getMetricType(key);
-        const invertChange = isInvertedMetric(key);
-        
-        metrics[key] = {
-          label: props.labels[key] || key,
-          current: value.current,
-          baseline: value.baseline,
-          change: value.change,
-          type: metricType,
-          invertChange: invertChange,
-          currentStyle: getCurrentStyle(key, value.current, metricType)
-        };
-      } else {
-        // Simple number value
-        metrics[key] = {
-          label: props.labels[key] || key,
-          current: value,
-          type: getMetricType(key),
-          invertChange: isInvertedMetric(key),
-          currentStyle: getCurrentStyle(key, value, getMetricType(key))
-        };
-      }
-    }
-  });
-  
-  return metrics;
-});
-
-const getMetricType = (key: string): 'percent' | 'duration' | 'number' => {
-  if (key.includes('Rate')) return 'percent';
-  if (key.includes('Duration')) return 'duration';
-  return 'number';
-};
-
-const isInvertedMetric = (key: string): boolean => {
-  // For these metrics, positive change is bad (should be red)
-  return key === 'failRate' || key === 'flakyRate' || key.includes('Duration');
-};
-
 const getCurrentStyle = (key: string, value: number, type: string): Record<string, string> => {
   if (type === 'percent') {
     if (key === 'passRate') {
@@ -185,34 +315,6 @@ const getCurrentStyle = (key: string, value: number, type: string): Record<strin
     }
   }
   return { fontWeight: 'bold' };
-};
-
-const formatValue = (value: number | undefined | null, type: string): string => {
-  if (value === undefined || value === null) return '-';
-  
-  switch (type) {
-    case 'percent':
-      return `${value.toFixed(1)}%`;
-    case 'duration':
-      return formatDuration(value);
-    default:
-      return value.toString();
-  }
-};
-
-const formatChangeLocal = (change: number | undefined | null, type: string): string => {
-  if (change === undefined || change === null) return '-';
-  
-  const prefix = change > 0 ? '+' : '';
-  
-  switch (type) {
-    case 'percent':
-      return `${prefix}${change.toFixed(1)}%`;
-    case 'duration':
-      return `${prefix}${formatDuration(Math.abs(change))}`;
-    default:
-      return `${prefix}${change}`;
-  }
 };
 
 const getChangeClass = (change: number, invert: boolean): string => {

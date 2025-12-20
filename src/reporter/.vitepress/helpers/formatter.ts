@@ -74,11 +74,14 @@ export const formatDuration = (ms: number | null | undefined): string => {
 /**
  * Format a timestamp to localized date/time string
  * @param timestamp - The timestamp to format (string, number, or Date)
+ *                    - If number is less than 10000000000, treated as Unix time (seconds)
+ *                    - Otherwise treated as milliseconds
  * @param locale - Locale string (default: 'en-US')
  * @param options - Intl.DateTimeFormat options
  * @returns Formatted date/time string
  * @example
  * formatDateTime(Date.now()) // "12/14/2025, 10:30:45 AM"
+ * formatDateTime(1703419845) // "12/24/2023, 10:30:45 AM" (Unix seconds)
  * formatDateTime(Date.now(), 'ja-JP') // "2025/12/14 10:30:45"
  */
 export const formatDateTime = (
@@ -87,7 +90,19 @@ export const formatDateTime = (
   options: Intl.DateTimeFormatOptions = {}
 ): string => {
   try {
-    return new Date(timestamp).toLocaleString(locale, options);
+    let date: Date;
+    
+    if (typeof timestamp === 'number') {
+      // Unix time (seconds) is typically less than 10000000000 (Sep 2286)
+      // Millisecond timestamps are larger
+      date = timestamp < 10000000000 
+        ? new Date(timestamp * 1000)  // Convert seconds to milliseconds
+        : new Date(timestamp);         // Already in milliseconds
+    } else {
+      date = new Date(timestamp);
+    }
+    
+    return date.toLocaleString(locale, options);
   } catch (error) {
     console.error('Error formatting date:', error);
     return String(timestamp);
