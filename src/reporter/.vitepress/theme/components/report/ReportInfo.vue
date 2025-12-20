@@ -105,14 +105,14 @@ const duration = computed(() => {
    Container
    ========================= */
 .report-info {
-  margin: 1rem 0;
+  margin: var(--report-spacing-lg) 0;
 }
 
 .report-info-empty {
-  padding: 2rem;
+  padding: var(--report-spacing-2xl);
   text-align: center;
   background: var(--vp-c-bg-soft);
-  border-radius: 8px;
+  border-radius: var(--report-card-border-radius);
   border: 1px solid var(--vp-c-divider);
   color: var(--vp-c-text-2);
 }
@@ -123,21 +123,21 @@ const duration = computed(() => {
 .info-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
+  gap: var(--report-spacing-lg);
+  padding: var(--report-spacing-lg);
   background: var(--vp-custom-block-info-bg);
-  border-radius: 8px;
+  border-radius: var(--report-card-border-radius);
   border: 1px solid var(--vp-c-divider);
 }
 
 .info-item {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
 }
 
 .info-label {
-  font-size: 0.75rem;
+  font-size: var(--report-badge-font-size);
   font-weight: 900;
   color: var(--vp-c-text-3);
   text-transform: uppercase;
@@ -145,7 +145,7 @@ const duration = computed(() => {
 }
 
 .info-value {
-  font-size: 0.875rem;
+  font-size: var(--report-control-font-size);
   color: var(--vp-c-text-1);
   word-break: break-word;
 }

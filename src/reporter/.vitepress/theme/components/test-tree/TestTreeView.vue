@@ -233,18 +233,18 @@ const getStatusType = (status: string) => {
    Container
    ========================= */
 .test-tree-view {
-  margin: 1rem 0;
+  margin: var(--report-spacing-lg) 0;
 }
 
 /* =========================
    No Filter Results
    ========================= */
 .no-results {
-  padding: 2rem;
+  padding: var(--report-spacing-2xl);
   text-align: center;
   background-color: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  margin: 1rem 0;
+  border-radius: var(--report-card-border-radius);
+  margin: var(--report-spacing-lg) 0;
 }
 
 .no-results p {
@@ -257,12 +257,12 @@ const getStatusType = (status: string) => {
    Tree Root
    ========================= */
 .tree-root {
-  margin-bottom: 2rem;
+  margin-bottom: var(--report-spacing-2xl);
 }
 
 .tree-root h2 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--report-spacing-sm);
   border-bottom: none;
 }
 
@@ -272,8 +272,8 @@ const getStatusType = (status: string) => {
 .status-line {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: var(--report-spacing-sm);
+  margin-bottom: var(--report-spacing-sm);
 }
 
 .duration-text {
@@ -284,60 +284,60 @@ const getStatusType = (status: string) => {
    Summary Box
    ========================= */
 .summary-box {
-  padding: 0.5rem;
+  padding: var(--report-spacing-sm);
   background-color: var(--vp-c-bg-soft);
-  border-radius: 4px;
-  margin: 0.5rem 0;
+  border-radius: var(--report-control-border-radius);
+  margin: var(--report-spacing-sm) 0;
 }
 
 .summary-stats {
   display: flex;
-  gap: 1rem;
-  font-size: 0.875rem;
+  gap: var(--report-spacing-lg);
+  font-size: var(--report-control-font-size);
   flex-wrap: wrap;
 }
 
 .summary-stats span {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
 }
 
 .summary-stats .passed {
-  color: var(--vp-c-green-1);
+  color: var(--report-status-passed);
 }
 
 .summary-stats .failed {
-  color: var(--vp-c-red-1);
+  color: var(--report-status-failed);
 }
 
 .summary-stats .skipped {
-  color: var(--vp-c-yellow-1);
+  color: var(--report-status-skipped);
 }
 
 .summary-stats .pending {
-  color: var(--vp-c-purple-1);
+  color: var(--report-status-pending);
 }
 
 .summary-stats .flaky {
-  color: var(--vp-c-orange-1);
+  color: var(--report-status-flaky);
 }
 
 /* =========================
    Suites and Tests Container
    ========================= */
 .suites-container {
-  margin-left: 1rem;
+  margin-left: var(--report-spacing-lg);
 }
 
 .tests-container {
-  margin-left: 1rem;
-  margin-top: 0.5rem;
+  margin-left: var(--report-spacing-lg);
+  margin-top: var(--report-spacing-sm);
 }
 
 .tests-summary {
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--report-control-font-size);
   color: var(--vp-c-text-2);
   user-select: none;
 }
@@ -346,21 +346,21 @@ const getStatusType = (status: string) => {
    Test List
    ========================= */
 .tests-list {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
+  margin-top: var(--report-spacing-sm);
+  font-size: var(--report-control-font-size);
   list-style: none;
   padding-left: 0;
 }
 
 .test-item {
-  margin: 0.25rem 0;
+  margin: var(--report-spacing-xs) 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--report-spacing-sm);
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  padding: var(--report-spacing-sm);
+  border-radius: var(--report-control-border-radius);
+  transition: background-color var(--report-transition-fast);
   flex-wrap: wrap;
 }
 
@@ -369,7 +369,7 @@ const getStatusType = (status: string) => {
 }
 
 .test-badge {
-  font-size: 0.75rem;
+  font-size: var(--report-badge-font-size);
 }
 
 .test-name {
@@ -382,10 +382,10 @@ const getStatusType = (status: string) => {
 }
 
 .test-flaky {
-  color: var(--vp-c-orange-1);
+  color: var(--report-status-flaky);
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
 }
 
 /* =========================
@@ -393,19 +393,19 @@ const getStatusType = (status: string) => {
    ========================= */
 .test-tags {
   display: flex;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 0.25rem;
+  margin-top: var(--report-spacing-xs);
 }
 
 .tag {
   display: inline-block;
-  padding: 0.125rem 0.5rem;
+  padding: 0.125rem var(--report-spacing-sm);
   background-color: var(--vp-c-bg-mute);
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: var(--report-badge-font-size);
   color: var(--vp-c-text-2);
 }
 </style>

@@ -1,10 +1,12 @@
+/* =========================
+   VitePress Badge Overrides
+   ========================= */
 :root {
   --vp-badge-success-border: transparent;
   --vp-badge-success-text: var(--vp-c-text-1);
   --vp-badge-success-bg: var(--vp-c-green-soft);
 }
 
-/* Badge success type styling */
 .VPBadge.success {
   border-color: transparent;
   color: var(--vp-c-text-1);
@@ -16,9 +18,299 @@
   background-color: var(--vp-c-green-soft);
 }
 
-/* Report Layout Additional Styles */
+/* =========================
+   Report Layout Variables
+   ========================= */
 .report-layout,
 .Layout {
   --report-sidebar-width: 272px;
   --report-nav-height: 56px;
+}
+
+/* =========================
+   Custom CSS Variables
+   ========================= */
+:root {
+  /* Card Variables */
+  --report-card-bg: var(--vp-c-bg-soft);
+  --report-card-border: var(--vp-c-divider);
+  --report-card-border-radius: 8px;
+  --report-card-padding: 1.25rem;
+  --report-card-hover-border: var(--vp-c-brand-1);
+  --report-card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --report-card-hover-transform: translateY(-2px);
+  
+  /* Badge Variables */
+  --report-badge-padding: 0.25rem 0.5rem;
+  --report-badge-border-radius: 4px;
+  --report-badge-font-size: 0.75rem;
+  --report-badge-font-weight: 600;
+  
+  /* Button Variables */
+  --report-btn-padding: 0.5rem 1rem;
+  --report-btn-border-radius: 4px;
+  --report-btn-font-size: 0.875rem;
+  --report-btn-font-weight: 600;
+  --report-btn-bg: var(--vp-c-brand-1);
+  --report-btn-hover-bg: var(--vp-c-brand-2);
+  --report-btn-disabled-opacity: 0.5;
+  
+  /* Form Control Variables */
+  --report-control-padding: 0.5rem 0.75rem;
+  --report-control-border-radius: 4px;
+  --report-control-font-size: 0.875rem;
+  --report-control-bg: var(--vp-c-bg);
+  --report-control-border: var(--vp-c-divider);
+  --report-control-focus-shadow: 0 0 0 2px var(--vp-c-brand-soft);
+  
+  /* Grid Variables */
+  --report-grid-gap: 1.5rem;
+  --report-grid-min-width: 350px;
+  --report-grid-gap-mobile: 1rem;
+  
+  /* Pagination Variables */
+  --report-pagination-gap: 1rem;
+  --report-pagination-padding: 1.5rem;
+  
+  /* Status Colors */
+  --report-status-passed: var(--vp-c-green-1);
+  --report-status-failed: var(--vp-c-red-1);
+  --report-status-skipped: var(--vp-c-yellow-1);
+  --report-status-pending: var(--vp-c-purple-1);
+  --report-status-flaky: var(--vp-c-orange-1);
+  --report-status-other: var(--vp-c-text-2);
+  
+  /* Spacing Variables */
+  --report-spacing-xs: 0.25rem;
+  --report-spacing-sm: 0.5rem;
+  --report-spacing-md: 0.75rem;
+  --report-spacing-lg: 1rem;
+  --report-spacing-xl: 1.5rem;
+  --report-spacing-2xl: 2rem;
+  
+  /* Transition Variables */
+  --report-transition-fast: 0.2s;
+  --report-transition-medium: 0.3s;
+}
+
+/* =========================
+   Utility Classes - Card Pattern
+   ========================= */
+.report-card {
+  background: var(--report-card-bg);
+  border: 1px solid var(--report-card-border);
+  border-radius: var(--report-card-border-radius);
+  padding: var(--report-card-padding);
+  transition: transform var(--report-transition-fast), 
+              box-shadow var(--report-transition-fast), 
+              border-color var(--report-transition-fast);
+}
+
+.report-card-interactive {
+  cursor: pointer;
+}
+
+.report-card-interactive:hover {
+  border-color: var(--report-card-hover-border);
+  box-shadow: var(--report-card-hover-shadow);
+  transform: var(--report-card-hover-transform);
+}
+
+/* =========================
+   Utility Classes - Badge Pattern
+   ========================= */
+.report-badge {
+  display: inline-block;
+  padding: var(--report-badge-padding);
+  border-radius: var(--report-badge-border-radius);
+  font-size: var(--report-badge-font-size);
+  font-weight: var(--report-badge-font-weight);
+  text-transform: uppercase;
+}
+
+.report-badge-status {
+  color: white;
+}
+
+/* =========================
+   Utility Classes - Button Pattern
+   ========================= */
+.report-btn {
+  padding: var(--report-btn-padding);
+  background: var(--report-btn-bg);
+  color: white;
+  border: none;
+  border-radius: var(--report-btn-border-radius);
+  font-size: var(--report-btn-font-size);
+  font-weight: var(--report-btn-font-weight);
+  cursor: pointer;
+  transition: background var(--report-transition-fast), 
+              transform var(--report-transition-fast);
+}
+
+.report-btn:hover:not(:disabled) {
+  background: var(--report-btn-hover-bg);
+  transform: translateY(-1px);
+}
+
+.report-btn:disabled {
+  opacity: var(--report-btn-disabled-opacity);
+  cursor: not-allowed;
+}
+
+/* =========================
+   Utility Classes - Form Control Pattern
+   ========================= */
+.report-control {
+  padding: var(--report-control-padding);
+  background: var(--report-control-bg);
+  border: 1px solid var(--report-control-border);
+  border-radius: var(--report-control-border-radius);
+  color: var(--vp-c-text-1);
+  font-size: var(--report-control-font-size);
+  cursor: pointer;
+  transition: border-color var(--report-transition-fast), 
+              box-shadow var(--report-transition-fast);
+}
+
+.report-control:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.report-control:focus {
+  outline: none;
+  border-color: var(--vp-c-brand-1);
+  box-shadow: var(--report-control-focus-shadow);
+}
+
+/* =========================
+   Utility Classes - Grid Pattern
+   ========================= */
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--report-grid-min-width), 1fr));
+  gap: var(--report-grid-gap);
+}
+
+@media (max-width: 768px) {
+  .report-grid {
+    grid-template-columns: 1fr;
+    gap: var(--report-grid-gap-mobile);
+  }
+}
+
+/* =========================
+   Utility Classes - Pagination Pattern
+   ========================= */
+.report-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--report-pagination-gap);
+  padding: var(--report-pagination-padding);
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--report-card-border-radius);
+}
+
+.report-pagination-pages {
+  display: flex;
+  gap: var(--report-spacing-sm);
+}
+
+.report-pagination-page {
+  padding: var(--report-spacing-sm) var(--report-spacing-md);
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--report-control-border-radius);
+  font-size: var(--report-control-font-size);
+  cursor: pointer;
+  transition: border-color var(--report-transition-fast), 
+              color var(--report-transition-fast), 
+              background var(--report-transition-fast);
+  min-width: 40px;
+}
+
+.report-pagination-page:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+}
+
+.report-pagination-page.active {
+  background: var(--vp-c-brand-1);
+  color: white;
+  border-color: var(--vp-c-brand-1);
+}
+
+/* =========================
+   Utility Classes - Status Colors
+   ========================= */
+.report-status-passed {
+  color: var(--report-status-passed);
+}
+
+.report-status-failed {
+  color: var(--report-status-failed);
+}
+
+.report-status-skipped {
+  color: var(--report-status-skipped);
+}
+
+.report-status-pending {
+  color: var(--report-status-pending);
+}
+
+.report-status-flaky {
+  color: var(--report-status-flaky);
+}
+
+.report-status-other {
+  color: var(--report-status-other);
+}
+
+/* =========================
+   Utility Classes - Container Pattern
+   ========================= */
+.report-container {
+  border-radius: var(--report-card-border-radius);
+  padding: var(--report-card-padding);
+}
+
+/* =========================
+   Utility Classes - Section Pattern
+   ========================= */
+.report-section {
+  margin-bottom: var(--report-spacing-xl);
+}
+
+.report-section-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--report-spacing-md);
+}
+
+/* =========================
+   Utility Classes - Metric Pattern
+   ========================= */
+.report-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--report-spacing-xs);
+}
+
+.report-metric-label {
+  font-size: 0.7rem;
+  color: var(--vp-c-text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.report-metric-value {
+  font-weight: 600;
+  font-size: 0.9rem;
 }

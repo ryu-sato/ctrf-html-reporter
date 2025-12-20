@@ -125,17 +125,17 @@ const clearFilters = () => {
    Filter Container
    ========================= */
 .test-filter {
-  padding: 1rem;
+  padding: var(--report-spacing-lg);
   background-color: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+  border-radius: var(--report-card-border-radius);
+  margin-bottom: var(--report-spacing-xl);
 }
 
 /* =========================
    Filter Section
    ========================= */
 .filter-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--report-spacing-xl);
 }
 
 .filter-section:last-of-type {
@@ -143,8 +143,8 @@ const clearFilters = () => {
 }
 
 .filter-section h4 {
-  margin: 0 0 0.75rem 0;
-  font-size: 0.875rem;
+  margin: 0 0 var(--report-spacing-md) 0;
+  font-size: var(--report-control-font-size);
   font-weight: 600;
   color: var(--vp-c-text-1);
   text-transform: uppercase;
@@ -157,7 +157,7 @@ const clearFilters = () => {
 .filter-checkboxes {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--report-spacing-sm);
 }
 
 .filter-checkbox {
@@ -168,31 +168,31 @@ const clearFilters = () => {
 }
 
 .filter-checkbox input[type="checkbox"] {
-  margin-right: 0.5rem;
+  margin-right: var(--report-spacing-sm);
   cursor: pointer;
 }
 
 .status-label {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
+  gap: var(--report-spacing-xs);
+  font-size: var(--report-control-font-size);
 }
 
 .status-label.passed {
-  color: var(--vp-c-green-1);
+  color: var(--report-status-passed);
 }
 
 .status-label.failed {
-  color: var(--vp-c-red-1);
+  color: var(--report-status-failed);
 }
 
 .status-label.skipped {
-  color: var(--vp-c-yellow-1);
+  color: var(--report-status-skipped);
 }
 
 .status-label.pending {
-  color: var(--vp-c-purple-1);
+  color: var(--report-status-pending);
 }
 
 /* =========================
@@ -201,20 +201,21 @@ const clearFilters = () => {
 .filter-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--report-spacing-sm);
 }
 
 .filter-tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.75rem;
+  padding: var(--report-spacing-xs) var(--report-spacing-md);
   background-color: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 16px;
-  font-size: 0.75rem;
+  font-size: var(--report-badge-font-size);
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: background-color var(--report-transition-fast), 
+              border-color var(--report-transition-fast);
 }
 
 .filter-tag:hover {
@@ -223,7 +224,7 @@ const clearFilters = () => {
 }
 
 .filter-tag input[type="checkbox"] {
-  margin-right: 0.5rem;
+  margin-right: var(--report-spacing-sm);
   cursor: pointer;
 }
 
@@ -234,27 +235,31 @@ const clearFilters = () => {
 
 .tag-label {
   color: var(--vp-c-text-2);
-  transition: color 0.2s, font-weight 0.2s;
+  transition: color var(--report-transition-fast), 
+              font-weight var(--report-transition-fast);
 }
 
 /* =========================
    Action Buttons
    ========================= */
 .filter-actions {
-  margin-top: 1rem;
-  padding-top: 1rem;
+  margin-top: var(--report-spacing-lg);
+  padding-top: var(--report-spacing-lg);
   border-top: 1px solid var(--vp-c-divider);
 }
 
 .clear-button {
-  padding: 0.5rem 1rem;
+  padding: var(--report-btn-padding);
   background-color: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 4px;
-  font-size: 0.875rem;
+  border-radius: var(--report-btn-border-radius);
+  font-size: var(--report-btn-font-size);
   color: var(--vp-c-text-1);
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+  transition: background-color var(--report-transition-fast), 
+              border-color var(--report-transition-fast), 
+              color var(--report-transition-fast), 
+              transform 0.1s;
 }
 
 .clear-button:hover {

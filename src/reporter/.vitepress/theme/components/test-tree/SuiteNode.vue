@@ -87,14 +87,14 @@ const getStatusType = (status: string) => {
    Suite Node Container
    ========================= */
 .suite-node {
-  margin-bottom: 1rem;
-  padding-left: 1rem;
+  margin-bottom: var(--report-spacing-lg);
+  padding-left: var(--report-spacing-lg);
   border-left: 2px solid var(--vp-c-divider);
 }
 
 .suite-node h3 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--report-spacing-sm);
   font-size: 1.1rem;
   border-bottom: none;
 }
@@ -105,52 +105,52 @@ const getStatusType = (status: string) => {
 .suite-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: var(--report-spacing-sm);
+  margin-bottom: var(--report-spacing-sm);
 }
 
 .suite-duration {
   color: var(--vp-c-text-2);
-  font-size: 0.875rem;
+  font-size: var(--report-control-font-size);
 }
 
 /* =========================
    Summary
    ========================= */
 .suite-summary {
-  font-size: 0.875rem;
+  font-size: var(--report-control-font-size);
   color: var(--vp-c-text-2);
-  margin: 0.5rem 0;
+  margin: var(--report-spacing-sm) 0;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
   flex-wrap: wrap;
 }
 
 .suite-summary span {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
 }
 
 .suite-summary .passed {
-  color: var(--vp-c-green-1);
+  color: var(--report-status-passed);
 }
 
 .suite-summary .failed {
-  color: var(--vp-c-red-1);
+  color: var(--report-status-failed);
 }
 
 .suite-summary .skipped {
-  color: var(--vp-c-yellow-1);
+  color: var(--report-status-skipped);
 }
 
 .suite-summary .pending {
-  color: var(--vp-c-purple-1);
+  color: var(--report-status-pending);
 }
 
 .suite-summary .flaky {
-  color: var(--vp-c-orange-1);
+  color: var(--report-status-flaky);
 }
 
 /* =========================
@@ -164,12 +164,12 @@ const getStatusType = (status: string) => {
    Tests in Suite
    ========================= */
 .suite-tests {
-  margin-top: 0.5rem;
+  margin-top: var(--report-spacing-sm);
 }
 
 .tests-summary {
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--report-control-font-size);
   color: var(--vp-c-text-2);
   user-select: none;
 }
@@ -178,21 +178,21 @@ const getStatusType = (status: string) => {
    Test List
    ========================= */
 .tests-list {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
+  margin-top: var(--report-spacing-sm);
+  font-size: var(--report-control-font-size);
   list-style: none;
   padding-left: 0;
 }
 
 .test-item {
-  margin: 0.25rem 0;
+  margin: var(--report-spacing-xs) 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--report-spacing-sm);
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  padding: var(--report-spacing-sm);
+  border-radius: var(--report-control-border-radius);
+  transition: background-color var(--report-transition-fast);
   flex-wrap: wrap;
 }
 
@@ -201,7 +201,7 @@ const getStatusType = (status: string) => {
 }
 
 .test-badge {
-  font-size: 0.75rem;
+  font-size: var(--report-badge-font-size);
 }
 
 .test-name {
@@ -214,10 +214,10 @@ const getStatusType = (status: string) => {
 }
 
 .test-flaky {
-  color: var(--vp-c-orange-1);
+  color: var(--report-status-flaky);
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
 }
 
 /* =========================
@@ -225,19 +225,19 @@ const getStatusType = (status: string) => {
    ========================= */
 .test-tags {
   display: flex;
-  gap: 0.25rem;
+  gap: var(--report-spacing-xs);
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 0.25rem;
+  margin-top: var(--report-spacing-xs);
 }
 
 .tag {
   display: inline-block;
-  padding: 0.125rem 0.5rem;
+  padding: 0.125rem var(--report-spacing-sm);
   background-color: var(--vp-c-bg-mute);
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: var(--report-badge-font-size);
   color: var(--vp-c-text-2);
 }
 </style>
