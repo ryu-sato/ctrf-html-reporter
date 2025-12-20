@@ -100,7 +100,7 @@ jobs:
           echo "::endgroup::"
 
       - name: (main) Test bin execution
-        working-directory: ./package-tmp
+        working-directory: ../package-tmp
         run: |
           echo "::group::✅ Testing bin execution"
           $BIN_PATH --version
