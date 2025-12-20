@@ -37,7 +37,6 @@ const buildReport = (commandArgs: CommandArguments) => {
 
   const reporterPath = resolveReporterPath();
   const outputPath = resolveOutputPath(commandArgs.outputPath);
-  
   build(reporterPath, { outDir: outputPath });
 };
 
