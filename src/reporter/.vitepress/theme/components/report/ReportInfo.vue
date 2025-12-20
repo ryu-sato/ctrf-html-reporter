@@ -93,7 +93,20 @@ const duration = computed(() => {
   
   // Calculate from start/stop if available
   if (summary.start !== undefined && summary.stop !== undefined) {
-    return summary.stop - summary.start;
+    let start = summary.start;
+    let stop = summary.stop;
+    
+    // Convert to milliseconds if values are in seconds (Unix timestamp)
+    // Unix timestamps in seconds are typically 10 digits (e.g., 1700000000)
+    // Unix timestamps in milliseconds are typically 13 digits (e.g., 1700000000000)
+    if (start < 10000000000) {
+      start = start * 1000;
+    }
+    if (stop < 10000000000) {
+      stop = stop * 1000;
+    }
+    
+    return stop - start;
   }
   
   return null;
