@@ -1,21 +1,13 @@
-import { readReportFromFile, sortReportsByTimestamp } from 'ctrf';
-import { resolve } from 'path';
+import { sortReportsByTimestamp } from 'ctrf';
+import { loadCtrfReport } from './loadCtrfReport.js';
 
 export default {
   async load() {
-    try {
-      // Resolve the path to the report file
-      // Use environment variable if set, otherwise fall back to sample file
-      const reportPath = resolve(process.cwd(), process.env.CTRF_REPORT_PATH || 'sample-ctrf-result.json');
-
-      const report = await readReportFromFile(reportPath);
-      const sortedReportsByTimestamp = sortReportsByTimestamp([report], 'desc');
-      return sortedReportsByTimestamp;
-    } catch (error) {
-      console.error('Failed to load CTRF report:', error);
-      return {
-        error: error.message,
-      };
+    const report = await loadCtrfReport();
+    if (report.error) {
+      return report;
     }
+    const sortedReportsByTimestamp = sortReportsByTimestamp([report], 'desc');
+    return sortedReportsByTimestamp;
   }
 };
