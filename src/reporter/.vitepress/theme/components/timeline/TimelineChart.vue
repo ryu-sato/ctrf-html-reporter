@@ -191,19 +191,6 @@ const getStatusColor = (status: string) => {
   };
   return colors[status] || colors.other;
 };
-
-// Debug: Log data to console
-onMounted(() => {
-  console.log('report:', props.report);
-  console.log('allTests:', allTests.value);
-  console.log('testGroups:', testGroups.value);
-  console.log('testGroups length:', testGroups.value.length);
-  if (testGroups.value.length > 0) {
-    console.log('First group:', testGroups.value[0]);
-    console.log('First group suite:', testGroups.value[0]?.suite);
-    console.log('First group tests:', testGroups.value[0]?.tests);
-  }
-});
 </script>
 
 <style scoped>
