@@ -229,10 +229,16 @@ const getStatusType = (status: string) => {
 </script>
 
 <style scoped>
+/* =========================
+   Container
+   ========================= */
 .test-tree-view {
   margin: 1rem 0;
 }
 
+/* =========================
+   No Filter Results
+   ========================= */
 .no-results {
   padding: 2rem;
   text-align: center;
@@ -247,6 +253,9 @@ const getStatusType = (status: string) => {
   margin: 0;
 }
 
+/* =========================
+   Tree Root
+   ========================= */
 .tree-root {
   margin-bottom: 2rem;
 }
@@ -257,6 +266,9 @@ const getStatusType = (status: string) => {
   border-bottom: none;
 }
 
+/* =========================
+   Status Display
+   ========================= */
 .status-line {
   display: flex;
   align-items: center;
@@ -268,6 +280,9 @@ const getStatusType = (status: string) => {
   color: var(--vp-c-text-2);
 }
 
+/* =========================
+   Summary Box
+   ========================= */
 .summary-box {
   padding: 0.5rem;
   background-color: var(--vp-c-bg-soft);
@@ -308,6 +323,9 @@ const getStatusType = (status: string) => {
   color: var(--vp-c-orange-1);
 }
 
+/* =========================
+   Suites and Tests Container
+   ========================= */
 .suites-container {
   margin-left: 1rem;
 }
@@ -324,6 +342,9 @@ const getStatusType = (status: string) => {
   user-select: none;
 }
 
+/* =========================
+   Test List
+   ========================= */
 .tests-list {
   margin-top: 0.5rem;
   font-size: 0.875rem;
@@ -367,6 +388,9 @@ const getStatusType = (status: string) => {
   gap: 0.25rem;
 }
 
+/* =========================
+   Tags
+   ========================= */
 .test-tags {
   display: flex;
   gap: 0.25rem;

@@ -83,6 +83,9 @@ const getStatusType = (status: string) => {
 </script>
 
 <style scoped>
+/* =========================
+   Suite Node Container
+   ========================= */
 .suite-node {
   margin-bottom: 1rem;
   padding-left: 1rem;
@@ -96,6 +99,9 @@ const getStatusType = (status: string) => {
   border-bottom: none;
 }
 
+/* =========================
+   Header
+   ========================= */
 .suite-header {
   display: flex;
   align-items: center;
@@ -108,6 +114,9 @@ const getStatusType = (status: string) => {
   font-size: 0.875rem;
 }
 
+/* =========================
+   Summary
+   ========================= */
 .suite-summary {
   font-size: 0.875rem;
   color: var(--vp-c-text-2);
@@ -144,10 +153,16 @@ const getStatusType = (status: string) => {
   color: var(--vp-c-orange-1);
 }
 
+/* =========================
+   Nested Suites
+   ========================= */
 .nested-suites {
   margin-left: 0;
 }
 
+/* =========================
+   Tests in Suite
+   ========================= */
 .suite-tests {
   margin-top: 0.5rem;
 }
@@ -159,6 +174,9 @@ const getStatusType = (status: string) => {
   user-select: none;
 }
 
+/* =========================
+   Test List
+   ========================= */
 .tests-list {
   margin-top: 0.5rem;
   font-size: 0.875rem;
@@ -202,6 +220,9 @@ const getStatusType = (status: string) => {
   gap: 0.25rem;
 }
 
+/* =========================
+   Tags
+   ========================= */
 .test-tags {
   display: flex;
   gap: 0.25rem;

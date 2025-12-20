@@ -306,110 +306,17 @@ const changeSortOrFilter = () => {
 </script>
 
 <style scoped>
+/* =========================
+   Container
+   ========================= */
 .insights-container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.status-badge {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.rate-badge {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-  color: white;
-}
-
-.test-name {
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.suite-path {
-  font-size: 0.75rem;
-  color: var(--vp-c-text-2);
-}
-
-.tests-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.test-card {
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  padding: 1.25rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.test-card:hover {
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-.test-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.75rem;
-  gap: 1rem;
-}
-
-.test-card-title {
-  font-weight: 600;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  flex: 1;
-  word-break: break-word;
-}
-
-.test-card-suite {
-  font-size: 0.75rem;
-  color: var(--vp-c-text-2);
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
-.test-card-metrics {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
-
-.metric-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.metric-label {
-  font-size: 0.7rem;
-  color: var(--vp-c-text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.metric-value {
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
+/* =========================
+   Error Message
+   ========================= */
 .error-message {
   padding: 1rem;
   background: var(--vp-c-danger-soft);
@@ -418,6 +325,9 @@ const changeSortOrFilter = () => {
   color: var(--vp-c-danger-1);
 }
 
+/* =========================
+   Filter Controls
+   ========================= */
 .controls-container {
   margin-bottom: 2rem;
   padding: 1.5rem;
@@ -454,7 +364,7 @@ const changeSortOrFilter = () => {
   color: var(--vp-c-text-1);
   font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .control-select:hover {
@@ -474,6 +384,116 @@ const changeSortOrFilter = () => {
   border-top: 1px solid var(--vp-c-divider);
 }
 
+/* =========================
+   Test Cards Grid
+   ========================= */
+.tests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tests-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* =========================
+   Test Card
+   ========================= */
+.test-card {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.test-card:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Card Header */
+.test-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.test-card-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  flex: 1;
+  word-break: break-word;
+}
+
+/* Suite Info */
+.test-card-suite {
+  font-size: 0.75rem;
+  color: var(--vp-c-text-2);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+/* Metrics */
+.test-card-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  color: var(--vp-c-text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   Badges (Static styles for inline styles only)
+   ========================= */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.rate-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: white;
+}
+
+/* =========================
+   Pagination
+   ========================= */
 .pagination {
   display: flex;
   align-items: center;
@@ -495,7 +515,7 @@ const changeSortOrFilter = () => {
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .pagination-btn:hover:not(:disabled) {
@@ -521,7 +541,7 @@ const changeSortOrFilter = () => {
   border-radius: 4px;
   font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
   min-width: 40px;
 }
 
@@ -534,5 +554,18 @@ const changeSortOrFilter = () => {
   background: var(--vp-c-brand-1);
   color: white;
   border-color: var(--vp-c-brand-1);
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 768px) {
+  .controls-row {
+    flex-direction: column;
+  }
+  
+  .control-group {
+    min-width: auto;
+  }
 }
 </style>

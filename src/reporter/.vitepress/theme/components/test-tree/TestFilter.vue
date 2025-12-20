@@ -121,6 +121,9 @@ const clearFilters = () => {
 </script>
 
 <style scoped>
+/* =========================
+   Filter Container
+   ========================= */
 .test-filter {
   padding: 1rem;
   background-color: var(--vp-c-bg-soft);
@@ -128,6 +131,9 @@ const clearFilters = () => {
   margin-bottom: 1.5rem;
 }
 
+/* =========================
+   Filter Section
+   ========================= */
 .filter-section {
   margin-bottom: 1.5rem;
 }
@@ -145,6 +151,9 @@ const clearFilters = () => {
   letter-spacing: 0.5px;
 }
 
+/* =========================
+   Status Filter
+   ========================= */
 .filter-checkboxes {
   display: flex;
   flex-direction: column;
@@ -186,6 +195,9 @@ const clearFilters = () => {
   color: var(--vp-c-purple-1);
 }
 
+/* =========================
+   Tag Filter
+   ========================= */
 .filter-tags {
   display: flex;
   flex-wrap: wrap;
@@ -202,7 +214,7 @@ const clearFilters = () => {
   font-size: 0.75rem;
   cursor: pointer;
   user-select: none;
-  transition: all 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .filter-tag:hover {
@@ -222,9 +234,12 @@ const clearFilters = () => {
 
 .tag-label {
   color: var(--vp-c-text-2);
-  transition: all 0.2s;
+  transition: color 0.2s, font-weight 0.2s;
 }
 
+/* =========================
+   Action Buttons
+   ========================= */
 .filter-actions {
   margin-top: 1rem;
   padding-top: 1rem;
@@ -239,7 +254,7 @@ const clearFilters = () => {
   font-size: 0.875rem;
   color: var(--vp-c-text-1);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
 }
 
 .clear-button:hover {
@@ -250,5 +265,17 @@ const clearFilters = () => {
 
 .clear-button:active {
   transform: translateY(1px);
+}
+
+/* Accessibility: Focus Visualization */
+.clear-button:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+
+.filter-checkbox input[type="checkbox"]:focus-visible,
+.filter-tag input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
 }
 </style>

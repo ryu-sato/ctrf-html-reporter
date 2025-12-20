@@ -101,10 +101,25 @@ const duration = computed(() => {
 </script>
 
 <style scoped>
+/* =========================
+   Container
+   ========================= */
 .report-info {
   margin: 1rem 0;
 }
 
+.report-info-empty {
+  padding: 2rem;
+  text-align: center;
+  background: var(--vp-c-bg-soft);
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-2);
+}
+
+/* =========================
+   Information Section
+   ========================= */
 .info-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -135,16 +150,9 @@ const duration = computed(() => {
   word-break: break-word;
 }
 
-.report-info-empty {
-  padding: 2rem;
-  text-align: center;
-  background: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  border: 1px solid var(--vp-c-divider);
-  color: var(--vp-c-text-2);
-}
-
-/* Responsive adjustments */
+/* =========================
+   Responsive
+   ========================= */
 @media (max-width: 768px) {
   .info-section {
     grid-template-columns: 1fr;

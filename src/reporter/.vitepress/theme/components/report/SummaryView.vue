@@ -204,10 +204,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* =========================
+   Container
+   ========================= */
 .summary-view {
   margin: 1rem 0;
 }
 
+/* =========================
+   Statistics
+   ========================= */
 .timeline-stats {
   display: flex;
   gap: 2rem;
@@ -243,6 +249,9 @@ onMounted(() => {
   color: var(--vp-c-yellow-1); 
 }
 
+/* =========================
+   Time Information
+   ========================= */
 .time-info {
   margin-top: 1.5rem;
   padding: 1rem;
