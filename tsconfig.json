@@ -2,8 +2,8 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    "rootDir": "./src/bin",
-    "outDir": "./dist/bin",
+    "rootDir": "./src",
+    "outDir": "./src/bin/dist",
     "typeRoots": [
       "./node_modules/@types",
       "./src/types"
