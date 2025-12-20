@@ -25,7 +25,7 @@ export default defineConfig({
       },
     },
     target: 'node18',
-    outDir: 'dist',
+    outDir: 'dist/bin',
     emptyOutDir: false,
   },
   define: {
