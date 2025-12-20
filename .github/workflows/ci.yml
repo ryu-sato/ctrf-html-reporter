@@ -10,74 +10,91 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: (prepare) Checkout code
+      - &checkout-step
+        name: (prepare) Checkout code
         uses: actions/checkout@v4
 
-      - name: (prepare) Setup pnpm
+      - &setup-pnpm-step
+        name: (prepare) Setup pnpm
         uses: pnpm/action-setup@v3
 
-      - name: (prepare) Setup Node.js
+      - &setup-node-step
+        name: (prepare) Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: 'package.json'
           cache: 'pnpm'
 
-      - name: (prepare) Install dependencies
+      - &install-dependencies-step
+        name: (prepare) Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: (main) Build
+      - &build-step
+        name: (main) Build project
         run: pnpm run build
-
-      - name: (main) Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
-          retention-days: 1
 
   verify-package:
     name: Verify Package
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: (prepare) Checkout code
-        uses: actions/checkout@v4
+      - *checkout-step
+      - *setup-pnpm-step
+      - *setup-node-step
+      - *install-dependencies-step
+      - *build-step
 
-      - name: (prepare) Setup pnpm
-        uses: pnpm/action-setup@v3
+      - name: (prepare) Packing package
+        run: |
+          echo "::group::Packing package"
+          pnpm pack --pack-destination ./package-tmp
+          echo "::endgroup::"
 
-      - name: (prepare) Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: 'package.json'
-          cache: 'pnpm'
+      - name: (prepare) Install packed package
+        run: |
+          echo "::group::Installing packed package"
+          mkdir verify-package-env
+          cd verify-package-env
+          pnpm init -y
+          pnpm install ../package-tmp/ctrf-html-reporter-*.tgz
+          echo "::endgroup::"
 
-      - name: (prepare) Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: (prepare) Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist/
+      - name: (main) Verify bin field exists in package.json
+        run: |
+          echo "::group::✅ Verifying bin field in package.json"
+          BIN_NAME=$(jq -r '.bin | to_entries | .[0].key // empty' package.json)
+          if [ -z "$BIN_NAME" ]; then
+            echo "::error title=Bin field not found::❌ bin field not found or empty in package.json"
+            exit 1
+          fi
+          echo "::notice title=Bin field check passed::✅ bin field exists: $BIN_NAME"
+          BIN_PATH="node_modules/.bin/$BIN_NAME"
+          echo "BIN_PATH=$BIN_PATH" >> $GITHUB_ENV
+          echo "::endgroup::"
 
       - name: (main) Check bin file exists in node_modules
         run: |
-          if [ ! -f "node_modules/.bin/ctrf-html-reporter" ]; then
-            echo "Error: ctrf-html-reporter bin file not found in node_modules/.bin/"
+          echo "::group::✅ Checking bin file existence"
+          if [ ! -f "$BIN_PATH" ]; then
+            echo "::error title=Bin file not found::❌ bin file not found: $BIN_PATH"
             exit 1
           fi
-          echo "✓ bin file exists: node_modules/.bin/ctrf-html-reporter"
+          echo "::notice title=Bin file check passed::✅ bin file exists: $BIN_PATH"
+          echo "::endgroup::"
 
       - name: (main) Verify bin file is executable
         run: |
-          if [ ! -x "node_modules/.bin/ctrf-html-reporter" ]; then
-            echo "Error: ctrf-html-reporter is not executable"
+          echo "::group::✅ Verifying bin file is executable"
+          if [ ! -x "$BIN_PATH" ]; then
+            echo "::error title=Bin file not executable::❌ bin file is not executable: $BIN_PATH"
             exit 1
           fi
-          echo "✓ bin file is executable"
+          echo "::notice title=Executable check passed::✅ bin file is executable"
+          echo "::endgroup::"
 
       - name: (main) Test bin execution
         run: |
-          node_modules/.bin/ctrf-html-reporter --version
-          echo "✓ bin file executed successfully"
+          echo "::group::✅ Testing bin execution"
+          $BIN_PATH --version
+          echo "::notice title=Bin execution test passed::✅ bin file executed successfully"
+          echo "::endgroup::"
