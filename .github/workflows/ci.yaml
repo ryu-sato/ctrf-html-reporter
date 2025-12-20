@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - &checkout-step
@@ -32,6 +32,18 @@ jobs:
       - &install-dependencies-step
         name: (prepare) Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: (main) Run tests
+        run: pnpm test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - *checkout-step
+      - *setup-pnpm-step
+      - *setup-node-step
+      - *install-dependencies-step
 
       - &build-step
         name: (main) Build project
