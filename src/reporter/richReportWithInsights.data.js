@@ -32,6 +32,13 @@ export default {
       validatedBaselineReport = undefined;
     }
 
+    // Add insights to baseline reports
+    // Since enrichReportWithInsights requires insights for the baseline,
+    // locate the corresponding baseline report from previousReports and pre-compute the insights.
+    if (validatedBaselineReport && !validatedBaselineReport.insights) {
+      validatedBaselineReport = enrichReportWithInsights(validatedBaselineReport, previousReports);
+    }
+
     const richReportWithInsights = enrichReportWithInsights(report, previousReports, validatedBaselineReport);
     return richReportWithInsights;
   }
