@@ -31,16 +31,16 @@ const resolveReporterPath = (): string => {
 const buildReport = (commandArgs: CommandArguments) => {
   console.log(`Processing report file...: ${commandArgs.inputFilePath}`);
   console.log(`Output path: ${commandArgs.outputPath}`);
-  console.log(`Previous reports: ${commandArgs.previousReportPaths.join(', ')}`);
+  console.log(`Previous report: ${commandArgs.previousReportPath}`);
   if (commandArgs.baselineReportPath) {
     console.log(`Baseline report: ${commandArgs.baselineReportPath}`);
   }
 
   // Set the report path as an environment variable for VitePress data loaders
   process.env.CTRF_REPORT_PATH = commandArgs.inputFilePath;
-  process.env.PREVIOUS_CTRF_REPORTS = JSON.stringify(commandArgs.previousReportPaths);
+  process.env.PREVIOUS_CTRF_REPORT_PATH = commandArgs.previousReportPath;
   if (commandArgs.baselineReportPath) {
-    process.env.BASELINE_CTRF_REPORT = commandArgs.baselineReportPath;
+    process.env.BASELINE_CTRF_REPORT_PATH = commandArgs.baselineReportPath;
   }
 
   const reporterPath = resolveReporterPath();

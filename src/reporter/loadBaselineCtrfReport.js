@@ -8,7 +8,7 @@ import { resolve } from 'path';
  */
 export async function loadBaselineCtrfReport() {
   try {
-    if (!process.env.BASELINE_CTRF_REPORT) {
+    if (!process.env.BASELINE_CTRF_REPORT_PATH) {
       return undefined;
     }
 
@@ -16,7 +16,7 @@ export async function loadBaselineCtrfReport() {
     // Use environment variable if set
     const reportPath = resolve(
       process.cwd(), 
-      process.env.BASELINE_CTRF_REPORT,
+      process.env.BASELINE_CTRF_REPORT_PATH,
     );
 
     const report = await readReportFromFile(reportPath);

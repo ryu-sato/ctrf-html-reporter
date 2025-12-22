@@ -10,11 +10,11 @@ import { stat } from 'fs/promises';
  */
 export async function loadPreviousCtrfReports() {
   try {
-    if (!process.env.PREVIOUS_CTRF_REPORTS) {
+    if (!process.env.PREVIOUS_CTRF_REPORT_PATH) {
       return [];
     }
 
-    const inputPath = process.env.PREVIOUS_CTRF_REPORTS;
+    const inputPath = process.env.PREVIOUS_CTRF_REPORT_PATH;
     const resolvedPath = resolve(process.cwd(), inputPath);
 
     // Try to stat the path to determine if it's a file or directory
