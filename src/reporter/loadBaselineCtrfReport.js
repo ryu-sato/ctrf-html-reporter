@@ -2,21 +2,21 @@ import { readReportFromFile } from 'ctrf';
 import { resolve } from 'path';
 
 /**
- * Load CTRF report from file using environment variable
+ * Load baseline CTRF report from file using environment variable
  * @returns {Promise<Object>} The CTRF report object
  * @throws {Error} If the report fails to load
  */
-export async function loadCtrfReport() {
+export async function loadBaselineCtrfReport() {
   try {
-    if (!process.env.CTRF_REPORT_PATH) {
-      throw new Error('CTRF_REPORT_PATH environment variable is not set.');
+    if (!process.env.BASELINE_CTRF_REPORT) {
+      return undefined;
     }
 
     // Resolve the path to the report file
     // Use environment variable if set
     const reportPath = resolve(
       process.cwd(), 
-      process.env.CTRF_REPORT_PATH,
+      process.env.BASELINE_CTRF_REPORT,
     );
 
     const report = await readReportFromFile(reportPath);
