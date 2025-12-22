@@ -17,7 +17,6 @@ https://github.com/user-attachments/assets/cd7e59e9-edbf-4859-9527-d4ba7d4a9396
 - Beautiful and readable report UI
 - Visualization and insights of test results
 - Simple command-line interface
-- Support for multiple package managers
 
 ## Usage
 
@@ -96,13 +95,28 @@ The Suites view organizes test results grouped by test suites. This allows you t
 
 ### Insights
 
-(TBD) The baseline specification feature is not yet developed.
-
-The Insights view provides comparison with baseline results. This feature helps you:
-- Compare current results against baseline
+The Insights view provides comparison with previous test results and baseline. This feature helps you:
+- Compare current results against previous and baseline reports
 - Easily identify changes in overall report metrics
 - Track test case status changes (new failures, fixed tests, etc.)
 - Understand test result trends over time
+
+To enable insights comparison, specify previous reports. The baseline report is identified from the previous reports by its start time:
+
+```bash
+# Compare with previous reports (can be a file, glob pattern, or directory)
+ctrf-html-reporter path/to/report.ctrf.json --previous-reports path/to/previous.ctrf.json
+
+# Compare with multiple previous reports using glob pattern
+ctrf-html-reporter path/to/report.ctrf.json --previous-reports "reports/*.ctrf.json"
+
+# Specify which report to use as baseline (identified by start time)
+ctrf-html-reporter path/to/report.ctrf.json \
+  --previous-reports path/to/reports/ \
+  --baseline-report path/to/baseline.ctrf.json
+```
+
+**Note:** The baseline report must be included in the previous reports. When specified, it is identified by matching the start time (value of `{ results.summary.start }`) of the test execution.
 
 ### Timeline
 
@@ -118,6 +132,8 @@ The Timeline view displays test execution in chronological order. This visualiza
 |--------|-------|-------------|---------|
 | `<report.ctrf.json>` | - | Path to the CTRF report file (required) | - |
 | `--output-path <path>` | `-o` | Output directory for the HTML report | `.ctrf/report` |
+| `--previous-reports <path or glob pattern or directory>` | `-p` | Path to previous CTRF report file(s) or directory for comparison | - |
+| `--baseline-report <path>` | `-b` | Path to the baseline CTRF report file (must be included in previous reports, identified by start time) | - |
 | `--version` | `-V` | Output the version number | - |
 | `--help` | `-h` | Display help information | - |
 
