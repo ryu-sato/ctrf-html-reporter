@@ -49,6 +49,7 @@
     "vue": "^3.5.26"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
     "@types/node": "^25.0.1",
     "@vitest/coverage-v8": "^2.1.8",
