@@ -39,7 +39,7 @@
     "changeset": "changeset",
     "version": "changeset version",
     "prepublish": "pnpm run clean",
-    "publish": "pnpm run build && echo changeset publish",
+    "publish": "pnpm run build && changeset publish",
     "clean": "rm -rf dist src/reporter/.vitepress/{cache,dist}"
   },
   "dependencies": {
