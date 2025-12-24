@@ -38,7 +38,9 @@
     "reporter:preview": "vitepress preview src/reporter",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "pnpm run build && changeset publish"
+    "prepublish": "pnpm run clean",
+    "publish": "pnpm run build && echo changeset publish",
+    "clean": "rm -rf dist src/reporter/.vitepress/{cache,dist}"
   },
   "dependencies": {
     "chart.js": "^4.5.1",

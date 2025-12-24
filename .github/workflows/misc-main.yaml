@@ -18,22 +18,40 @@ jobs:
       pull-requests: write
       contents: write
     steps:
-      - name: (prepare) Checkout code
-        uses: actions/checkout@v6
-      
-      - name: (prepare) Setup pnpm
+      - &checkout-step
+        name: (prepare) Checkout code
+        uses: actions/checkout@v4
+
+      - &setup-pnpm-step
+        name: (prepare) Setup pnpm
         uses: pnpm/action-setup@v3
 
-      - name: (prepare) Setup Node.js
+      - &setup-node-step
+        name: (prepare) Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: 'package.json'
           cache: 'pnpm'
 
-      - name: (prepare) Install dependencies
+      - &install-dependencies-step
+        name: (prepare) Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Create Versioning Pull Request
+      - name: (main) Create Versioning Pull Request
         uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: Misc - Publish NPM Package
+    # Execute if a PR from changeset-release/** has been merged
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'changeset-release')
+    runs-on: ubuntu-latest
+    steps:
+      - *checkout-step
+      - *setup-pnpm-step
+      - *setup-node-step
+      - *install-dependencies-step
+
+      - name: (main) Publish NPM Package
+        run: pnpm run publish
