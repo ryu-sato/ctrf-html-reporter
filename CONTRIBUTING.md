@@ -24,7 +24,7 @@ pnpm install
 To develop the reporter UI:
 
 ```bash
-pnpm run reporter:dev
+CTRF_REPORT_PATH=path/to/report.ctrf.json pnpm run reporter:dev
 ```
 
 This will start the VitePress development server, and you can access it in your browser at `http://localhost:5173`.
