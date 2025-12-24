@@ -57,5 +57,8 @@ jobs:
       - *setup-node-step
       - *install-dependencies-step
 
+      - name: (prepare) Setup NPM Auth Token
+        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+
       - name: (main) Publish NPM Package
         run: pnpm run publish
