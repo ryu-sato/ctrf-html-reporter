@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.1
+
+### Patch Changes
+
+- [#20](https://github.com/ryu-sato/ctrf-html-reporter/pull/20) [`f786fb0`](https://github.com/ryu-sato/ctrf-html-reporter/commit/f786fb00175defb98978853d3cd605173ad633eb) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Fix the bug that reporter crashed when previous report path is not specified
+
 ## 1.1.0
 
 ### Minor Changes
