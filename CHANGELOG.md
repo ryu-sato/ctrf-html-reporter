@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.0
+
+### Minor Changes
+
+- [#16](https://github.com/ryu-sato/ctrf-html-reporter/pull/16) [`c6f819f`](https://github.com/ryu-sato/ctrf-html-reporter/commit/c6f819f4e233a6b3f778c323e05d5e7b0b7d9093) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix(breaking changes): Fix a bug where past reports and baselines were not recognized even when specified via command-line options.
+
 ## 1.0.1
 
 ### Patch Changes
