@@ -120,7 +120,7 @@ This project uses [Changesets](https://github.com/changesets/changesets) to mana
 When you make changes that should be included in the changelog:
 
 ```bash
-pnpm changeset
+pnpm exec changeset
 ```
 
 This will prompt you to:
@@ -128,17 +128,3 @@ This will prompt you to:
 2. Provide a description of your changes
 
 The changeset will be stored in the `.changeset` directory and should be committed with your changes.
-
-#### Versioning and Publishing
-
-To update package versions based on changesets:
-
-```bash
-pnpm version
-```
-
-To build and publish the package:
-
-```bash
-pnpm release
-```
