@@ -2,4 +2,4 @@
 "ctrf-html-reporter": patch
 ---
 
-Add changesets
+chore: Add changesets
