@@ -1,0 +1,61 @@
+name: Misc - Make Versioning PR
+
+on:
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  # Create a versioning PR when a PR is merged into main
+  # - Version up of package.json (ex. 1.0.1-rc -> 1.0.1)
+  # - Update CHANGELOG.md (ex. add changesets from 1.0.1-rc to 1.0.1)
+  versioning:
+    if: github.event.pull_request.merged == true
+    name: Misc - Versioning
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - &checkout-step
+        name: (prepare) Checkout code
+        uses: actions/checkout@v4
+
+      - &setup-pnpm-step
+        name: (prepare) Setup pnpm
+        uses: pnpm/action-setup@v3
+
+      - &setup-node-step
+        name: (prepare) Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          cache: 'pnpm'
+
+      - &install-dependencies-step
+        name: (prepare) Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: (main) Create Versioning Pull Request
+        uses: changesets/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    # Publish NPM package when a versioning PR from changeset-release/** has been merged
+    # - Publish to NPM registry
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'changeset-release')
+    name: Misc - Publish NPM Package
+    runs-on: ubuntu-latest
+    steps:
+      - *checkout-step
+      - *setup-pnpm-step
+      - *setup-node-step
+      - *install-dependencies-step
+
+      - name: (main) Publish NPM Package
+        run: pnpm run publish

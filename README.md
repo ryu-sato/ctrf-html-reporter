@@ -254,6 +254,38 @@ ctrf-html-reporter/
    - Follow the existing code style
    - Add tests as needed
 
+### Managing Changes with Changesets
+
+This project uses [Changesets](https://github.com/changesets/changesets) to manage versioning and changelogs.
+
+#### Creating a Changeset
+
+When you make changes that should be included in the changelog:
+
+```bash
+pnpm changeset
+```
+
+This will prompt you to:
+1. Select the type of change (patch, minor, or major)
+2. Provide a description of your changes
+
+The changeset will be stored in the `.changeset` directory and should be committed with your changes.
+
+#### Versioning and Publishing
+
+To update package versions based on changesets:
+
+```bash
+pnpm version
+```
+
+To build and publish the package:
+
+```bash
+pnpm release
+```
+
 ## License
 
 MIT License - see the [LICENSE](LICENSE) file for details

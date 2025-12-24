@@ -1,6 +1,6 @@
 {
   "name": "ctrf-html-reporter",
-  "version": "1.0.1",
+  "version": "1.0.1-rc",
   "description": "Report test result of CTRF (Common Test Report Format) as HTML.",
   "keywords": [
     "ctrf",
@@ -35,7 +35,12 @@
     "bin:dev": "pnpm exec vite-node src/bin/index.mts",
     "reporter:dev": "vitepress dev src/reporter --host 0.0.0.0",
     "reporter:build": "vitepress build src/reporter",
-    "reporter:preview": "vitepress preview src/reporter"
+    "reporter:preview": "vitepress preview src/reporter",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "prepublish": "pnpm run clean",
+    "publish": "pnpm run build && echo changeset publish",
+    "clean": "rm -rf dist src/reporter/.vitepress/{cache,dist}"
   },
   "dependencies": {
     "chart.js": "^4.5.1",
@@ -46,6 +51,8 @@
     "vue": "^3.5.26"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.2",
+    "@changesets/cli": "^2.29.8",
     "@types/node": "^25.0.1",
     "@vitest/coverage-v8": "^2.1.8",
     "@vitest/ui": "^2.1.8",
