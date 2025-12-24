@@ -16,8 +16,8 @@ program
   .description(description)
   .argument('<report.ctrf.json>', 'Path to the CTRF report file')
   .option('-o, --output-path <path>', 'Output path for the HTML report', DEFAULT_OUTPUT_PATH)
-  .option('-p, --previous-reports <path or glob pattern or directory>', 'Path to previous CTRF report file(s) or directory for comparison', DEFAULT_PREVIOUS_REPORT_PATH)
-  .option('-b, --baseline-report <path>', 'Path to the baseline CTRF report file', DEFAULT_BASELINE_REPORT_PATH)
+  .option('-p, --previous-report-path <path or glob pattern or directory>', 'Path to previous CTRF report file(s) or directory for comparison', DEFAULT_PREVIOUS_REPORT_PATH)
+  .option('-b, --baseline-report-path <path>', 'Path to the baseline CTRF report file', DEFAULT_BASELINE_REPORT_PATH)
   .action((options) => {
     const commandArgs = commanderToCommandArguments(program);
     buildReport(commandArgs);
