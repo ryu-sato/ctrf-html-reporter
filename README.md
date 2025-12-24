@@ -105,15 +105,15 @@ To enable insights comparison, specify previous reports. The baseline report is 
 
 ```bash
 # Compare with previous reports (can be a file, glob pattern, or directory)
-ctrf-html-reporter path/to/report.ctrf.json --previous-reports path/to/previous.ctrf.json
+ctrf-html-reporter path/to/report.ctrf.json --previous-report-path path/to/previous.ctrf.json
 
 # Compare with multiple previous reports using glob pattern
-ctrf-html-reporter path/to/report.ctrf.json --previous-reports "reports/*.ctrf.json"
+ctrf-html-reporter path/to/report.ctrf.json --previous-report-path "reports/*.ctrf.json"
 
 # Specify which report to use as baseline (identified by start time)
 ctrf-html-reporter path/to/report.ctrf.json \
-  --previous-reports path/to/reports/ \
-  --baseline-report path/to/baseline.ctrf.json
+  --previous-report-path path/to/reports/ \
+  --baseline-report-path path/to/baseline.ctrf.json
 ```
 
 **Note:** The baseline report must be included in the previous reports. When specified, it is identified by matching the start time (value of `{ results.summary.start }`) of the test execution.
@@ -132,8 +132,8 @@ The Timeline view displays test execution in chronological order. This visualiza
 |--------|-------|-------------|---------|
 | `<report.ctrf.json>` | - | Path to the CTRF report file (required) | - |
 | `--output-path <path>` | `-o` | Output directory for the HTML report | `.ctrf/report` |
-| `--previous-reports <path or glob pattern or directory>` | `-p` | Path to previous CTRF report file(s) or directory for comparison | - |
-| `--baseline-report <path>` | `-b` | Path to the baseline CTRF report file (must be included in previous reports, identified by start time) | - |
+| `--previous-report-path <path or glob pattern or directory>` | `-p` | Path to previous CTRF report file(s) or directory for comparison | - |
+| `--baseline-report-path <path>` | `-b` | Path to the baseline CTRF report file (must be included in previous reports, identified by start time) | - |
 | `--version` | `-V` | Output the version number | - |
 | `--help` | `-h` | Display help information | - |
 
