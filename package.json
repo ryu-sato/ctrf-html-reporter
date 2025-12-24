@@ -36,10 +36,7 @@
     "reporter:dev": "vitepress dev src/reporter --host 0.0.0.0",
     "reporter:build": "vitepress build src/reporter",
     "reporter:preview": "vitepress preview src/reporter",
-    "changeset": "changeset",
-    "version": "changeset version",
-    "prepublish": "pnpm run clean && pnpm run build",
-    "publish": "npm publish --access public",
+    "prepare": "pnpm run clean && pnpm run build",
     "clean": "rm -rf dist src/reporter/.vitepress/{cache,dist}"
   },
   "dependencies": {
