@@ -31,6 +31,9 @@
    Custom CSS Variables
    ========================= */
 :root {
+  /* Layout Variables */
+  --vp-layout-max-width: 2000px; /* default is 1400px, increased for wide screens */
+
   /* Card Variables */
   --report-card-bg: var(--vp-c-bg-soft);
   --report-card-border: var(--vp-c-divider);
@@ -313,4 +316,33 @@
 .report-metric-value {
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+/* =========================
+   Responsive Layout Adjustment for Maximum Content Width
+   ========================= */
+@media (min-width: 1440px) {
+  .VPNavBar.has-sidebar .title {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+    width: calc(var(--vp-sidebar-width) - 32px);
+  }
+
+  .VPNavBar.has-sidebar .content {
+    padding-left: var(--vp-sidebar-width) !important;
+    padding-right: var(--vp-sidebar-width) !important;
+  }
+
+  .VPNavBar.has-sidebar .divider {
+    padding-left: 32px !important;
+  }
+
+  .VPSidebar {
+    padding-left: 32px !important;
+    width: var(--vp-sidebar-width) !important;
+  }
+
+  .VPContent.has-sidebar {
+    padding-left: var(--vp-sidebar-width) !important;
+  }
 }
