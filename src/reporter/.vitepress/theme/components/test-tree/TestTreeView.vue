@@ -124,7 +124,7 @@ const filterTests = (tests: any) => {
                         selectedStatuses.value.includes(test.status);
 
     // Filter by flaky status
-    const flakyMatch = isFlakySelected.value && test.flaky === true;
+    const flakyMatch = !isFlakySelected.value || test.flaky === true;
 
     // Filter by tags
     const tagsMatch = selectedTags.value.length === 0 ||
