@@ -39,6 +39,15 @@
           />
           <span class="status-label pending"><Clock :size="16" :stroke-width="2" />Pending</span>
         </label>
+        <label class="filter-checkbox">
+          <input 
+            type="checkbox" 
+            value="flaky" 
+            :checked="isFlakySelected"
+            @change="toggleFlakySelected"
+          />
+          <span class="status-label flaky"><Zap :size="16" :stroke-width="2" />Flaky</span>
+        </label>
       </div>
     </div>
 
@@ -61,7 +70,7 @@
       </div>
     </div>
 
-    <div v-if="selectedStatuses.length > 0 || selectedTags.length > 0" class="filter-actions">
+    <div v-if="selectedStatuses.length > 0 || isFlakySelected || selectedTags.length > 0" class="filter-actions">
       <button @click="clearFilters" class="clear-button">Clear All Filters</button>
     </div>
   </div>
@@ -75,6 +84,10 @@ const props = defineProps({
     type: Array as () => string[],
     default: () => []
   },
+  isFlakySelected: {
+    type: Boolean,
+    default: false
+  },
   selectedTags: {
     type: Array as () => string[],
     default: () => []
@@ -85,7 +98,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['update:selectedStatuses', 'update:selectedTags', 'clear']);
+const emit = defineEmits(['update:selectedStatuses', 'update:isFlakySelected', 'update:selectedTags', 'clear']);
 
 const toggleStatus = (status: string) => {
   const newStatuses = [...props.selectedStatuses];
@@ -98,6 +111,12 @@ const toggleStatus = (status: string) => {
   }
   
   emit('update:selectedStatuses', newStatuses);
+};
+
+const toggleFlakySelected = () => {
+  const newIsFlakySelected = !props.isFlakySelected;
+
+  emit('update:isFlakySelected', newIsFlakySelected);
 };
 
 const toggleTag = (tag: string) => {
@@ -116,6 +135,7 @@ const toggleTag = (tag: string) => {
 const clearFilters = () => {
   emit('update:selectedStatuses', []);
   emit('update:selectedTags', []);
+  emit('update:isFlakySelected', false);
   emit('clear');
 };
 </script>
@@ -156,7 +176,6 @@ const clearFilters = () => {
    ========================= */
 .filter-checkboxes {
   display: flex;
-  flex-direction: column;
   gap: var(--report-spacing-sm);
 }
 
