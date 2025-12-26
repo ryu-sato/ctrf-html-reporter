@@ -1,5 +1,13 @@
 # ctrf-html-reporter
 
+## 1.1.2
+
+### Patch Changes
+
+- [#24](https://github.com/ryu-sato/ctrf-html-reporter/pull/24) [`8f87dfb`](https://github.com/ryu-sato/ctrf-html-reporter/commit/8f87dfb098fc1072341a9d51a6e373566f3cdf3e) Thanks [@ryu-sato](https://github.com/ryu-sato)! - Expanding Maximum Content Width and Responsive Layout Adjustments
+
+- [#26](https://github.com/ryu-sato/ctrf-html-reporter/pull/26) [`a4f6668`](https://github.com/ryu-sato/ctrf-html-reporter/commit/a4f66685cfc91b59e3d6dc0b88e497fadab3fd1a) Thanks [@ryu-sato](https://github.com/ryu-sato)! - imprv: Enable to filter by flaky on the Suites page.
+
 ## 1.1.1
 
 ### Patch Changes
