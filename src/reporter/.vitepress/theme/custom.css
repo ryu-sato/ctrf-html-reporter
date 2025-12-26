@@ -278,7 +278,6 @@
    ========================= */
 .report-container {
   border-radius: var(--report-card-border-radius);
-  padding: var(--report-card-padding);
 }
 
 /* =========================
@@ -319,6 +318,13 @@
 }
 
 /* =========================
+   Overrides for VitePress Doc Layout
+   ========================= */
+.VPDoc.has-aside .content-container {
+  max-width: initial !important; /* increased from default 680px */
+}
+
+/* =========================
    Responsive Layout Adjustment for Maximum Content Width
    ========================= */
 @media (min-width: 1440px) {
@@ -344,5 +350,15 @@
 
   .VPContent.has-sidebar {
     padding-left: var(--vp-sidebar-width) !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPDoc {
+    padding: 48px !important;
+  }
+
+  .content {
+    padding: 0px !important;
   }
 }
