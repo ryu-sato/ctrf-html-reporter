@@ -39,16 +39,20 @@
           />
           <span class="status-label pending"><Clock :size="16" :stroke-width="2" />Pending</span>
         </label>
-        <label class="filter-checkbox">
-          <input 
-            type="checkbox" 
-            value="flaky" 
-            :checked="isFlakySelected"
-            @change="toggleFlakySelected"
-          />
-          <span class="status-label flaky"><Zap :size="16" :stroke-width="2" />Flaky</span>
-        </label>
       </div>
+    </div>
+
+    <div class="filter-section">
+      <h4>Filter by Flaky</h4>
+      <label class="filter-checkbox">
+        <input 
+          type="checkbox" 
+          value="flaky" 
+          :checked="isFlakySelected"
+          @change="toggleFlakySelected"
+        />
+        <span class="status-label flaky"><Zap :size="16" :stroke-width="2" />Flaky</span>
+      </label>
     </div>
 
     <div v-if="availableTags.length > 0" class="filter-section">
