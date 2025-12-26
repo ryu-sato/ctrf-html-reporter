@@ -1,5 +1,13 @@
 # ctrf-html-reporter
 
+## 1.1.3
+
+### Patch Changes
+
+- [#29](https://github.com/ryu-sato/ctrf-html-reporter/pull/29) [`f50a5c2`](https://github.com/ryu-sato/ctrf-html-reporter/commit/f50a5c2b28394a4abc17e05651d593b55f1dde1c) Thanks [@ryu-sato](https://github.com/ryu-sato)! - imprv: Represent flakiness as a separate filter from status
+
+- [#27](https://github.com/ryu-sato/ctrf-html-reporter/pull/27) [`ab5eea8`](https://github.com/ryu-sato/ctrf-html-reporter/commit/ab5eea8a3ddf52f02add1c2c14dc404ed3c93f40) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Cannot filter by any status other than Flaky
+
 ## 1.1.2
 
 ### Patch Changes
