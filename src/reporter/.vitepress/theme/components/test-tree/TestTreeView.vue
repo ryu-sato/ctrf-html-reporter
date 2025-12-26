@@ -3,9 +3,11 @@
     <!-- Filter Component -->
     <TestFilter
       :selectedStatuses="selectedStatuses"
+      :is-flaky-selected="isFlakySelected"
       :selectedTags="selectedTags"
       :availableTags="availableTags"
       @update:selectedStatuses="selectedStatuses = $event"
+      @update:is-flaky-selected="isFlakySelected = $event"
       @update:selectedTags="selectedTags = $event"
     />
 
@@ -85,6 +87,7 @@ const props = defineProps({
 // Filter states
 const selectedStatuses = ref<string[]>([]);
 const selectedTags = ref<string[]>([]);
+const isFlakySelected = ref(false);
 
 // Get all available tags from tests
 const availableTags = computed(() => {
@@ -118,14 +121,17 @@ const filterTests = (tests: any) => {
   return tests.filter((test: any) => {
     // Filter by status
     const statusMatch = selectedStatuses.value.length === 0 || 
-                       selectedStatuses.value.includes(test.status);
-    
+                        selectedStatuses.value.includes(test.status);
+
+    // Filter by flaky status
+    const flakyMatch = isFlakySelected.value && test.flaky === true;
+
     // Filter by tags
     const tagsMatch = selectedTags.value.length === 0 ||
                      (test.tags && Array.isArray(test.tags) && 
                       selectedTags.value.some(tag => test.tags.includes(tag)));
-    
-    return statusMatch && tagsMatch;
+
+    return statusMatch && flakyMatch && tagsMatch;
   });
 };
 
@@ -156,7 +162,7 @@ const filterSuite = (suite: any): any => {
 // Compute filtered nodes
 const filteredNodes = computed(() => {
   // If no filters are applied, return all nodes
-  if (selectedStatuses.value.length === 0 && selectedTags.value.length === 0) {
+  if (selectedStatuses.value.length === 0 && isFlakySelected.value === false && selectedTags.value.length === 0) {
     return props.nodes;
   }
   
