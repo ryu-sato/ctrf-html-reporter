@@ -53,7 +53,7 @@
               <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
               <span class="test-name">{{ test.name }}</span>
               <span class="test-duration">({{ formatDuration(test.duration) }})</span>
-              <span v-if="test.flaky" class="test-flaky"><Zap :size="14" :stroke-width="2" /> Flaky</span>
+              <span v-if="test.flaky" class="test-flaky"><BoltIcon style="width: 24px; height: 24px;" /> Flaky</span>
               <div v-if="test.tags && test.tags.length > 0" class="test-tags">
                 <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
               </div>
