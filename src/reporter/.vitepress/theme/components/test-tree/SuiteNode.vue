@@ -9,11 +9,11 @@
 
     <div v-if="suite.summary" class="suite-summary">
       Tests: {{ suite.summary.tests || suite.tests?.length || 0 }} |
-      <span class="passed"><CheckCircleIcon style="width: 24px; height: 24px;" /> {{ suite.summary.passed || 0 }}</span> |
-      <span class="failed"><XCircleIcon style="width: 24px; height: 24px;" /> {{ suite.summary.failed || 0 }}</span> |
-      <span class="skipped"><MinusCircleIcon style="width: 24px; height: 24px;" /> {{ suite.summary.skipped || 0 }}</span> |
-      <span class="pending"><ClockIcon style="width: 24px; height: 24px;" /> {{ suite.summary.pending || 0 }}</span>
-      <span v-if="suite.summary.flaky" class="flaky"> | <BoltIcon style="width: 24px; height: 24px;" /> {{ suite.summary.flaky }}</span>
+      <span class="passed"><CheckCircleIcon style="width: 16px; height: 16px;" /> {{ suite.summary.passed || 0 }}</span> |
+      <span class="failed"><XCircleIcon style="width: 16px; height: 16px;" /> {{ suite.summary.failed || 0 }}</span> |
+      <span class="skipped"><MinusCircleIcon style="width: 16px; height: 16px;" /> {{ suite.summary.skipped || 0 }}</span> |
+      <span class="pending"><ClockIcon style="width: 16px; height: 16px;" /> {{ suite.summary.pending || 0 }}</span>
+      <span v-if="suite.summary.flaky" class="flaky"> | <BoltIcon style="width: 16px; height: 16px;" /> {{ suite.summary.flaky }}</span>
     </div>
 
     <!-- Nested suites -->
@@ -36,7 +36,7 @@
             <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
             <span class="test-name">{{ test.name }}</span>
             <span class="test-duration">({{ formatDuration(test.duration) }})</span>
-            <span v-if="test.flaky" class="test-flaky"><BoltIcon style="width: 24px; height: 24px;" /> Flaky</span>
+            <span v-if="test.flaky" class="test-flaky"><BoltIcon style="width: 16px; height: 16px;" /> Flaky</span>
             <div v-if="test.tags && test.tags.length > 0" class="test-tags">
               <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
             </div>
@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
-import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/24/outline';
+import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/16/solid';
 
 import { VPBadge as Badge } from 'vitepress/theme';
 import type { TreeNode } from 'ctrf';
