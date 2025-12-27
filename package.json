@@ -40,10 +40,10 @@
     "clean": "rm -rf dist src/reporter/.vitepress/{cache,dist}"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.2.0",
     "chart.js": "^4.5.1",
     "commander": "^14.0.2",
     "ctrf": "^0.0.17",
-    "lucide-vue-next": "^0.561.0",
     "vitepress": "2.0.0-alpha.15",
     "vue": "^3.5.26"
   },
