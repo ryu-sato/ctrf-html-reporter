@@ -17,20 +17,20 @@ export default defineConfig({
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
-        { text: 'Overview', link: '/' },
-        { text: 'Suites', link: '/suites' },
-        { text: 'Insights', link: '/insights' },
-        { text: 'Timeline', link: '/timeline' },
+        { text: 'Overview', link: '/#overview' },
+        { text: 'Suites', link: '/#suites' },
+        { text: 'Insights', link: '/#insights' },
+        { text: 'Timeline', link: '/#timeline' },
       ],
 
       sidebar: [
         {
           text: 'Report',
           items: [
-            { text: 'Overview', link: '/' },
-            { text: 'Suites', link: '/suites' },
-            { text: 'Insights', link: '/insights' },
-            { text: 'Timeline', link: '/timeline' }
+            { text: 'Overview', link: '/#overview' },
+            { text: 'Suites', link: '/#suites' },
+            { text: 'Insights', link: '/#insights' },
+            { text: 'Timeline', link: '/#timeline' }
           ]
         }
       ],
