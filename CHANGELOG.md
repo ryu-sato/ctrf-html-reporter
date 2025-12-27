@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.5
+
+### Patch Changes
+
+- [#34](https://github.com/ryu-sato/ctrf-html-reporter/pull/34) [`0787240`](https://github.com/ryu-sato/ctrf-html-reporter/commit/07872403c843ee585e8e7c9fe9444c0ef0739764) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Fixed an issue where icons for passed, failed, skipped, and pending could not be displayed.
+
 ## 1.1.4
 
 ### Patch Changes
