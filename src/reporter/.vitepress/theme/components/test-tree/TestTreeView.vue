@@ -27,11 +27,11 @@
       <div v-if="root.summary" class="summary-box">
         <div class="summary-stats">
           <span>Tests: {{ root.summary.tests || root.tests?.length || 0 }}</span>
-          <span class="passed"><CheckCircleIcon style="width: 24px; height: 24px;" /> {{ root.summary.passed || 0 }}</span>
-          <span class="failed"><XCircleIcon style="width: 24px; height: 24px;" /> {{ root.summary.failed || 0 }}</span>
-          <span class="skipped"><MinusCircleIcon style="width: 24px; height: 24px;" /> {{ root.summary.skipped || 0 }}</span>
-          <span class="pending"><ClockIcon style="width: 24px; height: 24px;" /> {{ root.summary.pending || 0 }}</span>
-          <span v-if="root.summary.flaky" class="flaky"><BoltIcon style="width: 24px; height: 24px;" /> {{ root.summary.flaky }}</span>
+          <span class="passed"><CheckCircleIcon style="width: 16px; height: 16px;" /> {{ root.summary.passed || 0 }}</span>
+          <span class="failed"><XCircleIcon style="width: 16px; height: 16px;" /> {{ root.summary.failed || 0 }}</span>
+          <span class="skipped"><MinusCircleIcon style="width: 16px; height: 16px;" /> {{ root.summary.skipped || 0 }}</span>
+          <span class="pending"><ClockIcon style="width: 16px; height: 16px;" /> {{ root.summary.pending || 0 }}</span>
+          <span v-if="root.summary.flaky" class="flaky"><BoltIcon style="width: 16px; height: 16px;" /> {{ root.summary.flaky }}</span>
         </div>
       </div>
 
@@ -53,7 +53,7 @@
               <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
               <span class="test-name">{{ test.name }}</span>
               <span class="test-duration">({{ formatDuration(test.duration) }})</span>
-              <span v-if="test.flaky" class="test-flaky"><Zap :size="14" :stroke-width="2" /> Flaky</span>
+              <span v-if="test.flaky" class="test-flaky"><BoltIcon style="width: 16px; height: 16px;" /> Flaky</span>
               <div v-if="test.tags && test.tags.length > 0" class="test-tags">
                 <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
               </div>
@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 import { inject, onMounted, ref, computed } from 'vue';
-import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/24/outline';
+import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/16/solid';
 import { VPBadge as Badge } from 'vitepress/theme';
 import SuiteNode from './SuiteNode.vue';
 import TestFilter from './TestFilter.vue';

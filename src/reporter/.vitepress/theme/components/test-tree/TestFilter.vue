@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/24/outline';
+import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/24/solid';
 
 const props = defineProps({
   selectedStatuses: {

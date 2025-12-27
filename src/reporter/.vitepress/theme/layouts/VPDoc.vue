@@ -35,7 +35,7 @@
           >
             <div class="detail-container">
               <div v-if="!selectedTest" class="detail-empty">
-                <DocumentTextIcon style="width: 24px; height: 24px;" aria-label="Test detail panel - Select a test to view details" />
+                <DocumentTextIcon style="width: 16px; height: 16px;" aria-label="Test detail panel - Select a test to view details" />
                 <p>Select a test to view details</p>
               </div>
               <div v-else class="detail-content">
@@ -44,7 +44,7 @@
                   @click="closeDetail"
                   title="Close detail panel"
                 >
-                  <XMarkIcon style="width: 24px; height: 24px;" aria-label="Close detail panel" />
+                  <XMarkIcon style="width: 16px; height: 16px;" aria-label="Close detail panel" />
                 </button>
                 <TestDetail :test="selectedTest" />
               </div>
@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import { ref, computed, provide, onUnmounted, watch } from 'vue'
-import { DocumentTextIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { DocumentTextIcon, XMarkIcon } from '@heroicons/vue/16/solid'
 import TestDetail from './TestDetail.vue'
 
 // Selected test item
