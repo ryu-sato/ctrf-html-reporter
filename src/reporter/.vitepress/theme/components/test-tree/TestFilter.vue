@@ -10,7 +10,7 @@
             :checked="selectedStatuses.includes('passed')"
             @change="toggleStatus('passed')"
           />
-          <span class="status-label passed"><CheckCircle :size="16" :stroke-width="2" />Passed</span>
+          <span class="status-label passed"><CheckCircleIcon style="width: 24px; height: 24px;" />Passed</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -19,7 +19,7 @@
             :checked="selectedStatuses.includes('failed')"
             @change="toggleStatus('failed')"
           />
-          <span class="status-label failed"><XCircle :size="16" :stroke-width="2" />Failed</span>
+          <span class="status-label failed"><XCircleIcon style="width: 24px; height: 24px;" />Failed</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -28,7 +28,7 @@
             :checked="selectedStatuses.includes('skipped')"
             @change="toggleStatus('skipped')"
           />
-          <span class="status-label skipped"><MinusCircle :size="16" :stroke-width="2" />Skipped</span>
+          <span class="status-label skipped"><MinusCircleIcon style="width: 24px; height: 24px;" />Skipped</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -37,7 +37,7 @@
             :checked="selectedStatuses.includes('pending')"
             @change="toggleStatus('pending')"
           />
-          <span class="status-label pending"><Clock :size="16" :stroke-width="2" />Pending</span>
+          <span class="status-label pending"><ClockIcon style="width: 24px; height: 24px;" />Pending</span>
         </label>
       </div>
     </div>
@@ -51,7 +51,7 @@
           :checked="isFlakySelected"
           @change="toggleFlakySelected"
         />
-        <span class="status-label flaky"><Zap :size="16" :stroke-width="2" />Flaky</span>
+        <span class="status-label flaky"><BoltIcon style="width: 24px; height: 24px;" />Flaky</span>
       </label>
     </div>
 
@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
+import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
   selectedStatuses: {

@@ -9,11 +9,11 @@
 
     <div v-if="suite.summary" class="suite-summary">
       Tests: {{ suite.summary.tests || suite.tests?.length || 0 }} |
-      <span class="passed"><CheckCircle :size="14" :stroke-width="2" /> {{ suite.summary.passed || 0 }}</span> |
-      <span class="failed"><XCircle :size="14" :stroke-width="2" /> {{ suite.summary.failed || 0 }}</span> |
-      <span class="skipped"><MinusCircle :size="14" :stroke-width="2" /> {{ suite.summary.skipped || 0 }}</span> |
-      <span class="pending"><Clock :size="14" :stroke-width="2" /> {{ suite.summary.pending || 0 }}</span>
-      <span v-if="suite.summary.flaky" class="flaky"> | <Zap :size="14" :stroke-width="2" /> {{ suite.summary.flaky }}</span>
+      <span class="passed"><CheckCircleIcon class="size-6" /> {{ suite.summary.passed || 0 }}</span> |
+      <span class="failed"><XCircleIcon :size="14" :stroke-width="2" /> {{ suite.summary.failed || 0 }}</span> |
+      <span class="skipped"><MinusCircleIcon :size="14" :stroke-width="2" /> {{ suite.summary.skipped || 0 }}</span> |
+      <span class="pending"><ClockIcon :size="14" :stroke-width="2" /> {{ suite.summary.pending || 0 }}</span>
+      <span v-if="suite.summary.flaky" class="flaky"> | <BoltIcon :size="14" :stroke-width="2" /> {{ suite.summary.flaky }}</span>
     </div>
 
     <!-- Nested suites -->
@@ -49,7 +49,8 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
-import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
+import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/24/outline';
+
 import { VPBadge as Badge } from 'vitepress/theme';
 import type { TreeNode } from 'ctrf';
 import { formatDuration } from '../../../helpers/formatter';

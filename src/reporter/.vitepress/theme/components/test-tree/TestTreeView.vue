@@ -27,11 +27,11 @@
       <div v-if="root.summary" class="summary-box">
         <div class="summary-stats">
           <span>Tests: {{ root.summary.tests || root.tests?.length || 0 }}</span>
-          <span class="passed"><CheckCircle :size="16" :stroke-width="2" /> {{ root.summary.passed || 0 }}</span>
-          <span class="failed"><XCircle :size="16" :stroke-width="2" /> {{ root.summary.failed || 0 }}</span>
-          <span class="skipped"><MinusCircle :size="16" :stroke-width="2" /> {{ root.summary.skipped || 0 }}</span>
-          <span class="pending"><Clock :size="16" :stroke-width="2" /> {{ root.summary.pending || 0 }}</span>
-          <span v-if="root.summary.flaky" class="flaky"><Zap :size="16" :stroke-width="2" /> {{ root.summary.flaky }}</span>
+          <span class="passed"><CheckCircleIcon style="width: 24px; height: 24px;" /> {{ root.summary.passed || 0 }}</span>
+          <span class="failed"><XCircleIcon style="width: 24px; height: 24px;" /> {{ root.summary.failed || 0 }}</span>
+          <span class="skipped"><MinusCircleIcon style="width: 24px; height: 24px;" /> {{ root.summary.skipped || 0 }}</span>
+          <span class="pending"><ClockIcon style="width: 24px; height: 24px;" /> {{ root.summary.pending || 0 }}</span>
+          <span v-if="root.summary.flaky" class="flaky"><BoltIcon style="width: 24px; height: 24px;" /> {{ root.summary.flaky }}</span>
         </div>
       </div>
 
@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 import { inject, onMounted, ref, computed } from 'vue';
-import { CheckCircle, XCircle, MinusCircle, Clock, Zap } from 'lucide-vue-next';
+import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/24/outline';
 import { VPBadge as Badge } from 'vitepress/theme';
 import SuiteNode from './SuiteNode.vue';
 import TestFilter from './TestFilter.vue';
