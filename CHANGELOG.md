@@ -1,5 +1,13 @@
 # ctrf-html-reporter
 
+## 1.1.4
+
+### Patch Changes
+
+- [#33](https://github.com/ryu-sato/ctrf-html-reporter/pull/33) [`48cd441`](https://github.com/ryu-sato/ctrf-html-reporter/commit/48cd4412c8b11a0afd8c3dbd4fc9d52412084f52) Thanks [@ryu-sato](https://github.com/ryu-sato)! - imprv: Bundle the report to one page with hash routing.
+
+- [#31](https://github.com/ryu-sato/ctrf-html-reporter/pull/31) [`e8bbbaf`](https://github.com/ryu-sato/ctrf-html-reporter/commit/e8bbbaf4a322ce12eabbff86014246f7a166aec9) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Replace lucide icons with heroicons
+
 ## 1.1.3
 
 ### Patch Changes
