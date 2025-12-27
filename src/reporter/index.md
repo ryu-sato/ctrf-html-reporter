@@ -3,23 +3,34 @@ layout: report
 ---
 
 <script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { data as richReportWithInsights } from './richReportWithInsights.data.js';
 import { data as testTree } from './organizeTestsBySuite.data.js';
-import TabsRouter from './.vitepress/theme/components/TabsRouter.vue';
 
 // Summary
 const summaryStatus = richReportWithInsights.results.summary.failed > 0 ? 'Failed' : 'Succeeded';
 
-const tabs = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'suites', label: 'Suites' },
-  { id: 'insights', label: 'Insights' },
-  { id: 'timeline', label: 'Timeline' }
-];
+// Hash routing
+const defaultPage = 'overview';
+const activePage = ref<string>(defaultPage);
+
+const updateFromHash = () => {
+  const hash = window.location.hash.slice(1);
+  activePage.value = hash || defaultPage;
+};
+
+onMounted(() => {
+  updateFromHash();
+  window.addEventListener('hashchange', updateFromHash);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('hashchange', updateFromHash);
+});
 </script>
 
-<TabsRouter :tabs="tabs">
-  <template #overview>
+<div class="hash-router">
+  <div v-show="activePage === 'overview'" class="hash-content">
     <h1>Overview</h1>
     <ReportInfo
       v-if="richReportWithInsights"
@@ -39,9 +50,9 @@ const tabs = [
       :showAvgDuration="false"
       :showTotalDuration="true"
     />
-  </template>
+  </div>
 
-  <template #suites>
+  <div v-show="activePage === 'suites'" class="hash-content">
     <h1>Suites</h1>
     <SummaryView
       v-if="testTree.summary"
@@ -52,9 +63,9 @@ const tabs = [
       :showTotalDuration="true"
     />
     <TestTreeView :nodes="testTree.roots" />
-  </template>
+  </div>
 
-  <template #insights>
+  <div v-show="activePage === 'insights'" class="hash-content">
     <h1>Insights</h1>
     <TestInsights
       v-if="richReportWithInsights.insights"
@@ -80,9 +91,9 @@ const tabs = [
       :report="richReportWithInsights"
       :error="richReportWithInsights?.error"
     />
-  </template>
+  </div>
 
-  <template #timeline>
+  <div v-show="activePage === 'timeline'" class="hash-content">
     <h1>Timeline</h1>
     <p>Gantt chart visualization of test execution timeline with duration filtering</p>
     <details>
@@ -94,5 +105,5 @@ const tabs = [
     <TimelineChart
       :report="richReportWithInsights"
     />
-  </template>
-</TabsRouter>
+  </div>
+</div>
