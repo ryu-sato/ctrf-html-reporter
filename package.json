@@ -34,6 +34,7 @@
     "bin:test:coverage": "vitest run --coverage",
     "bin:dev": "pnpm exec vite-node src/bin/index.mts",
     "reporter:dev": "vitepress dev src/reporter --host 0.0.0.0",
+    "prereporter:build": "pnpm run clean",
     "reporter:build": "vitepress build src/reporter",
     "reporter:preview": "vitepress preview src/reporter",
     "prepare": "pnpm run clean && pnpm run build",

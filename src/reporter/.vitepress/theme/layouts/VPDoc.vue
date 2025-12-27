@@ -1,13 +1,13 @@
 <template>
   <div class="Layout">
     <slot name="report-top" />
-    
+
     <div class="report-container">
       <div class="container">
         <!-- Main Content Area -->
         <div class="report-main-area">
           <!-- Content Area -->
-          <div class="report-content" :style="{ width: contentWidth + '%' }">
+          <div class="report-content" :style="{ width: isDetailCollapsed ? '100%' : contentWidth + '%' }">
             <div class="content-container">
               <slot name="report-before" />
               <main class="main">
@@ -16,23 +16,36 @@
               <slot name="report-after" />
             </div>
           </div>
-          
+
           <!-- Resize Handle -->
-          <div 
+          <div
+            v-if="!isDetailCollapsed"
             class="report-resizer"
             @mousedown="startResize"
             @touchstart="startResize"
           >
             <div class="resizer-handle"></div>
           </div>
-          
+
           <!-- Test Detail Area -->
-          <div class="report-detail" :style="{ width: detailWidth + '%' }">
+          <div
+            class="report-detail"
+            :class="{ 'is-collapsed': isDetailCollapsed }"
+            :style="{ width: isDetailCollapsed ? 'auto' : detailWidth + '%' }"
+          >
             <div class="detail-container">
               <div v-if="!selectedTest" class="detail-empty">
+                <DocumentTextIcon style="width: 24px; height: 24px;" aria-label="Test detail panel - Select a test to view details" />
                 <p>Select a test to view details</p>
               </div>
               <div v-else class="detail-content">
+                <button
+                  class="close-button"
+                  @click="closeDetail"
+                  title="Close detail panel"
+                >
+                  <XMarkIcon style="width: 24px; height: 24px;" aria-label="Close detail panel" />
+                </button>
                 <TestDetail :test="selectedTest" />
               </div>
             </div>
@@ -40,17 +53,21 @@
         </div>
       </div>
     </div>
-    
+
     <slot name="report-bottom" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, provide, onUnmounted } from 'vue'
+import { ref, computed, provide, onUnmounted, watch } from 'vue'
+import { DocumentTextIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import TestDetail from './TestDetail.vue'
 
 // Selected test item
 const selectedTest = ref(null)
+
+// Detail panel collapse state
+const isDetailCollapsed = ref(true)
 
 // Layout width percentages (default: content 60%, detail 40%)
 const contentWidth = ref(60)
@@ -65,12 +82,12 @@ const startResize = (event: MouseEvent | TouchEvent) => {
   isResizing.value = true
   startX.value = event.type.includes('mouse') ? (event as MouseEvent).clientX : (event as TouchEvent).touches[0].clientX
   startContentWidth.value = contentWidth.value
-  
+
   document.addEventListener('mousemove', handleResize)
   document.addEventListener('mouseup', stopResize)
   document.addEventListener('touchmove', handleResize)
   document.addEventListener('touchend', stopResize)
-  
+
   // Prevent text selection
   document.body.style.userSelect = 'none'
   event.preventDefault()
@@ -78,20 +95,20 @@ const startResize = (event: MouseEvent | TouchEvent) => {
 
 const handleResize = (event: MouseEvent | TouchEvent) => {
   if (!isResizing.value) return
-  
+
   const currentX = event.type.includes('mouse') ? (event as MouseEvent).clientX : (event as TouchEvent).touches[0].clientX
   const container = document.querySelector('.report-main-area')
   if (!container) return
-  
+
   const containerWidth = (container as HTMLElement).offsetWidth
   const deltaX = currentX - startX.value
   const deltaPercent = (deltaX / containerWidth) * 100
-  
+
   let newContentWidth = startContentWidth.value + deltaPercent
-  
+
   // Limit width to 30%~70%
   newContentWidth = Math.max(30, Math.min(70, newContentWidth))
-  
+
   contentWidth.value = newContentWidth
 }
 
@@ -104,10 +121,25 @@ const stopResize = () => {
   document.body.style.userSelect = ''
 }
 
+// Close detail panel
+const closeDetail = () => {
+  selectedTest.value = null
+  isDetailCollapsed.value = true
+}
+
 // Provide test selection globally
 const selectTest = (test: any) => {
   selectedTest.value = test
 }
+
+// Watch for test selection and expand panel
+watch(selectedTest, (newTest) => {
+  if (newTest) {
+    isDetailCollapsed.value = false
+  } else {
+    isDetailCollapsed.value = true
+  }
+})
 
 provide('selectTest', selectTest)
 provide('selectedTest', selectedTest)
@@ -202,7 +234,15 @@ onUnmounted(() => {
   overflow-x: hidden;
   padding: 32px 24px;
   background: var(--vp-c-bg-soft);
-  transition: width 0.1s ease;
+  transition: all 0.3s ease;
+  min-width: 0;
+}
+
+.report-detail.is-collapsed {
+  width: 48px !important;
+  min-width: 48px;
+  padding: 32px 8px;
+  overflow: hidden;
 }
 
 .detail-container {
@@ -211,19 +251,74 @@ onUnmounted(() => {
 
 .detail-empty {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
   color: var(--vp-c-text-2);
+  gap: 8px;
+}
+
+.empty-icon {
+  font-size: 32px;
+  opacity: 0.5;
 }
 
 .detail-empty p {
   font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.is-collapsed .detail-empty {
+  padding: 0;
+}
+
+.is-collapsed .detail-empty p {
+  display: none;
+}
+
+.is-collapsed .empty-icon {
+  writing-mode: vertical-rl;
+  font-size: 24px;
 }
 
 .detail-content {
   width: 100%;
   animation: fadeIn 0.2s ease-in;
+  position: relative;
+}
+
+.close-button {
+  position: sticky;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  float: right;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.close-button:hover {
+  background: var(--vp-c-red-soft);
+  color: var(--vp-c-red-1);
+  transform: scale(1.05);
+}
+
+.close-button:active {
+  transform: scale(0.95);
 }
 
 @keyframes fadeIn {
