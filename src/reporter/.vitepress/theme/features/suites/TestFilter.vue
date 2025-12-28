@@ -10,7 +10,7 @@
             :checked="selectedStatuses.includes('passed')"
             @change="toggleStatus('passed')"
           />
-          <span class="status-label passed"><CheckCircleIcon style="width: 24px; height: 24px;" />Passed</span>
+          <span class="status-label passed"><PassedIcon/>Passed</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -19,7 +19,7 @@
             :checked="selectedStatuses.includes('failed')"
             @change="toggleStatus('failed')"
           />
-          <span class="status-label failed"><XCircleIcon style="width: 24px; height: 24px;" />Failed</span>
+          <span class="status-label failed"><FailedIcon/>Failed</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -28,7 +28,7 @@
             :checked="selectedStatuses.includes('skipped')"
             @change="toggleStatus('skipped')"
           />
-          <span class="status-label skipped"><MinusCircleIcon style="width: 24px; height: 24px;" />Skipped</span>
+          <span class="status-label skipped"><SkippedIcon/>Skipped</span>
         </label>
         <label class="filter-checkbox">
           <input 
@@ -37,7 +37,7 @@
             :checked="selectedStatuses.includes('pending')"
             @change="toggleStatus('pending')"
           />
-          <span class="status-label pending"><ClockIcon style="width: 24px; height: 24px;" />Pending</span>
+          <span class="status-label pending"><PendingIcon/>Pending</span>
         </label>
       </div>
     </div>
@@ -51,7 +51,7 @@
           :checked="isFlakySelected"
           @change="toggleFlakySelected"
         />
-        <span class="status-label flaky"><BoltIcon style="width: 24px; height: 24px;" />Flaky</span>
+        <span class="status-label flaky"><FlakyIcon/>Flaky</span>
       </label>
     </div>
 
@@ -81,8 +81,6 @@
 </template>
 
 <script setup lang="ts">
-import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/24/solid';
-
 const props = defineProps({
   selectedStatuses: {
     type: Array as () => string[],

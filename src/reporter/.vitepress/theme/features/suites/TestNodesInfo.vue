@@ -10,11 +10,11 @@
     <div v-if="node.summary" class="summary-box">
       <div class="summary-stats">
         <span>Tests: {{ node.summary.tests || node.tests?.length || 0 }}</span>
-        <span class="passed"><CheckCircleIcon style="width: 16px; height: 16px;" /> {{ node.summary.passed || 0 }}</span>
-        <span class="failed"><XCircleIcon style="width: 16px; height: 16px;" /> {{ node.summary.failed || 0 }}</span>
-        <span class="skipped"><MinusCircleIcon style="width: 16px; height: 16px;" /> {{ node.summary.skipped || 0 }}</span>
-        <span class="pending"><ClockIcon style="width: 16px; height: 16px;" /> {{ node.summary.pending || 0 }}</span>
-        <span v-if="node.summary.flaky" class="flaky"><BoltIcon style="width: 16px; height: 16px;" /> {{ node.summary.flaky }}</span>
+        <span class="passed"><PassedIcon/> {{ node.summary.passed || 0 }}</span>
+        <span class="failed"><FailedIcon/> {{ node.summary.failed || 0 }}</span>
+        <span class="skipped"><SkippedIcon/> {{ node.summary.skipped || 0 }}</span>
+        <span class="pending"><PendingIcon/> {{ node.summary.pending || 0 }}</span>
+        <span v-if="node.summary.flaky" class="flaky"><FlakyIcon/> {{ node.summary.flaky }}</span>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
             <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
             <span class="test-name">{{ test.name }}</span>
             <span class="test-duration">({{ formatDuration(test.duration) }})</span>
-            <span v-if="test.flaky" class="test-flaky"><BoltIcon style="width: 16px; height: 16px;" /> Flaky</span>
+            <span v-if="test.flaky" class="test-flaky"><FlakyIcon/> Flaky</span>
             <div v-if="test.tags && test.tags.length > 0" class="test-tags">
               <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="tag">{{ tag }}</span>
             </div>
@@ -52,7 +52,6 @@ import { inject } from 'vue';
 import type { TreeNode } from 'ctrf';
 import { VPBadge as Badge } from 'vitepress/theme';
 import { formatDuration } from '../../../helpers/formatter';
-import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/16/solid';
 
 const props = defineProps({
   nodes: {
