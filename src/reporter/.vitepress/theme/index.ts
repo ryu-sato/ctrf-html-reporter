@@ -18,7 +18,7 @@ import TestInsightsInfo from './features/insights/TestInsightsInfo.vue'
 import InsightsView from './features/insights/InsightsView.vue';
 
 import TestTreeView from './features/suites/TestTreeView.vue'
-import TreeNodesInfo from './features/suites/TestNodesInfo.vue'
+import TreeNodeArrayInfo from './features/suites/TreeNodeArrayInfo.vue'
 import TreeNodeInfo from './features/suites/TreeNodeInfo.vue'
 
 import TimelineChart from './features/timeline/TimelineChart.vue'
@@ -47,7 +47,7 @@ export default {
     app.component('InsightsView', InsightsView)
 
     app.component('TestTreeView', TestTreeView)
-    app.component('TreeNodesInfo', TreeNodesInfo)
+    app.component('TreeNodesInfo', TreeNodeArrayInfo)
     app.component('TreeNodeInfo', TreeNodeInfo)
 
     app.component('TimelineChart', TimelineChart)
