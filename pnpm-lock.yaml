@@ -33,6 +33,9 @@ importers:
       '@changesets/cli':
         specifier: ^2.29.8
         version: 2.29.8(@types/node@25.0.1)
+      '@types/fast-stats':
+        specifier: ^0.0.35
+        version: 0.0.35
       '@types/node':
         specifier: ^25.0.1
         version: 25.0.1
@@ -45,6 +48,9 @@ importers:
       copy-file:
         specifier: ^11.1.0
         version: 11.1.0
+      fast-stats:
+        specifier: ^0.0.7
+        version: 0.0.7
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -822,6 +828,9 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
+  '@types/fast-stats@0.0.35':
+    resolution: {integrity: sha512-aNBUXsXKgDqzYqAGm2TIsY/1mccMSf8IX9P2tIgRrarenRHDBud37SwL6PBa3+IIM8MqvwPjYHhU/vxAyYeyyw==}
+
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
 
@@ -1231,6 +1240,9 @@ packages:
   fast-glob@3.3.3:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
+
+  fast-stats@0.0.7:
+    resolution: {integrity: sha512-AEMvohEfd/pkvRSlJOUh6JlWjlBaIHNuL9hFz0bT/glLHbooj2+fV71TrVB3VebfYg1GLI3PnIcWH+T6gNH8HA==}
 
   fast-uri@3.1.0:
     resolution: {integrity: sha512-iPeeDKJSWf4IEOasVVrknXpaBV0IApz/gp7S2bb7Z4Lljbl2MGJRqInZiUrQwV16cpzw/D3S5j5Julj/gT52AA==}
@@ -2618,6 +2630,8 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
+  '@types/fast-stats@0.0.35': {}
+
   '@types/hast@3.0.4':
     dependencies:
       '@types/unist': 3.0.3
@@ -3080,6 +3094,8 @@ snapshots:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.8
+
+  fast-stats@0.0.7: {}
 
   fast-uri@3.1.0: {}
 

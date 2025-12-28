@@ -38,6 +38,10 @@
         </table>
     </div>
 
+    <DurationBarChart
+      :nodes="filteredNodes"
+    />
+
     <!-- Filter Component -->
     <TestFilter
       :selectedStatuses="selectedStatuses"
@@ -66,6 +70,7 @@ import { ref, computed } from 'vue';
 import TestFilter from './TestFilter.vue';
 import type { TreeNode } from 'ctrf';
 import { formatDuration } from '../../../helpers/formatter';
+import DurationBarChart from '../../components/charts/DurationBarChart.vue';
 
 const props = defineProps({
   nodes: {
