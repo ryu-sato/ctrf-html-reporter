@@ -1,5 +1,5 @@
 <template>
-  <div class="test-tree-view">
+  <div class="suites-view">
     <!-- Filter Component -->
     <TestFilter
       :selectedStatuses="selectedStatuses"
@@ -17,7 +17,7 @@
     </div>
 
     <div v-for="(root, index) in filteredNodes" :key="index" class="tree-root">
-      <h2 :id="'test-tree-' + root.name">{{ root.name }}</h2>
+      <h2 :id="'suites-' + root.name">{{ root.name }}</h2>
       
       <div class="status-line">
         <Badge :type="getStatusType(root.status)">{{ root.status }}</Badge>
@@ -219,7 +219,7 @@ const getStatusType = (status: string) => {
 /* =========================
    Container
    ========================= */
-.test-tree-view {
+.suites-view {
   margin: var(--report-spacing-lg) 0;
 }
 
