@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, onMounted, ref, computed } from 'vue';
+import { ref, computed } from 'vue';
 import TestFilter from './TestFilter.vue';
 import type { TreeNode } from 'ctrf';
 import { formatDuration } from '../../../helpers/formatter';
