@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import { Chart, registerables } from 'chart.js';
+import { ref, onMounted, watch } from 'vue';
+import { Chart, registerables, type ChartConfiguration, type ChartConfigurationCustomTypesPerDataset, type DefaultDataPoint } from 'chart.js';
 import type { TreeNode } from 'ctrf';
 import { Stats } from 'fast-stats';
 
@@ -18,13 +18,6 @@ const props = defineProps({
   },
 });
 
-const sortedNodes = computed(() => {
-  return props.nodes.sort((a, b) => b.duration - a.duration);
-});
-const statsDurations = new Stats().push(sortedNodes.value.map(node => node.duration));
-const p75Duration = statsDurations.percentile(75);
-const p50Duration = statsDurations.percentile(50);
-
 // Get CSS variable color
 const getCssColor = (varName: string) => {
   if (typeof window !== 'undefined') {
@@ -35,18 +28,22 @@ const getCssColor = (varName: string) => {
 
 Chart.register(...registerables);
 const chartCanvas = ref<HTMLCanvasElement | null>(null);
+let chart: Chart | null = null;
 
-onMounted(() => {
-  const ctx = chartCanvas.value?.getContext('2d');
-  if (!ctx) return;
+const SuitesDurationBarChart = (nodes: TreeNode[]): ChartConfiguration<'bar', DefaultDataPoint<'bar'>, string> | ChartConfigurationCustomTypesPerDataset<'bar', DefaultDataPoint<'bar'>, string> => {
 
-  new Chart(ctx, {
+  const sortedNodes = nodes.sort((a, b) => b.duration - a.duration);
+  const statsDurations = new Stats().push(sortedNodes.map(node => node.duration));
+  const p75Duration = statsDurations.percentile(75);
+  const p50Duration = statsDurations.percentile(50);
+
+  return {
     type: 'bar',
     data: {
-      labels: sortedNodes.value.map(node => node.name),
+      labels: sortedNodes.map(node => node.name),
       datasets: [{
         label: 'Duration',
-        data: sortedNodes.value.map(node => node.duration),
+        data: sortedNodes.map(node => node.duration),
         backgroundColor: function(context) {
           const value = context.parsed.x;
           if (value && value > p75Duration) return getCssColor('--vp-c-danger-1'); // danger for slow
@@ -73,8 +70,39 @@ onMounted(() => {
           title: { display: true, text: 'Milli Seconds' }
         }
       },
-      normalized: true
+      normalized: true,
     },
-  });
+  };
+};
+
+// update chart when props.nodes change
+watch(() => props.nodes, (newNodes: TreeNode[]) => {
+  const ctx = chartCanvas.value?.getContext('2d');
+  if (!ctx) return;
+
+  const chartData = SuitesDurationBarChart(newNodes);
+  if (!chart) {
+    chart = new Chart(ctx, chartData);
+    return;
+  }
+  else {
+    chart.data = chartData.data;
+    chart.update();
+  }
+}, { immediate: true });
+
+onMounted(() => {
+  const ctx = chartCanvas.value?.getContext('2d');
+  if (!ctx) return;
+
+  const chartData = SuitesDurationBarChart(props.nodes);
+  if (!chart) {
+    chart = new Chart(ctx, chartData);
+    return;
+  }
+  else {
+    chart.data = chartData.data;
+    chart.update();
+  }
 });
 </script>
