@@ -10,6 +10,7 @@ import SummaryView from './features/overview/SummaryView.vue'
 import TestInsightsInfo from './features/insights/TestInsightsInfo.vue'
 import InsightsView from './features/insights/InsightsView.vue';
 import TestTreeView from './features/suites/TestTreeView.vue'
+import TreeNodesInfo from './features/suites/TestNodesInfo.vue'
 import TreeNodeInfo from './features/suites/TreeNodeInfo.vue'
 import TimelineChart from './features/timeline/TimelineChart.vue'
 import TestDetail from './layouts/TestDetail.vue'
@@ -25,6 +26,7 @@ export default {
     app.component('EnvironmentInfo', EnvironmentInfo)
     app.component('SummaryView', SummaryView)
     app.component('TestTreeView', TestTreeView)
+    app.component('TreeNodesInfo', TreeNodesInfo)
     app.component('TreeNodeInfo', TreeNodeInfo)
     app.component('TestDetail', TestDetail)
     app.component('TimelineChart', TimelineChart)
