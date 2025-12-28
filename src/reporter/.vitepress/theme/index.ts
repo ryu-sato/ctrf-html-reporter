@@ -9,6 +9,7 @@ import FailedIcon from './components/status-icons/FailedIcon.vue'
 import SkippedIcon from './components/status-icons/SkippedIcon.vue'
 import PendingIcon from './components/status-icons/PendingIcon.vue'
 import FlakyIcon from './components/status-icons/FlakyIcon.vue'
+import SuitesDurationBarChart from './components/charts/SuitesDurationBarChart.vue';
 
 import ReportInfo from './features/overview/ReportInfo.vue'
 import EnvironmentInfo from './features/overview/EnvironmentInfo.vue'
@@ -38,6 +39,8 @@ export default {
     app.component('SkippedIcon', SkippedIcon)
     app.component('PendingIcon', PendingIcon)
     app.component('FlakyIcon', FlakyIcon)
+
+    app.component('SuitesDurationBarChart', SuitesDurationBarChart)
 
     app.component('ReportInfo', ReportInfo)
     app.component('EnvironmentInfo', EnvironmentInfo)
