@@ -1,21 +1,20 @@
 <template>
   <div v-for="(node, index) in props.nodes" :key="index" class="tree-root">
     <h2 :id="'test-tree-' + node.name">{{ node.name }}</h2>
-    
-    <div class="status-line">
-      <Badge :type="getStatusType(node.status)">{{ node.status }}</Badge>
-      <span class="duration-text">Duration: {{ formatDuration(node.duration) }}</span>
-    </div>
 
     <div v-if="node.summary" class="summary-box">
       <div class="summary-stats">
+        <Badge :type="getStatusType(node.status)">{{ node.status }}</Badge>
+  
         <span>Tests: {{ node.summary.tests || node.tests?.length || 0 }}</span>
         <span class="passed"><PassedIcon/> {{ node.summary.passed || 0 }}</span>
         <span class="failed"><FailedIcon/> {{ node.summary.failed || 0 }}</span>
         <span class="skipped"><SkippedIcon/> {{ node.summary.skipped || 0 }}</span>
         <span class="pending"><PendingIcon/> {{ node.summary.pending || 0 }}</span>
         <span v-if="node.summary.flaky" class="flaky"><FlakyIcon/> {{ node.summary.flaky }}</span>
-      </div>
+
+        <span class="duration-text">Duration: {{ formatDuration(node.duration) }}</span>
+    </div>
     </div>
 
     <div v-if="node.suites && node.suites.length > 0" class="suites-container">
@@ -103,13 +102,6 @@ const getStatusType = (status: string) => {
 /* =========================
    Status Display
    ========================= */
-.status-line {
-  display: flex;
-  align-items: center;
-  gap: var(--report-spacing-sm);
-  margin-bottom: var(--report-spacing-sm);
-}
-
 .duration-text {
   color: var(--vp-c-text-2);
 }

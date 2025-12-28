@@ -2,18 +2,17 @@
   <div class="tree-node">
     <h3>{{ treeNode.name }}</h3>
     
-    <div class="suite-header">
-      <Badge :type="getStatusType(treeNode.status)">{{ treeNode.status }}</Badge>
-      <span class="suite-duration">{{ formatDuration(treeNode.duration) }}</span>
-    </div>
-
     <div v-if="treeNode.summary" class="suite-summary">
+      <Badge :type="getStatusType(treeNode.status)">{{ treeNode.status }}</Badge>
+
       Tests: {{ treeNode.summary.tests || treeNode.tests?.length || 0 }} |
       <span class="passed"><PassedIcon/> {{ treeNode.summary.passed || 0 }}</span> |
       <span class="failed"><FailedIcon/> {{ treeNode.summary.failed || 0 }}</span> |
       <span class="skipped"><SkippedIcon/> {{ treeNode.summary.skipped || 0 }}</span> |
       <span class="pending"><PendingIcon/> {{ treeNode.summary.pending || 0 }}</span>
       <span v-if="treeNode.summary.flaky" class="flaky"> | <FlakyIcon/> {{ treeNode.summary.flaky }}</span>
+
+      <span class="suite-duration">({{ formatDuration(treeNode.duration) }})</span>
     </div>
 
     <!-- Nested suites -->
@@ -103,13 +102,6 @@ const getStatusType = (status: string) => {
 /* =========================
    Header
    ========================= */
-.suite-header {
-  display: flex;
-  align-items: center;
-  gap: var(--report-spacing-sm);
-  margin-bottom: var(--report-spacing-sm);
-}
-
 .suite-duration {
   color: var(--vp-c-text-2);
   font-size: var(--report-control-font-size);
