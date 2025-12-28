@@ -3,6 +3,7 @@ import { builtinModules } from 'module'
 import packageJson from './package.json' with { type: 'json' }
 import { copyFile, copyDir } from './src/utils/copy.mts';
 import path from 'path';
+import license from 'rollup-plugin-license';
 
 export default defineConfig({
   build: {
@@ -23,6 +24,16 @@ export default defineConfig({
         preserveModules: false,
         entryFileNames: '[name].mjs',
       },
+      plugins: [
+        license({
+          thirdParty: {
+            output: {
+              file: path.join(__dirname, 'THIRD-PARTY-LICENSES.txt'),
+            },
+            allow: '(MIT OR Apache-2.0)',
+          },
+        }),
+      ],
     },
     target: 'node18',
     outDir: 'dist/bin',

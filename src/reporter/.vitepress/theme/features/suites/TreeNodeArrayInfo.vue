@@ -1,37 +1,37 @@
 <template>
-  <div class="tree-node">
-    <h3>{{ treeNode.name }}</h3>
-    
-    <div v-if="treeNode.summary" class="suite-summary">
-      <Badge :type="getStatusType(treeNode.status)">{{ treeNode.status }}</Badge>
+  <div v-for="(node, index) in props.nodes" :key="index" class="tree-root">
+    <h2 :id="'test-tree-' + node.name">{{ node.name }}</h2>
 
-      Tests: {{ treeNode.summary.tests || treeNode.tests?.length || 0 }} |
-      <span class="passed"><PassedIcon/> {{ treeNode.summary.passed || 0 }}</span> |
-      <span class="failed"><FailedIcon/> {{ treeNode.summary.failed || 0 }}</span> |
-      <span class="skipped"><SkippedIcon/> {{ treeNode.summary.skipped || 0 }}</span> |
-      <span class="pending"><PendingIcon/> {{ treeNode.summary.pending || 0 }}</span>
-      <span v-if="treeNode.summary.flaky" class="flaky"> | <FlakyIcon/> {{ treeNode.summary.flaky }}</span>
+    <div v-if="node.summary" class="summary-box">
+      <div class="summary-stats">
+        <Badge :type="getStatusType(node.status)">{{ node.status }}</Badge>
+  
+        <span>Tests: {{ node.summary.tests || node.tests?.length || 0 }}</span>
+        <span class="passed"><PassedIcon/> {{ node.summary.passed || 0 }}</span>
+        <span class="failed"><FailedIcon/> {{ node.summary.failed || 0 }}</span>
+        <span class="skipped"><SkippedIcon/> {{ node.summary.skipped || 0 }}</span>
+        <span class="pending"><PendingIcon/> {{ node.summary.pending || 0 }}</span>
+        <span v-if="node.summary.flaky" class="flaky"><FlakyIcon/> {{ node.summary.flaky }}</span>
 
-      <span class="suite-duration">({{ formatDuration(treeNode.duration) }})</span>
+        <span class="duration-text">Duration: {{ formatDuration(node.duration) }}</span>
+    </div>
     </div>
 
-    <!-- Nested suites -->
-    <div v-if="treeNode.suites && treeNode.suites.length > 0" class="nested-suites">
+    <div v-if="node.suites && node.suites.length > 0" class="suites-container">
       <TreeNodeInfo
-        v-for="(childSuite, index) in treeNode.suites" 
-        :key="index"
-        :treeNode="childSuite"
+        v-for="(suite, suiteIndex) in node.suites" 
+        :key="suiteIndex"
+        :treeNode="suite"
       />
     </div>
 
-    <!-- Tests in this suite -->
-    <div v-if="treeNode.tests && treeNode.tests.length > 0" class="suite-tests">
+    <div v-if="node.tests && node.tests.length > 0" class="tests-container">
       <details open>
         <summary class="tests-summary">
-          Show {{ treeNode.tests.length }} test(s)
+          Show {{ node.tests.length }} test(s)
         </summary>
         <ul class="tests-list">
-          <li v-for="(test, testIndex) in treeNode.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
+          <li v-for="(test, testIndex) in node.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
             <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
             <span class="test-name">{{ test.name }}</span>
             <span class="test-duration">({{ formatDuration(test.duration) }})</span>
@@ -48,15 +48,17 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
-
-import { VPBadge as Badge } from 'vitepress/theme';
 import type { TreeNode } from 'ctrf';
+import { VPBadge as Badge } from 'vitepress/theme';
 import { formatDuration } from '../../../helpers/formatter';
 
 const props = defineProps({
-  treeNode: {
-    type: Object as () => TreeNode,
-    required: true
+  nodes: {
+    type: Array as () => TreeNode[],
+    required: true,
+    validator: (value) => {
+      return Array.isArray(value);
+    }
   }
 });
 
@@ -83,88 +85,68 @@ const getStatusType = (status: string) => {
 </script>
 
 <style scoped>
+
 /* =========================
-   Suite Node Container
+   Tree Root
    ========================= */
-.tree-node {
-  margin-bottom: var(--report-spacing-lg);
-  padding-left: var(--report-spacing-lg);
-  border-left: 2px solid var(--vp-c-divider);
+.tree-root {
+  margin-bottom: var(--report-spacing-2xl);
 }
 
-.tree-node h3 {
+.tree-root h2 {
   margin-top: 0;
   margin-bottom: var(--report-spacing-sm);
-  font-size: 1.1rem;
   border-bottom: none;
 }
 
 /* =========================
-   Header
+   Status Display
    ========================= */
-.suite-duration {
+.duration-text {
   color: var(--vp-c-text-2);
-  font-size: var(--report-control-font-size);
 }
 
 /* =========================
-   Summary
+   Summary Box
    ========================= */
-.suite-summary {
-  font-size: var(--report-control-font-size);
-  color: var(--vp-c-text-2);
+.summary-box {
+  padding: var(--report-spacing-sm);
+  background-color: var(--vp-c-bg-soft);
+  border-radius: var(--report-control-border-radius);
   margin: var(--report-spacing-sm) 0;
+}
+
+.summary-stats {
   display: flex;
-  align-items: center;
-  gap: var(--report-spacing-xs);
+  gap: var(--report-spacing-lg);
+  font-size: var(--report-control-font-size);
   flex-wrap: wrap;
 }
 
-.suite-summary span {
-  display: inline-flex;
+.summary-stats span {
+  display: flex;
   align-items: center;
   gap: var(--report-spacing-xs);
 }
 
-.suite-summary .passed {
+.summary-stats .passed {
   color: var(--report-status-passed);
 }
 
-.suite-summary .failed {
+.summary-stats .failed {
   color: var(--report-status-failed);
 }
 
-.suite-summary .skipped {
+.summary-stats .skipped {
   color: var(--report-status-skipped);
 }
 
-.suite-summary .pending {
+.summary-stats .pending {
   color: var(--report-status-pending);
 }
 
-.suite-summary .flaky {
+.summary-stats .flaky {
   color: var(--report-status-flaky);
-}
-
-/* =========================
-   Nested Suites
-   ========================= */
-.nested-suites {
-  margin-left: 0;
-}
-
-/* =========================
-   Tests in Suite
-   ========================= */
-.suite-tests {
-  margin-top: var(--report-spacing-sm);
-}
-
-.tests-summary {
-  cursor: pointer;
-  font-size: var(--report-control-font-size);
-  color: var(--vp-c-text-2);
-  user-select: none;
 }
 
 /* =========================
@@ -208,7 +190,7 @@ const getStatusType = (status: string) => {
 
 .test-flaky {
   color: var(--report-status-flaky);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--report-spacing-xs);
 }
