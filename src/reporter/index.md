@@ -67,7 +67,7 @@ onBeforeUnmount(() => {
 
   <div v-show="activePage === 'insights'" class="hash-content">
     <h1>Insights</h1>
-    <TestInsights
+    <TestInsightsInfo
       v-if="richReportWithInsights.insights"
       :insights="richReportWithInsights.insights"
     />
