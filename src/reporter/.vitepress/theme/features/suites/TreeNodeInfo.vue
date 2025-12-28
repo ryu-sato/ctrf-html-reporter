@@ -17,10 +17,10 @@
 
     <!-- Nested suites -->
     <div v-if="treeNode.suites && treeNode.suites.length > 0" class="nested-suites">
-      <SuiteNode 
+      <TreeNodeInfo
         v-for="(childSuite, index) in treeNode.suites" 
         :key="index"
-        :suite="childSuite"
+        :treeNode="childSuite"
       />
     </div>
 
