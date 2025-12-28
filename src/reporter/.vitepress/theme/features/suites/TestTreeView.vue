@@ -38,7 +38,7 @@
         </table>
     </div>
 
-    <DurationBarChart
+    <SuitesDurationBarChart
       :nodes="filteredNodes"
     />
 
@@ -70,7 +70,7 @@ import { ref, computed } from 'vue';
 import TestFilter from './TestFilter.vue';
 import type { TreeNode } from 'ctrf';
 import { formatDuration } from '../../../helpers/formatter';
-import DurationBarChart from '../../components/charts/DurationBarChart.vue';
+import SuitesDurationBarChart from '../../components/charts/SuitesDurationBarChart.vue';
 
 const props = defineProps({
   nodes: {
