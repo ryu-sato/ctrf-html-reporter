@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { Chart, registerables, type ChartEvent, type LegendItem, type LegendElement } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import type { TreeNode } from 'ctrf';
 import { Stats } from 'fast-stats';
 
