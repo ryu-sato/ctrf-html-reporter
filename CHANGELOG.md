@@ -1,5 +1,15 @@
 # ctrf-html-reporter
 
+## 1.1.5
+
+### Patch Changes
+
+- [#37](https://github.com/ryu-sato/ctrf-html-reporter/pull/37) [`e6a2e2a`](https://github.com/ryu-sato/ctrf-html-reporter/commit/e6a2e2ad83cd6c34f17fc7ca65022983bd9edebf) Thanks [@ryu-sato](https://github.com/ryu-sato)! - imprv: Added a graph to the test suite page to make it easier to identify time-consuming suites.
+
+- [#34](https://github.com/ryu-sato/ctrf-html-reporter/pull/34) [`0787240`](https://github.com/ryu-sato/ctrf-html-reporter/commit/07872403c843ee585e8e7c9fe9444c0ef0739764) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Fixed an issue where icons for passed, failed, skipped, and pending could not be displayed.
+
+- [#36](https://github.com/ryu-sato/ctrf-html-reporter/pull/36) [`665a8b6`](https://github.com/ryu-sato/ctrf-html-reporter/commit/665a8b65699bd01a1e10d49a3ee6ccbe063c0002) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Refactor the directory structure.
+
 ## 1.1.4
 
 ### Patch Changes

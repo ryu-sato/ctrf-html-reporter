@@ -9,9 +9,9 @@ Report test result of CTRF (Common Test Report Format) as HTML.
 
 `ctrf-html-reporter` is a tool that converts test reports in [CTRF (Common Test Report Format)](https://ctrf.io/) format into beautiful HTML reports. It uses VitePress to generate interactive and easy-to-read test reports.
 
-![Image](https://github.com/user-attachments/assets/b13a4125-ee8c-497f-abcb-81293798c01d)
+![Image](https://github.com/user-attachments/assets/9297e2a1-88c4-4d8b-9b44-9e54d01bd037)
 
-see movie: https://github.com/user-attachments/assets/17214a24-1328-4ce1-8e76-6460ba4708d8
+see movie: https://github.com/user-attachments/assets/b931856d-d77f-473a-9c23-ed01bd6d0079
 
 ## Features
 
@@ -90,10 +90,11 @@ The Overview page displays a comprehensive summary of your test results. Here yo
 
 ### Suites
 
-The Suites view organizes test results grouped by test suites. This allows you to:
-- View test results organized by suite
-- Quickly identify which suites have failures
-- Navigate through your test structure efficiently
+The Suites view organizes test results by suite with powerful analysis features:
+- Filter tests by status, tags, and flaky tests to find what matters
+- Visualize suite performance with interactive charts to identify bottlenecks
+- Navigate hierarchical test structure and view detailed test information
+- Analyze problem areas with failure and flaky test correlation charts
 
 ### Insights
 
