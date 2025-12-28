@@ -1,17 +1,19 @@
 import DefaultTheme from 'vitepress/theme'
+
 import './custom.css'
-import TestInsights from './features/insights/TestInsights.vue'
+
 import DateTimeFormatter from './components/DateTimeFormatter.vue'
+import PercentFormatter from './components/PercentFormatter.vue'
 import ReportInfo from './features/overview/ReportInfo.vue'
 import EnvironmentInfo from './features/overview/EnvironmentInfo.vue'
 import SummaryView from './features/overview/SummaryView.vue'
+import TestInsights from './features/insights/TestInsights.vue'
+import InsightsView from './features/insights/InsightsView.vue';
 import TestTreeView from './features/suites/TestTreeView.vue'
 import TreeNodeInfo from './features/suites/TreeNodeInfo.vue'
-import TestDetail from './layouts/TestDetail.vue'
 import TimelineChart from './features/timeline/TimelineChart.vue'
-import PercentFormatter from './components/PercentFormatter.vue'
+import TestDetail from './layouts/TestDetail.vue'
 import Layout from './layouts/Layout.vue'
-import InsightsView from './features/insights/InsightsView.vue';
 
 export default {
   extends: DefaultTheme,
