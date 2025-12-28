@@ -64,6 +64,16 @@ const props = defineProps({
   }
 });
 
+// Inject selectTest function from ReportLayout
+const selectTest = inject<((test: any) => void) | null>('selectTest', null);
+
+// Handle test click
+const handleTestClick = (test: any) => {
+  if (selectTest) {
+    selectTest(test);
+  }
+};
+
 // Function to get status badge type
 const getStatusType = (status: string) => {
   switch(status) {
@@ -72,16 +82,6 @@ const getStatusType = (status: string) => {
     case 'skipped': return 'warning';
     case 'pending': return 'info';
     default: return 'tip';
-  }
-};
-
-// Inject selectTest function from ReportLayout
-const selectTest = inject<((test: any) => void) | null>('selectTest', null);
-
-// Handle test click
-const handleTestClick = (test: any) => {
-  if (selectTest) {
-    selectTest(test);
   }
 };
 </script>
