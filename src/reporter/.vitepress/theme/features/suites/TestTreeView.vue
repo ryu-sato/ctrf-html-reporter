@@ -16,40 +16,40 @@
       <p>No tests match the selected filters.</p>
     </div>
 
-    <div v-for="(root, index) in filteredNodes" :key="index" class="tree-root">
-      <h2 :id="'test-tree-' + root.name">{{ root.name }}</h2>
+    <div v-for="(node, index) in filteredNodes" :key="index" class="tree-root">
+      <h2 :id="'test-tree-' + node.name">{{ node.name }}</h2>
       
       <div class="status-line">
-        <Badge :type="getStatusType(root.status)">{{ root.status }}</Badge>
-        <span class="duration-text">Duration: {{ formatDuration(root.duration) }}</span>
+        <Badge :type="getStatusType(node.status)">{{ node.status }}</Badge>
+        <span class="duration-text">Duration: {{ formatDuration(node.duration) }}</span>
       </div>
 
-      <div v-if="root.summary" class="summary-box">
+      <div v-if="node.summary" class="summary-box">
         <div class="summary-stats">
-          <span>Tests: {{ root.summary.tests || root.tests?.length || 0 }}</span>
-          <span class="passed"><CheckCircleIcon style="width: 16px; height: 16px;" /> {{ root.summary.passed || 0 }}</span>
-          <span class="failed"><XCircleIcon style="width: 16px; height: 16px;" /> {{ root.summary.failed || 0 }}</span>
-          <span class="skipped"><MinusCircleIcon style="width: 16px; height: 16px;" /> {{ root.summary.skipped || 0 }}</span>
-          <span class="pending"><ClockIcon style="width: 16px; height: 16px;" /> {{ root.summary.pending || 0 }}</span>
-          <span v-if="root.summary.flaky" class="flaky"><BoltIcon style="width: 16px; height: 16px;" /> {{ root.summary.flaky }}</span>
+          <span>Tests: {{ node.summary.tests || node.tests?.length || 0 }}</span>
+          <span class="passed"><CheckCircleIcon style="width: 16px; height: 16px;" /> {{ node.summary.passed || 0 }}</span>
+          <span class="failed"><XCircleIcon style="width: 16px; height: 16px;" /> {{ node.summary.failed || 0 }}</span>
+          <span class="skipped"><MinusCircleIcon style="width: 16px; height: 16px;" /> {{ node.summary.skipped || 0 }}</span>
+          <span class="pending"><ClockIcon style="width: 16px; height: 16px;" /> {{ node.summary.pending || 0 }}</span>
+          <span v-if="node.summary.flaky" class="flaky"><BoltIcon style="width: 16px; height: 16px;" /> {{ node.summary.flaky }}</span>
         </div>
       </div>
 
-      <div v-if="root.suites && root.suites.length > 0" class="suites-container">
+      <div v-if="node.suites && node.suites.length > 0" class="suites-container">
         <TreeNodeInfo
-          v-for="(suite, suiteIndex) in root.suites" 
+          v-for="(suite, suiteIndex) in node.suites" 
           :key="suiteIndex"
           :treeNode="suite"
         />
       </div>
 
-      <div v-if="root.tests && root.tests.length > 0" class="tests-container">
+      <div v-if="node.tests && node.tests.length > 0" class="tests-container">
         <details open>
           <summary class="tests-summary">
-            Show {{ root.tests.length }} test(s)
+            Show {{ node.tests.length }} test(s)
           </summary>
           <ul class="tests-list">
-            <li v-for="(test, testIndex) in root.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
+            <li v-for="(test, testIndex) in node.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
               <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
               <span class="test-name">{{ test.name }}</span>
               <span class="test-duration">({{ formatDuration(test.duration) }})</span>
