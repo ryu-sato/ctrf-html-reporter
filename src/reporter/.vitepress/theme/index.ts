@@ -7,7 +7,7 @@ import PercentFormatter from './components/PercentFormatter.vue'
 import ReportInfo from './features/overview/ReportInfo.vue'
 import EnvironmentInfo from './features/overview/EnvironmentInfo.vue'
 import SummaryView from './features/overview/SummaryView.vue'
-import TestInsights from './features/insights/TestInsights.vue'
+import TestInsightsInfo from './features/insights/TestInsightsInfo.vue'
 import InsightsView from './features/insights/InsightsView.vue';
 import TestTreeView from './features/suites/TestTreeView.vue'
 import TreeNodeInfo from './features/suites/TreeNodeInfo.vue'
@@ -19,7 +19,7 @@ export default {
   extends: DefaultTheme,
   Layout,
   enhanceApp({ app }: { app: any }) {
-    app.component('TestInsights', TestInsights)
+    app.component('TestInsightsInfo', TestInsightsInfo)
     app.component('DateTimeFormatter', DateTimeFormatter)
     app.component('ReportInfo', ReportInfo)
     app.component('EnvironmentInfo', EnvironmentInfo)
