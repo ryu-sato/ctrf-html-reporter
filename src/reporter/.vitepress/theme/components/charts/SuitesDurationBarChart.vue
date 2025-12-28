@@ -19,7 +19,7 @@ const props = defineProps({
 });
 
 const sortedNodes = computed(() => {
-  return [...props.nodes].sort((a, b) => b.duration - a.duration);
+  return props.nodes.sort((a, b) => b.duration - a.duration);
 });
 const statsDurations = new Stats().push(sortedNodes.value.map(node => node.duration));
 const p75Duration = statsDurations.percentile(75);
