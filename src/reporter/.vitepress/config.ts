@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress'
+import path from 'path';
+import license from 'rollup-plugin-license';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -12,6 +14,20 @@ export default defineConfig({
     },
     ssr: {
       noExternal: ['ctrf', 'chart.js']
+    },
+    build: {
+      rollupOptions: {
+        plugins: [
+          license({
+            thirdParty: {
+              output: {
+                file: path.join(__dirname, 'THIRD-PARTY-LICENSES.txt'),
+              },
+              allow: '(MIT OR Apache-2.0)',
+            },
+          }),
+        ],
+      },
     },
   },
   themeConfig: {
