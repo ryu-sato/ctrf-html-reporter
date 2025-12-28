@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import DateTimeFormatter from '../DateTimeFormatter.vue';
+import DateTimeFormatter from '../../components/DateTimeFormatter.vue';
 import { formatDuration, formatLabel, formatValue } from '../../../helpers/formatter';
 import type { Report } from 'ctrf';
 
