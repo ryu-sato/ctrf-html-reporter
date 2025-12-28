@@ -1,47 +1,5 @@
 <template>
   <div class="test-tree-view">
-    <!-- Suites summary -->
-    <div>
-      <h1>Test Suites</h1>
-      <p>Total Suites: {{ filteredNodes.length }}</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Suite Name</th>
-              <th>Status</th>
-              <th>Total Suites</th>
-              <th>Total Tests</th>
-              <th>Passed</th>
-              <th>Failed</th>
-              <th>Skipped</th>
-              <th>Pending</th>
-              <th>Flaky</th>
-              <th>Other</th>
-              <th>Duration</th>
-            </tr>
-          </thead>
-          <tbody v-for="(node, index) in filteredNodes" :key="index">
-            <tr>
-              <td>{{ node.name }}</td>
-              <td>{{ node.status }}</td>
-              <td>{{ node.summary?.suites || node.suites?.length || 0 }}</td>
-              <td>{{ node.summary?.tests || node.tests?.length || 0 }}</td>
-              <td>{{ node.summary?.passed || 0 }}</td>
-              <td>{{ node.summary?.failed || 0 }}</td>
-              <td>{{ node.summary?.skipped || 0 }}</td>
-              <td>{{ node.summary?.pending || 0 }}</td>
-              <td>{{ node.summary?.flaky || 0 }}</td>
-              <td>{{ node.summary?.other || 0 }}</td>
-              <td>{{ formatDuration(node.duration) }}</td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-
-    <SuitesDurationBarChart
-      :nodes="filteredNodes"
-    />
-
     <!-- Filter Component -->
     <TestFilter
       :selectedStatuses="selectedStatuses"
@@ -58,10 +16,14 @@
       <p>No tests match the selected filters.</p>
     </div>
 
-    <TreeNodesInfo
-      v-else
-      :nodes="filteredNodes"
-    />
+    <div v-else>
+      <SuitesDurationBarChart
+        :nodes="filteredNodes"
+      />
+      <TreeNodesInfo
+        :nodes="filteredNodes"
+      />
+    </div>
   </div>
 </template>
 
@@ -69,8 +31,6 @@
 import { ref, computed } from 'vue';
 import TestFilter from './TestFilter.vue';
 import type { TreeNode } from 'ctrf';
-import { formatDuration } from '../../../helpers/formatter';
-import SuitesDurationBarChart from '../../components/charts/SuitesDurationBarChart.vue';
 
 const props = defineProps({
   nodes: {
