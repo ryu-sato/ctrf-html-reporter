@@ -1,38 +1,38 @@
 <template>
-  <div class="suite-node">
-    <h3>{{ suite.name }}</h3>
+  <div class="tree-node">
+    <h3>{{ treeNode.name }}</h3>
     
     <div class="suite-header">
-      <Badge :type="getStatusType(suite.status)">{{ suite.status }}</Badge>
-      <span class="suite-duration">{{ formatDuration(suite.duration) }}</span>
+      <Badge :type="getStatusType(treeNode.status)">{{ treeNode.status }}</Badge>
+      <span class="suite-duration">{{ formatDuration(treeNode.duration) }}</span>
     </div>
 
-    <div v-if="suite.summary" class="suite-summary">
-      Tests: {{ suite.summary.tests || suite.tests?.length || 0 }} |
-      <span class="passed"><CheckCircleIcon style="width: 16px; height: 16px;" /> {{ suite.summary.passed || 0 }}</span> |
-      <span class="failed"><XCircleIcon style="width: 16px; height: 16px;" /> {{ suite.summary.failed || 0 }}</span> |
-      <span class="skipped"><MinusCircleIcon style="width: 16px; height: 16px;" /> {{ suite.summary.skipped || 0 }}</span> |
-      <span class="pending"><ClockIcon style="width: 16px; height: 16px;" /> {{ suite.summary.pending || 0 }}</span>
-      <span v-if="suite.summary.flaky" class="flaky"> | <BoltIcon style="width: 16px; height: 16px;" /> {{ suite.summary.flaky }}</span>
+    <div v-if="treeNode.summary" class="suite-summary">
+      Tests: {{ treeNode.summary.tests || treeNode.tests?.length || 0 }} |
+      <span class="passed"><CheckCircleIcon style="width: 16px; height: 16px;" /> {{ treeNode.summary.passed || 0 }}</span> |
+      <span class="failed"><XCircleIcon style="width: 16px; height: 16px;" /> {{ treeNode.summary.failed || 0 }}</span> |
+      <span class="skipped"><MinusCircleIcon style="width: 16px; height: 16px;" /> {{ treeNode.summary.skipped || 0 }}</span> |
+      <span class="pending"><ClockIcon style="width: 16px; height: 16px;" /> {{ treeNode.summary.pending || 0 }}</span>
+      <span v-if="treeNode.summary.flaky" class="flaky"> | <BoltIcon style="width: 16px; height: 16px;" /> {{ treeNode.summary.flaky }}</span>
     </div>
 
     <!-- Nested suites -->
-    <div v-if="suite.suites && suite.suites.length > 0" class="nested-suites">
+    <div v-if="treeNode.suites && treeNode.suites.length > 0" class="nested-suites">
       <SuiteNode 
-        v-for="(childSuite, index) in suite.suites" 
+        v-for="(childSuite, index) in treeNode.suites" 
         :key="index"
         :suite="childSuite"
       />
     </div>
 
     <!-- Tests in this suite -->
-    <div v-if="suite.tests && suite.tests.length > 0" class="suite-tests">
+    <div v-if="treeNode.tests && treeNode.tests.length > 0" class="suite-tests">
       <details open>
         <summary class="tests-summary">
-          Show {{ suite.tests.length }} test(s)
+          Show {{ treeNode.tests.length }} test(s)
         </summary>
         <ul class="tests-list">
-          <li v-for="(test, testIndex) in suite.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
+          <li v-for="(test, testIndex) in treeNode.tests" :key="testIndex" class="test-item" @click="handleTestClick(test)">
             <Badge :type="getStatusType(test.status)" class="test-badge">{{ test.status }}</Badge>
             <span class="test-name">{{ test.name }}</span>
             <span class="test-duration">({{ formatDuration(test.duration) }})</span>
@@ -56,7 +56,7 @@ import type { TreeNode } from 'ctrf';
 import { formatDuration } from '../../../helpers/formatter';
 
 const props = defineProps({
-  suite: {
+  treeNode: {
     type: Object as () => TreeNode,
     required: true
   }
@@ -88,13 +88,13 @@ const getStatusType = (status: string) => {
 /* =========================
    Suite Node Container
    ========================= */
-.suite-node {
+.tree-node {
   margin-bottom: var(--report-spacing-lg);
   padding-left: var(--report-spacing-lg);
   border-left: 2px solid var(--vp-c-divider);
 }
 
-.suite-node h3 {
+.tree-node h3 {
   margin-top: 0;
   margin-bottom: var(--report-spacing-sm);
   font-size: 1.1rem;

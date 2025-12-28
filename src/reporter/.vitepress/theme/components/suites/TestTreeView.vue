@@ -36,10 +36,10 @@
       </div>
 
       <div v-if="root.suites && root.suites.length > 0" class="suites-container">
-        <SuiteNode 
+        <TreeNodeInfo
           v-for="(suite, suiteIndex) in root.suites" 
           :key="suiteIndex"
-          :suite="suite"
+          :treeNode="suite"
         />
       </div>
 
@@ -69,7 +69,7 @@
 import { inject, onMounted, ref, computed } from 'vue';
 import { CheckCircleIcon, XCircleIcon, MinusCircleIcon, ClockIcon, BoltIcon } from '@heroicons/vue/16/solid';
 import { VPBadge as Badge } from 'vitepress/theme';
-import SuiteNode from './SuiteNode.vue';
+import TreeNodeInfo from './TreeNodeInfo.vue';
 import TestFilter from './TestFilter.vue';
 import type { TreeNode } from 'ctrf';
 import { formatDuration } from '../../../helpers/formatter';

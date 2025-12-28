@@ -6,7 +6,7 @@ import ReportInfo from './components/overview/ReportInfo.vue'
 import EnvironmentInfo from './components/overview/EnvironmentInfo.vue'
 import SummaryView from './components/overview/SummaryView.vue'
 import TestTreeView from './components/suites/TestTreeView.vue'
-import SuiteNode from './components/suites/SuiteNode.vue'
+import TreeNodeInfo from './components/suites/TreeNodeInfo.vue'
 import TestDetail from './layouts/TestDetail.vue'
 import TimelineChart from './components/timeline/TimelineChart.vue'
 import PercentFormatter from './components/PercentFormatter.vue'
@@ -23,7 +23,7 @@ export default {
     app.component('EnvironmentInfo', EnvironmentInfo)
     app.component('SummaryView', SummaryView)
     app.component('TestTreeView', TestTreeView)
-    app.component('SuiteNode', SuiteNode)
+    app.component('TreeNodeInfo', TreeNodeInfo)
     app.component('TestDetail', TestDetail)
     app.component('TimelineChart', TimelineChart)
     app.component('PercentFormatter', PercentFormatter)
