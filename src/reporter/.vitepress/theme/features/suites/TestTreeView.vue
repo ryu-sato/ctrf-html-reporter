@@ -17,8 +17,6 @@
               <th>Pending</th>
               <th>Flaky</th>
               <th>Other</th>
-              <th>Start</th>
-              <th>Stop</th>
               <th>Duration</th>
             </tr>
           </thead>
@@ -34,8 +32,6 @@
               <td>{{ node.summary?.pending || 0 }}</td>
               <td>{{ node.summary?.flaky || 0 }}</td>
               <td>{{ node.summary?.other || 0 }}</td>
-              <td>{{ node.summary?.start ? new Date(node.summary.start).toLocaleString() : 'N/A' }}</td>
-              <td>{{ node.summary?.stop ? new Date(node.summary.stop).toLocaleString() : 'N/A' }}</td>
               <td>{{ formatDuration(node.duration) }}</td>
             </tr>
           </tbody>
