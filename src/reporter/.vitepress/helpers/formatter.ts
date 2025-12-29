@@ -153,6 +153,20 @@ export const formatDurationChange = (ms: number | null | undefined): string => {
 };
 
 /**
+ * Format numeric change value with +/- prefix
+ * @param value - The change value
+ * @returns Formatted change string with +/- prefix
+ * @example
+ * formatNumericChange(500) // "+500"
+ * formatNumericChange(-300) // "-300"
+ * formatNumericChange(0) // "±0"
+ */
+export const formatNumericChange = (value: number): string => {
+  if (value === 0) return '±0';
+  return value > 0 ? `+${value}` : `${value}`;
+};
+
+/**
  * @deprecated Use formatPercentChange instead
  * @see formatPercentChange
  */
