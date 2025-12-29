@@ -103,6 +103,7 @@ The Insights view provides comparison with previous test results and baseline. T
 - Easily identify changes in overall report metrics
 - Track test case status changes (new failures, fixed tests, etc.)
 - Understand test result trends over time
+- Sort and filter tests by metrics or changes to focus on problem areas
 
 To enable insights comparison, specify previous reports. The baseline report is identified from the previous reports by its start time:
 

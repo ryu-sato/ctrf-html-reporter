@@ -11,11 +11,16 @@
             <label class="control-label" for="sort-by">Sort by:</label>
             <select class="control-select" id="sort-by" v-model="sortBy" @change="changeSortOrFilter">
               <option value="passRate">Pass Rate</option>
+              <option value="passRateChange">Pass Rate Change</option>
               <option value="flakyRate">Flaky Rate</option>
+              <option value="flakyRateChange">Flaky Rate Change</option>
               <option value="failRate">Fail Rate</option>
+              <option value="failRateChange">Fail Rate Change</option>
               <option value="runs">Runs</option>
               <option value="avgDuration">Avg Duration</option>
+              <option value="avgDurationChange">Avg Duration Change</option>
               <option value="p95Duration">95th Percentile</option>
+              <option value="p95DurationChange">95th Percentile Change</option>
             </select>
           </div>
           <div class="control-group">
@@ -95,40 +100,69 @@
           <div class="test-card-suite">{{ test.suite }}</div>
           <div class="test-card-metrics">
             <div class="metric-item">
-              <div class="metric-label">Pass Rate</div>
-              <div class="metric-value">
-                <span class="rate-badge" :style="{ background: getPassRateColor(formatPercent(test.insights?.passRate?.current)) }">
+              <div class="metric-label pass">Pass Rate</div>
+              <div class="metric-content">
+                <div class="metric-value">
                   <PercentFormatter :value="test.insights?.passRate?.current" />
-                </span>
+                  <span v-if="shouldShowChange && test.insights?.passRate?.change !== undefined"
+                        class="metric-change"
+                        :class="getChangeClass(test.insights.passRate.change, false)">
+                    ({{ formatPercentChange(test.insights.passRate.change, 1) }})
+                  </span>
+                </div>
               </div>
             </div>
             <div class="metric-item">
-              <div class="metric-label">Flaky Rate</div>
-              <div class="metric-value">
-                <span class="rate-badge" :style="{ background: formatPercent(test.insights?.flakyRate?.current) > 5 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }">
+              <div class="metric-label flaky">Flaky Rate</div>
+              <div class="metric-content">
+                <div class="metric-value">
                   <PercentFormatter :value="test.insights?.flakyRate?.current" />
-                </span>
+                  <span v-if="shouldShowChange && test.insights?.flakyRate?.change !== undefined"
+                        class="metric-change"
+                        :class="getChangeClass(test.insights.flakyRate.change, true)">
+                    ({{ formatPercentChange(test.insights.flakyRate.change, 1) }})
+                  </span>
+                </div>
               </div>
             </div>
             <div class="metric-item">
-              <div class="metric-label">Fail Rate</div>
-              <div class="metric-value">
-                <span class="rate-badge" :style="{ background: formatPercent(test.insights?.failRate?.current) > 10 ? 'var(--vp-c-red-1)' : 'var(--vp-c-green-1)' }">
+              <div class="metric-label fail">Fail Rate</div>
+              <div class="metric-content">
+                <div class="metric-value">
                   <PercentFormatter :value="test.insights?.failRate?.current" />
-                </span>
+                  <span v-if="shouldShowChange && test.insights?.failRate?.change !== undefined"
+                        class="metric-change"
+                        :class="getChangeClass(test.insights.failRate.change, true)">
+                    ({{ formatPercentChange(test.insights.failRate.change, 1) }})
+                  </span>
+                </div>
               </div>
             </div>
             <div class="metric-item">
-              <div class="metric-label">Runs</div>
-              <div class="metric-value">{{ test.insights?.executedInRuns }}</div>
+              <div class="metric-label duration">Avg Duration</div>
+              <div class="metric-content">
+                <div class="metric-value">
+                  {{ test.insights?.averageTestDuration?.current }}ms
+                  <span v-if="shouldShowChange && test.insights?.averageTestDuration?.change !== undefined"
+                        class="metric-change"
+                        :class="getChangeClass(test.insights.averageTestDuration.change, true)">
+                    ({{ formatNumericChange(test.insights.averageTestDuration.change) }}ms)
+                  </span>
+                </div>
+              </div>
             </div>
             <div class="metric-item">
-              <div class="metric-label">Avg Duration</div>
-              <div class="metric-value">{{ test.insights?.averageTestDuration?.current }}ms</div>
-            </div>
-            <div class="metric-item">
-              <div class="metric-label">95th Percentile</div>
-              <div class="metric-value">{{ test.insights?.p95TestDuration?.current }}ms</div>
+              <div class="metric-label duration">P95 Duration</div>
+              <div class="metric-content">
+                <div class="metric-value">
+                  {{ test.insights?.p95TestDuration?.current }}ms
+                  <span v-if="shouldShowChange && test.insights?.p95TestDuration?.change !== undefined"
+                        class="metric-change"
+                        :class="getChangeClass(test.insights.p95TestDuration.change, true)">
+                    ({{ formatNumericChange(test.insights.p95TestDuration.change) }}ms)
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -171,10 +205,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, inject, watch } from 'vue';
+import { ref, computed, inject } from 'vue';
 import type { Report } from 'ctrf';
 import PercentFormatter from '../../components/PercentFormatter.vue';
-import { formatPercent } from '../../../helpers/formatter';
+import { formatPercentChange, formatNumericChange } from '../../../helpers/formatter';
 
 interface Props {
   report: Report;
@@ -211,6 +245,12 @@ const enrichedReport = computed(() => {
   }
 });
 
+// Only show change values if runsAnalyzed > 1
+// When runsAnalyzed = 1, CTRF sets baseline=0 and change=0 as default initialization values
+const shouldShowChange = computed(() => {
+  return (enrichedReport.value?.insights?.runsAnalyzed ?? 0) > 1;
+});
+
 // Get status color
 const getStatusColor = (status: string): string => {
   const colors: Record<string, string> = {
@@ -222,10 +262,15 @@ const getStatusColor = (status: string): string => {
   return colors[status] || 'var(--vp-c-text-2)';
 };
 
-const getPassRateColor = (rate: number): string => {
-  if (rate >= 95) return 'var(--vp-c-green-1)';
-  if (rate >= 80) return 'var(--vp-c-yellow-1)';
-  return 'var(--vp-c-red-1)';
+const getChangeClass = (change: number, invert: boolean): string => {
+  if (change === 0) return 'neutral';
+
+  // If invert is true, positive change is bad
+  if (invert) {
+    return change > 0 ? 'negative' : 'positive';
+  } else {
+    return change > 0 ? 'positive' : 'negative';
+  }
 };
 
 // Filter and sort tests
@@ -242,19 +287,31 @@ const filteredAndSortedTests = computed(() => {
   // Apply sorting
   tests.sort((a, b) => {
     let aValue: number, bValue: number;
-    
+
     switch (sortBy.value) {
       case 'passRate':
         aValue = a.insights?.passRate?.current || 0;
         bValue = b.insights?.passRate?.current || 0;
         break;
+      case 'passRateChange':
+        aValue = a.insights?.passRate?.change ?? 0;
+        bValue = b.insights?.passRate?.change ?? 0;
+        break;
       case 'flakyRate':
         aValue = a.insights?.flakyRate?.current || 0;
         bValue = b.insights?.flakyRate?.current || 0;
         break;
+      case 'flakyRateChange':
+        aValue = a.insights?.flakyRate?.change ?? 0;
+        bValue = b.insights?.flakyRate?.change ?? 0;
+        break;
       case 'failRate':
         aValue = a.insights?.failRate?.current || 0;
         bValue = b.insights?.failRate?.current || 0;
+        break;
+      case 'failRateChange':
+        aValue = a.insights?.failRate?.change ?? 0;
+        bValue = b.insights?.failRate?.change ?? 0;
         break;
       case 'runs':
         aValue = a.insights?.executedInRuns || 0;
@@ -264,14 +321,22 @@ const filteredAndSortedTests = computed(() => {
         aValue = a.insights?.averageTestDuration?.current || 0;
         bValue = b.insights?.averageTestDuration?.current || 0;
         break;
+      case 'avgDurationChange':
+        aValue = a.insights?.averageTestDuration?.change ?? 0;
+        bValue = b.insights?.averageTestDuration?.change ?? 0;
+        break;
       case 'p95Duration':
         aValue = a.insights?.p95TestDuration?.current || 0;
         bValue = b.insights?.p95TestDuration?.current || 0;
         break;
+      case 'p95DurationChange':
+        aValue = a.insights?.p95TestDuration?.change ?? 0;
+        bValue = b.insights?.p95TestDuration?.change ?? 0;
+        break;
       default:
         return 0;
     }
-    
+
     if (sortOrder.value === 'asc') {
       return aValue - bValue;
     } else {
@@ -449,27 +514,63 @@ const changeSortOrFilter = () => {
 }
 
 .test-card-metrics {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--report-spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .metric-item {
   display: flex;
-  flex-direction: column;
-  gap: var(--report-spacing-xs);
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.metric-item:hover {
+  background: var(--vp-c-bg-soft);
 }
 
 .metric-label {
-  font-size: 0.7rem;
-  color: var(--vp-c-text-2);
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  padding: 0.25rem 0.5rem;
+  min-width: 90px;
+  color: var(--vp-c-text-2);
+}
+
+.metric-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .metric-value {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.metric-change {
+  display: inline;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.metric-change.positive {
+  color: var(--vp-c-green-1);
+}
+
+.metric-change.negative {
+  color: var(--vp-c-red-1);
+}
+
+.metric-change.neutral {
+  color: var(--vp-c-text-2);
 }
 
 /* =========================
