@@ -11,11 +11,16 @@
             <label class="control-label" for="sort-by">Sort by:</label>
             <select class="control-select" id="sort-by" v-model="sortBy" @change="changeSortOrFilter">
               <option value="passRate">Pass Rate</option>
+              <option value="passRateChange">Pass Rate Change</option>
               <option value="flakyRate">Flaky Rate</option>
+              <option value="flakyRateChange">Flaky Rate Change</option>
               <option value="failRate">Fail Rate</option>
+              <option value="failRateChange">Fail Rate Change</option>
               <option value="runs">Runs</option>
               <option value="avgDuration">Avg Duration</option>
+              <option value="avgDurationChange">Avg Duration Change</option>
               <option value="p95Duration">95th Percentile</option>
+              <option value="p95DurationChange">95th Percentile Change</option>
             </select>
           </div>
           <div class="control-group">
@@ -282,19 +287,31 @@ const filteredAndSortedTests = computed(() => {
   // Apply sorting
   tests.sort((a, b) => {
     let aValue: number, bValue: number;
-    
+
     switch (sortBy.value) {
       case 'passRate':
         aValue = a.insights?.passRate?.current || 0;
         bValue = b.insights?.passRate?.current || 0;
         break;
+      case 'passRateChange':
+        aValue = a.insights?.passRate?.change ?? 0;
+        bValue = b.insights?.passRate?.change ?? 0;
+        break;
       case 'flakyRate':
         aValue = a.insights?.flakyRate?.current || 0;
         bValue = b.insights?.flakyRate?.current || 0;
         break;
+      case 'flakyRateChange':
+        aValue = a.insights?.flakyRate?.change ?? 0;
+        bValue = b.insights?.flakyRate?.change ?? 0;
+        break;
       case 'failRate':
         aValue = a.insights?.failRate?.current || 0;
         bValue = b.insights?.failRate?.current || 0;
+        break;
+      case 'failRateChange':
+        aValue = a.insights?.failRate?.change ?? 0;
+        bValue = b.insights?.failRate?.change ?? 0;
         break;
       case 'runs':
         aValue = a.insights?.executedInRuns || 0;
@@ -304,14 +321,22 @@ const filteredAndSortedTests = computed(() => {
         aValue = a.insights?.averageTestDuration?.current || 0;
         bValue = b.insights?.averageTestDuration?.current || 0;
         break;
+      case 'avgDurationChange':
+        aValue = a.insights?.averageTestDuration?.change ?? 0;
+        bValue = b.insights?.averageTestDuration?.change ?? 0;
+        break;
       case 'p95Duration':
         aValue = a.insights?.p95TestDuration?.current || 0;
         bValue = b.insights?.p95TestDuration?.current || 0;
         break;
+      case 'p95DurationChange':
+        aValue = a.insights?.p95TestDuration?.change ?? 0;
+        bValue = b.insights?.p95TestDuration?.change ?? 0;
+        break;
       default:
         return 0;
     }
-    
+
     if (sortOrder.value === 'asc') {
       return aValue - bValue;
     } else {
