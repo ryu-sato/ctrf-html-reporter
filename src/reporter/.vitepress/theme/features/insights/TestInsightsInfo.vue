@@ -205,26 +205,16 @@ const props = defineProps({
   }
 });
 
+// Only show baseline/change columns if runsAnalyzed > 1
+// When runsAnalyzed = 1, CTRF sets baseline=0 and change=0 as default initialization values
+// Only when runsAnalyzed > 1 do we have actual baseline comparison data
 const hasBaseline = computed(() => {
-  return !!(
-    props.insights.passRate?.baseline !== undefined ||
-    props.insights.failRate?.baseline !== undefined ||
-    props.insights.flakyRate?.baseline !== undefined ||
-    props.insights.averageTestDuration?.baseline !== undefined ||
-    props.insights.averageRunDuration?.baseline !== undefined ||
-    props.insights.p95RunDuration?.baseline !== undefined
-  );
+  return (props.insights.runsAnalyzed ?? 0) > 1;
 });
 
+// Change column should only be shown if baseline exists
 const hasChange = computed(() => {
-  return !!(
-    props.insights.passRate?.change !== undefined ||
-    props.insights.failRate?.change !== undefined ||
-    props.insights.flakyRate?.change !== undefined ||
-    props.insights.averageTestDuration?.change !== undefined ||
-    props.insights.averageRunDuration?.change !== undefined ||
-    props.insights.p95RunDuration?.change !== undefined
-  );
+  return hasBaseline.value;
 });
 
 const hasRateMetrics = computed(() => {

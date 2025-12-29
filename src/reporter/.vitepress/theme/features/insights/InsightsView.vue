@@ -99,7 +99,7 @@
               <div class="metric-content">
                 <div class="metric-value">
                   <PercentFormatter :value="test.insights?.passRate?.current" />
-                  <span v-if="test.insights?.passRate?.change !== undefined"
+                  <span v-if="shouldShowChange && test.insights?.passRate?.change !== undefined"
                         class="metric-change"
                         :class="getChangeClass(test.insights.passRate.change, false)">
                     ({{ formatPercentChange(test.insights.passRate.change, 1) }})
@@ -112,7 +112,7 @@
               <div class="metric-content">
                 <div class="metric-value">
                   <PercentFormatter :value="test.insights?.flakyRate?.current" />
-                  <span v-if="test.insights?.flakyRate?.change !== undefined"
+                  <span v-if="shouldShowChange && test.insights?.flakyRate?.change !== undefined"
                         class="metric-change"
                         :class="getChangeClass(test.insights.flakyRate.change, true)">
                     ({{ formatPercentChange(test.insights.flakyRate.change, 1) }})
@@ -125,7 +125,7 @@
               <div class="metric-content">
                 <div class="metric-value">
                   <PercentFormatter :value="test.insights?.failRate?.current" />
-                  <span v-if="test.insights?.failRate?.change !== undefined"
+                  <span v-if="shouldShowChange && test.insights?.failRate?.change !== undefined"
                         class="metric-change"
                         :class="getChangeClass(test.insights.failRate.change, true)">
                     ({{ formatPercentChange(test.insights.failRate.change, 1) }})
@@ -138,7 +138,7 @@
               <div class="metric-content">
                 <div class="metric-value">
                   {{ test.insights?.averageTestDuration?.current }}ms
-                  <span v-if="test.insights?.averageTestDuration?.change !== undefined"
+                  <span v-if="shouldShowChange && test.insights?.averageTestDuration?.change !== undefined"
                         class="metric-change"
                         :class="getChangeClass(test.insights.averageTestDuration.change, true)">
                     ({{ formatNumericChange(test.insights.averageTestDuration.change) }}ms)
@@ -151,7 +151,7 @@
               <div class="metric-content">
                 <div class="metric-value">
                   {{ test.insights?.p95TestDuration?.current }}ms
-                  <span v-if="test.insights?.p95TestDuration?.change !== undefined"
+                  <span v-if="shouldShowChange && test.insights?.p95TestDuration?.change !== undefined"
                         class="metric-change"
                         :class="getChangeClass(test.insights.p95TestDuration.change, true)">
                     ({{ formatNumericChange(test.insights.p95TestDuration.change) }}ms)
@@ -238,6 +238,12 @@ const enrichedReport = computed(() => {
     console.error('Failed to enrich report:', error);
     return null;
   }
+});
+
+// Only show change values if runsAnalyzed > 1
+// When runsAnalyzed = 1, CTRF sets baseline=0 and change=0 as default initialization values
+const shouldShowChange = computed(() => {
+  return (enrichedReport.value?.insights?.runsAnalyzed ?? 0) > 1;
 });
 
 // Get status color
