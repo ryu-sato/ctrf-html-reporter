@@ -299,8 +299,8 @@ const getChangeClass = (change: number, invert: boolean): string => {
 /* Tables Grid Layout */
 .tables-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  grid-template-columns: max-content max-content;
+  gap: 0.5rem;
 }
 
 .table-container {
