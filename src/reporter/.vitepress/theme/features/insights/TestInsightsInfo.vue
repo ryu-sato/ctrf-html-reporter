@@ -1,264 +1,167 @@
 <template>
   <div class="test-insights">
-    <!-- Pass Rate -->
-    <div 
-      v-if="insights.passRate !== undefined"
-      class="insight-card"
-    >
-      <div class="insight-header">
-        <span class="insight-label">{{ labels.passRate }}</span>
-      </div>
-      <div class="insight-content">
-        <div class="metric-row">
-          <span class="metric-key">Current</span>
-          <span 
-            class="metric-value current" 
-            :style="getCurrentStyle('passRate', formatPercent(insights.passRate.current), 'percent')"
-          >
-            {{ formatPercentString(insights.passRate.current) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.passRate.baseline !== undefined">
-          <span class="metric-key">Baseline</span>
-          <span class="metric-value baseline">
-            {{ formatPercentString(insights.passRate.baseline) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.passRate.change !== undefined">
-          <span class="metric-key">Change</span>
-          <span 
-            class="metric-value change" 
-            :class="getChangeClass(insights.passRate.change, false)"
-          >
-            {{ formatPercentString(insights.passRate.change) }}
-          </span>
-        </div>
-      </div>
+    <!-- Runs Analyzed - Standalone metric -->
+    <div v-if="insights.runsAnalyzed !== undefined" class="runs-analyzed-card">
+      <span class="runs-label">{{ labels.runsAnalyzed }}</span>
+      <span
+        class="runs-value"
+        :style="getCurrentStyle('runsAnalyzed', insights.runsAnalyzed!, 'number')"
+      >
+        {{ insights.runsAnalyzed }}
+      </span>
     </div>
 
-    <!-- Fail Rate -->
-    <div 
-      v-if="insights.failRate !== undefined"
-      class="insight-card"
-    >
-      <div class="insight-header">
-        <span class="insight-label">{{ labels.failRate }}</span>
-      </div>
-      <div class="insight-content">
-        <div class="metric-row">
-          <span class="metric-key">Current</span>
-          <span 
-            class="metric-value current" 
-            :style="getCurrentStyle('failRate', formatPercent(insights.failRate.current), 'percent')"
-          >
-            {{ formatPercentString(insights.failRate.current) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.failRate.baseline !== undefined">
-          <span class="metric-key">Baseline</span>
-          <span class="metric-value baseline">
-            {{ formatPercentString(insights.failRate.baseline) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.failRate.change !== undefined">
-          <span class="metric-key">Change</span>
-          <span 
-            class="metric-value change" 
-            :class="getChangeClass(insights.failRate.change, true)"
-          >
-            {{ formatPercentString(insights.failRate.change) }}
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Flaky Rate -->
-    <div 
-      v-if="insights.flakyRate !== undefined"
-      class="insight-card"
-    >
-      <div class="insight-header">
-        <span class="insight-label">{{ labels.flakyRate }}</span>
-      </div>
-      <div class="insight-content">
-        <div class="metric-row">
-          <span class="metric-key">Current</span>
-          <span 
-            class="metric-value current" 
-            :style="getCurrentStyle('flakyRate', formatPercent(insights.flakyRate.current), 'percent')"
-          >
-            {{ formatPercentString(insights.flakyRate.current) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.flakyRate.baseline !== undefined">
-          <span class="metric-key">Baseline</span>
-          <span class="metric-value baseline">
-            {{ formatPercentString(insights.flakyRate.baseline) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.flakyRate.change !== undefined">
-          <span class="metric-key">Change</span>
-          <span 
-            class="metric-value change" 
-            :class="getChangeClass(insights.flakyRate.change, true)"
-          >
-            {{ formatPercentString(insights.flakyRate.change) }}
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Average Test Duration -->
-    <div 
-      v-if="insights.averageTestDuration !== undefined"
-      class="insight-card"
-    >
-      <div class="insight-header">
-        <span class="insight-label">{{ labels.averageTestDuration }}</span>
-      </div>
-      <div class="insight-content">
-        <div class="metric-row">
-          <span class="metric-key">Current</span>
-          <span 
-            class="metric-value current" 
-            :style="getCurrentStyle('averageTestDuration', insights.averageTestDuration.current, 'duration')"
-          >
-            {{ formatDuration(insights.averageTestDuration.current) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.averageTestDuration.baseline !== undefined">
-          <span class="metric-key">Baseline</span>
-          <span class="metric-value baseline">
-            {{ formatDuration(insights.averageTestDuration.baseline) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.averageTestDuration.change !== undefined">
-          <span class="metric-key">Change</span>
-          <span 
-            class="metric-value change" 
-            :class="getChangeClass(insights.averageTestDuration.change, true)"
-          >
-            {{ formatDuration(insights.averageTestDuration.change) }}
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Average Run Duration -->
-    <div 
-      v-if="insights.averageRunDuration !== undefined"
-      class="insight-card"
-    >
-      <div class="insight-header">
-        <span class="insight-label">{{ labels.averageRunDuration }}</span>
-      </div>
-      <div class="insight-content">
-        <div class="metric-row">
-          <span class="metric-key">Current</span>
-          <span 
-            class="metric-value current" 
-            :style="getCurrentStyle('averageRunDuration', insights.averageRunDuration.current, 'duration')"
-          >
-            {{ formatDuration(insights.averageRunDuration.current) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.averageRunDuration.baseline !== undefined">
-          <span class="metric-key">Baseline</span>
-          <span class="metric-value baseline">
-            {{ formatDuration(insights.averageRunDuration.baseline) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.averageRunDuration.change !== undefined">
-          <span class="metric-key">Change</span>
-          <span 
-            class="metric-value change" 
-            :class="getChangeClass(insights.averageRunDuration.change, true)"
-          >
-            {{ formatDuration(insights.averageRunDuration.change) }}
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- P95 Run Duration -->
-    <div 
-      v-if="insights.p95RunDuration !== undefined"
-      class="insight-card"
-    >
-      <div class="insight-header">
-        <span class="insight-label">{{ labels.p95RunDuration }}</span>
-      </div>
-      <div class="insight-content">
-        <div class="metric-row">
-          <span class="metric-key">Current</span>
-          <span 
-            class="metric-value current" 
-            :style="getCurrentStyle('p95RunDuration', insights.p95RunDuration.current, 'duration')"
-          >
-            {{ formatDuration(insights.p95RunDuration.current) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.p95RunDuration.baseline !== undefined">
-          <span class="metric-key">Baseline</span>
-          <span class="metric-value baseline">
-            {{ formatDuration(insights.p95RunDuration.baseline) }}
-          </span>
-        </div>
-        <div class="metric-row" v-if="insights.p95RunDuration.change !== undefined">
-          <span class="metric-key">Change</span>
-          <span 
-            class="metric-value change" 
-            :class="getChangeClass(insights.p95RunDuration.change, true)"
-          >
-            {{ formatDuration(insights.p95RunDuration.change) }}
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Runs Analyzed -->
-    <div 
-      v-if="insights.runsAnalyzed !== undefined"
-      class="insight-card"
-    >
-      <div class="insight-header">
-        <span class="insight-label">{{ labels.runsAnalyzed }}</span>
-      </div>
-      <div class="insight-content">
-        <div class="metric-row">
-          <span class="metric-key">Current</span>
-          <span 
-            class="metric-value current" 
-            :style="getCurrentStyle('runsAnalyzed', insights.runsAnalyzed!, 'number')"
-          >
-            {{ insights.runsAnalyzed }}
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Additional custom metrics -->
-    <div 
-      v-for="(metric, index) in additionalMetrics" 
+    <!-- Additional custom metrics as cards -->
+    <div
+      v-for="(metric, index) in additionalMetrics"
       :key="`additional-${index}`"
-      class="insight-card"
+      class="runs-analyzed-card"
     >
-      <div class="insight-header">
-        <span class="insight-label">{{ metric.label }}</span>
+      <span class="runs-label">{{ metric.label }}</span>
+      <span class="runs-value" :style="metric.style">
+        {{ metric.value }}{{ metric.suffix || '' }}
+      </span>
+    </div>
+
+    <!-- Two-column table layout -->
+    <div class="tables-grid">
+      <!-- Rate Metrics Table -->
+      <div class="table-container" v-if="hasRateMetrics">
+        <table class="insights-table">
+          <thead>
+            <tr>
+              <th>Rate Metric</th>
+              <th>Current</th>
+              <th v-if="hasChange">Change</th>
+              <th v-if="hasBaseline">Baseline</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Pass Rate -->
+            <tr v-if="insights.passRate !== undefined">
+              <td class="metric-label">{{ labels.passRate }}</td>
+              <td
+                class="metric-value current"
+                :style="getCurrentStyle('passRate', formatPercent(insights.passRate.current), 'percent')"
+              >
+                {{ formatPercentString(insights.passRate.current) }}
+              </td>
+              <td v-if="hasChange" class="metric-value change" :class="insights.passRate.change !== undefined ? getChangeClass(insights.passRate.change, false) : ''">
+                {{ insights.passRate.change !== undefined ? formatPercentString(insights.passRate.change) : '-' }}
+              </td>
+              <td v-if="hasBaseline" class="metric-value baseline">
+                {{ insights.passRate.baseline !== undefined ? formatPercentString(insights.passRate.baseline) : '-' }}
+              </td>
+            </tr>
+
+            <!-- Fail Rate -->
+            <tr v-if="insights.failRate !== undefined">
+              <td class="metric-label">{{ labels.failRate }}</td>
+              <td
+                class="metric-value current"
+                :style="getCurrentStyle('failRate', formatPercent(insights.failRate.current), 'percent')"
+              >
+                {{ formatPercentString(insights.failRate.current) }}
+              </td>
+              <td v-if="hasChange" class="metric-value change" :class="insights.failRate.change !== undefined ? getChangeClass(insights.failRate.change, true) : ''">
+                {{ insights.failRate.change !== undefined ? formatPercentString(insights.failRate.change) : '-' }}
+              </td>
+              <td v-if="hasBaseline" class="metric-value baseline">
+                {{ insights.failRate.baseline !== undefined ? formatPercentString(insights.failRate.baseline) : '-' }}
+              </td>
+            </tr>
+
+            <!-- Flaky Rate -->
+            <tr v-if="insights.flakyRate !== undefined">
+              <td class="metric-label">{{ labels.flakyRate }}</td>
+              <td
+                class="metric-value current"
+                :style="getCurrentStyle('flakyRate', formatPercent(insights.flakyRate.current), 'percent')"
+              >
+                {{ formatPercentString(insights.flakyRate.current) }}
+              </td>
+              <td v-if="hasChange" class="metric-value change" :class="insights.flakyRate.change !== undefined ? getChangeClass(insights.flakyRate.change, true) : ''">
+                {{ insights.flakyRate.change !== undefined ? formatPercentString(insights.flakyRate.change) : '-' }}
+              </td>
+              <td v-if="hasBaseline" class="metric-value baseline">
+                {{ insights.flakyRate.baseline !== undefined ? formatPercentString(insights.flakyRate.baseline) : '-' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="insight-content">
-        <span 
-          class="metric-value current single" 
-          :style="metric.style"
-        >
-          {{ metric.value }}{{ metric.suffix || '' }}
-        </span>
+
+      <!-- Duration Metrics Table -->
+      <div class="table-container" v-if="hasDurationMetrics">
+        <table class="insights-table">
+          <thead>
+            <tr>
+              <th>Duration Metric</th>
+              <th>Current</th>
+              <th v-if="hasChange">Change</th>
+              <th v-if="hasBaseline">Baseline</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Average Test Duration -->
+            <tr v-if="insights.averageTestDuration !== undefined">
+              <td class="metric-label">{{ labels.averageTestDuration }}</td>
+              <td
+                class="metric-value current"
+                :style="getCurrentStyle('averageTestDuration', insights.averageTestDuration.current, 'duration')"
+              >
+                {{ formatDuration(insights.averageTestDuration.current) }}
+              </td>
+              <td v-if="hasChange" class="metric-value change" :class="insights.averageTestDuration.change !== undefined ? getChangeClass(insights.averageTestDuration.change, true) : ''">
+                {{ insights.averageTestDuration.change !== undefined ? formatDuration(insights.averageTestDuration.change) : '-' }}
+              </td>
+              <td v-if="hasBaseline" class="metric-value baseline">
+                {{ insights.averageTestDuration.baseline !== undefined ? formatDuration(insights.averageTestDuration.baseline) : '-' }}
+              </td>
+            </tr>
+
+            <!-- Average Run Duration -->
+            <tr v-if="insights.averageRunDuration !== undefined">
+              <td class="metric-label">{{ labels.averageRunDuration }}</td>
+              <td
+                class="metric-value current"
+                :style="getCurrentStyle('averageRunDuration', insights.averageRunDuration.current, 'duration')"
+              >
+                {{ formatDuration(insights.averageRunDuration.current) }}
+              </td>
+              <td v-if="hasChange" class="metric-value change" :class="insights.averageRunDuration.change !== undefined ? getChangeClass(insights.averageRunDuration.change, true) : ''">
+                {{ insights.averageRunDuration.change !== undefined ? formatDuration(insights.averageRunDuration.change) : '-' }}
+              </td>
+              <td v-if="hasBaseline" class="metric-value baseline">
+                {{ insights.averageRunDuration.baseline !== undefined ? formatDuration(insights.averageRunDuration.baseline) : '-' }}
+              </td>
+            </tr>
+
+            <!-- P95 Run Duration -->
+            <tr v-if="insights.p95RunDuration !== undefined">
+              <td class="metric-label">{{ labels.p95RunDuration }}</td>
+              <td
+                class="metric-value current"
+                :style="getCurrentStyle('p95RunDuration', insights.p95RunDuration.current, 'duration')"
+              >
+                {{ formatDuration(insights.p95RunDuration.current) }}
+              </td>
+              <td v-if="hasChange" class="metric-value change" :class="insights.p95RunDuration.change !== undefined ? getChangeClass(insights.p95RunDuration.change, true) : ''">
+                {{ insights.p95RunDuration.change !== undefined ? formatDuration(insights.p95RunDuration.change) : '-' }}
+              </td>
+              <td v-if="hasBaseline" class="metric-value baseline">
+                {{ insights.p95RunDuration.baseline !== undefined ? formatDuration(insights.p95RunDuration.baseline) : '-' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { formatDuration, formatPercent, formatPercentString } from '../../../helpers/formatter';
 import type { RootInsights } from 'ctrf';
 
@@ -294,12 +197,50 @@ const props = defineProps({
     default: () => [],
     validator: (value: unknown) => {
       if (!Array.isArray(value)) return false;
-      return value.every((metric: any) => 
-        metric.label && 
+      return value.every((metric: any) =>
+        metric.label &&
         metric.value !== undefined
       );
     }
   }
+});
+
+const hasBaseline = computed(() => {
+  return !!(
+    props.insights.passRate?.baseline !== undefined ||
+    props.insights.failRate?.baseline !== undefined ||
+    props.insights.flakyRate?.baseline !== undefined ||
+    props.insights.averageTestDuration?.baseline !== undefined ||
+    props.insights.averageRunDuration?.baseline !== undefined ||
+    props.insights.p95RunDuration?.baseline !== undefined
+  );
+});
+
+const hasChange = computed(() => {
+  return !!(
+    props.insights.passRate?.change !== undefined ||
+    props.insights.failRate?.change !== undefined ||
+    props.insights.flakyRate?.change !== undefined ||
+    props.insights.averageTestDuration?.change !== undefined ||
+    props.insights.averageRunDuration?.change !== undefined ||
+    props.insights.p95RunDuration?.change !== undefined
+  );
+});
+
+const hasRateMetrics = computed(() => {
+  return !!(
+    props.insights.passRate !== undefined ||
+    props.insights.failRate !== undefined ||
+    props.insights.flakyRate !== undefined
+  );
+});
+
+const hasDurationMetrics = computed(() => {
+  return !!(
+    props.insights.averageTestDuration !== undefined ||
+    props.insights.averageRunDuration !== undefined ||
+    props.insights.p95RunDuration !== undefined
+  );
 });
 
 const getCurrentStyle = (key: string, value: number, type: string): Record<string, string> => {
@@ -331,32 +272,27 @@ const getChangeClass = (change: number, invert: boolean): string => {
 
 <style scoped>
 .test-insights {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-.insight-card {
+/* Runs Analyzed Card */
+.runs-analyzed-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
-  padding: 1rem;
-  transition: box-shadow 0.2s, transform 0.2s;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
 }
 
-.insight-card:hover {
+.runs-analyzed-card:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
 }
 
-.insight-header {
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
-.insight-label {
+.runs-label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--vp-c-text-2);
@@ -364,36 +300,78 @@ const getChangeClass = (change: number, invert: boolean): string => {
   letter-spacing: 0.5px;
 }
 
-.insight-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.runs-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
 }
 
-.metric-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Tables Grid Layout */
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
-.metric-key {
-  font-size: 0.813rem;
+.table-container {
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.insights-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.insights-table thead {
+  border-bottom: 2px solid var(--vp-c-divider);
+}
+
+.insights-table th {
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-weight: 600;
   color: var(--vp-c-text-2);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.insights-table tbody tr {
+  border-bottom: 1px solid var(--vp-c-divider-light);
+  transition: background-color 0.2s;
+}
+
+.insights-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.insights-table tbody tr:hover {
+  background: var(--vp-c-bg-soft);
+}
+
+.insights-table td {
+  padding: 0.75rem 0.5rem;
+  color: var(--vp-c-text-1);
+}
+
+.metric-label {
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  white-space: nowrap;
 }
 
 .metric-value {
-  font-size: 1rem;
   font-weight: 500;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .metric-value.current {
-  font-size: 1.25rem;
-}
-
-.metric-value.single {
-  font-size: 1.5rem;
-  text-align: center;
-  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .metric-value.baseline {
@@ -416,9 +394,85 @@ const getChangeClass = (change: number, invert: boolean): string => {
   color: var(--vp-c-text-2);
 }
 
-@media (max-width: 768px) {
-  .test-insights {
+/* Tablet: Stack tables vertically */
+@media (max-width: 1024px) {
+  .tables-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile: Optimize table display */
+@media (max-width: 768px) {
+  .runs-analyzed-card {
+    padding: 0.875rem 1rem;
+  }
+
+  .runs-label {
+    font-size: 0.813rem;
+  }
+
+  .runs-value {
+    font-size: 1.25rem;
+  }
+
+  .insights-table {
+    font-size: 0.813rem;
+  }
+
+  .insights-table th,
+  .insights-table td {
+    padding: 0.625rem 0.375rem;
+  }
+
+  .insights-table th:first-child,
+  .insights-table td:first-child {
+    position: sticky;
+    left: 0;
+    background: var(--vp-c-bg);
+    z-index: 1;
+  }
+
+  .insights-table thead th:first-child {
+    background: var(--vp-c-bg);
+    z-index: 2;
+  }
+
+  .insights-table tbody tr:hover td:first-child {
+    background: var(--vp-c-bg-soft);
+  }
+
+  .metric-value.current {
+    font-size: 1rem;
+  }
+}
+
+/* Small mobile: Further optimize */
+@media (max-width: 480px) {
+  .runs-analyzed-card {
+    padding: 0.75rem 0.875rem;
+  }
+
+  .runs-label {
+    font-size: 0.75rem;
+  }
+
+  .runs-value {
+    font-size: 1.125rem;
+  }
+
+  .insights-table {
+    font-size: 0.75rem;
+  }
+
+  .insights-table th,
+  .insights-table td {
+    padding: 0.5rem 0.375rem;
+  }
+
+  .metric-label {
+    max-width: 100px;
+    white-space: normal;
+    line-height: 1.3;
   }
 }
 </style>
