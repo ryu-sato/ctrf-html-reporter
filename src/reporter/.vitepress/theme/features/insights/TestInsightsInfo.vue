@@ -47,7 +47,7 @@
                 {{ formatPercentString(insights.passRate.current) }}
               </td>
               <td v-if="hasChange" class="metric-value change" :class="insights.passRate.change !== undefined ? getChangeClass(insights.passRate.change, false) : ''">
-                {{ insights.passRate.change !== undefined ? formatPercentString(insights.passRate.change) : '-' }}
+                {{ insights.passRate.change !== undefined ? formatPercentChange(insights.passRate.change, 1) : '-' }}
               </td>
               <td v-if="hasBaseline" class="metric-value baseline">
                 {{ insights.passRate.baseline !== undefined ? formatPercentString(insights.passRate.baseline) : '-' }}
@@ -64,7 +64,7 @@
                 {{ formatPercentString(insights.failRate.current) }}
               </td>
               <td v-if="hasChange" class="metric-value change" :class="insights.failRate.change !== undefined ? getChangeClass(insights.failRate.change, true) : ''">
-                {{ insights.failRate.change !== undefined ? formatPercentString(insights.failRate.change) : '-' }}
+                {{ insights.failRate.change !== undefined ? formatPercentChange(insights.failRate.change, 1) : '-' }}
               </td>
               <td v-if="hasBaseline" class="metric-value baseline">
                 {{ insights.failRate.baseline !== undefined ? formatPercentString(insights.failRate.baseline) : '-' }}
@@ -81,7 +81,7 @@
                 {{ formatPercentString(insights.flakyRate.current) }}
               </td>
               <td v-if="hasChange" class="metric-value change" :class="insights.flakyRate.change !== undefined ? getChangeClass(insights.flakyRate.change, true) : ''">
-                {{ insights.flakyRate.change !== undefined ? formatPercentString(insights.flakyRate.change) : '-' }}
+                {{ insights.flakyRate.change !== undefined ? formatPercentChange(insights.flakyRate.change, 1) : '-' }}
               </td>
               <td v-if="hasBaseline" class="metric-value baseline">
                 {{ insights.flakyRate.baseline !== undefined ? formatPercentString(insights.flakyRate.baseline) : '-' }}
@@ -113,7 +113,7 @@
                 {{ formatDuration(insights.averageTestDuration.current) }}
               </td>
               <td v-if="hasChange" class="metric-value change" :class="insights.averageTestDuration.change !== undefined ? getChangeClass(insights.averageTestDuration.change, true) : ''">
-                {{ insights.averageTestDuration.change !== undefined ? formatDuration(insights.averageTestDuration.change) : '-' }}
+                {{ insights.averageTestDuration.change !== undefined ? formatDurationChange(insights.averageTestDuration.change) : '-' }}
               </td>
               <td v-if="hasBaseline" class="metric-value baseline">
                 {{ insights.averageTestDuration.baseline !== undefined ? formatDuration(insights.averageTestDuration.baseline) : '-' }}
@@ -130,7 +130,7 @@
                 {{ formatDuration(insights.averageRunDuration.current) }}
               </td>
               <td v-if="hasChange" class="metric-value change" :class="insights.averageRunDuration.change !== undefined ? getChangeClass(insights.averageRunDuration.change, true) : ''">
-                {{ insights.averageRunDuration.change !== undefined ? formatDuration(insights.averageRunDuration.change) : '-' }}
+                {{ insights.averageRunDuration.change !== undefined ? formatDurationChange(insights.averageRunDuration.change) : '-' }}
               </td>
               <td v-if="hasBaseline" class="metric-value baseline">
                 {{ insights.averageRunDuration.baseline !== undefined ? formatDuration(insights.averageRunDuration.baseline) : '-' }}
@@ -147,7 +147,7 @@
                 {{ formatDuration(insights.p95RunDuration.current) }}
               </td>
               <td v-if="hasChange" class="metric-value change" :class="insights.p95RunDuration.change !== undefined ? getChangeClass(insights.p95RunDuration.change, true) : ''">
-                {{ insights.p95RunDuration.change !== undefined ? formatDuration(insights.p95RunDuration.change) : '-' }}
+                {{ insights.p95RunDuration.change !== undefined ? formatDurationChange(insights.p95RunDuration.change) : '-' }}
               </td>
               <td v-if="hasBaseline" class="metric-value baseline">
                 {{ insights.p95RunDuration.baseline !== undefined ? formatDuration(insights.p95RunDuration.baseline) : '-' }}
@@ -162,7 +162,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { formatDuration, formatPercent, formatPercentString } from '../../../helpers/formatter';
+import { formatDuration, formatPercent, formatPercentString, formatPercentChange, formatDurationChange } from '../../../helpers/formatter';
 import type { RootInsights } from 'ctrf';
 
 interface AdditionalMetric {

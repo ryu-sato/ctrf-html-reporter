@@ -110,19 +110,53 @@ export const formatDateTime = (
 };
 
 /**
+ * Add +/- prefix to a value
+ * @param value - The value to add prefix to
+ * @returns Value with +/- prefix (+ for positive, - already included for negative)
+ * @example
+ * formatWithSign(5) // "+5"
+ * formatWithSign(-3) // "-3"
+ * formatWithSign(0) // "+0"
+ */
+export const formatWithSign = (value: number | string): string => {
+  const numValue = typeof value === 'string' ? parseFloat(value) : value;
+  const prefix = numValue >= 0 ? '+' : '';
+  return `${prefix}${value}`;
+};
+
+/**
  * Format percentage change value with +/- prefix
  * @param value - The change value (e.g., 0.05 = +5%)
  * @param digitsToFixed - Number of decimal places (default: 2)
  * @returns Formatted change string with +/- prefix
  * @example
- * formatChange(0.05) // "+5.00%"
- * formatChange(-0.03) // "-3.00%"
- * formatChange(0.1, 1) // "+10.0%"
+ * formatPercentChange(0.05) // "+5.00%"
+ * formatPercentChange(-0.03) // "-3.00%"
+ * formatPercentChange(0.1, 1) // "+10.0%"
  */
-export const formatChange = (value: number, digitsToFixed = 2): string => {
-  const prefix = value >= 0 ? '+' : '';
-  return `${prefix}${(value * 100).toFixed(digitsToFixed)}%`;
+export const formatPercentChange = (value: number, digitsToFixed = 2): string => {
+  return formatWithSign((value * 100).toFixed(digitsToFixed)) + '%';
 };
+
+/**
+ * Format duration change value with +/- prefix
+ * @param ms - The change value in milliseconds
+ * @returns Formatted duration change string with +/- prefix
+ * @example
+ * formatDurationChange(500) // "+500.00ms"
+ * formatDurationChange(-5000) // "-5.00s"
+ * formatDurationChange(125000) // "+2m 5s"
+ */
+export const formatDurationChange = (ms: number | null | undefined): string => {
+  if (ms === null || ms === undefined) return 'N/A';
+  return formatWithSign(formatDuration(ms));
+};
+
+/**
+ * @deprecated Use formatPercentChange instead
+ * @see formatPercentChange
+ */
+export const formatChange = formatPercentChange;
 
 /**
  * Format a label from camelCase or snake_case to Title Case
