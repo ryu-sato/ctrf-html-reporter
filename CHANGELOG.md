@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.6
+
+### Patch Changes
+
+- [#38](https://github.com/ryu-sato/ctrf-html-reporter/pull/38) [`afcf394`](https://github.com/ryu-sato/ctrf-html-reporter/commit/afcf394d8ad8a65941c7b2524fbcd051ed93c961) Thanks [@ryu-sato](https://github.com/ryu-sato)! - Enhanced Insights view with improved metrics formatting (+/- indicators), sorting options, and responsive table layout.
+
 ## 1.1.5
 
 ### Patch Changes
