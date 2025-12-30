@@ -93,7 +93,7 @@
   --report-status-failed: var(--vp-c-red-1);
   --report-status-skipped: var(--vp-c-yellow-1);
   --report-status-pending: var(--vp-c-purple-1);
-  --report-status-flaky: var(--vp-c-orange-1);
+  --report-status-flaky: var(--vp-c-red-3);
   --report-status-other: var(--vp-c-text-2);
   
   /* Spacing Variables */
