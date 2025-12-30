@@ -204,72 +204,53 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* =========================
-   Container
-   ========================= */
+@import "tailwindcss" reference;
+
 .summary-view {
-  margin: var(--report-spacing-lg) 0;
+  @apply my-4;
 }
 
-/* =========================
-   Statistics
-   ========================= */
 .timeline-stats {
-  display: flex;
-  gap: var(--report-spacing-2xl);
-  margin-bottom: var(--report-spacing-xl);
-  flex-wrap: wrap;
+  @apply flex gap-8 mb-6 flex-wrap;
 }
 
 .stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--report-spacing-xs);
+  @apply flex flex-col gap-1;
 }
 
 .stat-label {
-  font-size: var(--report-control-font-size);
+  @apply text-sm;
   color: var(--vp-c-text-2);
 }
 
 .stat-value {
-  font-size: 1.5rem;
-  font-weight: bold;
+  @apply text-2xl font-bold;
 }
 
-.status-passed { 
+.status-passed {
   color: var(--report-status-passed);
 }
 
-.status-failed { 
+.status-failed {
   color: var(--report-status-failed);
 }
 
-.status-skipped { 
+.status-skipped {
   color: var(--report-status-skipped);
 }
 
-/* =========================
-   Time Information
-   ========================= */
 .time-info {
-  margin-top: var(--report-spacing-xl);
-  padding: var(--report-spacing-lg);
+  @apply mt-6 p-4 rounded-lg border-l-4;
   background-color: var(--vp-c-bg-soft);
-  border-radius: var(--report-card-border-radius);
-  border-left: 4px solid var(--vp-c-brand);
+  border-left-color: var(--vp-c-brand);
 }
 
 .time-info-item {
-  display: flex;
-  align-items: center;
-  gap: var(--report-spacing-sm);
-  margin: var(--report-spacing-sm) 0;
+  @apply flex items-center gap-2 my-2;
 }
 
 .time-label {
-  font-weight: 600;
+  @apply font-semibold min-w-[60px];
   color: var(--vp-c-text-2);
-  min-width: 60px;
 }
 </style>

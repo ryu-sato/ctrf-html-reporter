@@ -114,61 +114,43 @@ const duration = computed(() => {
 </script>
 
 <style scoped>
-/* =========================
-   Container
-   ========================= */
+@import "tailwindcss" reference;
+
 .report-info {
-  margin: var(--report-spacing-lg) 0;
+  @apply my-4;
 }
 
 .report-info-empty {
-  padding: var(--report-spacing-2xl);
-  text-align: center;
+  @apply p-8 text-center rounded-lg border;
   background: var(--vp-c-bg-soft);
-  border-radius: var(--report-card-border-radius);
-  border: 1px solid var(--vp-c-divider);
+  border-color: var(--vp-c-divider);
   color: var(--vp-c-text-2);
 }
 
-/* =========================
-   Information Section
-   ========================= */
 .info-section {
-  display: grid;
+  @apply grid gap-4 p-4 rounded-lg border;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--report-spacing-lg);
-  padding: var(--report-spacing-lg);
   background: var(--vp-custom-block-info-bg);
-  border-radius: var(--report-card-border-radius);
-  border: 1px solid var(--vp-c-divider);
+  border-color: var(--vp-c-divider);
 }
 
 .info-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--report-spacing-xs);
+  @apply flex flex-col gap-1;
 }
 
 .info-label {
-  font-size: var(--report-badge-font-size);
-  font-weight: 900;
+  @apply text-xs font-black uppercase tracking-wide;
   color: var(--vp-c-text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .info-value {
-  font-size: var(--report-control-font-size);
+  @apply text-sm break-words;
   color: var(--vp-c-text-1);
-  word-break: break-word;
 }
 
-/* =========================
-   Responsive
-   ========================= */
 @media (max-width: 768px) {
   .info-section {
-    grid-template-columns: 1fr;
+    @apply grid-cols-1;
   }
 }
 </style>

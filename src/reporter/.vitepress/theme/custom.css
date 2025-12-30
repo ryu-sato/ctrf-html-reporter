@@ -1,4 +1,17 @@
 /* =========================
+   Tailwind CSS v4 Import
+   ========================= */
+@import "tailwindcss";
+
+/* =========================
+   Tailwind CSS v4 Theme Configuration
+   ========================= */
+@theme {
+  /* Custom content paths */
+  --content: "src/reporter/**/*.{vue,js,ts,jsx,tsx,md}";
+}
+
+/* =========================
    VitePress Badge Overrides
    ========================= */
 :root {

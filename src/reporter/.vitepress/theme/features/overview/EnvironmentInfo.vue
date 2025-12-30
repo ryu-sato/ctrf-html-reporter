@@ -166,108 +166,96 @@ const hasBuildOrRepoInfo = computed(() => {
 </script>
 
 <style scoped>
+@import "tailwindcss" reference;
+
 .environment-info {
-  margin: 1rem 0;
+  @apply my-4;
 }
 
 .info-grid {
-  display: grid;
+  @apply grid gap-4;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
 }
 
 .info-section {
-  display: flex;
-  flex-direction: column;
+  @apply flex flex-col;
 }
 
 .extra-section {
-  grid-column: 1 / -1;
+  @apply col-span-full;
 }
 
 .section-title {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  font-weight: 600;
+  @apply m-0 mb-2 text-base font-semibold;
   color: var(--vp-c-text-1);
 }
 
 .section-content {
-  padding-left: 1rem;
-  font-size: 0.9em;
+  @apply pl-4 text-sm;
   color: var(--vp-c-text-2);
 }
 
 .test-env {
-  opacity: 0.7;
+  @apply opacity-70;
 }
 
 .health-badge {
-  margin-left: 0.5rem;
+  @apply ml-2;
 }
 
 .inline-code {
-  margin-left: 0.5rem;
-  padding: 0.125rem 0.375rem;
+  @apply ml-2 px-1.5 py-0.5 rounded text-sm;
   background: var(--vp-c-bg-soft);
-  border-radius: 4px;
-  font-size: 0.875em;
   font-family: var(--vp-font-family-mono);
 }
 
 .commit-hash {
-  font-size: 0.85em;
+  @apply text-xs;
 }
 
 .build-info {
-  margin-top: 0.25rem;
+  @apply mt-1;
 }
 
 .build-id {
-  font-size: 0.85em;
+  @apply text-xs;
 }
 
 .extra-item {
-  margin-bottom: 0.5rem;
+  @apply mb-2;
 }
 
 .extra-label {
-  font-weight: 600;
-  margin-right: 0.5rem;
+  @apply font-semibold mr-2;
 }
 
 .extra-value {
-  word-break: break-word;
+  @apply break-words;
 }
 
 .environment-info-empty {
-  padding: 1rem;
-  text-align: center;
+  @apply p-4 text-center rounded-lg border text-sm;
   background: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  border: 1px solid var(--vp-c-divider);
+  border-color: var(--vp-c-divider);
   color: var(--vp-c-text-2);
-  font-size: 0.9em;
 }
 
-/* Links styling */
 .section-content a {
+  @apply no-underline;
   color: var(--vp-c-brand-1);
-  text-decoration: none;
 }
 
 .section-content a:hover {
-  text-decoration: underline;
+  @apply underline;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .info-grid {
-    grid-template-columns: 1fr;
+    @apply grid-cols-1;
   }
-  
+
   .extra-section {
-    grid-column: 1;
+    @apply col-span-1;
   }
 }
 </style>
