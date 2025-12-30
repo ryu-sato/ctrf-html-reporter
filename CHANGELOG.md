@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.10
+
+### Patch Changes
+
+- [#46](https://github.com/ryu-sato/ctrf-html-reporter/pull/46) [`dad96b0`](https://github.com/ryu-sato/ctrf-html-reporter/commit/dad96b0a96bf60d148ffd365253c378863823dfe) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Fixed an issue where Tailwind CSS was not loading.
+
 ## 1.1.9
 
 ### Patch Changes
