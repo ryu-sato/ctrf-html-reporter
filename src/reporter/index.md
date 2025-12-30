@@ -32,10 +32,10 @@ onBeforeUnmount(() => {
 <div class="hash-router">
   <div v-show="activePage === 'overview'" class="hash-content">
     <!-- Page Header -->
-    <div class="flex items-center justify-between pb-6 border-b" style="border-color: var(--vp-c-divider);">
+    <div class="flex items-center justify-between pb-6">
       <div>
-        <h1 class="text-3xl font-bold tracking-tight mb-2" style="color: var(--vp-c-text-1);">Test Report Overview</h1>
-        <p class="text-sm" style="color: var(--vp-c-text-2);">Comprehensive analysis of test execution results</p>
+        <h1 class="text-3xl font-bold tracking-tight mb-2">Test Report Overview</h1>
+        <p class="text-sm text-[var(--vp-c-text-2)]">Comprehensive analysis of test execution results</p>
       </div>
       <div>
         <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
     </div>
     <!-- Test Summary Section -->
     <div>
-      <h2 class="text-xl font-bold tracking-tight" style="color: var(--vp-c-text-1);">Test Results Summary</h2>
+      <h2 class="text-xl font-bold tracking-tight">Test Results Summary</h2>
       <SummaryView
         v-if="richReportWithInsights.results.summary"
         :summary="richReportWithInsights.results.summary"
