@@ -1,166 +1,77 @@
 <template>
   <div>
-    <!-- Test Stats Cards Grid -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-      <!-- Total Tests Card -->
-      <div class="relative overflow-hidden rounded-xl border transition-all duration-200 hover:shadow-lg group" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style="background: linear-gradient(135deg, transparent, var(--vp-c-default-soft));"></div>
-        <div class="relative p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--vp-c-default-soft);">
-              <svg class="w-5 h-5" style="color: var(--vp-c-text-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="">
-            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Total</p>
-            <p class="text-3xl font-bold tabular-nums" style="color: var(--vp-c-text-1);">{{ summary.tests }}</p>
+    <div class="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-4">
+      <!-- First Table: 4 columns on sm+, single row on mobile -->
+      <div class="table w-full" role="table" aria-label="Test status summary">
+        <div class="hidden sm:table-footer-group" role="rowgroup">
+          <div class="table-row border-b border-[var(--vp-c-divider)]" role="row">
+            <div class="table-cell text-right px-2" role="columnheader">Passed</div>
+            <div class="table-cell text-right px-2" role="columnheader">Failed</div>
+            <div class="table-cell text-right px-2" role="columnheader">Pending</div>
+            <div class="table-cell text-right px-2" role="columnheader">Skipped</div>
           </div>
         </div>
-        <div class="h-1 w-full" style="background: var(--vp-c-divider);"></div>
+        <div class="table-row-group" role="rowgroup">
+          <div class="table-row" role="row">
+            <div class="table-cell text-right px-2 py-1" role="cell">
+              <div class="flex items-center justify-end gap-1">
+                <span class="sm:hidden flex items-center" aria-hidden="true" title="Passed"><PassedIcon class="text-[var(--report-status-passed)]" /></span>
+                <span aria-label="Passed tests">{{ summary.passed !== undefined ? summary.passed : 'N/A' }}</span>
+              </div>
+            </div>
+            <div class="table-cell text-right px-2 py-1" role="cell">
+              <div class="flex items-center justify-end gap-1">
+                <span class="sm:hidden flex items-center" aria-hidden="true" title="Failed"><FailedIcon class="text-[var(--report-status-failed)]" /></span>
+                <span aria-label="Failed tests">{{ summary.failed !== undefined ? summary.failed : 'N/A' }}</span>
+              </div>
+            </div>
+            <div class="table-cell text-right px-2 py-1" role="cell">
+              <div class="flex items-center justify-end gap-1">
+                <span class="sm:hidden flex items-center" aria-hidden="true" title="Pending"><PendingIcon class="text-[var(--report-status-pending)]" /></span>
+                <span aria-label="Pending tests">{{ summary.pending !== undefined ? summary.pending : 'N/A' }}</span>
+              </div>
+            </div>
+            <div class="table-cell text-right px-2 py-1" role="cell">
+              <div class="flex items-center justify-end gap-1">
+                <span class="sm:hidden flex items-center" aria-hidden="true" title="Skipped"><SkippedIcon class="text-[var(--report-status-skipped)]" /></span>
+                <span aria-label="Skipped tests">{{ summary.skipped !== undefined ? summary.skipped : 'N/A' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Passed Tests Card -->
-      <div v-if="summary.passed !== undefined" class="relative overflow-hidden rounded-xl border transition-all duration-200 hover:shadow-lg group" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style="background: linear-gradient(135deg, transparent, var(--vp-c-green-dimm));"></div>
-        <div class="relative p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--vp-c-green-dimm);">
-              <svg class="w-5 h-5" style="color: var(--report-status-passed);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <div class="px-2 py-1 rounded-md text-xs font-bold" style="background: var(--vp-c-green-dimm); color: var(--report-status-passed);">
-              {{ summary.tests > 0 ? Math.round((summary.passed / summary.tests) * 100) : 0 }}%
-            </div>
-          </div>
-          <div class="">
-            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Passed</p>
-            <p class="text-3xl font-bold tabular-nums" style="color: var(--report-status-passed);">{{ summary.passed }}</p>
+      <!-- Second Table: 3 columns on sm+, single row on mobile -->
+      <div class="table w-full" role="table" aria-label="Test metrics summary">
+        <div class="hidden sm:table-footer-group" role="rowgroup">
+          <div class="table-row border-b border-[var(--vp-c-divider)]" role="row">
+            <div class="table-cell text-right px-2" role="columnheader">Total</div>
+            <div class="table-cell text-right px-2" role="columnheader">Flaky</div>
+            <div class="table-cell text-right px-2" role="columnheader">Suites</div>
           </div>
         </div>
-        <div class="h-1 w-full" style="background: var(--report-status-passed);"></div>
-      </div>
-
-      <!-- Failed Tests Card -->
-      <div v-if="summary.failed !== undefined" class="relative overflow-hidden rounded-xl border transition-all duration-200 hover:shadow-lg group" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style="background: linear-gradient(135deg, transparent, var(--vp-c-red-dimm));"></div>
-        <div class="relative p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--vp-c-red-dimm);">
-              <svg class="w-5 h-5" style="color: var(--report-status-failed);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
+        <div class="table-row-group" role="rowgroup">
+          <div class="table-row" role="row">
+            <div class="table-cell text-right px-2 py-1" role="cell">
+              <div class="flex items-center justify-end gap-1">
+                <span class="sm:hidden flex items-center" aria-hidden="true" title="Total"><CalculatorIcon class="w-5 h-5]" /></span>
+                <span aria-label="Total tests">{{ summary.tests }}</span>
+              </div>
             </div>
-            <div v-if="summary.failed > 0" class="px-2 py-1 rounded-md text-xs font-bold" style="background: var(--vp-c-red-dimm); color: var(--report-status-failed);">
-              {{ summary.tests > 0 ? Math.round((summary.failed / summary.tests) * 100) : 0 }}%
+            <div class="table-cell text-right px-2 py-1" role="cell">
+              <div class="flex items-center justify-end gap-1">
+                <span class="sm:hidden flex items-center" aria-hidden="true" title="Flaky"><FlakyIcon class="text-[var(--report-status-flaky)]" /></span>
+                <span aria-label="Flaky tests">{{ summary.flaky !== undefined ? summary.flaky : 'N/A' }}</span>
+              </div>
             </div>
-          </div>
-          <div class="">
-            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Failed</p>
-            <p class="text-3xl font-bold tabular-nums" style="color: var(--report-status-failed);">{{ summary.failed }}</p>
+            <div class="table-cell text-right px-2 py-1" role="cell">
+              <div class="flex items-center justify-end gap-1">
+                <span class="sm:hidden flex items-center" aria-hidden="true" title="Suites"><RectangleGroupIcon class="w-5 h-5]" /></span>
+                <span aria-label="Test suites">{{ summary.suites !== undefined ? summary.suites : 'N/A' }}</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="h-1 w-full" style="background: var(--report-status-failed);"></div>
-      </div>
-
-      <!-- Skipped Tests Card -->
-      <div v-if="summary.skipped !== undefined" class="relative overflow-hidden rounded-xl border transition-all duration-200 hover:shadow-lg group" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style="background: linear-gradient(135deg, transparent, var(--vp-c-yellow-dimm));"></div>
-        <div class="relative p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--vp-c-yellow-dimm);">
-              <svg class="w-5 h-5" style="color: var(--report-status-skipped);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <div v-if="summary.skipped > 0" class="px-2 py-1 rounded-md text-xs font-bold" style="background: var(--vp-c-yellow-dimm); color: var(--report-status-skipped);">
-              {{ summary.tests > 0 ? Math.round((summary.skipped / summary.tests) * 100) : 0 }}%
-            </div>
-          </div>
-          <div class="">
-            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Skipped</p>
-            <p class="text-3xl font-bold tabular-nums" style="color: var(--report-status-skipped);">{{ summary.skipped }}</p>
-          </div>
-        </div>
-        <div class="h-1 w-full" style="background: var(--report-status-skipped);"></div>
-      </div>
-
-      <!-- Pending Tests Card -->
-      <div v-if="summary.pending !== undefined" class="relative overflow-hidden rounded-xl border transition-all duration-200 hover:shadow-lg group" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style="background: linear-gradient(135deg, transparent, var(--vp-c-purple-dimm));"></div>
-        <div class="relative p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--vp-c-purple-dimm);">
-              <svg class="w-5 h-5" style="color: var(--vp-c-purple-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="">
-            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Pending</p>
-            <p class="text-3xl font-bold tabular-nums" style="color: var(--vp-c-purple-1);">{{ summary.pending }}</p>
-          </div>
-        </div>
-        <div class="h-1 w-full" style="background: var(--vp-c-purple-1);"></div>
-      </div>
-
-      <!-- Flaky Tests Card -->
-      <div v-if="summary.flaky !== undefined && summary.flaky > 0" class="relative overflow-hidden rounded-xl border transition-all duration-200 hover:shadow-lg group" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style="background: linear-gradient(135deg, transparent, var(--vp-c-orange-dimm));"></div>
-        <div class="relative p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--vp-c-orange-dimm);">
-              <svg class="w-5 h-5" style="color: var(--vp-c-orange-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="">
-            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Flaky</p>
-            <p class="text-3xl font-bold tabular-nums" style="color: var(--vp-c-orange-1);">{{ summary.flaky }}</p>
-          </div>
-        </div>
-        <div class="h-1 w-full" style="background: var(--vp-c-orange-1);"></div>
-      </div>
-
-      <!-- Other Tests Card -->
-      <div v-if="summary.other !== undefined && summary.other > 0" class="relative overflow-hidden rounded-xl border transition-all duration-200 hover:shadow-lg group" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style="background: linear-gradient(135deg, transparent, var(--vp-c-default-soft));"></div>
-        <div class="relative p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--vp-c-default-soft);">
-              <svg class="w-5 h-5" style="color: var(--vp-c-text-2);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="">
-            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Other</p>
-            <p class="text-3xl font-bold tabular-nums" style="color: var(--vp-c-text-2);">{{ summary.other }}</p>
-          </div>
-        </div>
-        <div class="h-1 w-full" style="background: var(--vp-c-text-2);"></div>
-      </div>
-
-      <!-- Suites Card -->
-      <div v-if="summary.suites !== undefined" class="relative overflow-hidden rounded-xl border transition-all duration-200 hover:shadow-lg group" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style="background: linear-gradient(135deg, transparent, var(--vp-c-indigo-dimm));"></div>
-        <div class="relative p-4">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--vp-c-indigo-dimm);">
-              <svg class="w-5 h-5" style="color: var(--vp-c-indigo-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="">
-            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Suites</p>
-            <p class="text-3xl font-bold tabular-nums" style="color: var(--vp-c-indigo-1);">{{ summary.suites }}</p>
-          </div>
-        </div>
-        <div class="h-1 w-full" style="background: var(--vp-c-indigo-1);"></div>
       </div>
     </div>
 
@@ -245,6 +156,7 @@ import { ref, onMounted } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import DateTimeFormatter from '../../components/DateTimeFormatter.vue';
 import { formatDuration } from '../../../helpers/formatter';
+import { RectangleGroupIcon, CalculatorIcon } from '@heroicons/vue/16/solid';
 import type { Summary } from 'ctrf';
 
 const props = defineProps({
