@@ -25,7 +25,7 @@
                 {{ environment.appName }}
               </div>
               <div class="flex flex-wrap items-center gap-2">
-                <span v-if="environment.appVersion" class="inline-flex items-center px-3 py-1 text-xs font-mono font-bold rounded-lg border" style="background: var(--vp-c-indigo-dimm); color: var(--vp-c-indigo-1); border-color: var(--vp-c-indigo-soft);">
+                <span v-if="environment.appVersion" class="inline-flex items-center px-3 py-1 text-xs font-mono font-bold rounded-lg" style="color: var(--vp-c-text-2); background: var(--vp-c-default-soft);">
                   v{{ environment.appVersion }}
                 </span>
                 <span v-if="environment.testEnvironment" class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-lg" style="color: var(--vp-c-text-2); background: var(--vp-c-default-soft);">
@@ -43,14 +43,14 @@
             <div class="flex items-center">
               <div class="text-xs uppercase tracking-wider" style="color: var(--vp-c-text-3);">Build & Repository</div>
             </div>
-            <div class="text-sm truncate" style="color: var(--vp-c-text-1);">
+            <div class="text-sm truncate">
               <div v-if="environment.repositoryName || environment.branchName || environment.commit">
                 <a
                   v-if="environment.repositoryUrl"
                   :href="environment.repositoryUrl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-sm font-bold hover:underline transition-colors inline-flex items-center gap-1"
+                  class="text-sm transition-colors inline-flex items-center gap-1"
                   style="color: var(--vp-c-indigo-1);"
                 >
                   {{ environment.repositoryName || 'Repository' }}
@@ -59,11 +59,11 @@
                 <div v-else-if="environment.repositoryName" class="text-base font-bold" style="color: var(--vp-c-text-1);">{{ environment.repositoryName }}</div>
               </div>
               <div class="flex flex-wrap items-center gap-2">
-                <span v-if="environment.branchName" class="inline-flex items-center px-3 py-1 text-xs font-mono font-semibold rounded-lg border" style="background: var(--vp-c-indigo-dimm); color: var(--vp-c-indigo-1); border-color: var(--vp-c-indigo-soft);">
+                <span v-if="environment.branchName" class="inline-flex items-center px-3 py-1 text-xs font-mono font-semibold rounded-lg" style="color: var(--vp-c-text-2); background: var(--vp-c-default-soft);">
                   <TagIcon class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"/>
                   {{ environment.branchName }}
                 </span>
-                <span v-if="environment.commit" class="inline-flex items-center px-3 py-1 text-xs font-mono font-semibold rounded-lg" style="background: var(--vp-c-default-soft); color: var(--vp-c-text-2);">
+                <span v-if="environment.commit" class="inline-flex items-center px-3 py-1 text-xs font-mono font-semibold rounded-lg" style="color: var(--vp-c-text-2); background: var(--vp-c-default-soft);">
                   <HashtagIcon class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"/>
                   {{ environment.commit.substring(0, 7) }}
                 </span>
@@ -79,9 +79,9 @@
             <div class="flex items-center">
               <div class="text-xs uppercase tracking-wider" style="color: var(--vp-c-text-3);">Operating System</div>
             </div>
-            <div class="text-sm truncate" style="color: var(--vp-c-text-1);">
-              <p v-if="environment.osPlatform" style="color: var(--vp-c-text-1);">{{ environment.osPlatform }}</p>
-              <p v-if="environment.osRelease || environment.osVersion" class="text-sm font-medium" style="color: var(--vp-c-text-2);">
+            <div class="text-sm truncate">
+              <p v-if="environment.osPlatform">{{ environment.osPlatform }}</p>
+              <p v-if="environment.osRelease || environment.osVersion">
                 {{ environment.osRelease }}{{ environment.osVersion ? ' ' + environment.osVersion : '' }}
               </p>
             </div>
