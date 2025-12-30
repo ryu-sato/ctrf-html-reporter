@@ -5,9 +5,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import type { Summary } from 'ctrf';
+import { useData } from 'vitepress';
 
 const props = defineProps({
   summary: {
@@ -30,6 +31,9 @@ const getCssColor = (varName: string) => {
   }
   return '';
 };
+
+// Get VitePress dark mode state
+const { isDark } = useData();
 
 Chart.register(...registerables);
 const chartCanvas = ref<HTMLCanvasElement | null>(null);
@@ -169,6 +173,14 @@ onUnmounted(() => {
 watch(() => props.summary, () => {
   createChart();
 }, { deep: true });
+
+// Watch for dark mode changes and recreate chart
+watch(isDark, async () => {
+  await nextTick();
+  setTimeout(() => {
+    createChart();
+  }, 0);
+});
 </script>
 
 <style scoped>
