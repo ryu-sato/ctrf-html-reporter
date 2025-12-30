@@ -32,9 +32,6 @@ importers:
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
-      rollup-plugin-license:
-        specifier: ^3.6.0
-        version: 3.6.0(picomatch@4.0.3)(rollup@4.53.3)
       tailwindcss:
         specifier: ^4.1.18
         version: 4.1.18
@@ -66,6 +63,9 @@ importers:
       copy-file:
         specifier: ^11.1.0
         version: 11.1.0
+      rollup-plugin-license:
+        specifier: ^3.6.0
+        version: 3.6.0(picomatch@4.0.3)(rollup@4.53.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
