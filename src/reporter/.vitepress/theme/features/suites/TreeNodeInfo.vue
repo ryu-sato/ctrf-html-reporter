@@ -49,6 +49,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 
+import { VPBadge as Badge } from 'vitepress/theme';
 import type { TreeNode } from 'ctrf';
 import { formatDuration } from '../../../helpers/formatter';
 
