@@ -143,61 +143,36 @@ const clearFilters = () => {
 </script>
 
 <style scoped>
-/* =========================
-   Filter Container
-   ========================= */
+@import "tailwindcss" reference;
+
 .test-filter {
-  padding: var(--report-spacing-lg);
+  @apply p-4 rounded-lg mb-6;
   background-color: var(--vp-c-bg-soft);
-  border-radius: var(--report-card-border-radius);
-  margin-bottom: var(--report-spacing-xl);
 }
 
-/* =========================
-   Filter Section
-   ========================= */
 .filter-section {
-  margin-bottom: var(--report-spacing-xl);
-}
-
-.filter-section:last-of-type {
-  margin-bottom: 0;
+  @apply mb-6 last:mb-0;
 }
 
 .filter-section h4 {
-  margin: 0 0 var(--report-spacing-md) 0;
-  font-size: var(--report-control-font-size);
-  font-weight: 600;
+  @apply m-0 mb-3 text-sm font-semibold uppercase tracking-wide;
   color: var(--vp-c-text-1);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
-/* =========================
-   Status Filter
-   ========================= */
 .filter-checkboxes {
-  display: flex;
-  gap: var(--report-spacing-sm);
+  @apply flex gap-2;
 }
 
 .filter-checkbox {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
+  @apply flex items-center cursor-pointer select-none;
 }
 
 .filter-checkbox input[type="checkbox"] {
-  margin-right: var(--report-spacing-sm);
-  cursor: pointer;
+  @apply mr-2 cursor-pointer;
 }
 
 .status-label {
-  display: flex;
-  align-items: center;
-  gap: var(--report-spacing-xs);
-  font-size: var(--report-control-font-size);
+  @apply flex items-center gap-1 text-sm;
 }
 
 .status-label.passed {
@@ -216,27 +191,14 @@ const clearFilters = () => {
   color: var(--report-status-pending);
 }
 
-/* =========================
-   Tag Filter
-   ========================= */
 .filter-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--report-spacing-sm);
+  @apply flex flex-wrap gap-2;
 }
 
 .filter-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--report-spacing-xs) var(--report-spacing-md);
+  @apply inline-flex items-center px-3 py-1 rounded-full border text-xs cursor-pointer select-none transition-all;
   background-color: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
-  font-size: var(--report-badge-font-size);
-  cursor: pointer;
-  user-select: none;
-  transition: background-color var(--report-transition-fast), 
-              border-color var(--report-transition-fast);
+  border-color: var(--vp-c-divider);
 }
 
 .filter-tag:hover {
@@ -245,42 +207,29 @@ const clearFilters = () => {
 }
 
 .filter-tag input[type="checkbox"] {
-  margin-right: var(--report-spacing-sm);
-  cursor: pointer;
+  @apply mr-2 cursor-pointer;
 }
 
 .filter-tag input[type="checkbox"]:checked + .tag-label {
-  font-weight: 600;
+  @apply font-semibold;
   color: var(--vp-c-brand-1);
 }
 
 .tag-label {
+  @apply transition-all;
   color: var(--vp-c-text-2);
-  transition: color var(--report-transition-fast), 
-              font-weight var(--report-transition-fast);
 }
 
-/* =========================
-   Action Buttons
-   ========================= */
 .filter-actions {
-  margin-top: var(--report-spacing-lg);
-  padding-top: var(--report-spacing-lg);
-  border-top: 1px solid var(--vp-c-divider);
+  @apply mt-4 pt-4 border-t;
+  border-color: var(--vp-c-divider);
 }
 
 .clear-button {
-  padding: var(--report-btn-padding);
+  @apply px-4 py-2 rounded border text-sm cursor-pointer transition-all;
   background-color: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: var(--report-btn-border-radius);
-  font-size: var(--report-btn-font-size);
+  border-color: var(--vp-c-divider);
   color: var(--vp-c-text-1);
-  cursor: pointer;
-  transition: background-color var(--report-transition-fast), 
-              border-color var(--report-transition-fast), 
-              color var(--report-transition-fast), 
-              transform 0.1s;
 }
 
 .clear-button:hover {
@@ -290,18 +239,17 @@ const clearFilters = () => {
 }
 
 .clear-button:active {
-  transform: translateY(1px);
+  @apply translate-y-px;
 }
 
-/* Accessibility: Focus Visualization */
 .clear-button:focus-visible {
-  outline: 2px solid var(--vp-c-brand-1);
-  outline-offset: 2px;
+  @apply outline-2 outline-offset-2;
+  outline-color: var(--vp-c-brand-1);
 }
 
 .filter-checkbox input[type="checkbox"]:focus-visible,
 .filter-tag input[type="checkbox"]:focus-visible {
-  outline: 2px solid var(--vp-c-brand-1);
-  outline-offset: 2px;
+  @apply outline-2 outline-offset-2;
+  outline-color: var(--vp-c-brand-1);
 }
 </style>

@@ -31,17 +31,14 @@ onBeforeUnmount(() => {
 
 <div class="hash-router">
   <div v-show="activePage === 'overview'" class="hash-content">
-    <h1>Overview</h1>
-    <ReportInfo
-      v-if="richReportWithInsights"
-      :report="richReportWithInsights"
-    />
-    <EnvironmentInfo
-      v-if="richReportWithInsights.results.environment"
-      :environment="richReportWithInsights.results.environment"
-    />
-    <h2>Summary</h2>
-    Status: <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
+    <!-- Page Header -->
+    <div class="flex items-center justify-between pb-6">
+      <h1 class="text-3xl font-bold tracking-tight mb-2">Overview</h1>
+      <div>
+        <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
+      </div>
+    </div>
+    <!-- Test Summary Section -->
     <SummaryView
       v-if="richReportWithInsights.results.summary"
       :summary="richReportWithInsights.results.summary"
@@ -50,6 +47,11 @@ onBeforeUnmount(() => {
       :showAvgDuration="false"
       :showTotalDuration="true"
     />
+    <!-- Report Info and Environment Info -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+      <ReportInfo />
+      <EnvironmentInfo />
+    </div>
   </div>
 
   <div v-show="activePage === 'suites'" class="hash-content">

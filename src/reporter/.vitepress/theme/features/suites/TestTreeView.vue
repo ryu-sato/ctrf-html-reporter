@@ -154,46 +154,32 @@ const filteredNodes = computed(() => {
 </script>
 
 <style scoped>
-/* =========================
-   Container
-   ========================= */
+@import "tailwindcss" reference;
+
 .test-tree-view {
-  margin: var(--report-spacing-lg) 0;
+  @apply my-4;
 }
 
-/* =========================
-   No Filter Results
-   ========================= */
 .no-results {
-  padding: var(--report-spacing-2xl);
-  text-align: center;
+  @apply p-8 text-center rounded-lg my-4;
   background-color: var(--vp-c-bg-soft);
-  border-radius: var(--report-card-border-radius);
-  margin: var(--report-spacing-lg) 0;
 }
 
 .no-results p {
+  @apply text-base m-0;
   color: var(--vp-c-text-2);
-  font-size: 1rem;
-  margin: 0;
 }
 
-/* =========================
-   Suites and Tests Container
-   ========================= */
 .suites-container {
-  margin-left: var(--report-spacing-lg);
+  @apply ml-4;
 }
 
 .tests-container {
-  margin-left: var(--report-spacing-lg);
-  margin-top: var(--report-spacing-sm);
+  @apply ml-4 mt-2;
 }
 
 .tests-summary {
-  cursor: pointer;
-  font-size: var(--report-control-font-size);
+  @apply cursor-pointer text-sm select-none;
   color: var(--vp-c-text-2);
-  user-select: none;
 }
 </style>

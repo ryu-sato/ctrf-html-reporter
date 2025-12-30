@@ -2,7 +2,7 @@
 import NotFound from './NotFound.vue'
 import { useData } from 'vitepress'
 import { useLayout } from 'vitepress/dist/client/theme-default/composables/layout'
-import VPDoc from './VPDoc.vue'
+import VPReport from './VPReport.vue'
 import VPHome from './VPHome.vue'
 import VPPage from './VPPage.vue'
 
@@ -40,7 +40,7 @@ const { isHome, hasSidebar } = useLayout()
       :is="frontmatter.layout"
     />
 
-    <VPDoc v-else>
+    <VPReport v-else>
       <template #report-top><slot name="report-top" /></template>
       <template #report-bottom><slot name="report-bottom" /></template>
 
@@ -54,7 +54,7 @@ const { isHome, hasSidebar } = useLayout()
       <template #aside-ads-before><slot name="aside-ads-before" /></template>
       <template #aside-ads-after><slot name="aside-ads-after" /></template>
       <template #aside-bottom><slot name="aside-bottom" /></template>
-    </VPDoc>
+    </VPReport>
   </div>
 </template>
 

@@ -3,10 +3,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, nextTick } from 'vue';
 import { Chart, registerables, type ChartConfiguration, type ChartConfigurationCustomTypesPerDataset, type DefaultDataPoint } from 'chart.js';
 import type { TreeNode } from 'ctrf';
 import { Stats } from 'fast-stats';
+import { useData } from 'vitepress';
 
 const props = defineProps({
   nodes: {
@@ -25,6 +26,9 @@ const getCssColor = (varName: string) => {
   }
   return '';
 };
+
+// Get VitePress dark mode state
+const { isDark } = useData();
 
 Chart.register(...registerables);
 const chartCanvas = ref<HTMLCanvasElement | null>(null);
@@ -75,34 +79,35 @@ const SuitesDurationBarChart = (nodes: TreeNode[]): ChartConfiguration<'bar', De
   };
 };
 
+const updateChart = (nodes: TreeNode[]) => {
+  const ctx = chartCanvas.value?.getContext('2d');
+  if (!ctx) return;
+
+  const chartData = SuitesDurationBarChart(nodes);
+  if (!chart) {
+    chart = new Chart(ctx, chartData);
+    return;
+  }
+  else {
+    chart.destroy();
+    chart = new Chart(ctx, chartData);
+  }
+};
+
 // update chart when props.nodes change
 watch(() => props.nodes, (newNodes: TreeNode[]) => {
-  const ctx = chartCanvas.value?.getContext('2d');
-  if (!ctx) return;
-
-  const chartData = SuitesDurationBarChart(newNodes);
-  if (!chart) {
-    chart = new Chart(ctx, chartData);
-    return;
-  }
-  else {
-    chart.data = chartData.data;
-    chart.update();
-  }
+  updateChart(newNodes);
 }, { immediate: true });
 
-onMounted(() => {
-  const ctx = chartCanvas.value?.getContext('2d');
-  if (!ctx) return;
+// Watch for dark mode changes and recreate chart
+watch(isDark, async () => {
+  await nextTick();
+  setTimeout(() => {
+    updateChart(props.nodes);
+  }, 0);
+});
 
-  const chartData = SuitesDurationBarChart(props.nodes);
-  if (!chart) {
-    chart = new Chart(ctx, chartData);
-    return;
-  }
-  else {
-    chart.data = chartData.data;
-    chart.update();
-  }
+onMounted(() => {
+  updateChart(props.nodes);
 });
 </script>

@@ -371,67 +371,43 @@ const changeSortOrFilter = () => {
 </script>
 
 <style scoped>
-/* =========================
-   Container
-   ========================= */
+@import "tailwindcss" reference;
+
 .insights-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  @apply max-w-7xl mx-auto;
 }
 
-/* =========================
-   Error Message
-   ========================= */
 .error-message {
-  padding: var(--report-spacing-lg);
+  @apply p-4 rounded-lg border;
   background: var(--vp-c-danger-soft);
-  border: 1px solid var(--vp-c-danger-1);
-  border-radius: var(--report-card-border-radius);
+  border-color: var(--vp-c-danger-1);
   color: var(--vp-c-danger-1);
 }
 
-/* =========================
-   Filter Controls
-   ========================= */
 .controls-container {
-  margin-bottom: var(--report-spacing-2xl);
-  padding: var(--report-spacing-xl);
+  @apply mb-8 p-6 rounded-lg border;
   background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: var(--report-card-border-radius);
+  border-color: var(--vp-c-divider);
 }
 
 .controls-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--report-spacing-xl);
-  margin-bottom: var(--report-spacing-lg);
+  @apply flex flex-wrap gap-6 mb-4;
 }
 
 .control-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--report-spacing-sm);
-  min-width: 150px;
+  @apply flex flex-col gap-2 min-w-[150px];
 }
 
 .control-label {
-  font-size: var(--report-control-font-size);
-  font-weight: 600;
+  @apply text-sm font-semibold;
   color: var(--vp-c-text-1);
 }
 
 .control-select {
-  /* Use global utility class variables */
-  padding: var(--report-control-padding);
+  @apply px-3 py-2 rounded border text-sm cursor-pointer transition-all;
   background: var(--report-control-bg);
-  border: 1px solid var(--report-control-border);
-  border-radius: var(--report-control-border-radius);
+  border-color: var(--report-control-border);
   color: var(--vp-c-text-1);
-  font-size: var(--report-control-font-size);
-  cursor: pointer;
-  transition: border-color var(--report-transition-fast), 
-              box-shadow var(--report-transition-fast);
 }
 
 .control-select:hover {
@@ -439,47 +415,32 @@ const changeSortOrFilter = () => {
 }
 
 .control-select:focus {
-  outline: none;
+  @apply outline-none;
   border-color: var(--vp-c-brand-1);
   box-shadow: var(--report-control-focus-shadow);
 }
 
 .results-info {
-  font-size: var(--report-control-font-size);
+  @apply text-sm pt-2 border-t;
   color: var(--vp-c-text-2);
-  padding-top: var(--report-spacing-sm);
-  border-top: 1px solid var(--vp-c-divider);
+  border-color: var(--vp-c-divider);
 }
 
-/* =========================
-   Test Cards Grid
-   ========================= */
 .tests-grid {
-  display: grid;
+  @apply grid gap-6 mt-6;
   grid-template-columns: repeat(auto-fill, minmax(var(--report-grid-min-width), 1fr));
-  gap: var(--report-grid-gap);
-  margin-top: var(--report-spacing-xl);
 }
 
 @media (max-width: 768px) {
   .tests-grid {
-    grid-template-columns: 1fr;
-    gap: var(--report-grid-gap-mobile);
+    @apply grid-cols-1 gap-4;
   }
 }
 
-/* =========================
-   Test Card
-   ========================= */
 .test-card {
+  @apply p-5 rounded-lg border cursor-pointer transition-all;
   background: var(--report-card-bg);
-  border: 1px solid var(--report-card-border);
-  border-radius: var(--report-card-border-radius);
-  padding: var(--report-card-padding);
-  cursor: pointer;
-  transition: transform var(--report-transition-fast), 
-              box-shadow var(--report-transition-fast), 
-              border-color var(--report-transition-fast);
+  border-color: var(--report-card-border);
 }
 
 .test-card:hover {
@@ -489,43 +450,25 @@ const changeSortOrFilter = () => {
 }
 
 .test-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--report-spacing-md);
-  gap: var(--report-spacing-lg);
+  @apply flex justify-between items-start mb-3 gap-4;
 }
 
 .test-card-title {
-  font-weight: 600;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  flex: 1;
-  word-break: break-word;
+  @apply font-semibold text-base leading-normal flex-1 break-words;
 }
 
 .test-card-suite {
-  font-size: var(--report-badge-font-size);
+  @apply text-xs mb-4 pb-3 border-b break-all;
   color: var(--vp-c-text-2);
-  margin-bottom: var(--report-spacing-lg);
-  padding-bottom: var(--report-spacing-md);
-  border-bottom: 1px solid var(--vp-c-divider);
-  word-break: break-all;
+  border-color: var(--vp-c-divider);
 }
 
 .test-card-metrics {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  @apply flex flex-col gap-2;
 }
 
 .metric-item {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  padding: 0.375rem;
-  border-radius: 6px;
-  transition: background-color 0.2s;
+  @apply flex items-center gap-2.5 p-1.5 rounded-md transition-colors;
 }
 
 .metric-item:hover {
@@ -533,32 +476,20 @@ const changeSortOrFilter = () => {
 }
 
 .metric-label {
-  flex-shrink: 0;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 0.25rem 0.5rem;
-  min-width: 90px;
+  @apply flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px];
   color: var(--vp-c-text-2);
 }
 
 .metric-content {
-  flex: 1;
-  min-width: 0;
+  @apply flex-1 min-w-0;
 }
 
 .metric-value {
-  font-weight: 600;
-  font-size: 0.875rem;
-  line-height: 1.4;
+  @apply font-semibold text-sm leading-normal;
 }
 
 .metric-change {
-  display: inline;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-left: 0.25rem;
+  @apply inline text-xs font-semibold ml-1;
 }
 
 .metric-change.positive {
@@ -573,81 +504,43 @@ const changeSortOrFilter = () => {
   color: var(--vp-c-text-2);
 }
 
-/* =========================
-   Badges (Static layout only - colors via inline styles)
-   ========================= */
 .status-badge {
-  display: inline-block;
-  padding: var(--report-badge-padding);
-  border-radius: var(--report-badge-border-radius);
-  font-size: var(--report-badge-font-size);
-  font-weight: var(--report-badge-font-weight);
-  text-transform: uppercase;
+  @apply inline-block px-2 py-1 rounded text-xs font-semibold uppercase;
 }
 
 .rate-badge {
-  display: inline-block;
-  padding: var(--report-badge-padding);
-  border-radius: var(--report-badge-border-radius);
-  font-weight: var(--report-badge-font-weight);
-  color: white;
+  @apply inline-block px-2 py-1 rounded font-semibold text-white;
 }
 
-/* =========================
-   Pagination
-   ========================= */
 .pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--report-pagination-gap);
-  margin-top: var(--report-spacing-2xl);
-  padding: var(--report-pagination-padding);
+  @apply flex items-center justify-center gap-4 mt-8 p-6 rounded-lg border;
   background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: var(--report-card-border-radius);
+  border-color: var(--vp-c-divider);
 }
 
 .pagination-btn {
-  padding: var(--report-btn-padding);
+  @apply px-4 py-2 rounded text-sm font-semibold text-white border-0 cursor-pointer transition-all;
   background: var(--report-btn-bg);
-  color: white;
-  border: none;
-  border-radius: var(--report-btn-border-radius);
-  font-size: var(--report-btn-font-size);
-  font-weight: var(--report-btn-font-weight);
-  cursor: pointer;
-  transition: background var(--report-transition-fast), 
-              transform var(--report-transition-fast);
 }
 
 .pagination-btn:hover:not(:disabled) {
   background: var(--report-btn-hover-bg);
-  transform: translateY(-1px);
+  @apply -translate-y-0.5;
 }
 
 .pagination-btn:disabled {
-  opacity: var(--report-btn-disabled-opacity);
-  cursor: not-allowed;
+  @apply opacity-50 cursor-not-allowed;
 }
 
 .pagination-pages {
-  display: flex;
-  gap: var(--report-spacing-sm);
+  @apply flex gap-2;
 }
 
 .pagination-page {
-  padding: var(--report-spacing-sm) var(--report-spacing-md);
+  @apply px-3 py-2 rounded border text-sm cursor-pointer transition-all min-w-[40px];
   background: var(--vp-c-bg);
   color: var(--vp-c-text-1);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: var(--report-control-border-radius);
-  font-size: var(--report-control-font-size);
-  cursor: pointer;
-  transition: border-color var(--report-transition-fast), 
-              color var(--report-transition-fast), 
-              background var(--report-transition-fast);
-  min-width: 40px;
+  border-color: var(--vp-c-divider);
 }
 
 .pagination-page:hover {
@@ -656,21 +549,18 @@ const changeSortOrFilter = () => {
 }
 
 .pagination-page.active {
+  @apply text-white;
   background: var(--vp-c-brand-1);
-  color: white;
   border-color: var(--vp-c-brand-1);
 }
 
-/* =========================
-   Responsive
-   ========================= */
 @media (max-width: 768px) {
   .controls-row {
-    flex-direction: column;
+    @apply flex-col;
   }
-  
+
   .control-group {
-    min-width: auto;
+    @apply min-w-0;
   }
 }
 </style>

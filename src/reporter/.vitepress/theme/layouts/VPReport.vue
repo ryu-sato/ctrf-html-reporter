@@ -11,7 +11,7 @@
             <div class="content-container">
               <slot name="report-before" />
               <main class="main">
-                <Content class="vp-doc" />
+                <Content />
               </main>
               <slot name="report-after" />
             </div>

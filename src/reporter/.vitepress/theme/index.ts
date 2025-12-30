@@ -1,7 +1,7 @@
 import DefaultTheme from 'vitepress/theme'
-
 import './custom.css'
 
+import Badge from './components/Badge.vue'
 import DateTimeFormatter from './components/DateTimeFormatter.vue'
 import PercentFormatter from './components/PercentFormatter.vue'
 import PassedIcon from './components/status-icons/PassedIcon.vue'
@@ -31,6 +31,7 @@ export default {
   extends: DefaultTheme,
   Layout,
   enhanceApp({ app }: { app: any }) {
+    app.component('Badge', Badge)
     app.component('DateTimeFormatter', DateTimeFormatter)
     app.component('PercentFormatter', PercentFormatter)
 
