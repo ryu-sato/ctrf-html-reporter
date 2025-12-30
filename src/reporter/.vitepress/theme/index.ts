@@ -1,3 +1,4 @@
+import DefaultTheme from 'vitepress/theme'
 import './custom.css'
 
 import Badge from './components/Badge.vue'
@@ -27,6 +28,7 @@ import TestDetail from './layouts/TestDetail.vue'
 import Layout from './layouts/Layout.vue'
 
 export default {
+  extends: DefaultTheme,
   Layout,
   enhanceApp({ app }: { app: any }) {
     app.component('Badge', Badge)
