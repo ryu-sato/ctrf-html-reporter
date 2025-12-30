@@ -114,7 +114,7 @@
     </div>
 
     <!-- Chart and Timeline Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="max-w-xs">
       <!-- Chart -->
       <div v-if="showChart" class="lg:col-span-3">
         <canvas ref="chartCanvas"></canvas>
