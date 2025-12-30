@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.7
+
+### Patch Changes
+
+- [#40](https://github.com/ryu-sato/ctrf-html-reporter/pull/40) [`c11c95b`](https://github.com/ryu-sato/ctrf-html-reporter/commit/c11c95be2733a5189423371b69b2d9a7fc8deb6b) Thanks [@ryu-sato](https://github.com/ryu-sato)! - feat: Integrate Tailwind CSS and redesign report UI components.
+
 ## 1.1.6
 
 ### Patch Changes
