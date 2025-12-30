@@ -375,11 +375,3 @@
     padding: 0px !important;
   }
 }
-
-.border-vp-c-tip-1 {
-  border-color: var(--vp-c-tip-1) !important;
-}
-
-.border-vp-c-tip-soft {
-  border-color: var(--vp-c-tip-soft) !important;
-}
