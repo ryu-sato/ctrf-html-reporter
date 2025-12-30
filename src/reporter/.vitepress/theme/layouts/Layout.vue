@@ -12,6 +12,7 @@ import VPSkipLink from 'vitepress/dist/client/theme-default/components/VPSkipLin
 import { useData } from 'vitepress'
 import { layoutInfoInjectionKey, registerWatchers } from 'vitepress/dist/client/theme-default/composables/layout.js'
 import { useSidebarControl } from 'vitepress/dist/client/theme-default/composables/sidebar.js'
+import { data as report } from '../../../richReportWithInsights.data.js'
 
 const {
   isOpen: isSidebarOpen,
@@ -27,6 +28,7 @@ const slots = useSlots()
 const heroImageSlotExists = computed(() => !!slots['home-hero-image'])
 
 provide(layoutInfoInjectionKey, { heroImageSlotExists })
+provide('report', report)
 </script>
 
 <template>
@@ -35,48 +37,64 @@ provide(layoutInfoInjectionKey, { heroImageSlotExists })
     class="Layout"
     :class="frontmatter.pageClass"
   >
-    <slot name="layout-top" />
+    <!--
+      available slots:
+      - layout-top
+      - layout-bottom
+    -->
     <VPSkipLink />
     <VPBackdrop class="backdrop" :show="isSidebarOpen" @click="closeSidebar" />
     <VPNav>
-      <template #nav-bar-title-before><slot name="nav-bar-title-before" /></template>
-      <template #nav-bar-title-after><slot name="nav-bar-title-after" /></template>
-      <template #nav-bar-content-before><slot name="nav-bar-content-before" /></template>
-      <template #nav-bar-content-after><slot name="nav-bar-content-after" /></template>
-      <template #nav-screen-content-before><slot name="nav-screen-content-before" /></template>
-      <template #nav-screen-content-after><slot name="nav-screen-content-after" /></template>
+      <!--
+        available slots:
+        - nav-bar-title-before
+        - nav-bar-title-after
+        - nav-bar-content-before
+        - nav-bar-content-after
+        - nav-screen-content-before
+        - nav-screen-content-after
+       -->
     </VPNav>
     <VPLocalNav :open="isSidebarOpen" @open-menu="openSidebar" />
 
     <VPSidebar :open="isSidebarOpen">
-      <template #sidebar-nav-before><slot name="sidebar-nav-before" /></template>
-      <template #sidebar-nav-after><slot name="sidebar-nav-after" /></template>
+      <!--
+        available slots:
+        - sidebar-nav-before
+        - sidebar-nav-after
+       -->
+      <template #sidebar-nav-after>
+        <div class="w-full mt-4 mb-4 border-t border-vp-c-tip-soft" />
+        <ReportInfo />
+        <div class="w-full mt-4 mb-4 border-t border-vp-c-tip-soft" />
+        <EnvironmentInfo />
+      </template>
     </VPSidebar>
 
     <VPContent>
-      <template #page-top><slot name="page-top" /></template>
-      <template #page-bottom><slot name="page-bottom" /></template>
-
-      <template #not-found><slot name="not-found" /></template>
-      <template #home-hero-before><slot name="home-hero-before" /></template>
-      <template #home-hero-info-before><slot name="home-hero-info-before" /></template>
-      <template #home-hero-info><slot name="home-hero-info" /></template>
-      <template #home-hero-info-after><slot name="home-hero-info-after" /></template>
-      <template #home-hero-actions-after><slot name="home-hero-actions-after" /></template>
-      <template #home-hero-image><slot name="home-hero-image" /></template>
-      <template #home-hero-after><slot name="home-hero-after" /></template>
-      <template #home-features-before><slot name="home-features-before" /></template>
-      <template #home-features-after><slot name="home-features-after" /></template>
-
-      <template #report-footer-before><slot name="report-footer-before" /></template>
-      <template #report-before><slot name="report-before" /></template>
-      <template #report-after><slot name="report-after" /></template>
-      <template #report-top><slot name="report-top" /></template>
-      <template #report-bottom><slot name="report-bottom" /></template>
+      <!--
+        available slots:
+        - page-top
+        - page-bottom
+        - not-found
+        - home-hero-before
+        - home-hero-info-before
+        - home-hero-info
+        - home-hero-info-after
+        - home-hero-actions-after
+        - home-hero-image
+        - home-hero-after
+        - home-features-before
+        - home-features-after
+        - report-footer-before
+        - report-before
+        - report-after
+        - report-top
+        - report-bottom
+       -->
     </VPContent>
 
     <VPFooter />
-    <slot name="layout-bottom" />
   </div>
   <DefaultLayout v-else />
 </template>

@@ -30,26 +30,44 @@ onBeforeUnmount(() => {
 </script>
 
 <div class="hash-router">
-  <div v-show="activePage === 'overview'" class="hash-content">
-    <h1>Overview</h1>
-    <ReportInfo
-      v-if="richReportWithInsights"
-      :report="richReportWithInsights"
-    />
-    <EnvironmentInfo
-      v-if="richReportWithInsights.results.environment"
-      :environment="richReportWithInsights.results.environment"
-    />
-    <h2>Summary</h2>
-    Status: <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
-    <SummaryView
-      v-if="richReportWithInsights.results.summary"
-      :summary="richReportWithInsights.results.summary"
-      :showChart="true"
-      :showTimeInfo="true"
-      :showAvgDuration="false"
-      :showTotalDuration="true"
-    />
+  <div v-show="activePage === 'overview'" class="hash-content space-y-8">
+    <!-- Page Header -->
+    <div class="flex items-center justify-between pb-6 border-b" style="border-color: var(--vp-c-divider);">
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight mb-2" style="color: var(--vp-c-text-1);">Test Report Overview</h1>
+        <p class="text-sm" style="color: var(--vp-c-text-2);">Comprehensive analysis of test execution results</p>
+      </div>
+      <div>
+        <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
+      </div>
+    </div>
+    <!-- Report Information Section -->
+    <div class="space-y-4">
+      <h2 class="text-xl font-bold tracking-tight" style="color: var(--vp-c-text-1);">Report Information</h2>
+      <ReportInfo
+        v-if="richReportWithInsights"
+        :report="richReportWithInsights"
+      />
+    </div>
+    <!-- Environment Section -->
+    <div v-if="richReportWithInsights.results.environment" class="space-y-4">
+      <h2 class="text-xl font-bold tracking-tight" style="color: var(--vp-c-text-1);">Environment Details</h2>
+      <EnvironmentInfo
+        :environment="richReportWithInsights.results.environment"
+      />
+    </div>
+    <!-- Test Summary Section -->
+    <div class="space-y-4">
+      <h2 class="text-xl font-bold tracking-tight" style="color: var(--vp-c-text-1);">Test Results Summary</h2>
+      <SummaryView
+        v-if="richReportWithInsights.results.summary"
+        :summary="richReportWithInsights.results.summary"
+        :showChart="true"
+        :showTimeInfo="true"
+        :showAvgDuration="false"
+        :showTotalDuration="true"
+      />
+    </div>
   </div>
 
   <div v-show="activePage === 'suites'" class="hash-content">
