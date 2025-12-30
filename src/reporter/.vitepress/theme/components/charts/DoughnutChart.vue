@@ -90,30 +90,54 @@ const createChart = () => {
     chartInstance.destroy();
   }
 
+  // Calculate totals
+  const totalTests = s.tests || 0;
+  const flakyCount = s.flaky || 0;
+  const nonFlakyCount = totalTests - flakyCount;
+
   chartInstance = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['Passed', 'Failed', 'Skipped', 'Pending', 'Other', 'Flaky'],
-      datasets: [{
-        data: [
-          s.passed || 0,
-          s.failed || 0,
-          s.skipped || 0,
-          s.pending || 0,
-          s.other || 0,
-          s.flaky || 0
-        ],
-        backgroundColor: [
-          getCssColor('--vp-c-green-1') || '#10b981',
-          getCssColor('--vp-c-red-1') || '#ef4444',
-          getCssColor('--vp-c-yellow-1') || '#f59e0b',
-          getCssColor('--vp-c-purple-1') || '#8b5cf6',
-          getCssColor('--vp-c-text-2') || '#6b7280',
-          getCssColor('--vp-c-orange-1') || '#f97316'
-        ],
-        borderWidth: 1,
-        borderColor: getCssColor('--vp-c-bg') || '#fff'
-      }]
+      labels: [
+        'Passed', 'Failed', 'Skipped', 'Pending', 'Other',
+        'Flaky', 'Non-Flaky'
+      ],
+      datasets: [
+        // Inner ring: Test status
+        {
+          label: 'Test Status',
+          data: [
+            s.passed || 0,
+            s.failed || 0,
+            s.skipped || 0,
+            s.pending || 0,
+            s.other || 0
+          ],
+          backgroundColor: [
+            getCssColor('--vp-c-green-1') || '#10b981',
+            getCssColor('--vp-c-red-1') || '#ef4444',
+            getCssColor('--vp-c-yellow-1') || '#f59e0b',
+            getCssColor('--vp-c-purple-1') || '#8b5cf6',
+            getCssColor('--vp-c-text-2') || '#6b7280'
+          ],
+          borderWidth: 1,
+          borderColor: getCssColor('--vp-c-bg') || '#fff'
+        },
+        // Outer ring: Flaky status
+        {
+          label: 'Flaky Status',
+          data: [
+            flakyCount,
+            nonFlakyCount
+          ],
+          backgroundColor: [
+            getCssColor('--vp-c-orange-1') || '#f97316',
+            getCssColor('--vp-c-bg-soft') || '#f3f4f6'
+          ],
+          borderWidth: 1,
+          borderColor: getCssColor('--vp-c-bg') || '#fff'
+        }
+      ]
     },
     options: {
       responsive: true,
@@ -121,6 +145,45 @@ const createChart = () => {
       plugins: {
         legend: {
           position: 'bottom',
+          labels: {
+            generateLabels: function(chart) {
+              const datasets = chart.data.datasets;
+              const labels: any[] = [];
+
+              // Inner ring labels
+              if (datasets[0]) {
+                datasets[0].data.forEach((value, index) => {
+                  const numValue = typeof value === 'number' ? value : 0;
+                  if (numValue > 0) {
+                    labels.push({
+                      text: chart.data.labels![index],
+                      fillStyle: (datasets[0].backgroundColor as string[])[index],
+                      hidden: false,
+                      index: index,
+                      datasetIndex: 0
+                    });
+                  }
+                });
+              }
+
+              // Flaky label from outer ring
+              if (datasets[1] && datasets[1].data[0]) {
+                const flakyValue = datasets[1].data[0];
+                const numFlakyValue = typeof flakyValue === 'number' ? flakyValue : 0;
+                if (numFlakyValue > 0) {
+                  labels.push({
+                    text: chart.data.labels![5], // 'Flaky'
+                    fillStyle: (datasets[1].backgroundColor as string[])[0],
+                    hidden: false,
+                    index: 0,
+                    datasetIndex: 1
+                  });
+                }
+              }
+
+              return labels;
+            }
+          }
         },
         title: {
           display: true,
@@ -129,11 +192,24 @@ const createChart = () => {
         tooltip: {
           callbacks: {
             label: function(context) {
-              const label = context.label || '';
-              const value = context.parsed || 0;
-              const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-              return `${label}: ${value} (${percentage}%)`;
+              const datasetIndex = context.datasetIndex;
+              const dataIndex = context.dataIndex;
+
+              if (datasetIndex === 0) {
+                // Inner ring: Show test status
+                const label = ['Passed', 'Failed', 'Skipped', 'Pending', 'Other'][dataIndex];
+                const value = context.parsed || 0;
+                const total = totalTests;
+                const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                return `${label}: ${value} (${percentage}%)`;
+              } else {
+                // Outer ring: Show flaky status
+                const label = dataIndex === 0 ? 'Flaky' : 'Non-Flaky';
+                const value = context.parsed || 0;
+                const total = totalTests;
+                const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                return `${label}: ${value} (${percentage}%)`;
+              }
             }
           }
         }
