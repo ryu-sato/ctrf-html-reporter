@@ -7,11 +7,6 @@
           <div class="absolute top-0 right-0 opacity-[0.03]"></div>
           <div class="py-1 px-3">
             <div class="flex items-center">
-              <div class="flex items-center justify-center w-10 h-10 rounded-lg">
-                <svg class="w-5 h-5" style="color: var(--vp-c-brand-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
               <div class="text-xs uppercase tracking-wider" style="color: var(--vp-c-text-3);">Report</div>
             </div>
             <div class="text-sm tabular-nums">{{ environment.reportName }}</div>
@@ -23,11 +18,6 @@
           <div class="absolute top-0 right-0 opacity-[0.03]"></div>
           <div class="py-1 px-3">
             <div class="flex items-center">
-              <div class="flex items-center justify-center w-10 h-10 rounded-lg mr-1">
-                <svg class="w-5 h-5" style="color: var(--vp-c-indigo-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-              </div>
               <div class="text-xs uppercase tracking-wider" style="color: var(--vp-c-text-3);">Application</div>
             </div>
             <div class="text-sm truncate">
@@ -51,11 +41,6 @@
           <div class="absolute top-0 right-0 opacity-[0.03]"></div>
           <div class="py-1 px-3">
             <div class="flex items-center">
-              <div class="flex items-center justify-center w-10 h-10 rounded-lg mr-1">
-                <svg class="w-5 h-5" style="color: var(--vp-c-indigo-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-              </div>
               <div class="text-xs uppercase tracking-wider" style="color: var(--vp-c-text-3);">Build & Repository</div>
             </div>
             <div class="text-sm truncate" style="color: var(--vp-c-text-1);">
@@ -65,27 +50,21 @@
                   :href="environment.repositoryUrl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-base font-bold hover:underline transition-colors inline-flex items-center gap-1"
+                  class="text-sm font-bold hover:underline transition-colors inline-flex items-center gap-1"
                   style="color: var(--vp-c-indigo-1);"
                 >
                   {{ environment.repositoryName || 'Repository' }}
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                  </svg>
+                  <ArrowTopRightOnSquareIcon class="w-4 h-4"/>
                 </a>
                 <div v-else-if="environment.repositoryName" class="text-base font-bold" style="color: var(--vp-c-text-1);">{{ environment.repositoryName }}</div>
               </div>
               <div class="flex flex-wrap items-center gap-2">
                 <span v-if="environment.branchName" class="inline-flex items-center px-3 py-1 text-xs font-mono font-semibold rounded-lg border" style="background: var(--vp-c-indigo-dimm); color: var(--vp-c-indigo-1); border-color: var(--vp-c-indigo-soft);">
-                  <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
-                  </svg>
+                  <TagIcon class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"/>
                   {{ environment.branchName }}
                 </span>
                 <span v-if="environment.commit" class="inline-flex items-center px-3 py-1 text-xs font-mono font-semibold rounded-lg" style="background: var(--vp-c-default-soft); color: var(--vp-c-text-2);">
-                  <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
-                  </svg>
+                  <HashtagIcon class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"/>
                   {{ environment.commit.substring(0, 7) }}
                 </span>
               </div>
@@ -98,11 +77,6 @@
           <div class="absolute top-0 right-0 opacity-[0.03]"></div>
           <div class="py-1 px-3">
             <div class="flex items-center">
-              <div class="flex items-center justify-center w-10 h-10 rounded-lg mr-1">
-                <svg class="w-5 h-5" style="color: var(--vp-c-indigo-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-              </div>
               <div class="text-xs uppercase tracking-wider" style="color: var(--vp-c-text-3);">Operating System</div>
             </div>
             <div class="text-sm truncate" style="color: var(--vp-c-text-1);">
@@ -157,21 +131,11 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { formatLabel, formatValue } from '../../../helpers/formatter';
-import type { Report, Environment } from 'ctrf';
+import { ArrowTopRightOnSquareIcon, HashtagIcon, TagIcon } from '@heroicons/vue/16/solid';
+import type { Report } from 'ctrf';
 
 const report = inject<Report | null>('report', null);
 const environment = report?.results?.environment || {};
-
-// const props = defineProps({
-//   environment: {
-//     type: Object as () => Environment,
-//     default: () => ({}),
-//     validator: (value) => {
-//       // Environment should be an object
-//       return typeof value === 'object' && value !== null;
-//     }
-//   }
-// });
 
 // Check if there's any environment data to display
 const hasEnvironmentData = computed(() => {
