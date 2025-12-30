@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.8
+
+### Patch Changes
+
+- [#42](https://github.com/ryu-sato/ctrf-html-reporter/pull/42) [`2fe7e6c`](https://github.com/ryu-sato/ctrf-html-reporter/commit/2fe7e6c108e58af403eebf7a827376e30b61c748) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Move the rollup-plugin-license dependency from devDependencies to dependencies.
+
 ## 1.1.7
 
 ### Patch Changes
