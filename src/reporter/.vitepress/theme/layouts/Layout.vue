@@ -65,8 +65,13 @@ provide('report', report)
        -->
       <template #sidebar-nav-after>
         <div class="w-full mt-4 mb-4 border-t border-vp-c-tip-soft" />
+
+        <h2 class="text-xl" style="color: var(--vp-c-text-3);">Report Information</h2>
         <ReportInfo />
+
         <div class="w-full mt-4 mb-4 border-t border-vp-c-tip-soft" />
+
+        <h2 class="text-xl" style="color: var(--vp-c-text-3);">Environment Details</h2>
         <EnvironmentInfo />
       </template>
     </VPSidebar>

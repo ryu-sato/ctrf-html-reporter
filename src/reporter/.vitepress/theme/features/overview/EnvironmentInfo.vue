@@ -1,6 +1,5 @@
 <template>
   <div v-if="hasEnvironmentData">
-    <h2 class="text-xl" style="color: var(--vp-c-text-3);">Environment Details</h2>
     <div class="relative overflow-hidden rounded-xl border transition-all border-b-4 border-vp-c-tip-soft">
       <div class="grid grid-cols-1 gap-1 p-2">
         <!-- Environment Information -->
