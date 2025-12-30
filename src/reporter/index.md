@@ -33,10 +33,7 @@ onBeforeUnmount(() => {
   <div v-show="activePage === 'overview'" class="hash-content">
     <!-- Page Header -->
     <div class="flex items-center justify-between pb-6">
-      <div>
-        <h1 class="text-3xl font-bold tracking-tight mb-2">Test Report Overview</h1>
-        <p class="text-sm text-[var(--vp-c-text-2)]">Comprehensive analysis of test execution results</p>
-      </div>
+      <h1 class="text-3xl font-bold tracking-tight mb-2">Overview</h1>
       <div>
         <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
       </div>
