@@ -1,5 +1,3 @@
-import DefaultTheme from 'vitepress/theme'
-
 import './custom.css'
 
 import DateTimeFormatter from './components/DateTimeFormatter.vue'
@@ -28,7 +26,6 @@ import TestDetail from './layouts/TestDetail.vue'
 import Layout from './layouts/Layout.vue'
 
 export default {
-  extends: DefaultTheme,
   Layout,
   enhanceApp({ app }: { app: any }) {
     app.component('DateTimeFormatter', DateTimeFormatter)
