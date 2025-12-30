@@ -50,6 +50,11 @@ onBeforeUnmount(() => {
       :showAvgDuration="false"
       :showTotalDuration="true"
     />
+    <!-- Report Info and Environment Info -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+      <ReportInfo />
+      <EnvironmentInfo />
+    </div>
   </div>
 
   <div v-show="activePage === 'suites'" class="hash-content">
