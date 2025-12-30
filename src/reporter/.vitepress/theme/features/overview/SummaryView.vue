@@ -1,5 +1,41 @@
 <template>
   <div>
+    <!-- Time Info -->
+    <div v-if="showTimeInfo && summary.start && summary.stop">
+      <div class="p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Duration Display (if not shown in cards above) -->
+          <div v-if="true || !showTotalDuration && summary.duration" class="relative col-span-1 sm:col-span-2 lg:col-span-1">
+            <div class="flex gap-4">
+              <div class="flex-1">
+                <p class="text-xs font-semibold uppercase tracking-wider text-[var(--vp-c-text-3)]">Total Duration</p>
+                <p class="text-2xl font-bold tabular-nums text-[var(--vp-c-brand-1)]">{{ formatDuration(summary.duration) }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Start Time -->
+          <div class="relative">
+            <div class="flex gap-4">
+              <div class="flex-1">
+                <p class="text-xs font-semibold uppercase tracking-wider text-[var(--vp-c-text-3)]">Start Time</p>
+                <DateTimeFormatter :timestamp="summary.start * 1000" class="text-base font-semibold block text-[var(--vp-c-text-1)]" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Stop Time -->
+          <div class="relative">
+            <div class="flex gap-4">
+              <div class="flex-1">
+                <p class="text-xs font-semibold uppercase tracking-wider text-[var(--vp-c-text-3)]">Stop Time</p>
+                <DateTimeFormatter :timestamp="summary.stop * 1000" class="text-base font-semibold block text-[var(--vp-c-text-1)]" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="relative overflow-hidden rounded-xl border transition-all border-b-4 border-[var(--vp-c-tip-soft)] p-3 mb-6">
       <div class="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-4">
         <!-- First Table: 4 columns on sm+, single row on mobile -->
@@ -80,74 +116,8 @@
     <!-- Chart and Timeline Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Chart -->
-      <div v-if="showChart" class="lg:col-span-1">
-        <div class="rounded-xl border overflow-hidden" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-          <div class="px-5 py-4 border-b" style="border-color: var(--vp-c-divider);">
-            <h4 class="text-sm font-bold tracking-tight" style="color: var(--vp-c-text-1);">{{ chartTitle }}</h4>
-          </div>
-          <div class="p-6">
-            <canvas ref="chartCanvas"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <!-- Time Info -->
-      <div v-if="showTimeInfo && summary.start && summary.stop" :class="showChart ? 'lg:col-span-2' : 'lg:col-span-3'">
-        <div class="rounded-xl border overflow-hidden h-full" style="background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider);">
-          <div class="px-5 py-4 border-b" style="border-color: var(--vp-c-divider);">
-            <h4 class="text-sm font-bold tracking-tight" style="color: var(--vp-c-text-1);">Execution Timeline</h4>
-          </div>
-          <div class="p-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <!-- Start Time -->
-              <div class="relative">
-                <div class="flex items-start gap-4">
-                  <div class="flex items-center justify-center w-12 h-12 rounded-xl" style="background: linear-gradient(135deg, var(--vp-c-green-dimm), var(--vp-c-green-soft));">
-                    <svg class="w-6 h-6" style="color: var(--vp-c-green-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                  </div>
-                  <div class="flex-1 ">
-                    <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Start Time</p>
-                    <DateTimeFormatter :timestamp="summary.start * 1000" class="text-base font-semibold block" style="color: var(--vp-c-text-1);" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Stop Time -->
-              <div class="relative">
-                <div class="flex items-start gap-4">
-                  <div class="flex items-center justify-center w-12 h-12 rounded-xl" style="background: linear-gradient(135deg, var(--vp-c-red-dimm), var(--vp-c-red-soft));">
-                    <svg class="w-6 h-6" style="color: var(--vp-c-red-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path>
-                    </svg>
-                  </div>
-                  <div class="flex-1 ">
-                    <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Stop Time</p>
-                    <DateTimeFormatter :timestamp="summary.stop * 1000" class="text-base font-semibold block" style="color: var(--vp-c-text-1);" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Duration Display (if not shown in cards above) -->
-              <div v-if="!showTotalDuration && summary.duration" class="sm:col-span-2">
-                <div class="flex items-start gap-4 p-4 rounded-lg" style="background: var(--vp-c-default-soft);">
-                  <div class="flex items-center justify-center w-12 h-12 rounded-xl" style="background: linear-gradient(135deg, var(--vp-c-brand-soft), var(--vp-c-brand-softer));">
-                    <svg class="w-6 h-6" style="color: var(--vp-c-brand-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                  </div>
-                  <div class="flex-1 ">
-                    <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">Total Duration</p>
-                    <p class="text-2xl font-bold tabular-nums" style="color: var(--vp-c-brand-1);">{{ formatDuration(summary.duration) }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div v-if="showChart" class="lg:col-span-3">
+        <canvas ref="chartCanvas"></canvas>
       </div>
     </div>
   </div>
