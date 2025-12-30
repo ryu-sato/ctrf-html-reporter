@@ -366,7 +366,7 @@
   }
 }
 
-@media (min-width: 960px) {
+@media (max-width: 960px) {
   .VPDoc {
     padding: 48px !important;
   }
