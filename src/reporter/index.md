@@ -42,17 +42,14 @@ onBeforeUnmount(() => {
       </div>
     </div>
     <!-- Test Summary Section -->
-    <div>
-      <h2 class="text-xl font-bold tracking-tight pb-3">Test Results Summary</h2>
-      <SummaryView
-        v-if="richReportWithInsights.results.summary"
-        :summary="richReportWithInsights.results.summary"
-        :showChart="true"
-        :showTimeInfo="true"
-        :showAvgDuration="false"
-        :showTotalDuration="true"
-      />
-    </div>
+    <SummaryView
+      v-if="richReportWithInsights.results.summary"
+      :summary="richReportWithInsights.results.summary"
+      :showChart="true"
+      :showTimeInfo="true"
+      :showAvgDuration="false"
+      :showTotalDuration="true"
+    />
   </div>
 
   <div v-show="activePage === 'suites'" class="hash-content">
