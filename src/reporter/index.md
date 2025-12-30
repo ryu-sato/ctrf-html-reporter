@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
     </div>
     <!-- Test Summary Section -->
     <div>
-      <h2 class="text-xl font-bold tracking-tight">Test Results Summary</h2>
+      <h2 class="text-xl font-bold tracking-tight pb-3">Test Results Summary</h2>
       <SummaryView
         v-if="richReportWithInsights.results.summary"
         :summary="richReportWithInsights.results.summary"
