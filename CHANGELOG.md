@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.9
+
+### Patch Changes
+
+- [#44](https://github.com/ryu-sato/ctrf-html-reporter/pull/44) [`4ae5bc3`](https://github.com/ryu-sato/ctrf-html-reporter/commit/4ae5bc3fdfcccc513b9cbc76a069b0bbe98369fb) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Remove rollup-plugin-license from vitepress.
+
 ## 1.1.8
 
 ### Patch Changes
