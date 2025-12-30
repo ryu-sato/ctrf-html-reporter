@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const badgeClasses = computed(() => {
-  const baseClasses = 'inline-block px-2 py-1 rounded text-xs font-semibold leading-none uppercase border'
+  const baseClasses = 'inline-block px-2 py-1 rounded-xl text-xs leading-none border'
 
   const typeClasses = {
     info: 'border-[var(--vp-c-divider)] text-[var(--vp-c-text-2)] bg-[var(--vp-c-default-soft)]',
