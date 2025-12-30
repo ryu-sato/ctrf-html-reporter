@@ -1,7 +1,7 @@
 <template>
   <div v-if="report">
     <!-- Primary Metrics Cards -->
-    <div class="relative overflow-hidden rounded-xl border transition-all border-b-4 border-vp-c-tip-soft">
+    <div class="relative overflow-hidden rounded-xl border transition-all border-b-4 border-[var(--vp-c-tip-soft)]">
       <div class="grid grid-cols-1 gap-1 p-2">
         <!-- Duration Card -->
         <div v-if="duration !== null" class="relative overflow-hidden rounded-xl transition-all duration-200">
