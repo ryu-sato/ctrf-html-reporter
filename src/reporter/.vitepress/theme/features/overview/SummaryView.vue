@@ -4,11 +4,11 @@
       <!-- First Table: 4 columns on sm+, single row on mobile -->
       <div class="table w-full" role="table" aria-label="Test status summary">
         <div class="hidden sm:table-footer-group" role="rowgroup">
-          <div class="table-row border-b border-[var(--vp-c-divider)]" role="row">
-            <div class="table-cell text-right px-2" role="columnheader">Passed</div>
-            <div class="table-cell text-right px-2" role="columnheader">Failed</div>
-            <div class="table-cell text-right px-2" role="columnheader">Pending</div>
-            <div class="table-cell text-right px-2" role="columnheader">Skipped</div>
+          <div class="table-row border-[var(--vp-c-divider)]" role="row">
+            <div class="table-cell border-t border-[var(--vp-c-divider)] text-right px-2" role="columnheader">Passed</div>
+            <div class="table-cell border-t border-[var(--vp-c-divider)] text-right px-2" role="columnheader">Failed</div>
+            <div class="table-cell border-t border-[var(--vp-c-divider)] text-right px-2" role="columnheader">Pending</div>
+            <div class="table-cell border-t border-[var(--vp-c-divider)] text-right px-2" role="columnheader">Skipped</div>
           </div>
         </div>
         <div class="table-row-group" role="rowgroup">
@@ -16,25 +16,25 @@
             <div class="table-cell text-right px-2 py-1" role="cell">
               <div class="flex items-center justify-end gap-1">
                 <span class="sm:hidden flex items-center" aria-hidden="true" title="Passed"><PassedIcon class="text-[var(--report-status-passed)]" /></span>
-                <span aria-label="Passed tests">{{ summary.passed !== undefined ? summary.passed : 'N/A' }}</span>
+                <span class="sm:text-3xl sm:font-bold sm:font-mono" aria-label="Passed tests">{{ summary.passed !== undefined ? summary.passed : 'N/A' }}</span>
               </div>
             </div>
             <div class="table-cell text-right px-2 py-1" role="cell">
               <div class="flex items-center justify-end gap-1">
                 <span class="sm:hidden flex items-center" aria-hidden="true" title="Failed"><FailedIcon class="text-[var(--report-status-failed)]" /></span>
-                <span aria-label="Failed tests">{{ summary.failed !== undefined ? summary.failed : 'N/A' }}</span>
+                <span class="sm:text-3xl sm:font-bold sm:font-mono" aria-label="Failed tests">{{ summary.failed !== undefined ? summary.failed : 'N/A' }}</span>
               </div>
             </div>
             <div class="table-cell text-right px-2 py-1" role="cell">
               <div class="flex items-center justify-end gap-1">
                 <span class="sm:hidden flex items-center" aria-hidden="true" title="Pending"><PendingIcon class="text-[var(--report-status-pending)]" /></span>
-                <span aria-label="Pending tests">{{ summary.pending !== undefined ? summary.pending : 'N/A' }}</span>
+                <span class="sm:text-3xl sm:font-bold sm:font-mono" aria-label="Pending tests">{{ summary.pending !== undefined ? summary.pending : 'N/A' }}</span>
               </div>
             </div>
             <div class="table-cell text-right px-2 py-1" role="cell">
               <div class="flex items-center justify-end gap-1">
                 <span class="sm:hidden flex items-center" aria-hidden="true" title="Skipped"><SkippedIcon class="text-[var(--report-status-skipped)]" /></span>
-                <span aria-label="Skipped tests">{{ summary.skipped !== undefined ? summary.skipped : 'N/A' }}</span>
+                <span class="sm:text-3xl sm:font-bold sm:font-mono" aria-label="Skipped tests">{{ summary.skipped !== undefined ? summary.skipped : 'N/A' }}</span>
               </div>
             </div>
           </div>
@@ -45,9 +45,9 @@
       <div class="table w-full" role="table" aria-label="Test metrics summary">
         <div class="hidden sm:table-footer-group" role="rowgroup">
           <div class="table-row border-b border-[var(--vp-c-divider)]" role="row">
-            <div class="table-cell text-right px-2" role="columnheader">Total</div>
-            <div class="table-cell text-right px-2" role="columnheader">Flaky</div>
-            <div class="table-cell text-right px-2" role="columnheader">Suites</div>
+            <div class="table-cell border-t border-[var(--vp-c-divider)] text-right px-2" role="columnheader">Total</div>
+            <div class="table-cell border-t border-[var(--vp-c-divider)] text-right px-2" role="columnheader">Flaky</div>
+            <div class="table-cell border-t border-[var(--vp-c-divider)] text-right px-2" role="columnheader">Suites</div>
           </div>
         </div>
         <div class="table-row-group" role="rowgroup">
@@ -55,19 +55,19 @@
             <div class="table-cell text-right px-2 py-1" role="cell">
               <div class="flex items-center justify-end gap-1">
                 <span class="sm:hidden flex items-center" aria-hidden="true" title="Total"><CalculatorIcon class="w-5 h-5]" /></span>
-                <span aria-label="Total tests">{{ summary.tests }}</span>
+                <span class="sm:text-3xl sm:font-bold sm:font-mono" aria-label="Total tests">{{ summary.tests }}</span>
               </div>
             </div>
             <div class="table-cell text-right px-2 py-1" role="cell">
               <div class="flex items-center justify-end gap-1">
                 <span class="sm:hidden flex items-center" aria-hidden="true" title="Flaky"><FlakyIcon class="text-[var(--report-status-flaky)]" /></span>
-                <span aria-label="Flaky tests">{{ summary.flaky !== undefined ? summary.flaky : 'N/A' }}</span>
+                <span class="sm:text-3xl sm:font-bold sm:font-mono" aria-label="Flaky tests">{{ summary.flaky !== undefined ? summary.flaky : 'N/A' }}</span>
               </div>
             </div>
             <div class="table-cell text-right px-2 py-1" role="cell">
               <div class="flex items-center justify-end gap-1">
                 <span class="sm:hidden flex items-center" aria-hidden="true" title="Suites"><RectangleGroupIcon class="w-5 h-5]" /></span>
-                <span aria-label="Test suites">{{ summary.suites !== undefined ? summary.suites : 'N/A' }}</span>
+                <span class="sm:text-3xl sm:font-bold sm:font-mono" aria-label="Test suites">{{ summary.suites !== undefined ? summary.suites : 'N/A' }}</span>
               </div>
             </div>
           </div>
