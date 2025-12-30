@@ -103,7 +103,7 @@
             <div class="text-sm truncate" style="color: var(--vp-c-text-1);">
               <template v-if="typeof environment.extra === 'object'">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div v-for="(value, key) in environment.extra" :key="`extra-${key}`" class="space-y-2">
+                  <div v-for="(value, key) in environment.extra" :key="`extra-${key}`">
                     <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">{{ formatLabel(String(key)) }}</p>
                     <p class="px-3 py-2 text-sm font-medium break-words rounded-lg" style="color: var(--vp-c-text-1); background: var(--vp-c-default-soft);">{{ formatValue(value) }}</p>
                   </div>

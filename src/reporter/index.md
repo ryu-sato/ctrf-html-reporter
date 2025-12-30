@@ -30,7 +30,7 @@ onBeforeUnmount(() => {
 </script>
 
 <div class="hash-router">
-  <div v-show="activePage === 'overview'" class="hash-content space-y-8">
+  <div v-show="activePage === 'overview'" class="hash-content">
     <!-- Page Header -->
     <div class="flex items-center justify-between pb-6 border-b" style="border-color: var(--vp-c-divider);">
       <div>
@@ -41,23 +41,8 @@ onBeforeUnmount(() => {
         <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
       </div>
     </div>
-    <!-- Report Information Section -->
-    <div class="space-y-4">
-      <h2 class="text-xl font-bold tracking-tight" style="color: var(--vp-c-text-1);">Report Information</h2>
-      <ReportInfo
-        v-if="richReportWithInsights"
-        :report="richReportWithInsights"
-      />
-    </div>
-    <!-- Environment Section -->
-    <div v-if="richReportWithInsights.results.environment" class="space-y-4">
-      <h2 class="text-xl font-bold tracking-tight" style="color: var(--vp-c-text-1);">Environment Details</h2>
-      <EnvironmentInfo
-        :environment="richReportWithInsights.results.environment"
-      />
-    </div>
     <!-- Test Summary Section -->
-    <div class="space-y-4">
+    <div>
       <h2 class="text-xl font-bold tracking-tight" style="color: var(--vp-c-text-1);">Test Results Summary</h2>
       <SummaryView
         v-if="richReportWithInsights.results.summary"

@@ -103,7 +103,6 @@
             <div
               v-for="(value, key) in report.extra"
               :key="`extra-${key}`"
-              class="space-y-2"
             >
               <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--vp-c-text-3);">{{ formatLabel(String(key)) }}</p>
               <p class="px-3 py-2 text-sm font-medium break-words rounded-lg" style="color: var(--vp-c-text-1); background: var(--vp-c-default-soft);">{{ formatValue(value) }}</p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div>
     <!-- Test Stats Cards Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
       <!-- Total Tests Card -->
