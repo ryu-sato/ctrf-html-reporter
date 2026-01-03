@@ -1,15 +1,15 @@
 <template>
-  <div class="insights-container">
-    <div v-if="error" class="error-message">
+  <div class="max-w-7xl mx-auto">
+    <div v-if="error" class="p-4 rounded-lg border bg-[var(--vp-c-danger-soft)] border-[var(--vp-c-danger-1)] text-[var(--vp-c-danger-1)]">
       <strong>Error:</strong> {{ error }}
     </div>
 
     <div v-else-if="enrichedReport?.insights">
-      <div class="controls-container">
-        <div class="controls-row">
-          <div class="control-group">
-            <label class="control-label" for="sort-by">Sort by:</label>
-            <select class="control-select" id="sort-by" v-model="sortBy" @change="changeSortOrFilter">
+      <div class="mb-8 p-6 rounded-lg border bg-[var(--vp-c-bg-soft)] border-[var(--vp-c-divider)]">
+        <div class="flex flex-wrap gap-6 mb-4 max-md:flex-col">
+          <div class="flex flex-col gap-2 min-w-[150px] max-md:min-w-0">
+            <label class="text-sm font-semibold text-[var(--vp-c-text-1)]" for="sort-by">Sort by:</label>
+            <select class="px-3 py-2 rounded border text-sm cursor-pointer transition-all bg-[var(--report-control-bg)] border-[var(--report-control-border)] text-[var(--vp-c-text-1)] hover:border-[var(--vp-c-brand-1)] focus:outline-none focus:border-[var(--vp-c-brand-1)] focus:shadow-[var(--report-control-focus-shadow)]" id="sort-by" v-model="sortBy" @change="changeSortOrFilter">
               <option value="passRate">Pass Rate</option>
               <option value="passRateChange">Pass Rate Change</option>
               <option value="flakyRate">Flaky Rate</option>
@@ -23,16 +23,16 @@
               <option value="p95DurationChange">95th Percentile Change</option>
             </select>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="sort-order">Order:</label>
-            <select class="control-select" id="sort-order" v-model="sortOrder" @change="changeSortOrFilter">
+          <div class="flex flex-col gap-2 min-w-[150px] max-md:min-w-0">
+            <label class="text-sm font-semibold text-[var(--vp-c-text-1)]" for="sort-order">Order:</label>
+            <select class="px-3 py-2 rounded border text-sm cursor-pointer transition-all bg-[var(--report-control-bg)] border-[var(--report-control-border)] text-[var(--vp-c-text-1)] hover:border-[var(--vp-c-brand-1)] focus:outline-none focus:border-[var(--vp-c-brand-1)] focus:shadow-[var(--report-control-focus-shadow)]" id="sort-order" v-model="sortOrder" @change="changeSortOrFilter">
               <option value="desc">Descending</option>
               <option value="asc">Ascending</option>
             </select>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="status-filter">Status:</label>
-            <select class="control-select" id="status-filter" v-model="statusFilter" @change="changeSortOrFilter">
+          <div class="flex flex-col gap-2 min-w-[150px] max-md:min-w-0">
+            <label class="text-sm font-semibold text-[var(--vp-c-text-1)]" for="status-filter">Status:</label>
+            <select class="px-3 py-2 rounded border text-sm cursor-pointer transition-all bg-[var(--report-control-bg)] border-[var(--report-control-border)] text-[var(--vp-c-text-1)] hover:border-[var(--vp-c-brand-1)] focus:outline-none focus:border-[var(--vp-c-brand-1)] focus:shadow-[var(--report-control-focus-shadow)]" id="status-filter" v-model="statusFilter" @change="changeSortOrFilter">
               <option value="all">All</option>
               <option value="passed">Passed</option>
               <option value="failed">Failed</option>
@@ -40,9 +40,9 @@
               <option value="pending">Pending</option>
             </select>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="items-per-page">Items per page:</label>
-            <select class="control-select" id="items-per-page" v-model="itemsPerPage" @change="changeSortOrFilter">
+          <div class="flex flex-col gap-2 min-w-[150px] max-md:min-w-0">
+            <label class="text-sm font-semibold text-[var(--vp-c-text-1)]" for="items-per-page">Items per page:</label>
+            <select class="px-3 py-2 rounded border text-sm cursor-pointer transition-all bg-[var(--report-control-bg)] border-[var(--report-control-border)] text-[var(--vp-c-text-1)] hover:border-[var(--vp-c-brand-1)] focus:outline-none focus:border-[var(--vp-c-brand-1)] focus:shadow-[var(--report-control-focus-shadow)]" id="items-per-page" v-model="itemsPerPage" @change="changeSortOrFilter">
               <option :value="6">6</option>
               <option :value="12">12</option>
               <option :value="24">24</option>
@@ -50,25 +50,25 @@
             </select>
           </div>
         </div>
-        <div class="results-info">
+        <div class="text-sm pt-2 border-t text-[var(--vp-c-text-2)] border-[var(--vp-c-divider)]">
           Showing {{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ Math.min(currentPage * itemsPerPage, filteredAndSortedTests.length) }} of {{ filteredAndSortedTests.length }} tests
         </div>
       </div>
 
-      <div class="pagination" v-if="totalPages > 1">
+      <div class="flex items-center justify-center gap-4 mt-8 p-6 rounded-lg border bg-[var(--vp-c-bg-soft)] border-[var(--vp-c-divider)]" v-if="totalPages > 1">
         <button 
-          class="pagination-btn" 
+          class="px-4 py-2 rounded text-sm font-semibold text-white border-0 cursor-pointer transition-all bg-[var(--report-btn-bg)] hover:bg-[var(--report-btn-hover-bg)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed" 
           @click="goToPage(currentPage - 1)" 
           :disabled="currentPage === 1"
         >
           Previous
         </button>
-        <div class="pagination-pages">
+        <div class="flex gap-2">
           <button
             v-for="page in totalPages"
             :key="page"
-            class="pagination-page"
-            :class="{ active: page === currentPage }"
+            class="px-3 py-2 rounded border text-sm cursor-pointer transition-all min-w-[40px] bg-[var(--vp-c-bg)] text-[var(--vp-c-text-1)] border-[var(--vp-c-divider)] hover:border-[var(--vp-c-brand-1)] hover:text-[var(--vp-c-brand-1)]"
+            :class="{ 'text-white !bg-[var(--vp-c-brand-1)] !border-[var(--vp-c-brand-1)]': page === currentPage }"
             @click="goToPage(page)"
             v-show="Math.abs(page - currentPage) < 3 || page === 1 || page === totalPages"
           >
@@ -76,7 +76,7 @@
           </button>
         </div>
         <button 
-          class="pagination-btn" 
+          class="px-4 py-2 rounded text-sm font-semibold text-white border-0 cursor-pointer transition-all bg-[var(--report-btn-bg)] hover:bg-[var(--report-btn-hover-bg)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed" 
           @click="goToPage(currentPage + 1)" 
           :disabled="currentPage === totalPages"
         >
@@ -84,81 +84,81 @@
         </button>
       </div>
 
-      <div class="tests-grid">
+      <div class="grid gap-6 mt-6 grid-cols-[repeat(auto-fill,minmax(var(--report-grid-min-width),1fr))] max-md:grid-cols-1 max-md:gap-4">
         <div 
           v-for="test in paginatedTests" 
           :key="test.name" 
-          class="test-card"
+          class="p-5 rounded-lg border cursor-pointer transition-all bg-[var(--report-card-bg)] border-[var(--report-card-border)] hover:border-[var(--report-card-hover-border)] hover:shadow-[var(--report-card-hover-shadow)] hover:transform-[var(--report-card-hover-transform)]"
           @click="handleTestClick(test)"
         >
-          <div class="test-card-header">
-            <div class="test-card-title">{{ test.name }}</div>
-            <span class="status-badge" :style="{ background: getStatusColor(test.status), color: 'white' }">
+          <div class="flex justify-between items-start mb-3 gap-4">
+            <div class="font-semibold text-base leading-normal flex-1 break-words">{{ test.name }}</div>
+            <span class="inline-block px-2 py-1 rounded text-xs font-semibold uppercase text-white" :style="{ background: getStatusColor(test.status) }">
               {{ test.status }}
             </span>
           </div>
-          <div class="test-card-suite">{{ test.suite }}</div>
-          <div class="test-card-metrics">
-            <div class="metric-item">
-              <div class="metric-label pass">Pass Rate</div>
-              <div class="metric-content">
-                <div class="metric-value">
+          <div class="text-xs mb-4 pb-3 border-b break-all text-[var(--vp-c-text-2)] border-[var(--vp-c-divider)]">{{ test.suite }}</div>
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">Pass Rate</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-sm leading-normal">
                   <PercentFormatter :value="test.insights?.passRate?.current" />
                   <span v-if="shouldShowChange && test.insights?.passRate?.change !== undefined"
-                        class="metric-change"
-                        :class="getChangeClass(test.insights.passRate.change, false)">
+                        class="inline text-xs font-semibold ml-1"
+                        :class="getChangeClass(test.insights.passRate.change, false) === 'positive' ? 'text-[var(--vp-c-green-1)]' : getChangeClass(test.insights.passRate.change, false) === 'negative' ? 'text-[var(--vp-c-red-1)]' : 'text-[var(--vp-c-text-2)]'">
                     ({{ formatPercentChange(test.insights.passRate.change, 1) }})
                   </span>
                 </div>
               </div>
             </div>
-            <div class="metric-item">
-              <div class="metric-label flaky">Flaky Rate</div>
-              <div class="metric-content">
-                <div class="metric-value">
+            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">Flaky Rate</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-sm leading-normal">
                   <PercentFormatter :value="test.insights?.flakyRate?.current" />
                   <span v-if="shouldShowChange && test.insights?.flakyRate?.change !== undefined"
-                        class="metric-change"
-                        :class="getChangeClass(test.insights.flakyRate.change, true)">
+                        class="inline text-xs font-semibold ml-1"
+                        :class="getChangeClass(test.insights.flakyRate.change, true) === 'positive' ? 'text-[var(--vp-c-green-1)]' : getChangeClass(test.insights.flakyRate.change, true) === 'negative' ? 'text-[var(--vp-c-red-1)]' : 'text-[var(--vp-c-text-2)]'">
                     ({{ formatPercentChange(test.insights.flakyRate.change, 1) }})
                   </span>
                 </div>
               </div>
             </div>
-            <div class="metric-item">
-              <div class="metric-label fail">Fail Rate</div>
-              <div class="metric-content">
-                <div class="metric-value">
+            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">Fail Rate</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-sm leading-normal">
                   <PercentFormatter :value="test.insights?.failRate?.current" />
                   <span v-if="shouldShowChange && test.insights?.failRate?.change !== undefined"
-                        class="metric-change"
-                        :class="getChangeClass(test.insights.failRate.change, true)">
+                        class="inline text-xs font-semibold ml-1"
+                        :class="getChangeClass(test.insights.failRate.change, true) === 'positive' ? 'text-[var(--vp-c-green-1)]' : getChangeClass(test.insights.failRate.change, true) === 'negative' ? 'text-[var(--vp-c-red-1)]' : 'text-[var(--vp-c-text-2)]'">
                     ({{ formatPercentChange(test.insights.failRate.change, 1) }})
                   </span>
                 </div>
               </div>
             </div>
-            <div class="metric-item">
-              <div class="metric-label duration">Avg Duration</div>
-              <div class="metric-content">
-                <div class="metric-value">
+            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">Avg Duration</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-sm leading-normal">
                   {{ test.insights?.averageTestDuration?.current }}ms
                   <span v-if="shouldShowChange && test.insights?.averageTestDuration?.change !== undefined"
-                        class="metric-change"
-                        :class="getChangeClass(test.insights.averageTestDuration.change, true)">
+                        class="inline text-xs font-semibold ml-1"
+                        :class="getChangeClass(test.insights.averageTestDuration.change, true) === 'positive' ? 'text-[var(--vp-c-green-1)]' : getChangeClass(test.insights.averageTestDuration.change, true) === 'negative' ? 'text-[var(--vp-c-red-1)]' : 'text-[var(--vp-c-text-2)]'">
                     ({{ formatNumericChange(test.insights.averageTestDuration.change) }}ms)
                   </span>
                 </div>
               </div>
             </div>
-            <div class="metric-item">
-              <div class="metric-label duration">P95 Duration</div>
-              <div class="metric-content">
-                <div class="metric-value">
+            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">P95 Duration</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-sm leading-normal">
                   {{ test.insights?.p95TestDuration?.current }}ms
                   <span v-if="shouldShowChange && test.insights?.p95TestDuration?.change !== undefined"
-                        class="metric-change"
-                        :class="getChangeClass(test.insights.p95TestDuration.change, true)">
+                        class="inline text-xs font-semibold ml-1"
+                        :class="getChangeClass(test.insights.p95TestDuration.change, true) === 'positive' ? 'text-[var(--vp-c-green-1)]' : getChangeClass(test.insights.p95TestDuration.change, true) === 'negative' ? 'text-[var(--vp-c-red-1)]' : 'text-[var(--vp-c-text-2)]'">
                     ({{ formatNumericChange(test.insights.p95TestDuration.change) }}ms)
                   </span>
                 </div>
@@ -168,20 +168,20 @@
         </div>
       </div>
 
-      <div class="pagination" v-if="totalPages > 1">
+      <div class="flex items-center justify-center gap-4 mt-8 p-6 rounded-lg border bg-[var(--vp-c-bg-soft)] border-[var(--vp-c-divider)]" v-if="totalPages > 1">
         <button 
-          class="pagination-btn" 
+          class="px-4 py-2 rounded text-sm font-semibold text-white border-0 cursor-pointer transition-all bg-[var(--report-btn-bg)] hover:bg-[var(--report-btn-hover-bg)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed" 
           @click="goToPage(currentPage - 1)" 
           :disabled="currentPage === 1"
         >
           Previous
         </button>
-        <div class="pagination-pages">
+        <div class="flex gap-2">
           <button
             v-for="page in totalPages"
             :key="page"
-            class="pagination-page"
-            :class="{ active: page === currentPage }"
+            class="px-3 py-2 rounded border text-sm cursor-pointer transition-all min-w-[40px] bg-[var(--vp-c-bg)] text-[var(--vp-c-text-1)] border-[var(--vp-c-divider)] hover:border-[var(--vp-c-brand-1)] hover:text-[var(--vp-c-brand-1)]"
+            :class="{ 'text-white !bg-[var(--vp-c-brand-1)] !border-[var(--vp-c-brand-1)]': page === currentPage }"
             @click="goToPage(page)"
             v-show="Math.abs(page - currentPage) < 3 || page === 1 || page === totalPages"
           >
@@ -189,7 +189,7 @@
           </button>
         </div>
         <button 
-          class="pagination-btn" 
+          class="px-4 py-2 rounded text-sm font-semibold text-white border-0 cursor-pointer transition-all bg-[var(--report-btn-bg)] hover:bg-[var(--report-btn-hover-bg)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed" 
           @click="goToPage(currentPage + 1)" 
           :disabled="currentPage === totalPages"
         >
@@ -370,197 +370,6 @@ const changeSortOrFilter = () => {
 };
 </script>
 
-<style scoped>
+<style>
 @import "tailwindcss" reference;
-
-.insights-container {
-  @apply max-w-7xl mx-auto;
-}
-
-.error-message {
-  @apply p-4 rounded-lg border;
-  background: var(--vp-c-danger-soft);
-  border-color: var(--vp-c-danger-1);
-  color: var(--vp-c-danger-1);
-}
-
-.controls-container {
-  @apply mb-8 p-6 rounded-lg border;
-  background: var(--vp-c-bg-soft);
-  border-color: var(--vp-c-divider);
-}
-
-.controls-row {
-  @apply flex flex-wrap gap-6 mb-4;
-}
-
-.control-group {
-  @apply flex flex-col gap-2 min-w-[150px];
-}
-
-.control-label {
-  @apply text-sm font-semibold;
-  color: var(--vp-c-text-1);
-}
-
-.control-select {
-  @apply px-3 py-2 rounded border text-sm cursor-pointer transition-all;
-  background: var(--report-control-bg);
-  border-color: var(--report-control-border);
-  color: var(--vp-c-text-1);
-}
-
-.control-select:hover {
-  border-color: var(--vp-c-brand-1);
-}
-
-.control-select:focus {
-  @apply outline-none;
-  border-color: var(--vp-c-brand-1);
-  box-shadow: var(--report-control-focus-shadow);
-}
-
-.results-info {
-  @apply text-sm pt-2 border-t;
-  color: var(--vp-c-text-2);
-  border-color: var(--vp-c-divider);
-}
-
-.tests-grid {
-  @apply grid gap-6 mt-6;
-  grid-template-columns: repeat(auto-fill, minmax(var(--report-grid-min-width), 1fr));
-}
-
-@media (max-width: 768px) {
-  .tests-grid {
-    @apply grid-cols-1 gap-4;
-  }
-}
-
-.test-card {
-  @apply p-5 rounded-lg border cursor-pointer transition-all;
-  background: var(--report-card-bg);
-  border-color: var(--report-card-border);
-}
-
-.test-card:hover {
-  border-color: var(--report-card-hover-border);
-  box-shadow: var(--report-card-hover-shadow);
-  transform: var(--report-card-hover-transform);
-}
-
-.test-card-header {
-  @apply flex justify-between items-start mb-3 gap-4;
-}
-
-.test-card-title {
-  @apply font-semibold text-base leading-normal flex-1 break-words;
-}
-
-.test-card-suite {
-  @apply text-xs mb-4 pb-3 border-b break-all;
-  color: var(--vp-c-text-2);
-  border-color: var(--vp-c-divider);
-}
-
-.test-card-metrics {
-  @apply flex flex-col gap-2;
-}
-
-.metric-item {
-  @apply flex items-center gap-2.5 p-1.5 rounded-md transition-colors;
-}
-
-.metric-item:hover {
-  background: var(--vp-c-bg-soft);
-}
-
-.metric-label {
-  @apply flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px];
-  color: var(--vp-c-text-2);
-}
-
-.metric-content {
-  @apply flex-1 min-w-0;
-}
-
-.metric-value {
-  @apply font-semibold text-sm leading-normal;
-}
-
-.metric-change {
-  @apply inline text-xs font-semibold ml-1;
-}
-
-.metric-change.positive {
-  color: var(--vp-c-green-1);
-}
-
-.metric-change.negative {
-  color: var(--vp-c-red-1);
-}
-
-.metric-change.neutral {
-  color: var(--vp-c-text-2);
-}
-
-.status-badge {
-  @apply inline-block px-2 py-1 rounded text-xs font-semibold uppercase;
-}
-
-.rate-badge {
-  @apply inline-block px-2 py-1 rounded font-semibold text-white;
-}
-
-.pagination {
-  @apply flex items-center justify-center gap-4 mt-8 p-6 rounded-lg border;
-  background: var(--vp-c-bg-soft);
-  border-color: var(--vp-c-divider);
-}
-
-.pagination-btn {
-  @apply px-4 py-2 rounded text-sm font-semibold text-white border-0 cursor-pointer transition-all;
-  background: var(--report-btn-bg);
-}
-
-.pagination-btn:hover:not(:disabled) {
-  background: var(--report-btn-hover-bg);
-  @apply -translate-y-0.5;
-}
-
-.pagination-btn:disabled {
-  @apply opacity-50 cursor-not-allowed;
-}
-
-.pagination-pages {
-  @apply flex gap-2;
-}
-
-.pagination-page {
-  @apply px-3 py-2 rounded border text-sm cursor-pointer transition-all min-w-[40px];
-  background: var(--vp-c-bg);
-  color: var(--vp-c-text-1);
-  border-color: var(--vp-c-divider);
-}
-
-.pagination-page:hover {
-  border-color: var(--vp-c-brand-1);
-  color: var(--vp-c-brand-1);
-}
-
-.pagination-page.active {
-  @apply text-white;
-  background: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-}
-
-@media (max-width: 768px) {
-  .controls-row {
-    @apply flex-col;
-  }
-
-  .control-group {
-    @apply min-w-0;
-  }
-}
 </style>
