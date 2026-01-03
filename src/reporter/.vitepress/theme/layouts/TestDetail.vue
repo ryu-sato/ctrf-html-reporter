@@ -2,17 +2,7 @@
   <div class="w-full">
     <div class="flex items-center justify-between mb-6 pb-4 border-b border-[var(--vp-c-divider)]">
       <h3 class="m-0 text-lg font-semibold text-[var(--vp-c-text-1)] flex-1 break-words">{{ test.name }}</h3>
-      <span 
-        class="px-3 py-1 rounded-xl text-xs font-semibold uppercase whitespace-nowrap ml-3"
-        :class="{
-          'bg-[var(--vp-c-green-soft)] text-[var(--vp-c-green-1)]': test.status === 'passed',
-          'bg-[var(--vp-c-red-soft)] text-[var(--vp-c-red-1)]': test.status === 'failed',
-          'bg-[var(--vp-c-yellow-soft)] text-[var(--vp-c-yellow-1)]': test.status === 'skipped',
-          'bg-[var(--vp-c-gray-soft)] text-[var(--vp-c-gray-1)]': test.status === 'pending'
-        }"
-      >
-        {{ test.status.toUpperCase() }}
-      </span>
+      <StatusBadge :type="test.status">{{ test.status.toUpperCase() }}</StatusBadge>
     </div>
     
     <div class="mb-6">
@@ -148,14 +138,7 @@
       <h4 class="m-0 mb-3 text-sm font-semibold text-[var(--vp-c-text-1)] uppercase tracking-wide">Steps</h4>
       <div class="bg-[var(--vp-c-bg)] border border-[var(--vp-c-divider)] rounded-lg p-3">
         <div v-for="(step, index) in test.steps" :key="index" class="p-3 mb-2 last:mb-0 bg-[var(--vp-c-bg-soft)] rounded-md border-l-[3px] border-[var(--vp-c-divider)]">
-          <span 
-            class="inline-block px-2 py-0.5 rounded-lg text-[11px] font-semibold uppercase mr-2"
-            :class="{
-              'bg-[var(--vp-c-green-soft)] text-[var(--vp-c-green-1)]': step.status === 'passed',
-              'bg-[var(--vp-c-red-soft)] text-[var(--vp-c-red-1)]': step.status === 'failed',
-              'bg-[var(--vp-c-yellow-soft)] text-[var(--vp-c-yellow-1)]': step.status === 'skipped'
-            }"
-          >{{ step.status }}</span>
+          <StatusBadge :type="step.status">{{ step.status }}</StatusBadge>
           <span class="text-[var(--vp-c-text-1)] text-[13px]">{{ step.name }}</span>
           <div v-if="step.extra" class="mt-2 pt-2 border-t border-[var(--vp-c-divider)]">
             <pre class="m-0 font-mono text-[11px] text-[var(--vp-c-text-2)]">{{ JSON.stringify(step.extra, null, 2) }}</pre>
@@ -170,13 +153,7 @@
         <div v-for="(attempt, index) in test.retryAttempts" :key="index" class="p-3 mb-3 last:mb-0 bg-[var(--vp-c-bg-soft)] rounded-md border-l-[3px] border-[var(--vp-c-yellow)]">
           <div class="flex justify-between items-center mb-2">
             <span class="font-semibold text-[var(--vp-c-text-1)] text-[13px]">Attempt {{ attempt.attempt }}</span>
-            <span 
-              class="inline-block px-2 py-0.5 rounded-lg text-[11px] font-semibold uppercase"
-              :class="{
-                'bg-[var(--vp-c-green-soft)] text-[var(--vp-c-green-1)]': attempt.status === 'passed',
-                'bg-[var(--vp-c-red-soft)] text-[var(--vp-c-red-1)]': attempt.status === 'failed'
-              }"
-            >{{ attempt.status }}</span>
+            <StatusBadge :type="attempt.status">{{ attempt.status }}</StatusBadge>
           </div>
           <div class="text-xs">
             <div v-if="attempt.duration !== undefined" class="text-[var(--vp-c-text-2)] mb-1">
