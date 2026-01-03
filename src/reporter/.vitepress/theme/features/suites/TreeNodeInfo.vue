@@ -3,7 +3,7 @@
     <h3 class="mt-0 mb-2 text-lg border-b-0">{{ treeNode.name }}</h3>
     
     <div v-if="treeNode.summary" class="text-sm text-[var(--vp-c-text-2)] my-2 flex items-center gap-2 flex-wrap">
-      <Badge :type="getStatusType(treeNode.status)">{{ treeNode.status }}</Badge>
+      <StatusBadge :type="treeNode.status">{{ treeNode.status }}</StatusBadge>
 
       Tests: {{ treeNode.summary.tests || treeNode.tests?.length || 0 }} |
       <span class="inline-flex items-center gap-1 text-[var(--report-status-passed)]"><PassedIcon/> {{ treeNode.summary.passed || 0 }}</span> |
@@ -32,7 +32,7 @@
         </summary>
         <ul class="mt-2 text-sm list-none pl-0">
           <li v-for="(test, testIndex) in treeNode.tests" :key="testIndex" class="my-1 flex items-center gap-3 cursor-pointer p-2 rounded-md transition-colors duration-150 hover:bg-[var(--vp-c-bg-soft)] flex-wrap" @click="handleTestClick(test)">
-            <Badge :type="getStatusType(test.status)" class="text-xs">{{ test.status }}</Badge>
+            <StatusBadge :type="test.status" class="text-xs">{{ test.status }}</StatusBadge>
             <span class="flex-1 min-w-[200px]">{{ test.name }}</span>
             <span class="text-[var(--vp-c-text-3)]">({{ formatDuration(test.duration) }})</span>
             <span v-if="test.flaky" class="text-[var(--report-status-flaky)] inline-flex items-center gap-1"><FlakyIcon/> Flaky</span>
@@ -66,17 +66,6 @@ const selectTest = inject<((test: any) => void) | null>('selectTest', null);
 const handleTestClick = (test: any) => {
   if (selectTest) {
     selectTest(test);
-  }
-};
-
-// Function to get status badge type
-const getStatusType = (status: string) => {
-  switch(status) {
-    case 'passed': return 'success';
-    case 'failed': return 'danger';
-    case 'skipped': return 'warning';
-    case 'pending': return 'info';
-    default: return 'tip';
   }
 };
 </script>

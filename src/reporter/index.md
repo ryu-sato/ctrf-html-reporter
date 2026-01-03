@@ -8,7 +8,7 @@ import { data as richReportWithInsights } from './richReportWithInsights.data.js
 import { data as testTree } from './organizeTestsBySuite.data.js';
 
 // Summary
-const summaryStatus = richReportWithInsights.results.summary.failed > 0 ? 'Failed' : 'Succeeded';
+const summaryStatus = richReportWithInsights.results.summary.failed > 0 ? 'failed' : 'succeeded';
 
 // Hash routing
 const defaultPage = 'overview';
@@ -35,7 +35,7 @@ onBeforeUnmount(() => {
     <div class="flex items-center justify-between pb-6">
       <h1 class="text-3xl font-bold tracking-tight mb-2">Overview</h1>
       <div>
-        <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
+        <StatusBadge :type="summaryStatus">{{ summaryStatus }}</StatusBadge>
       </div>
     </div>
     <!-- Test Summary Section -->

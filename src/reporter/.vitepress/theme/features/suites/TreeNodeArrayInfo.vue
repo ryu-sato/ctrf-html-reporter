@@ -4,7 +4,7 @@
 
     <div v-if="node.summary" class="p-[var(--report-spacing-sm)] bg-[var(--vp-c-bg-soft)] rounded-[var(--report-control-border-radius)] my-[var(--report-spacing-sm)]">
       <div class="flex gap-[var(--report-spacing-lg)] text-[var(--report-control-font-size)] flex-wrap">
-        <Badge :type="getStatusType(node.status)">{{ node.status }}</Badge>
+        <StatusBadge :type="node.status">{{ node.status }}</StatusBadge>
   
         <span class="flex items-center gap-[var(--report-spacing-xs)]">Tests: {{ node.summary.tests || node.tests?.length || 0 }}</span>
         <span class="flex items-center gap-[var(--report-spacing-xs)] text-[var(--report-status-passed)]"><PassedIcon/> {{ node.summary.passed || 0 }}</span>
@@ -34,7 +34,7 @@
           <li v-for="(test, testIndex) in node.tests" :key="testIndex" 
               class="my-[var(--report-spacing-xs)] flex items-center gap-[var(--report-spacing-sm)] cursor-pointer p-[var(--report-spacing-sm)] rounded-[var(--report-control-border-radius)] transition-[background-color] duration-[var(--report-transition-fast)] flex-wrap hover:bg-[var(--vp-c-bg-soft)]" 
               @click="handleTestClick(test)">
-            <Badge :type="getStatusType(test.status)" class="text-[var(--report-badge-font-size)]">{{ test.status }}</Badge>
+            <StatusBadge :type="test.status" class="text-[var(--report-badge-font-size)]">{{ test.status }}</StatusBadge>
             <span class="flex-1 min-w-[200px]">{{ test.name }}</span>
             <span class="text-[var(--vp-c-text-3)]">({{ formatDuration(test.duration) }})</span>
             <span v-if="test.flaky" class="text-[var(--report-status-flaky)] flex items-center gap-[var(--report-spacing-xs)]"><FlakyIcon/> Flaky</span>
@@ -71,17 +71,6 @@ const selectTest = inject<((test: any) => void) | null>('selectTest', null);
 const handleTestClick = (test: any) => {
   if (selectTest) {
     selectTest(test);
-  }
-};
-
-// Function to get status badge type
-const getStatusType = (status: string) => {
-  switch(status) {
-    case 'passed': return 'success';
-    case 'failed': return 'danger';
-    case 'skipped': return 'warning';
-    case 'pending': return 'info';
-    default: return 'tip';
   }
 };
 </script>

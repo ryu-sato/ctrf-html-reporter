@@ -133,7 +133,7 @@
     <div v-if="test.tags && test.tags.length > 0" class="mb-6">
       <h4 class="m-0 mb-3 text-sm font-semibold text-[var(--vp-c-text-1)] uppercase tracking-wide">Tags</h4>
       <div class="flex flex-wrap gap-2">
-        <Badge v-for="tag in test.tags" :key="tag" type="tip">{{ tag }}</Badge>
+        <StatusBadge v-for="tag in test.tags" :key="tag" type="tip">{{ tag }}</StatusBadge>
       </div>
     </div>
 
