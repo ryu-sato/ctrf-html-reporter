@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div class="filter-controls">
-      <div class="filter-group">
-        <label class="filter-label">
+    <div class="mb-8 p-4 rounded-lg bg-[var(--vp-c-bg-soft)]">
+      <div class="flex flex-col gap-2">
+        <label class="font-medium text-sm">
           Filter by minimum duration: {{ formatDuration(minDuration) }}
         </label>
-        <div class="duration-input">
+        <div class="flex items-center gap-4">
           <input 
             type="range" 
             v-model.number="minDuration" 
             :min="0" 
             :max="maxDurationInTests" 
             :step="100"
+            class="flex-1 min-w-[200px]"
           />
           <input 
             type="number" 
@@ -20,29 +21,30 @@
             :max="maxDurationInTests"
             :step="100"
             placeholder="ms"
+            class="w-[100px] px-2 py-2 border rounded bg-[var(--vp-c-bg)] text-[var(--vp-c-text-1)] border-[var(--vp-c-divider)]"
           />
-          <span style="font-size: 0.875rem; color: var(--vp-c-text-2);">
+          <span class="text-sm text-[var(--vp-c-text-2)]">
             Showing {{ filteredTests.length }} / {{ allTests.length }} tests
           </span>
         </div>
       </div>
     </div>
 
-    <div class="timeline-chart" v-if="filteredTests.length > 0 && testGroups.length > 0">
-      <div class="time-scale">
+    <div class="mb-8" v-if="filteredTests.length > 0 && testGroups.length > 0">
+      <div class="flex justify-between items-center py-2 text-xs border-b mb-4 text-[var(--vp-c-text-2)] border-[var(--vp-c-divider)]">
         <span>{{ formatDateTime(timeRange.min, 'ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 }) }}</span>
         <span>Timeline</span>
         <span>{{ formatDateTime(timeRange.max, 'ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 }) }}</span>
       </div>
-      <div v-for="(groupItem, groupIndex) in testGroups" :key="groupItem?.suite || `group-${groupIndex}`" class="suite-group">
-        <div class="suite-header">{{ groupItem?.suite || 'Unknown Suite' }}</div>
-        <div v-for="(testItem, testIndex) in (groupItem?.tests || [])" :key="testItem?.id || `test-${groupIndex}-${testIndex}`" class="test-row" @click="handleTestClick(testItem)">
-          <div class="test-label" :title="testItem?.name || ''">
+      <div v-for="(groupItem, groupIndex) in testGroups" :key="groupItem?.suite || `group-${groupIndex}`" class="mb-8">
+        <div class="font-semibold text-base py-2 border-b mb-2 break-words text-[var(--vp-c-text-1)] border-[var(--vp-c-divider)]">{{ groupItem?.suite || 'Unknown Suite' }}</div>
+        <div v-for="(testItem, testIndex) in (groupItem?.tests || [])" :key="testItem?.id || `test-${groupIndex}-${testIndex}`" class="flex items-center mb-2 min-h-[32px] cursor-pointer px-1 rounded transition-colors hover:bg-[var(--vp-c-bg-soft)]" @click="handleTestClick(testItem)">
+          <div class="w-[300px] text-sm pr-4 overflow-hidden text-ellipsis whitespace-nowrap flex-shrink-0" :title="testItem?.name || ''">
             {{ testItem?.name || 'Unknown Test' }}
           </div>
-          <div class="test-timeline">
+          <div class="flex-1 relative h-6 rounded bg-[var(--vp-c-bg-mute)] flex items-center">
             <div 
-              class="test-bar" 
+              class="absolute h-full rounded transition-opacity cursor-pointer overflow-hidden hover:opacity-80" 
               :style="{
                 ...calculateBarStyle(testItem),
                 backgroundColor: getStatusColor(testItem?.status)
@@ -50,19 +52,19 @@
               :title="`${testItem?.name || 'Unknown'}\nStatus: ${testItem?.status || 'unknown'}\nDuration: ${formatDuration(testItem?.duration)}\nStart: ${formatDateTime(testItem?.start || 0, 'ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 })}\nEnd: ${formatDateTime(testItem?.stop || 0, 'ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 })}`"
             >
             </div>
-            <span class="test-duration-label">
+            <span class="absolute left-0 right-0 flex items-center h-full px-2 text-xs font-medium whitespace-nowrap pointer-events-none z-[1] text-[var(--vp-c-text-1)]">
               {{ formatDuration(testItem?.duration) }}
             </span>
           </div>
-          <div class="test-info">
+          <div class="w-[120px] pl-4 text-xs text-right flex-shrink-0 text-[var(--vp-c-text-2)]">
             {{ formatDuration(testItem?.duration) }}
           </div>
         </div>
       </div>
     </div>
-    <div v-else class="no-tests">
+    <div v-else class="text-center py-12 text-[var(--vp-c-text-2)]">
       <p>No tests match the current filter criteria.</p>
-      <p style="font-size: 0.875rem; margin-top: 0.5rem;">
+      <p class="text-sm mt-2">
         Try adjusting the minimum duration filter.
       </p>
     </div>
@@ -192,168 +194,3 @@ const getStatusColor = (status: string) => {
   return colors[status] || colors.other;
 };
 </script>
-
-<style scoped>
-/* =========================
-   Filter Controls
-   ========================= */
-.filter-controls {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 0.5rem;
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.filter-label {
-  font-weight: 500;
-  font-size: 0.875rem;
-}
-
-.duration-input {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.duration-input input[type="range"] {
-  flex: 1;
-  min-width: 200px;
-}
-
-.duration-input input[type="number"] {
-  width: 100px;
-  padding: 0.5rem;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 0.25rem;
-  background: var(--vp-c-bg);
-  color: var(--vp-c-text-1);
-}
-
-/* =========================
-   Timeline Chart
-   ========================= */
-.timeline-chart {
-  margin-bottom: 2rem;
-}
-
-.time-scale {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 0;
-  font-size: 0.75rem;
-  color: var(--vp-c-text-2);
-  border-bottom: 1px solid var(--vp-c-divider);
-  margin-bottom: 1rem;
-}
-
-/* =========================
-   Suite Group
-   ========================= */
-.suite-group {
-  margin-bottom: 2rem;
-}
-
-.suite-header {
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.5rem 0;
-  color: var(--vp-c-text-1);
-  border-bottom: 1px solid var(--vp-c-divider);
-  margin-bottom: 0.5rem;
-  word-break: break-word;
-}
-
-/* =========================
-   Test Row
-   ========================= */
-.test-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  min-height: 32px;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  transition: background-color 0.2s;
-}
-
-.test-row:hover {
-  background-color: var(--vp-c-bg-soft);
-}
-
-.test-label {
-  width: 300px;
-  font-size: 0.875rem;
-  padding-right: 1rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* =========================
-   Timeline Bar
-   ========================= */
-.test-timeline {
-  flex: 1;
-  position: relative;
-  height: 24px;
-  background: var(--vp-c-bg-mute);
-  border-radius: 0.25rem;
-  display: flex;
-  align-items: center;
-}
-
-.test-bar {
-  position: absolute;
-  height: 100%;
-  border-radius: 0.25rem;
-  transition: opacity 0.2s;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.test-bar:hover {
-  opacity: 0.8;
-}
-
-.test-duration-label {
-  position: absolute;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 0 0.5rem;
-  font-size: 0.75rem;
-  color: var(--vp-c-text-1);
-  font-weight: 500;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.test-info {
-  width: 120px;
-  padding-left: 1rem;
-  font-size: 0.75rem;
-  color: var(--vp-c-text-2);
-  text-align: right;
-  flex-shrink: 0;
-}
-
-/* =========================
-   No Tests
-   ========================= */
-.no-tests {
-  text-align: center;
-  padding: 3rem;
-  color: var(--vp-c-text-2);
-}
-</style>
