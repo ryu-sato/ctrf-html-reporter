@@ -369,7 +369,3 @@ const changeSortOrFilter = () => {
   currentPage.value = 1;
 };
 </script>
-
-<style>
-@import "tailwindcss" reference;
-</style>
