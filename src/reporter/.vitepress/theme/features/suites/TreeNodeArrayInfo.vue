@@ -17,7 +17,7 @@
     </div>
     </div>
 
-    <div v-if="node.suites && node.suites.length > 0" class="suites-container">
+    <div v-if="node.suites && node.suites.length > 0" class="ml-4">
       <TreeNodeInfo
         v-for="(suite, suiteIndex) in node.suites" 
         :key="suiteIndex"
@@ -25,9 +25,9 @@
       />
     </div>
 
-    <div v-if="node.tests && node.tests.length > 0" class="tests-container">
+    <div v-if="node.tests && node.tests.length > 0" class="ml-4 mt-2">
       <details open>
-        <summary class="tests-summary">
+        <summary class="cursor-pointer text-sm select-none">
           Show {{ node.tests.length }} test(s)
         </summary>
         <ul class="tests-list">
