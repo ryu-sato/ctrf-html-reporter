@@ -97,8 +97,8 @@
           </div>
           <div class="text-xs mb-4 pb-3 border-b break-all text-[var(--vp-c-text-2)] border-[var(--vp-c-divider)]">{{ test.suite }}</div>
           <div class="flex flex-col gap-2">
-            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
-              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">Pass Rate</div>
+            <div class="flex items-center gap-2.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 min-w-[90px] text-[var(--vp-c-text-2)]">Pass Rate</div>
               <div class="flex-1 min-w-0">
                 <div class="font-semibold text-sm leading-normal">
                   <PercentFormatter :value="test.insights?.passRate?.current" />
@@ -110,8 +110,8 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
-              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">Flaky Rate</div>
+            <div class="flex items-center gap-2.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 min-w-[90px] text-[var(--vp-c-text-2)]">Flaky Rate</div>
               <div class="flex-1 min-w-0">
                 <div class="font-semibold text-sm leading-normal">
                   <PercentFormatter :value="test.insights?.flakyRate?.current" />
@@ -123,8 +123,8 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
-              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">Fail Rate</div>
+            <div class="flex items-center gap-2.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 min-w-[90px] text-[var(--vp-c-text-2)]">Fail Rate</div>
               <div class="flex-1 min-w-0">
                 <div class="font-semibold text-sm leading-normal">
                   <PercentFormatter :value="test.insights?.failRate?.current" />
@@ -136,8 +136,8 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
-              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">Avg Duration</div>
+            <div class="flex items-center gap-2.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 min-w-[90px] text-[var(--vp-c-text-2)]">Avg Duration</div>
               <div class="flex-1 min-w-0">
                 <div class="font-semibold text-sm leading-normal">
                   {{ test.insights?.averageTestDuration?.current }}ms
@@ -149,8 +149,8 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-2.5 p-1.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
-              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 py-1 min-w-[90px] text-[var(--vp-c-text-2)]">P95 Duration</div>
+            <div class="flex items-center gap-2.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+              <div class="flex-shrink-0 text-xs font-semibold uppercase tracking-wide px-2 min-w-[90px] text-[var(--vp-c-text-2)]">P95 Duration</div>
               <div class="flex-1 min-w-0">
                 <div class="font-semibold text-sm leading-normal">
                   {{ test.insights?.p95TestDuration?.current }}ms

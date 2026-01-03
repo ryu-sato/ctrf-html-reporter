@@ -24,7 +24,7 @@
     </div>
 
     <!-- Two-column table layout -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div class="grid grid-cols-1 2xl:grid-cols-2 gap-2">
       <!-- Rate Metrics Table -->
       <div class="overflow-x-auto min-w-0" v-if="hasRateMetrics">
         <table class="w-full border-collapse text-sm">
