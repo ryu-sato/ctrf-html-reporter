@@ -56,7 +56,7 @@
           @change="toggleFlakySelected"
           class="mr-2 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vp-c-brand-1)]"
         />
-        <span class="flex items-center gap-1 text-sm"><FlakyIcon/>Flaky</span>
+        <span class="flex items-center gap-1 text-sm text-[var(--report-status-flaky)]"><FlakyIcon/>Flaky</span>
       </label>
     </div>
 
