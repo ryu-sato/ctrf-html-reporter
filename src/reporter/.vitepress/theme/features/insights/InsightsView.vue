@@ -68,7 +68,7 @@
             v-for="page in totalPages"
             :key="page"
             class="px-3 py-2 rounded border text-sm cursor-pointer transition-all min-w-[40px] bg-[var(--vp-c-bg)] text-[var(--vp-c-text-1)] border-[var(--vp-c-divider)] hover:border-[var(--vp-c-brand-1)] hover:text-[var(--vp-c-brand-1)]"
-            :class="{ 'text-white !bg-[var(--vp-c-brand-1)] !border-[var(--vp-c-brand-1)]': page === currentPage }"
+            :class="{ 'text-white bg-[var(--vp-c-brand-1)] border-[var(--vp-c-brand-1)]': page === currentPage }"
             @click="goToPage(page)"
             v-show="Math.abs(page - currentPage) < 3 || page === 1 || page === totalPages"
           >
@@ -181,7 +181,7 @@
             v-for="page in totalPages"
             :key="page"
             class="px-3 py-2 rounded border text-sm cursor-pointer transition-all min-w-[40px] bg-[var(--vp-c-bg)] text-[var(--vp-c-text-1)] border-[var(--vp-c-divider)] hover:border-[var(--vp-c-brand-1)] hover:text-[var(--vp-c-brand-1)]"
-            :class="{ 'text-white !bg-[var(--vp-c-brand-1)] !border-[var(--vp-c-brand-1)]': page === currentPage }"
+            :class="{ 'text-white bg-[var(--vp-c-brand-1)] border-[var(--vp-c-brand-1)]': page === currentPage }"
             @click="goToPage(page)"
             v-show="Math.abs(page - currentPage) < 3 || page === 1 || page === totalPages"
           >
