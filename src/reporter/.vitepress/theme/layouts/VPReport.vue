@@ -97,7 +97,7 @@ const handleResize = (event: MouseEvent | TouchEvent) => {
   if (!isResizing.value) return
 
   const currentX = event.type.includes('mouse') ? (event as MouseEvent).clientX : (event as TouchEvent).touches[0].clientX
-  const container = document.querySelector('.report-main-area')
+  const container = document.querySelector('.flex.w-full.overflow-hidden.relative')
   if (!container) return
 
   const containerWidth = (container as HTMLElement).offsetWidth
