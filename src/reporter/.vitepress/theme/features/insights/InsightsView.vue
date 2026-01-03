@@ -93,9 +93,7 @@
         >
           <div class="flex justify-between items-start mb-3 gap-4">
             <div class="font-semibold text-base leading-normal flex-1 break-words">{{ test.name }}</div>
-            <span class="inline-block px-2 py-1 rounded text-xs font-semibold uppercase text-white" :style="{ background: getStatusColor(test.status) }">
-              {{ test.status }}
-            </span>
+            <StatusBadge :type="test.status">{{ test.status }}</StatusBadge>
           </div>
           <div class="text-xs mb-4 pb-3 border-b break-all text-[var(--vp-c-text-2)] border-[var(--vp-c-divider)]">{{ test.suite }}</div>
           <div class="flex flex-col gap-2">
