@@ -8,7 +8,7 @@ import { data as richReportWithInsights } from './richReportWithInsights.data.js
 import { data as testTree } from './organizeTestsBySuite.data.js';
 
 // Summary
-const summaryStatus = richReportWithInsights.results.summary.failed > 0 ? 'Failed' : 'Succeeded';
+const summaryStatus = richReportWithInsights.results.summary.failed > 0 ? 'failed' : 'succeeded';
 
 // Hash routing
 const defaultPage = 'overview';
@@ -35,7 +35,7 @@ onBeforeUnmount(() => {
     <div class="flex items-center justify-between pb-6">
       <h1 class="text-3xl font-bold tracking-tight mb-2">Overview</h1>
       <div>
-        <Badge :type="summaryStatus === 'Failed' ? 'danger' : 'success'">{{ summaryStatus }}</Badge>
+        <StatusBadge :type="summaryStatus">{{ summaryStatus }}</StatusBadge>
       </div>
     </div>
     <!-- Test Summary Section -->
@@ -55,7 +55,7 @@ onBeforeUnmount(() => {
   </div>
 
   <div v-show="activePage === 'suites'" class="hash-content">
-    <h1>Suites</h1>
+    <h1 class="text-3xl font-bold tracking-tight mb-2">Suites</h1>
     <SummaryView
       v-if="testTree.summary"
       :summary="testTree.summary"
@@ -68,7 +68,7 @@ onBeforeUnmount(() => {
   </div>
 
   <div v-show="activePage === 'insights'" class="hash-content">
-    <h1>Insights</h1>
+    <h1 class="text-3xl font-bold tracking-tight mb-2">Insights</h1>
     <TestInsightsInfo
       v-if="richReportWithInsights.insights"
       :insights="richReportWithInsights.insights"
@@ -88,7 +88,7 @@ onBeforeUnmount(() => {
         :showTotalDuration="true"
       />
     </details>
-    <h2>Tests</h2>
+    <h2 class="text-xl font-bold tracking-tight mb-2">Tests</h2>
     <InsightsView
       :report="richReportWithInsights"
       :error="richReportWithInsights?.error"
@@ -96,7 +96,7 @@ onBeforeUnmount(() => {
   </div>
 
   <div v-show="activePage === 'timeline'" class="hash-content">
-    <h1>Timeline</h1>
+    <h1 class="text-3xl font-bold tracking-tight mb-2">Timeline</h1>
     <p>Gantt chart visualization of test execution timeline with duration filtering</p>
     <details>
       <summary>Summary</summary>

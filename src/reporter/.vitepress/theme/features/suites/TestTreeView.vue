@@ -1,5 +1,5 @@
 <template>
-  <div class="test-tree-view">
+  <div class="my-4">
     <!-- Filter Component -->
     <TestFilter
       :selectedStatuses="selectedStatuses"
@@ -12,8 +12,8 @@
     />
 
     <!-- No results message -->
-    <div v-if="filteredNodes.length === 0" class="no-results">
-      <p>No tests match the selected filters.</p>
+    <div v-if="filteredNodes.length === 0" class="p-8 text-center rounded-lg my-4 bg-[var(--vp-c-bg-soft)]">
+      <p class="text-base m-0 text-[var(--vp-c-text-2)]">No tests match the selected filters.</p>
     </div>
 
     <div v-else>
@@ -152,34 +152,3 @@ const filteredNodes = computed(() => {
   });
 });
 </script>
-
-<style scoped>
-@import "tailwindcss" reference;
-
-.test-tree-view {
-  @apply my-4;
-}
-
-.no-results {
-  @apply p-8 text-center rounded-lg my-4;
-  background-color: var(--vp-c-bg-soft);
-}
-
-.no-results p {
-  @apply text-base m-0;
-  color: var(--vp-c-text-2);
-}
-
-.suites-container {
-  @apply ml-4;
-}
-
-.tests-container {
-  @apply ml-4 mt-2;
-}
-
-.tests-summary {
-  @apply cursor-pointer text-sm select-none;
-  color: var(--vp-c-text-2);
-}
-</style>

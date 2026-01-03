@@ -1,16 +1,16 @@
 <template>
-  <div class="Layout">
+  <div class="flex flex-col">
     <slot name="report-top" />
 
-    <div class="report-container">
-      <div class="container">
+    <div class="mx-auto w-full">
+      <div class="mx-auto w-full max-w-full">
         <!-- Main Content Area -->
-        <div class="report-main-area">
+        <div class="flex w-full overflow-hidden relative" :style="{ height: 'calc(100vh - var(--vp-nav-height) - 0)' }">
           <!-- Content Area -->
-          <div class="report-content" :style="{ width: isDetailCollapsed ? '100%' : contentWidth + '%' }">
-            <div class="content-container">
+          <div class="overflow-y-auto overflow-x-hidden transition-[width] duration-100 ease-in-out relative pt-12 px-12 h-full" :style="{ width: isDetailCollapsed ? '100%' : contentWidth + '%' }">
+            <div class="mx-auto max-w-full">
               <slot name="report-before" />
-              <main class="main">
+              <main class="mx-auto w-full">
                 <Content />
               </main>
               <slot name="report-after" />
@@ -20,27 +20,27 @@
           <!-- Resize Handle -->
           <div
             v-if="!isDetailCollapsed"
-            class="report-resizer"
+            class="w-2 bg-[var(--vp-c-divider)] cursor-col-resize relative flex-shrink-0 transition-colors duration-200 flex items-center justify-center hover:bg-[var(--vp-c-brand-1)] active:bg-[var(--vp-c-brand-2)]"
             @mousedown="startResize"
             @touchstart="startResize"
           >
-            <div class="resizer-handle"></div>
+            <div class="w-0.5 h-12 bg-[var(--vp-c-bg-alt)] rounded"></div>
           </div>
 
           <!-- Test Detail Area -->
           <div
-            class="report-detail"
-            :class="{ 'is-collapsed': isDetailCollapsed }"
+            class="overflow-y-auto overflow-x-hidden py-8 px-6 bg-[var(--vp-c-bg-soft)] transition-all duration-300 ease-in-out min-w-0"
+            :class="{ 'w-12 min-w-[48px] px-2 overflow-hidden': isDetailCollapsed }"
             :style="{ width: isDetailCollapsed ? 'auto' : detailWidth + '%' }"
           >
-            <div class="detail-container">
-              <div v-if="!selectedTest" class="detail-empty">
-                <DocumentTextIcon style="width: 16px; height: 16px;" aria-label="Test detail panel - Select a test to view details" />
-                <p>Select a test to view details</p>
+            <div class="max-w-full">
+              <div v-if="!selectedTest" class="flex flex-col items-center justify-center h-full text-[var(--vp-c-text-2)] gap-2">
+                <DocumentTextIcon :class="isDetailCollapsed ? '[writing-mode:vertical-rl] text-2xl' : 'text-[32px] opacity-50'" style="width: 16px; height: 16px;" aria-label="Test detail panel - Select a test to view details" />
+                <p v-if="!isDetailCollapsed" class="text-sm text-center whitespace-nowrap">Select a test to view details</p>
               </div>
-              <div v-else class="detail-content">
+              <div v-else class="w-full animate-[fadeIn_0.2s_ease-in] relative">
                 <button
-                  class="close-button"
+                  class="sticky top-0 right-0 z-10 float-right w-8 h-8 border-0 bg-[var(--vp-c-bg)] text-[var(--vp-c-text-2)] rounded-md cursor-pointer flex items-center justify-center text-lg transition-all duration-200 mb-2 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:bg-[var(--vp-c-red-soft)] hover:text-[var(--vp-c-red-1)] hover:scale-105 active:scale-95"
                   @click="closeDetail"
                   title="Close detail panel"
                 >
@@ -97,7 +97,7 @@ const handleResize = (event: MouseEvent | TouchEvent) => {
   if (!isResizing.value) return
 
   const currentX = event.type.includes('mouse') ? (event as MouseEvent).clientX : (event as TouchEvent).touches[0].clientX
-  const container = document.querySelector('.report-main-area')
+  const container = document.querySelector('.flex.w-full.overflow-hidden.relative')
   if (!container) return
 
   const containerWidth = (container as HTMLElement).offsetWidth
@@ -153,174 +153,7 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
-.Layout {
-  display: flex;
-  flex-direction: column;
-}
-
-.report-container {
-  margin: 0 auto;
-  width: 100%;
-}
-
-.container {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 100%;
-}
-
-.report-main-area {
-  display: flex;
-  width: 100%;
-  height: calc(100vh - var(--vp-nav-height) - 0);
-  overflow: hidden;
-  position: relative;
-}
-
-
-.report-content {
-  overflow-y: auto;
-  overflow-x: hidden;
-  transition: width 0.1s ease;
-  position: relative;
-  padding: 48px 48px 0;
-  height: 100%;
-}
-
-.content-container {
-  margin: 0 auto;
-  max-width: 100%;
-}
-
-.main {
-  margin: 0 auto;
-  width: 100%;
-}
-
-.vp-doc {
-  max-width: 100%;
-}
-
-.report-resizer {
-  width: 8px;
-  background: var(--vp-c-divider);
-  cursor: col-resize;
-  position: relative;
-  flex-shrink: 0;
-  transition: background 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.report-resizer:hover {
-  background: var(--vp-c-brand-1);
-}
-
-.report-resizer:active {
-  background: var(--vp-c-brand-2);
-}
-
-.resizer-handle {
-  width: 2px;
-  height: 48px;
-  background: var(--vp-c-bg-alt);
-  border-radius: 2px;
-}
-
-.report-detail {
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 32px 24px;
-  background: var(--vp-c-bg-soft);
-  transition: all 0.3s ease;
-  min-width: 0;
-}
-
-.report-detail.is-collapsed {
-  width: 48px !important;
-  min-width: 48px;
-  padding: 32px 8px;
-  overflow: hidden;
-}
-
-.detail-container {
-  max-width: 100%;
-}
-
-.detail-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: var(--vp-c-text-2);
-  gap: 8px;
-}
-
-.empty-icon {
-  font-size: 32px;
-  opacity: 0.5;
-}
-
-.detail-empty p {
-  font-size: 14px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.is-collapsed .detail-empty {
-  padding: 0;
-}
-
-.is-collapsed .detail-empty p {
-  display: none;
-}
-
-.is-collapsed .empty-icon {
-  writing-mode: vertical-rl;
-  font-size: 24px;
-}
-
-.detail-content {
-  width: 100%;
-  animation: fadeIn 0.2s ease-in;
-  position: relative;
-}
-
-.close-button {
-  position: sticky;
-  top: 0;
-  right: 0;
-  z-index: 10;
-  float: right;
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: var(--vp-c-bg);
-  color: var(--vp-c-text-2);
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all 0.2s ease;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.close-button:hover {
-  background: var(--vp-c-red-soft);
-  color: var(--vp-c-red-1);
-  transform: scale(1.05);
-}
-
-.close-button:active {
-  transform: scale(0.95);
-}
-
+<style>
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -332,43 +165,37 @@ onUnmounted(() => {
   }
 }
 
-/* Scrollbar styles */
-.report-content::-webkit-scrollbar,
-.report-detail::-webkit-scrollbar {
+/* Scrollbar styles for content and detail areas */
+.overflow-y-auto::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-.report-content::-webkit-scrollbar-track,
-.report-detail::-webkit-scrollbar-track {
+.overflow-y-auto::-webkit-scrollbar-track {
   background: var(--vp-c-bg);
 }
 
-.report-content::-webkit-scrollbar-thumb,
-.report-detail::-webkit-scrollbar-thumb {
+.overflow-y-auto::-webkit-scrollbar-thumb {
   background: var(--vp-c-divider);
   border-radius: 4px;
 }
 
-.report-content::-webkit-scrollbar-thumb:hover,
-.report-detail::-webkit-scrollbar-thumb:hover {
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
   background: var(--vp-c-text-3);
 }
 
 /* Responsive styles */
 @media (max-width: 960px) {
-  .report-main-area {
+  .flex.w-full.overflow-hidden.relative {
     flex-direction: column;
   }
   
-  .report-content,
-  .report-detail {
+  .overflow-y-auto.overflow-x-hidden {
     width: 100% !important;
   }
   
-  .report-resizer {
+  .cursor-col-resize {
     display: none;
   }
 }
-
 </style>
