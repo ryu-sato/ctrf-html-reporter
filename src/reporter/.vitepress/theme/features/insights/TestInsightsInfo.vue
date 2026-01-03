@@ -236,16 +236,16 @@ const hasDurationMetrics = computed(() => {
 const getCurrentStyle = (key: string, value: number, type: string): Record<string, string> => {
   if (type === 'percent') {
     if (key === 'passRate') {
-      if (value >= 95) return { color: 'var(--vp-c-green-1)', fontWeight: 'bold' };
-      if (value >= 80) return { color: 'var(--vp-c-yellow-1)', fontWeight: 'bold' };
-      return { color: 'var(--vp-c-red-1)', fontWeight: 'bold' };
+      if (value >= 95) return { color: 'var(--vp-c-green-1) !important', fontWeight: 'bold !important' };
+      if (value >= 80) return { color: 'var(--vp-c-yellow-1) !important', fontWeight: 'bold !important' };
+      return { color: 'var(--vp-c-red-1) !important', fontWeight: 'bold !important' };
     } else if (key === 'failRate' || key === 'flakyRate') {
-      if (value <= 5) return { color: 'var(--vp-c-green-1)', fontWeight: 'bold' };
-      if (value <= 10) return { color: 'var(--vp-c-yellow-1)', fontWeight: 'bold' };
-      return { color: 'var(--vp-c-red-1)', fontWeight: 'bold' };
+      if (value <= 5) return { color: 'var(--vp-c-green-1) !important', fontWeight: 'bold !important' };
+      if (value <= 10) return { color: 'var(--vp-c-yellow-1) !important', fontWeight: 'bold !important' };
+      return { color: 'var(--vp-c-red-1) !important', fontWeight: 'bold !important' };
     }
   }
-  return { fontWeight: 'bold' };
+  return { fontWeight: 'bold !important' };
 };
 
 const getChangeClass = (change: number, invert: boolean): string => {
