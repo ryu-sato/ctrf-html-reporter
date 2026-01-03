@@ -37,7 +37,7 @@
             <span class="text-[var(--vp-c-text-3)]">({{ formatDuration(test.duration) }})</span>
             <span v-if="test.flaky" class="text-[var(--report-status-flaky)] inline-flex items-center gap-1"><FlakyIcon/> Flaky</span>
             <div v-if="test.tags && test.tags.length > 0" class="flex gap-1 flex-wrap w-full mt-1">
-              <span v-for="(tag, tagIndex) in test.tags" :key="tagIndex" class="inline-block py-0.5 px-2 bg-[var(--vp-c-bg-mute)] border border-[var(--vp-c-divider)] rounded-xl text-xs text-[var(--vp-c-text-2)]">{{ tag }}</span>
+              <StatusBadge v-for="(tag, tagIndex) in test.tags" :key="tagIndex" :type="tip">{{ tag }}</StatusBadge>
             </div>
           </li>
         </ul>
