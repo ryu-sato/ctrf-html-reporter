@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.11
+
+### Patch Changes
+
+- [#48](https://github.com/ryu-sato/ctrf-html-reporter/pull/48) [`05751db`](https://github.com/ryu-sato/ctrf-html-reporter/commit/05751db74d745798e4f0f4754c3871a969234c0d) Thanks [@ryu-sato](https://github.com/ryu-sato)! - imprv: Styles have been adjusted to match Tailwind CSS.
+
 ## 1.1.10
 
 ### Patch Changes
