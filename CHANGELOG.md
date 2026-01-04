@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.12
+
+### Patch Changes
+
+- [#50](https://github.com/ryu-sato/ctrf-html-reporter/pull/50) [`c501105`](https://github.com/ryu-sato/ctrf-html-reporter/commit/c501105a905a88786b79853cd6ca23c235515c5b) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Modify the path to custom.css so it remains applied after the build process.
+
 ## 1.1.11
 
 ### Patch Changes
