@@ -8,7 +8,8 @@
    ========================= */
 @theme {
   /* Custom content paths */
-  --content: "src/reporter/**/*.{vue,js,ts,jsx,tsx,md}";
+  /* The path must be valid for both the source and the build artifacts. */
+  --content: "{dist,src}/reporter/**/*.{vue,js,ts,jsx,tsx,md}";
 }
 
 /* =========================
