@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
@@ -13,6 +14,9 @@ export default defineConfig({
     ssr: {
       noExternal: ['ctrf', 'chart.js']
     },
+    plugins: [
+      tailwindcss(),
+    ],
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
