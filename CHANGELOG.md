@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.13
+
+### Patch Changes
+
+- [#52](https://github.com/ryu-sato/ctrf-html-reporter/pull/52) [`10e196f`](https://github.com/ryu-sato/ctrf-html-reporter/commit/10e196f8ed0abd792918a1648b86f528bb7c4f61) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Changed the dependency from @tailwindcss/postcss to @tailwindcss/vite and updated the related configuration.
+
 ## 1.1.12
 
 ### Patch Changes
