@@ -4,15 +4,6 @@
 @import "tailwindcss" important;
 
 /* =========================
-   Tailwind CSS v4 Theme Configuration
-   ========================= */
-@theme {
-  /* Custom content paths */
-  /* The path must be valid for both the source and the build artifacts. */
-  --content: "{dist,src}/reporter/**/*.{vue,js,ts,jsx,tsx,md}";
-}
-
-/* =========================
    VitePress Badge Overrides
    ========================= */
 :root {
