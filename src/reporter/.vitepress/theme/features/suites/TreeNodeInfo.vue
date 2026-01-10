@@ -52,7 +52,7 @@ import { inject } from 'vue';
 import type { TreeNode } from 'ctrf';
 import { formatDuration } from '../../../helpers/formatter';
 
-const props = defineProps({
+defineProps({
   treeNode: {
     type: Object as () => TreeNode,
     required: true

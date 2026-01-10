@@ -248,17 +248,6 @@ const shouldShowChange = computed(() => {
   return (enrichedReport.value?.insights?.runsAnalyzed ?? 0) > 1;
 });
 
-// Get status color
-const getStatusColor = (status: string): string => {
-  const colors: Record<string, string> = {
-    passed: 'var(--vp-c-green-1)',
-    failed: 'var(--vp-c-red-1)',
-    skipped: 'var(--vp-c-yellow-1)',
-    pending: 'var(--vp-c-text-2)'
-  };
-  return colors[status] || 'var(--vp-c-text-2)';
-};
-
 const getChangeClass = (change: number, invert: boolean): string => {
   if (change === 0) return 'neutral';
 

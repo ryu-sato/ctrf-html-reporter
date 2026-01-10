@@ -121,7 +121,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, h, inject } from 'vue';
+import { computed, inject } from 'vue';
 import DateTimeFormatter from '../../components/DateTimeFormatter.vue';
 import { formatDuration, formatLabel, formatValue } from '../../../helpers/formatter';
 import { ClockIcon, CalendarIcon, DocumentTextIcon, WrenchScrewdriverIcon, FingerPrintIcon } from '@heroicons/vue/16/solid';
