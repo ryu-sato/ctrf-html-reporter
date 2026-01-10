@@ -1,5 +1,15 @@
 # ctrf-html-reporter
 
+## 1.1.14
+
+### Patch Changes
+
+- [#54](https://github.com/ryu-sato/ctrf-html-reporter/pull/54) [`90cd212`](https://github.com/ryu-sato/ctrf-html-reporter/commit/90cd212a956831788b5bece935eb8cd7977bda6d) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Remove deprecated method.
+
+- [#56](https://github.com/ryu-sato/ctrf-html-reporter/pull/56) [`557345e`](https://github.com/ryu-sato/ctrf-html-reporter/commit/557345eb782e6b66c42b3566acace1406a066b69) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Remove unused functions. Add linter (eslint).
+
+- [#57](https://github.com/ryu-sato/ctrf-html-reporter/pull/57) [`6325b82`](https://github.com/ryu-sato/ctrf-html-reporter/commit/6325b8202ca5bf05e336eb3d00c575b02310a18c) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Stop report data injection.
+
 ## 1.1.13
 
 ### Patch Changes
