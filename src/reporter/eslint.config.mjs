@@ -29,6 +29,11 @@ export default [
     },
   },
   {
-    ignores: ['node_modules/', '.vitepress/cache/', '**/.vitepress/cache/'],
+    ignores: [
+      'node_modules/',
+      '.vitepress/cache/',
+      '.vitepress/dist/',
+      '**/.vitepress/cache/'
+    ],
   },
 ]
