@@ -51,6 +51,7 @@ onBeforeUnmount(() => {
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
       <ReportInfo :report="richReportWithInsights" />
       <EnvironmentInfo :environment="richReportWithInsights.results.environment" />
+      <ToolInfo :tool="richReportWithInsights.results.tool" />
     </div>
   </div>
 
