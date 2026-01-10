@@ -128,17 +128,22 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import { formatLabel, formatValue } from '../../../helpers/formatter';
 import { ArrowTopRightOnSquareIcon, HashtagIcon, TagIcon } from '@heroicons/vue/16/solid';
-import type { Report } from 'ctrf';
+import type { Environment } from 'ctrf';
 
-const report = inject<Report | null>('report', null);
-const environment = report?.results?.environment || {};
+const props = defineProps({
+  environment: {
+    type: Object as () => Environment,
+    required: false,
+    default: null,
+  },
+});
 
 // Check if there's any environment data to display
 const hasEnvironmentData = computed(() => {
-  const env = environment;
+  const env = props.environment;
   if (!env || typeof env !== 'object') return false;
   
   return !!(
@@ -163,7 +168,7 @@ const hasEnvironmentData = computed(() => {
 
 // Check if there's any build or repository information
 const hasBuildOrRepoInfo = computed(() => {
-  const env = environment;
+  const env = props.environment;
   return !!(
     env.buildId ||
     env.buildName ||
