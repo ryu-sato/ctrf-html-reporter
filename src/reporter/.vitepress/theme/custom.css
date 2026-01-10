@@ -341,7 +341,7 @@
 
   .VPNavBar.has-sidebar .content {
     padding-left: var(--vp-sidebar-width) !important;
-    padding-right: var(--vp-sidebar-width) !important;
+    padding-right: 32px !important;
   }
 
   .VPNavBar.has-sidebar .divider {
@@ -365,5 +365,59 @@
 
   .content {
     padding: 0px !important;
+  }
+}
+
+@media (width >= 48rem) {
+  .container {
+    max-width: 64rem !important;
+  }
+}
+
+@media (width >= 64rem) {
+  .container {
+    max-width: 80rem !important;
+  }
+}
+
+/*
+  Override all container max-widths to be 100%
+  Use @layer utilities to override Tailwind's container styles
+*/
+
+@layer utilities {
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  @media (width >= 40rem) {
+    .container {
+      max-width: 100% !important;
+    }
+  }
+
+  @media (width >= 48rem) {
+    .container {
+      max-width: 100% !important;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .container {
+      max-width: 100% !important;
+    }
+  }
+
+  @media (width >= 80rem) {
+    .container {
+      max-width: 100% !important;
+    }
+  }
+
+  @media (width >= 96rem) {
+    .container {
+      max-width: 100% !important;
+    }
   }
 }
