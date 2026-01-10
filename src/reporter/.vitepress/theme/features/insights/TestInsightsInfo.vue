@@ -247,15 +247,4 @@ const getCurrentStyle = (key: string, value: number, type: string): Record<strin
   }
   return { fontWeight: 'bold !important' };
 };
-
-const getChangeClass = (change: number, invert: boolean): string => {
-  if (change === 0) return 'neutral';
-  
-  // If invert is true, positive change is bad
-  if (invert) {
-    return change > 0 ? 'negative' : 'positive';
-  } else {
-    return change > 0 ? 'positive' : 'negative';
-  }
-};
 </script>

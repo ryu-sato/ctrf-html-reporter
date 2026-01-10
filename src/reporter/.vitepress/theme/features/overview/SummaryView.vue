@@ -130,7 +130,7 @@ import { formatDuration } from '../../../helpers/formatter';
 import { RectangleGroupIcon, CalculatorIcon } from '@heroicons/vue/16/solid';
 import type { Summary } from 'ctrf';
 
-const props = defineProps({
+defineProps({
   summary: {
     type: Object as () => Summary,
     required: true,
@@ -160,4 +160,3 @@ const props = defineProps({
   }
 });
 </script>
-

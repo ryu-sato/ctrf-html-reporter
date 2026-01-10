@@ -72,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, inject } from 'vue';
+import { ref, computed, inject } from 'vue';
 import type { Report, Test } from 'ctrf';
 import { formatDuration, formatDateTime } from '../../../helpers/formatter';
 
