@@ -4,7 +4,10 @@
       <strong>Error:</strong> {{ error }}
     </div>
 
-    <div v-else-if="enrichedReport?.insights">
+    <div
+      class="mb-[var(--report-spacing-2xl)]"
+      v-else-if="enrichedReport?.insights"
+    >
       <div class="mb-8 p-6 rounded-lg border bg-[var(--vp-c-bg-soft)] border-[var(--vp-c-divider)]">
         <div class="flex flex-wrap gap-6 mb-4 max-md:flex-col">
           <div class="flex flex-col gap-2 min-w-[150px] max-md:min-w-0">
