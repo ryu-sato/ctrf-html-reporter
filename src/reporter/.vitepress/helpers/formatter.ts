@@ -167,12 +167,6 @@ export const formatNumericChange = (value: number): string => {
 };
 
 /**
- * @deprecated Use formatPercentChange instead
- * @see formatPercentChange
- */
-export const formatChange = formatPercentChange;
-
-/**
  * Format a label from camelCase or snake_case to Title Case
  * @param key - The key to format
  * @returns Formatted label in Title Case
