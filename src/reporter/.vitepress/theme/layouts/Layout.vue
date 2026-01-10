@@ -28,7 +28,6 @@ const slots = useSlots()
 const heroImageSlotExists = computed(() => !!slots['home-hero-image'])
 
 provide(layoutInfoInjectionKey, { heroImageSlotExists })
-provide('report', report)
 </script>
 
 <template>
@@ -67,12 +66,12 @@ provide('report', report)
         <div class="w-full mt-4 mb-4 border-t border-[var(--vp-c-tip-soft)]" />
 
         <h2 class="text-xl text-[var(--vp-c-text-3)]">Report Information</h2>
-        <ReportInfo />
+        <ReportInfo :report="report" />
 
         <div class="w-full mt-4 mb-4 border-t border-[var(--vp-c-tip-soft)]" />
 
         <h2 class="text-xl text-[var(--vp-c-text-3)]">Environment Details</h2>
-        <EnvironmentInfo />
+        <EnvironmentInfo :environment="report.results.environment" />
       </template>
     </VPSidebar>
 
