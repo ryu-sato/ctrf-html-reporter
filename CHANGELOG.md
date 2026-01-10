@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.15
+
+### Patch Changes
+
+- [#58](https://github.com/ryu-sato/ctrf-html-reporter/pull/58) [`172ffed`](https://github.com/ryu-sato/ctrf-html-reporter/commit/172ffeda3826c6cc8b63aba4230e378131d2d15c) Thanks [@ryu-sato](https://github.com/ryu-sato)! - feat: AI report if exists.
+
 ## 1.1.14
 
 ### Patch Changes
