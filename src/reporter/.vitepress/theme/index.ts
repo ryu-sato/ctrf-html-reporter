@@ -26,6 +26,8 @@ import TreeNodeInfo from './features/suites/TreeNodeInfo.vue'
 
 import TimelineChart from './features/timeline/TimelineChart.vue'
 
+import AiView from './features/ai/AiView.vue'
+
 import TestDetail from './layouts/TestDetail.vue'
 import Layout from './layouts/Layout.vue'
 
@@ -59,6 +61,8 @@ export default {
     app.component('TreeNodeInfo', TreeNodeInfo)
 
     app.component('TimelineChart', TimelineChart)
+
+    app.component('AiView', AiView)
 
     app.component('TestDetail', TestDetail)
   }

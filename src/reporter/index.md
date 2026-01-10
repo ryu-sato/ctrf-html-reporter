@@ -113,4 +113,14 @@ onBeforeUnmount(() => {
       :report="richReportWithInsights"
     />
   </div>
+
+  <div v-show="activePage === 'ai'" class="hash-content">
+    <h1 class="text-3xl font-bold tracking-tight mb-2">AI</h1>
+    <SummaryView
+      :summary="richReportWithInsights.results?.summary"
+    />
+    <AiView
+      :report="richReportWithInsights"
+    />
+  </div>
 </div>
