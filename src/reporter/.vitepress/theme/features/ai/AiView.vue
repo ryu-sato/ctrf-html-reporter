@@ -13,7 +13,7 @@
               </div>
               <div class="text-xs uppercase tracking-wider text-[var(--vp-c-text-3)]">AI Insights</div>
             </div>
-            <div class="text-sm  text-[var(--vp-c-text-1)] mt-2">
+            <div class="text-sm mt-2">
               <pre class="whitespace-pre-wrap">{{ props.report.results.extra.ai }}</pre>
             </div>
           </div>
@@ -29,7 +29,7 @@
   <h2 class="text-xl font-bold tracking-tight mt-6 mb-4">Failed Tests with AI Insights</h2>
   <div
     v-if="failedTestsWithAIInsights"
-    class="grid gap-6 mt-6 grid-cols-[repeat(auto-fill,minmax(var(--report-grid-min-width),1fr))] max-md:grid-cols-1 max-md:gap-4"
+    class="grid gap-6 mt-6 grid-cols-[repeat(auto-fill,minmax(var(--report-grid-min-width),1fr))] max-md:grid-cols-1 max-md:gap-4 mb-[var(--report-spacing-2xl)]"
   >
     <div
       v-for="test in failedTestsWithAIInsights" 
@@ -43,9 +43,15 @@
       </div>
       <div class="text-xs mb-4 pb-3 border-b break-all text-[var(--vp-c-text-2)] border-[var(--vp-c-divider)]">{{ test.suite }}</div>
       <div class="flex flex-col gap-2">
-      <div class="flex items-center gap-2.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+        <div class="flex items-center gap-2.5 rounded-md transition-colors hover:bg-[var(--vp-c-bg-soft)]">
+          <div class="flex items-center">
+            <div class="flex items-center justify-center w-10 h-10 rounded-lg">
+              <CpuChipIcon class="w-5 h-5" />
+            </div>
+            <div class="text-xs uppercase tracking-wider text-[var(--vp-c-text-3)]">AI Insights</div>
+          </div>
+        </div>
         <pre class="whitespace-pre-wrap">{{ test.ai }}</pre>
-      </div>
       </div>
     </div>
   </div>
