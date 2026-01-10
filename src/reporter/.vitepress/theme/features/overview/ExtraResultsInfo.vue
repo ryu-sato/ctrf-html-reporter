@@ -10,7 +10,7 @@
               <div class="flex items-center justify-center w-10 h-10 rounded-lg">
                 <InformationCircleIcon class="w-5 h-5"/>
               </div>
-              <div class="text-xs uppercase tracking-wider text-[var(--vp-c-text-3)]">Testing Tool</div>
+              <div class="text-xs uppercase tracking-wider text-[var(--vp-c-text-3)]">Extra</div>
             </div>
             <div class="text-sm truncate text-[var(--vp-c-text-1)]">
               <div class="relative overflow-hidden rounded-xl border transition-all border-b-4 border-[var(--vp-c-tip-soft)]">
