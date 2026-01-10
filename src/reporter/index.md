@@ -52,6 +52,7 @@ onBeforeUnmount(() => {
       <ReportInfo :report="richReportWithInsights" />
       <EnvironmentInfo :environment="richReportWithInsights.results.environment" />
       <ToolInfo :tool="richReportWithInsights.results.tool" />
+      <ExtraResultsInfo :extra="richReportWithInsights.results.extra" />
     </div>
   </div>
 
