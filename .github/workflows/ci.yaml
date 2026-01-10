@@ -36,6 +36,18 @@ jobs:
       - name: (main) Run tests
         run: pnpm test
 
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - *checkout-step
+      - *setup-pnpm-step
+      - *setup-node-step
+      - *install-dependencies-step
+
+      - name: (main) Run linter
+        run: pnpm run lint
+
   build:
     name: Build
     runs-on: ubuntu-latest
