@@ -205,7 +205,6 @@
 <script setup lang="ts">
 import { ref, computed, inject } from 'vue';
 import type { Report } from 'ctrf';
-import PercentFormatter from '../../components/PercentFormatter.vue';
 import { formatPercentChange, formatNumericChange } from '../../../helpers/formatter';
 
 interface Props {
