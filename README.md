@@ -130,6 +130,15 @@ The Timeline view displays test execution in chronological order. This visualiza
 - Understand test execution patterns
 - Optimize test execution time by finding bottlenecks
 
+### AI Insights
+
+The AI Insights view displays AI-powered analysis of your test results. This feature helps you:
+- Get AI-generated insights about overall test results
+- View AI analysis for failed tests to quickly understand root causes
+- Access intelligent suggestions for fixing test failures
+
+To enable AI insights, use [ai-ctrf](https://www.npmjs.com/package/ai-ctrf) to add AI analysis to your CTRF report before generating the HTML report.
+
 ## Command Line Options
 
 | Option | Alias | Description | Default |
