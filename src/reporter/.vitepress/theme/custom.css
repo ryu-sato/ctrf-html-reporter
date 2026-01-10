@@ -333,12 +333,6 @@
    Responsive Layout Adjustment for Maximum Content Width
    ========================= */
 @media (min-width: 1440px) {
-  .VPNavBar.has-sidebar .title {
-    padding-left: 32px !important;
-    padding-right: 32px !important;
-    width: calc(var(--vp-sidebar-width) - 32px);
-  }
-
   .VPNavBar.has-sidebar .content {
     padding-left: var(--vp-sidebar-width) !important;
     padding-right: 32px !important;
