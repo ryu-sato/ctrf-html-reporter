@@ -227,7 +227,7 @@
               class="font-semibold"
               :class="test.insights.passRate.change >= 0 ? 'text-[var(--vp-c-green-1)]' : 'text-[var(--vp-c-red-1)]'"
             >
-              Change: {{ formatChange(test.insights.passRate.change) }}
+              Change: {{ formatPercentChange(test.insights.passRate.change) }}
             </span>
           </div>
         </div>
@@ -240,7 +240,7 @@
               class="font-semibold"
               :class="test.insights.failRate.change <= 0 ? 'text-[var(--vp-c-green-1)]' : 'text-[var(--vp-c-red-1)]'"
             >
-              Change: {{ formatChange(test.insights.failRate.change) }}
+              Change: {{ formatPercentChange(test.insights.failRate.change) }}
             </span>
           </div>
         </div>
@@ -253,7 +253,7 @@
               class="font-semibold"
               :class="test.insights.flakyRate.change <= 0 ? 'text-[var(--vp-c-green-1)]' : 'text-[var(--vp-c-red-1)]'"
             >
-              Change: {{ formatChange(test.insights.flakyRate.change) }}
+              Change: {{ formatPercentChange(test.insights.flakyRate.change) }}
             </span>
           </div>
         </div>
@@ -305,7 +305,7 @@
 </template>
 
 <script setup lang="ts">
-import { formatPercentString, formatDuration, formatDateTime, formatChange } from '../../helpers/formatter'
+import { formatPercentString, formatDuration, formatDateTime, formatPercentChange } from '../../helpers/formatter'
 import type { Test } from 'ctrf';
 
 defineProps({
