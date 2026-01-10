@@ -23,7 +23,10 @@
   </div>
   <div v-else class="flex flex-col items-center justify-center p-12 rounded-xl border-2 border-dashed bg-[var(--vp-c-bg-soft)] border-[var(--vp-c-divider)]">
     <DocumentTextIcon class="w-12 h-12" />
-    <p class="text-sm font-medium text-[var(--vp-c-text-3)]">No extra data available</p>
+    <p class="text-sm font-medium text-[var(--vp-c-text-3)]">
+      No extra data available.
+      see <a href="https://www.npmjs.com/package/ai-ctrf" target="_blank" rel="noopener noreferrer">https://www.npmjs.com/package/ai-ctrf</a>
+    </p>
   </div>
 
   <h2 class="text-xl font-bold tracking-tight mt-6 mb-4">Failed Tests with AI Insights</h2>
@@ -57,7 +60,9 @@
   </div>
   <div v-else class="flex flex-col items-center justify-center p-12 rounded-xl border-2 border-dashed bg-[var(--vp-c-bg-soft)] border-[var(--vp-c-divider)]">
     <DocumentTextIcon class="w-12 h-12" />
-    <p class="text-sm font-medium text-[var(--vp-c-text-3)]">No failed tests with AI insights available</p>
+    <p class="text-sm font-medium text-[var(--vp-c-text-3)]">
+      No failed tests with AI insights available
+    </p>
   </div>
 </template>
 
@@ -92,7 +97,7 @@ const aiExtraResultsExists = computed(() => {
 });
 
 const failedTestsWithAIInsights = computed(() => {
-  if (!props?.report?.results?.tests) return [];
+  if (!props?.report?.results?.tests) return null;
 
   const failedTests = props.report.results.tests.filter((test) => {
     return (test.status === 'failed' && test?.ai);
