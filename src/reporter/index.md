@@ -52,6 +52,11 @@ onBeforeUnmount(() => {
       <ReportInfo :report="richReportWithInsights" />
       <EnvironmentInfo :environment="richReportWithInsights.results.environment" />
     </div>
+    <!-- Tool Info and Extra Info of Report Results -->
+    <div class="grid grid-cols-1 gap-3 mt-3">
+      <ToolInfo :tool="richReportWithInsights.results.tool" />
+      <ExtraResultsInfo :extra="richReportWithInsights.results.extra" />
+    </div>
   </div>
 
   <div v-show="activePage === 'suites'" class="hash-content">
@@ -105,6 +110,16 @@ onBeforeUnmount(() => {
       />
     </details>
     <TimelineChart
+      :report="richReportWithInsights"
+    />
+  </div>
+
+  <div v-show="activePage === 'ai'" class="hash-content">
+    <h1 class="text-3xl font-bold tracking-tight mb-2">AI</h1>
+    <SummaryView
+      :summary="richReportWithInsights.results?.summary"
+    />
+    <AiView
       :report="richReportWithInsights"
     />
   </div>

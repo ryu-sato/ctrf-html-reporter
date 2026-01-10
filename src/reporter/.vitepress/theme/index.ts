@@ -14,6 +14,8 @@ import SuitesDurationBarChart from './components/charts/SuitesDurationBarChart.v
 import ReportInfo from './features/overview/ReportInfo.vue'
 import EnvironmentInfo from './features/overview/EnvironmentInfo.vue'
 import SummaryView from './features/overview/SummaryView.vue'
+import ToolInfo from './features/overview/ToolInfo.vue'
+import ExtraResultsInfo from './features/overview/ExtraResultsInfo.vue'
 
 import TestInsightsInfo from './features/insights/TestInsightsInfo.vue'
 import InsightsView from './features/insights/InsightsView.vue';
@@ -23,6 +25,8 @@ import TreeNodeArrayInfo from './features/suites/TreeNodeArrayInfo.vue'
 import TreeNodeInfo from './features/suites/TreeNodeInfo.vue'
 
 import TimelineChart from './features/timeline/TimelineChart.vue'
+
+import AiView from './features/ai/AiView.vue'
 
 import TestDetail from './layouts/TestDetail.vue'
 import Layout from './layouts/Layout.vue'
@@ -46,6 +50,8 @@ export default {
     app.component('ReportInfo', ReportInfo)
     app.component('EnvironmentInfo', EnvironmentInfo)
     app.component('SummaryView', SummaryView)
+    app.component('ToolInfo', ToolInfo)
+    app.component('ExtraResultsInfo', ExtraResultsInfo)
 
     app.component('TestInsightsInfo', TestInsightsInfo)
     app.component('InsightsView', InsightsView)
@@ -55,6 +61,8 @@ export default {
     app.component('TreeNodeInfo', TreeNodeInfo)
 
     app.component('TimelineChart', TimelineChart)
+
+    app.component('AiView', AiView)
 
     app.component('TestDetail', TestDetail)
   }

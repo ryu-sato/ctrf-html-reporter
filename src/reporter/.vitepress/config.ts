@@ -25,6 +25,7 @@ export default defineConfig({
       { text: 'Suites', link: '#suites' },
       { text: 'Insights', link: '#insights' },
       { text: 'Timeline', link: '#timeline' },
+      { text: 'AI', link: '#ai' },
     ],
 
     sidebar: [
@@ -34,7 +35,8 @@ export default defineConfig({
           { text: 'Overview', link: '#overview' },
           { text: 'Suites', link: '#suites' },
           { text: 'Insights', link: '#insights' },
-          { text: 'Timeline', link: '#timeline' }
+          { text: 'Timeline', link: '#timeline' },
+          { text: 'AI', link: '#ai' }
         ]
       }
     ],

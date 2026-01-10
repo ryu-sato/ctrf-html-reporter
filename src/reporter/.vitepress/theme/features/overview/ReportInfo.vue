@@ -31,20 +31,6 @@
           </div>
         </div>
 
-        <!-- Tool Card -->
-        <div v-if="toolInfo" class="relative overflow-hidden rounded-xl transition-all duration-200">
-          <div class="absolute top-0 right-0 opacity-[0.03]"></div>
-          <div class="py-1 px-3">
-            <div class="flex items-center">
-              <div class="flex items-center justify-center w-10 h-10 rounded-lg">
-                <WrenchScrewdriverIcon class="w-5 h-5"/>
-              </div>
-              <div class="text-xs uppercase tracking-wider text-[var(--vp-c-text-3)]">Testing Tool</div>
-            </div>
-            <div class="text-sm truncate text-[var(--vp-c-text-1)]">{{ toolInfo }}</div>
-          </div>
-        </div>
-
         <!-- Timestamp Card -->
         <div v-if="props.report.timestamp" class="relative overflow-hidden rounded-xl transition-all duration-200">
           <div class="absolute top-0 right-0 opacity-[0.03]"></div>

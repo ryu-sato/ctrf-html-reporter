@@ -72,6 +72,9 @@ provide(layoutInfoInjectionKey, { heroImageSlotExists })
 
         <h2 class="text-xl text-[var(--vp-c-text-3)]">Environment Details</h2>
         <EnvironmentInfo :environment="report.results.environment" />
+
+        <div class="w-full mt-4 mb-4 border-t border-[var(--vp-c-tip-soft)]" />
+        <ToolInfo :tool="report.results.tool" />
       </template>
     </VPSidebar>
 

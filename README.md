@@ -9,9 +9,9 @@ Report test result of CTRF (Common Test Report Format) as HTML.
 
 `ctrf-html-reporter` is a tool that converts test reports in [CTRF (Common Test Report Format)](https://ctrf.io/) format into beautiful HTML reports. It uses VitePress to generate interactive and easy-to-read test reports.
 
-![Image](https://github.com/user-attachments/assets/e452678e-6825-4b9d-86cc-ebfdc1c221a7)
+![Image](https://github.com/user-attachments/assets/bcdea904-282b-4099-969b-eaa4bcdd32ea)
 
-see movie: https://github.com/user-attachments/assets/84abaf2d-27d7-4bb0-88c2-ff074ef7c65f
+see movie: https://github.com/user-attachments/assets/89b4976d-c8a2-499d-92aa-cb515e11a581
 
 ## Features
 
@@ -129,6 +129,15 @@ The Timeline view displays test execution in chronological order. This visualiza
 - Identify long-running tests at a glance
 - Understand test execution patterns
 - Optimize test execution time by finding bottlenecks
+
+### AI Insights
+
+The AI Insights view displays AI-powered analysis of your test results. This feature helps you:
+- Get AI-generated insights about overall test results
+- View AI analysis for failed tests to quickly understand root causes
+- Access intelligent suggestions for fixing test failures
+
+To enable AI insights, use [ai-ctrf](https://www.npmjs.com/package/ai-ctrf) to add AI analysis to your CTRF report before generating the HTML report.
 
 ## Command Line Options
 
