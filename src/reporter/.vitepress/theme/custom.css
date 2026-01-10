@@ -368,18 +368,6 @@
   }
 }
 
-@media (width >= 48rem) {
-  .container {
-    max-width: 64rem !important;
-  }
-}
-
-@media (width >= 64rem) {
-  .container {
-    max-width: 80rem !important;
-  }
-}
-
 /*
   Override all container max-widths to be 100%
   Use @layer utilities to override Tailwind's container styles
