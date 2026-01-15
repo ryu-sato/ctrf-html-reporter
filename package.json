@@ -1,6 +1,6 @@
 {
   "name": "ctrf-html-reporter",
-  "version": "1.1.16-rc",
+  "version": "1.1.16",
   "description": "Report test result of CTRF (Common Test Report Format) as HTML.",
   "keywords": [
     "ctrf",
