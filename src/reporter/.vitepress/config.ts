@@ -4,7 +4,6 @@ import type { Plugin } from 'vite'
 import { readReportFromFile } from 'ctrf'
 import path from 'path'
 import fs from 'fs/promises'
-import send from 'send'
 
 /**
  * Helper function to get attachment paths from CTRF report
@@ -102,9 +101,12 @@ const copyAttachmentsPlugin = (): Plugin => {
           if (attachmentMap.has(req.url)) {
             const filePath = attachmentMap.get(req.url)!
 
+            // Dynamically import send only in dev mode
+            const { default: send } = await import('send')
+
             // Use send library to serve the file with proper Content-Type and caching
             send(req, filePath, { root: '/' })
-              .on('error', (error) => {
+              .on('error', (error: Error) => {
                 console.warn(`Failed to read attachment file: ${filePath}`, error)
                 next()
               })
