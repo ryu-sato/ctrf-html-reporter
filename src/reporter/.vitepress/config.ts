@@ -65,9 +65,6 @@ const copyAttachmentsPlugin = (): Plugin => {
   let outDir: string | undefined
   let attachmentMapPromise: Promise<Map<string, string>> | null = null
   let reportPath: string | undefined
-  // Reserved for future use to differentiate dev/build behavior
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let isDev: boolean = false
 
   const getOrLoadAttachmentMap = async (): Promise<Map<string, string>> => {
     if (!attachmentMapPromise && reportPath) {
@@ -81,7 +78,6 @@ const copyAttachmentsPlugin = (): Plugin => {
     configResolved(config) {
       // Capture the output directory and mode from Vite config
       outDir = config.build.outDir
-      isDev = config.mode === 'development' || config.command === 'serve'
       reportPath = process.env.CTRF_REPORT_PATH
     },
     async buildStart() {
