@@ -23,8 +23,9 @@ const getAttachmentPaths = async (reportPath: string): Promise<Map<string, strin
     const tests = report.results.tests
     const reportDir = path.dirname(resolvedReportPath)
 
-    // Collect all attachments from all tests
+    // Collect all attachments and screenshots from all tests
     for (const test of tests) {
+      // Process attachments array
       if (test.attachments && Array.isArray(test.attachments)) {
         for (const attachment of test.attachments) {
           if (attachment.path) {
@@ -37,6 +38,17 @@ const getAttachmentPaths = async (reportPath: string): Promise<Map<string, strin
             attachmentMap.set(urlPath, sourcePath)
           }
         }
+      }
+
+      // Process screenshot field
+      if (test.screenshot && typeof test.screenshot === 'string') {
+        // Normalize the path and create URL path
+        const normalizedPath = path.normalize(test.screenshot).replace(/\\/g, '/')
+        const urlPath = normalizedPath.startsWith('/') ? normalizedPath : '/' + normalizedPath
+
+        // Map URL path to actual file path
+        const sourcePath = path.resolve(reportDir, test.screenshot)
+        attachmentMap.set(urlPath, sourcePath)
       }
     }
   } catch (error) {
@@ -53,6 +65,8 @@ const copyAttachmentsPlugin = (): Plugin => {
   let outDir: string | undefined
   let attachmentMapPromise: Promise<Map<string, string>> | null = null
   let reportPath: string | undefined
+  // Reserved for future use to differentiate dev/build behavior
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let isDev: boolean = false
 
   const getOrLoadAttachmentMap = async (): Promise<Map<string, string>> => {
