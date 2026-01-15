@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.17
+
+### Patch Changes
+
+- [#62](https://github.com/ryu-sato/ctrf-html-reporter/pull/62) [`4007d71`](https://github.com/ryu-sato/ctrf-html-reporter/commit/4007d7129b71f99e1626492f3a3358b0f2b0e299) Thanks [@ryu-sato](https://github.com/ryu-sato)! - fix: Fixed an issue preventing builds
+
 ## 1.1.16
 
 ### Patch Changes
