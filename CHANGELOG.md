@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.16
+
+### Patch Changes
+
+- [#60](https://github.com/ryu-sato/ctrf-html-reporter/pull/60) [`df69407`](https://github.com/ryu-sato/ctrf-html-reporter/commit/df694074b88ac6df310d2ed4f7a9bacb225594d5) Thanks [@ryu-sato](https://github.com/ryu-sato)! - feat: Enable to build with attaments and screenshot
+
 ## 1.1.15
 
 ### Patch Changes
