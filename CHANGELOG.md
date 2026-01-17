@@ -1,5 +1,13 @@
 # ctrf-html-reporter
 
+## 1.1.18
+
+### Patch Changes
+
+- [#64](https://github.com/ryu-sato/ctrf-html-reporter/pull/64) [`70d13f2`](https://github.com/ryu-sato/ctrf-html-reporter/commit/70d13f2cfef13f25d619a2a7ccd25a5c0a1b8f84) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Add E2E test
+
+- [#64](https://github.com/ryu-sato/ctrf-html-reporter/pull/64) [`4f4ac47`](https://github.com/ryu-sato/ctrf-html-reporter/commit/4f4ac4784cf66b83a190fce5f6482b85fd27c8c2) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Restructure npm scripts and add ESLint configuration for CLI (bin) code
+
 ## 1.1.17
 
 ### Patch Changes
