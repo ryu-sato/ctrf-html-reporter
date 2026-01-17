@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { execSync } from 'child_process';
-import { mkdtempSync, rmSync, readFileSync, writeFileSync, existsSync, accessSync, constants } from 'fs';
+import { mkdtempSync, rmSync, readFileSync, existsSync, accessSync, constants } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { installNPM, packNPM, writePackageJson } from './_test_helper.js';
