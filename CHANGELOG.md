@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.19
+
+### Patch Changes
+
+- [#66](https://github.com/ryu-sato/ctrf-html-reporter/pull/66) [`09e0f06`](https://github.com/ryu-sato/ctrf-html-reporter/commit/09e0f0692fcacab3c26cf3a643831a7a8683b795) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Remove unused variables.
+
 ## 1.1.18
 
 ### Patch Changes
