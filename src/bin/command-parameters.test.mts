@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { commanderToCommandArguments, DEFAULT_OUTPUT_PATH } from './command-parameters.mjs';
 import type { Command } from 'commander';
 

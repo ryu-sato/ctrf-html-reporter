@@ -121,17 +121,6 @@ const props = defineProps({
   },
 });
 
-// Compute tool information string
-const toolInfo = computed(() => {
-  if (!props.report?.results?.tool) return null;
-
-  const tool = props.report.results.tool;
-  const name = tool.name;
-  const version = tool.version ? ` v${tool.version}` : '';
-
-  return name + version || null;
-});
-
 // Compute duration from summary
 const duration = computed(() => {
   if (!props.report?.results?.summary) return null;
