@@ -1,54 +1,50 @@
 <template>
-  <div class="flex flex-col">
+  <div class="vp-report-root">
     <slot name="report-top" />
 
-    <div class="mx-auto w-full">
-      <div class="mx-auto w-full max-w-full">
-        <!-- Main Content Area -->
-        <div class="flex w-full overflow-hidden relative" :style="{ height: 'calc(100vh - var(--vp-nav-height) - 0)' }">
-          <!-- Content Area -->
-          <div class="overflow-y-auto overflow-x-hidden transition-[width] duration-100 ease-in-out relative pt-12 px-12 h-full" :style="{ width: isDetailCollapsed ? '100%' : contentWidth + '%' }">
-            <div class="mx-auto max-w-full">
-              <slot name="report-before" />
-              <main class="mx-auto w-full">
-                <Content />
-              </main>
-              <slot name="report-after" />
-            </div>
-          </div>
+    <!-- Main Content Area -->
+    <div class="vp-report-container flex w-full overflow-hidden relative" :style="{ height: 'calc(100vh - var(--vp-nav-height))' }">
+      <!-- Content Area (Left) -->
+      <div class="vp-report-left overflow-y-auto overflow-x-hidden transition-[width] duration-100 ease-in-out relative pt-12 px-12" :style="{ width: isDetailCollapsed ? '100%' : contentWidth + '%' }">
+        <div class="mx-auto max-w-full">
+          <slot name="report-before" />
+          <main class="mx-auto w-full">
+            <Content />
+          </main>
+          <slot name="report-after" />
+        </div>
+      </div>
 
-          <!-- Resize Handle -->
-          <div
-            v-if="!isDetailCollapsed"
-            class="w-2 bg-[var(--vp-c-divider)] cursor-col-resize relative flex-shrink-0 transition-colors duration-200 flex items-center justify-center hover:bg-[var(--vp-c-brand-1)] active:bg-[var(--vp-c-brand-2)]"
-            @mousedown="startResize"
-            @touchstart="startResize"
-          >
-            <div class="w-0.5 h-12 bg-[var(--vp-c-bg-alt)] rounded"></div>
-          </div>
+      <!-- Resize Handle -->
+      <div
+        v-if="!isDetailCollapsed"
+        class="w-2 bg-[var(--vp-c-divider)] cursor-col-resize relative flex-shrink-0 transition-colors duration-200 flex items-center justify-center hover:bg-[var(--vp-c-brand-1)] active:bg-[var(--vp-c-brand-2)]"
+        @mousedown="startResize"
+        @touchstart="startResize"
+      >
+        <div class="w-0.5 h-12 bg-[var(--vp-c-bg-alt)] rounded"></div>
+      </div>
 
-          <!-- Test Detail Area -->
-          <div
-            class="overflow-y-auto overflow-x-hidden py-8 px-6 bg-[var(--vp-c-bg-soft)] transition-all duration-300 ease-in-out min-w-0"
-            :class="{ 'w-12 min-w-[48px] px-2 overflow-hidden': isDetailCollapsed }"
-            :style="{ width: isDetailCollapsed ? 'auto' : detailWidth + '%' }"
-          >
-            <div class="max-w-full">
-              <div v-if="!selectedTest" class="flex flex-col items-center justify-center h-full text-[var(--vp-c-text-2)] gap-2">
-                <DocumentTextIcon :class="isDetailCollapsed ? '[writing-mode:vertical-rl] text-2xl' : 'text-[32px] opacity-50'" style="width: 16px; height: 16px;" aria-label="Test detail panel - Select a test to view details" />
-                <p v-if="!isDetailCollapsed" class="text-sm text-center whitespace-nowrap">Select a test to view details</p>
-              </div>
-              <div v-else class="w-full animate-[fadeIn_0.2s_ease-in] relative">
-                <button
-                  class="sticky top-0 right-0 z-10 float-right w-8 h-8 border-0 bg-[var(--vp-c-bg)] text-[var(--vp-c-text-2)] rounded-md cursor-pointer flex items-center justify-center text-lg transition-all duration-200 mb-2 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:bg-[var(--vp-c-red-soft)] hover:text-[var(--vp-c-red-1)] hover:scale-105 active:scale-95"
-                  @click="closeDetail"
-                  title="Close detail panel"
-                >
-                  <XMarkIcon style="width: 16px; height: 16px;" aria-label="Close detail panel" />
-                </button>
-                <TestDetail :test="selectedTest" />
-              </div>
-            </div>
+      <!-- Test Detail Area (Right) -->
+      <div
+        class="vp-report-right overflow-y-auto overflow-x-hidden py-8 px-6 bg-[var(--vp-c-bg-soft)] transition-all duration-300 ease-in-out min-w-0"
+        :class="{ 'w-12 min-w-[48px] px-2 overflow-hidden': isDetailCollapsed }"
+        :style="{ width: isDetailCollapsed ? 'auto' : detailWidth + '%' }"
+      >
+        <div class="max-w-full h-full">
+          <div v-if="!selectedTest" class="flex flex-col items-center justify-center h-full text-[var(--vp-c-text-2)] gap-2">
+            <DocumentTextIcon :class="isDetailCollapsed ? '[writing-mode:vertical-rl] text-2xl' : 'text-[32px] opacity-50'" style="width: 16px; height: 16px;" aria-label="Test detail panel - Select a test to view details" />
+            <p v-if="!isDetailCollapsed" class="text-sm text-center whitespace-nowrap">Select a test to view details</p>
+          </div>
+          <div v-else class="w-full animate-[fadeIn_0.2s_ease-in] relative">
+            <button
+              class="sticky top-0 right-0 z-10 float-right w-8 h-8 border-0 bg-[var(--vp-c-bg)] text-[var(--vp-c-text-2)] rounded-md cursor-pointer flex items-center justify-center text-lg transition-all duration-200 mb-2 shadow-[0_2px_4px_rgba(0,0,0,0.1)] hover:bg-[var(--vp-c-red-soft)] hover:text-[var(--vp-c-red-1)] hover:scale-105 active:scale-95"
+              @click="closeDetail"
+              title="Close detail panel"
+            >
+              <XMarkIcon style="width: 16px; height: 16px;" aria-label="Close detail panel" />
+            </button>
+            <TestDetail :test="selectedTest" />
           </div>
         </div>
       </div>
@@ -97,7 +93,7 @@ const handleResize = (event: MouseEvent | TouchEvent) => {
   if (!isResizing.value) return
 
   const currentX = event.type.includes('mouse') ? (event as MouseEvent).clientX : (event as TouchEvent).touches[0].clientX
-  const container = document.querySelector('.flex.w-full.overflow-hidden.relative')
+  const container = document.querySelector('.vp-report-container')
   if (!container) return
 
   const containerWidth = (container as HTMLElement).offsetWidth
@@ -165,35 +161,50 @@ onUnmounted(() => {
   }
 }
 
+/* Left and Right panels - independent scrolling */
+.vp-report-left,
+.vp-report-right {
+  height: 100%;
+}
+
 /* Scrollbar styles for content and detail areas */
-.overflow-y-auto::-webkit-scrollbar {
+.vp-report-left::-webkit-scrollbar,
+.vp-report-right::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-track {
+.vp-report-left::-webkit-scrollbar-track,
+.vp-report-right::-webkit-scrollbar-track {
   background: var(--vp-c-bg);
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb {
+.vp-report-left::-webkit-scrollbar-thumb,
+.vp-report-right::-webkit-scrollbar-thumb {
   background: var(--vp-c-divider);
   border-radius: 4px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+.vp-report-left::-webkit-scrollbar-thumb:hover,
+.vp-report-right::-webkit-scrollbar-thumb:hover {
   background: var(--vp-c-text-3);
 }
 
 /* Responsive styles */
 @media (max-width: 960px) {
-  .flex.w-full.overflow-hidden.relative {
+  .vp-report-container {
     flex-direction: column;
+    height: auto !important;
+    max-height: none !important;
   }
-  
-  .overflow-y-auto.overflow-x-hidden {
+
+  .vp-report-left,
+  .vp-report-right {
     width: 100% !important;
+    height: auto !important;
+    max-height: 50vh;
   }
-  
+
   .cursor-col-resize {
     display: none;
   }

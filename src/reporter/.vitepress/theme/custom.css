@@ -32,6 +32,13 @@
   --report-nav-height: 56px;
 }
 
+/* Prevent body scrolling for report layout */
+html:has(.vp-report-root),
+body:has(.vp-report-root) {
+  overflow: hidden;
+  height: 100vh;
+}
+
 /* =========================
    Custom CSS Variables
    ========================= */
