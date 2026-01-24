@@ -1,5 +1,11 @@
 # ctrf-html-reporter
 
+## 1.1.20
+
+### Patch Changes
+
+- [#68](https://github.com/ryu-sato/ctrf-html-reporter/pull/68) [`8b327c0`](https://github.com/ryu-sato/ctrf-html-reporter/commit/8b327c02345464825a73e37439d4e29be31d2c33) Thanks [@ryu-sato](https://github.com/ryu-sato)! - imprv: Improved the test details view so it can be read alongside the report.
+
 ## 1.1.19
 
 ### Patch Changes
