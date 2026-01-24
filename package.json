@@ -46,7 +46,7 @@
     "reporter:lint:fix": "npm run reporter:lint -- --fix",
     "package:test": "vitest run --config vitest.package.config.ts",
     "clean": "run-p clean:reporter:vitepress clean:build clean:output",
-    "clean:reporter:vitepress": "rm -rf src/reporter/.vitepress/{cache,dist}",
+    "clean:reporter:vitepress": "rm -rf src/reporter/.vitepress/cache src/reporter/.vitepress/dist",
     "clean:build": "rm -rf dist",
     "clean:output": "rm -rf .ctrf",
     "lint": "run-p bin:lint reporter:lint",
