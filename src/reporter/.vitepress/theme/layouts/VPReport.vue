@@ -36,7 +36,7 @@
         :class="{ 'w-12 min-w-[48px] px-2 overflow-hidden': isDetailCollapsed }"
         :style="{ width: isDetailCollapsed ? 'auto' : detailWidth + '%' }"
       >
-        <div class="max-w-full h-full">
+        <div class="max-w-full">
           <div v-if="!selectedTest" class="flex flex-col items-center justify-center h-full text-[var(--vp-c-text-2)] gap-2">
             <DocumentTextIcon :class="isDetailCollapsed ? '[writing-mode:vertical-rl] text-2xl' : 'text-[32px] opacity-50'" style="width: 16px; height: 16px;" aria-label="Test detail panel - Select a test to view details" />
             <p v-if="!isDetailCollapsed" class="text-sm text-center whitespace-nowrap">Select a test to view details</p>
