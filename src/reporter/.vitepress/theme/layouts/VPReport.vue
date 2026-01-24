@@ -4,11 +4,11 @@
 
     <!-- Main Content Area -->
     <div
-      class="vp-report-container flex w-full overflow-hidden relative h-[calc(100vh-var(--vp-nav-height))] max-[960px]:flex-col max-[960px]:!h-auto max-[960px]:!max-h-none"
+      class="vp-report-container flex w-full overflow-hidden relative h-[calc(100vh-var(--vp-nav-height))] max-[960px]:flex-col max-[960px]:!h-auto max-[960px]:!max-h-none max-[960px]:!h-[calc(100vh-var(--vp-nav-height))] max-[960px]:overflow-y-auto"
     >
       <!-- Content Area (Left) -->
       <div
-        class="vp-report-left h-full overflow-y-auto overflow-x-hidden transition-[width] duration-100 ease-in-out relative pt-12 px-12 max-[960px]:!w-full max-[960px]:!h-auto max-[960px]:max-h-[50vh]"
+        class="vp-report-left h-full overflow-y-auto overflow-x-hidden transition-[width] duration-100 ease-in-out relative pt-12 px-12 max-[960px]:!w-full max-[960px]:!h-[calc(100vh-var(--vp-nav-height))] max-[960px]:!max-h-none max-[960px]:pb-[45vh]"
         :style="{ width: isDetailCollapsed ? '100%' : contentWidth + '%' }"
       >
         <div class="mx-auto max-w-full">
@@ -32,12 +32,12 @@
 
       <!-- Test Detail Area (Right) -->
       <div
-        class="vp-report-right h-full overflow-y-auto overflow-x-hidden py-8 px-6 bg-[var(--vp-c-bg-soft)] transition-all duration-300 ease-in-out min-w-0 max-[960px]:!w-full max-[960px]:!h-auto max-[960px]:max-h-[50vh]"
+        class="vp-report-right h-full overflow-y-auto overflow-x-hidden py-8 px-6 bg-[var(--vp-c-bg-soft)] transition-all duration-300 ease-in-out min-w-0 max-[960px]:!w-full max-[960px]:!h-auto max-[960px]:max-h-[50vh] max-[960px]:!fixed max-[960px]:!bottom-0 max-[960px]:!left-0 max-[960px]:!right-0 max-[960px]:!h-auto max-[960px]:!max-h-[40vh] max-[960px]:z-50 max-[960px]:border-t max-[960px]:border-[var(--vp-c-divider)] max-[960px]:shadow-[0_-4px_12px_rgba(0,0,0,0.1)]"
         :class="{ 'w-12 min-w-[48px] px-2 overflow-hidden': isDetailCollapsed }"
         :style="{ width: isDetailCollapsed ? 'auto' : detailWidth + '%' }"
       >
         <div class="max-w-full">
-          <div v-if="!selectedTest" class="flex flex-col items-center justify-center h-full text-[var(--vp-c-text-2)] gap-2">
+          <div v-if="!selectedTest" class="flex flex-col items-center justify-center h-full text-[var(--vp-c-text-2)] gap-2 max-[960px]:flex-row max-[960px]:py-4">
             <DocumentTextIcon :class="isDetailCollapsed ? '[writing-mode:vertical-rl] text-2xl' : 'text-[32px] opacity-50'" style="width: 16px; height: 16px;" aria-label="Test detail panel - Select a test to view details" />
             <p v-if="!isDetailCollapsed" class="text-sm text-center whitespace-nowrap">Select a test to view details</p>
           </div>
