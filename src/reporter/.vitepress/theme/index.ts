@@ -30,6 +30,7 @@ import AiView from './features/ai/AiView.vue'
 
 import TestDetail from './layouts/TestDetail.vue'
 import Layout from './layouts/Layout.vue'
+import VPAllTests from './layouts/VPAllTests.vue'
 
 export default {
   extends: DefaultTheme,
@@ -65,5 +66,7 @@ export default {
     app.component('AiView', AiView)
 
     app.component('TestDetail', TestDetail)
+
+    app.component('VPAllTests', VPAllTests)
   }
 }
