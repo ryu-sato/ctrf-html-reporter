@@ -191,6 +191,7 @@ export default defineConfig({
       { text: 'Insights', link: '#insights' },
       { text: 'Timeline', link: '#timeline' },
       { text: 'AI', link: '#ai' },
+      { text: 'All Tests', link: '/all' },
     ],
 
     sidebar: [
