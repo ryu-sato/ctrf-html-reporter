@@ -1,5 +1,13 @@
 # ctrf-html-reporter
 
+## 1.1.21
+
+### Patch Changes
+
+- [#70](https://github.com/ryu-sato/ctrf-html-reporter/pull/70) [`147614a`](https://github.com/ryu-sato/ctrf-html-reporter/commit/147614aafd82d08897274ff23fe1c1b5e09b93bd) Thanks [@ryu-sato](https://github.com/ryu-sato)! - chore: Fix the reporter's clean script so it can be deleted properly.
+
+- [#72](https://github.com/ryu-sato/ctrf-html-reporter/pull/72) [`720aece`](https://github.com/ryu-sato/ctrf-html-reporter/commit/720aecef1468e28cbf9d53e6af00e5b697d94e3c) Thanks [@ryu-sato](https://github.com/ryu-sato)! - improve: Added a mode that simply displays all tests on a single page.
+
 ## 1.1.20
 
 ### Patch Changes
