@@ -5,6 +5,8 @@ import { readReportFromFile } from 'ctrf'
 import path from 'path'
 import fs from 'fs/promises'
 
+const simpleReportMode = process.env.CTRF_SIMPLE_REPORT_MODE === 'true'
+
 /**
  * Helper function to get attachment paths from CTRF report
  */
@@ -183,32 +185,48 @@ export default defineConfig({
       copyAttachmentsPlugin(),
     ],
   },
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Overview', link: '#overview' },
-      { text: 'Suites', link: '#suites' },
-      { text: 'Insights', link: '#insights' },
-      { text: 'Timeline', link: '#timeline' },
-      { text: 'AI', link: '#ai' },
-      { text: 'All Tests', link: '/all' },
-    ],
-
-    sidebar: [
+  ...(
+    simpleReportMode ?
       {
-        text: 'Report',
-        items: [
-          { text: 'Overview', link: '#overview' },
-          { text: 'Suites', link: '#suites' },
-          { text: 'Insights', link: '#insights' },
-          { text: 'Timeline', link: '#timeline' },
-          { text: 'AI', link: '#ai' }
+        srcExclude: ['**/index.md'],
+        rewrites: {
+          'all.md': 'index.md'
+        },
+        // https://vitepress.dev/reference/default-theme-config
+        themeConfig: {
+          nav: [
+            { text: 'All Tests', link: '/' },
+          ],
+        },
+        socialLinks: [
+          { icon: 'github', link: 'https://github.com/ryu-sato/ctrf-html-reporter' }
         ]
+      } :
+      {
+        // https://vitepress.dev/reference/default-theme-config
+        themeConfig: {
+          nav: [
+            { text: 'Overview', link: '#overview' },
+            { text: 'Suites', link: '#suites' },
+            { text: 'Insights', link: '#insights' },
+            { text: 'Timeline', link: '#timeline' },
+            { text: 'AI', link: '#ai' },
+          ],
+          sidebar: [
+            {
+              text: 'Report',
+              items: [
+                { text: 'Overview', link: '#overview' },
+                { text: 'Suites', link: '#suites' },
+                { text: 'Insights', link: '#insights' },
+                { text: 'Timeline', link: '#timeline' },
+              ]
+            }
+          ],
+          socialLinks: [
+            { icon: 'github', link: 'https://github.com/ryu-sato/ctrf-html-reporter' }
+          ]
+        }
       }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/ryu-sato/ctrf-html-reporter' }
-    ]
-  },
+  ),
 });
