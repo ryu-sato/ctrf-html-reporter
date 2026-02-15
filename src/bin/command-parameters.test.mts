@@ -18,6 +18,9 @@ describe('command-parameters', () => {
       expect(result).toEqual({
         inputFilePath: 'report.ctrf.json',
         outputPath: DEFAULT_OUTPUT_PATH,
+        previousReportPath: undefined,
+        baselineReportPath: undefined,
+        singleFile: false,
       });
     });
 
@@ -35,6 +38,9 @@ describe('command-parameters', () => {
       expect(result).toEqual({
         inputFilePath: 'test-report.ctrf.json',
         outputPath: '/custom/output',
+        previousReportPath: undefined,
+        baselineReportPath: undefined,
+        singleFile: false,
       });
     });
 
@@ -52,6 +58,9 @@ describe('command-parameters', () => {
       expect(result).toEqual({
         inputFilePath: './reports/test.ctrf.json',
         outputPath: './output',
+        previousReportPath: undefined,
+        baselineReportPath: undefined,
+        singleFile: false,
       });
     });
 

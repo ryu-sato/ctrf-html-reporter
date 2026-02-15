@@ -17,6 +17,7 @@ export default defineConfig({
       external: [
         "fsevents",
         "vitepress",
+        "ctrf",
         ...builtinModules,
         ...builtinModules.map(m => `node:${m}`)
       ],

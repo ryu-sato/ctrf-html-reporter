@@ -1,6 +1,8 @@
 import { fileURLToPath } from 'url';
 import { build } from 'vitepress';
 import path from 'path';
+import fs from 'fs';
+import { enrichReportWithInsights } from 'ctrf';
 import type { CommandArguments } from './command-parameters.mjs';
 
 /**
@@ -52,8 +54,52 @@ const buildReport = (commandArgs: CommandArguments) => {
   build(reporterPath, { outDir: outputPath });
 };
 
+/**
+ * Resolves the path to the pre-built file-browsable reporter template HTML.
+ * @returns The absolute path to the template HTML file
+ */
+const resolveFileReportTemplatePath = (): string => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  return path.resolve(__dirname, '..', 'file-browsable-reporter', 'index.html');
+};
+
+/**
+ * Builds a single self-contained HTML file report by injecting CTRF data
+ * into the pre-built file-browsable reporter template.
+ * The output HTML can be opened directly in a browser via file:// without CORS errors.
+ * @param commandArgs - The command arguments containing input file path and output path
+ */
+const buildFileReport = (commandArgs: CommandArguments) => {
+  console.log(`Processing report file...: ${commandArgs.inputFilePath}`);
+  console.log(`Output path: ${commandArgs.outputPath}`);
+
+  const inputPath = path.resolve(process.cwd(), commandArgs.inputFilePath);
+  const outputPath = resolveOutputPath(commandArgs.outputPath);
+
+  const rawReport = JSON.parse(fs.readFileSync(inputPath, 'utf-8'));
+  const enrichedReport = enrichReportWithInsights(rawReport);
+
+  const templatePath = resolveFileReportTemplatePath();
+  const template = fs.readFileSync(templatePath, 'utf-8');
+
+  const DATA_PLACEHOLDER = '<script type="application/json" id="ctrf-data">null</script>';
+  const dataScript = `<script type="application/json" id="ctrf-data">${JSON.stringify(enrichedReport)}</script>`;
+  const output = template.replace(DATA_PLACEHOLDER, dataScript);
+
+  const outputDir = path.dirname(outputPath);
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
+  fs.writeFileSync(outputPath, output, 'utf-8');
+  console.log(`Single-file report generated: ${outputPath}`);
+};
+
 export {
   buildReport,
+  buildFileReport,
   resolveOutputPath,
   resolveReporterPath,
+  resolveFileReportTemplatePath,
 };
