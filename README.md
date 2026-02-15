@@ -18,6 +18,7 @@ see movie: https://github.com/user-attachments/assets/89b4976d-c8a2-499d-92aa-cb
 - Convert CTRF format test reports to HTML
 - Beautiful and readable report UI
 - Visualization and insights of test results
+- Single self-contained HTML file output (openable via `file://` without a web server)
 - Simple command-line interface
 
 ## Usage
@@ -47,6 +48,16 @@ To specify the output destination:
 ```bash
 ctrf-html-reporter path/to/report.ctrf.json --output-path ./html-report
 ```
+
+### Single-File Output
+
+Generate a single self-contained HTML file that can be opened directly in a browser via `file://`, without needing a web server:
+
+```bash
+ctrf-html-reporter path/to/report.ctrf.json --single-file
+```
+
+The output file is placed in the output directory as `index.html`. All assets (styles, scripts, data) are inlined into the single file.
 
 ## Installation
 
@@ -147,6 +158,7 @@ To enable AI insights, use [ai-ctrf](https://www.npmjs.com/package/ai-ctrf) to a
 | `--output-path <path>` | `-o` | Output directory for the HTML report | `.ctrf/report` |
 | `--previous-report-path <path or glob pattern or directory>` | `-p` | Path to previous CTRF report file(s) or directory for comparison | - |
 | `--baseline-report-path <path>` | `-b` | Path to the baseline CTRF report file (must be included in previous reports, identified by start time) | - |
+| `--single-file` | `-s` | Generate a single self-contained HTML file openable via `file://` | `false` |
 | `--version` | `-V` | Output the version number | - |
 | `--help` | `-h` | Display help information | - |
 

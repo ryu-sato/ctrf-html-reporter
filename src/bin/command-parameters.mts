@@ -8,6 +8,7 @@ interface CommandOptions {
   outputPath: string;
   previousReportPath: string | undefined;
   baselineReportPath: string | undefined;
+  singleFile: boolean;
 }
 
 interface CommandArguments {
@@ -15,15 +16,18 @@ interface CommandArguments {
   outputPath: string;
   previousReportPath: string | undefined;
   baselineReportPath: string | undefined;
+  singleFile: boolean;
 }
 
 const commanderToCommandArguments = (command: Command): CommandArguments => {
   const options = command.opts() as CommandOptions;
+  const singleFile = options.singleFile ?? false;
   return {
     inputFilePath: command.args[0] as string, // argument is required, so this cast is safe
     outputPath: options.outputPath || DEFAULT_OUTPUT_PATH,
     previousReportPath: options.previousReportPath || DEFAULT_PREVIOUS_REPORT_PATH,
     baselineReportPath: options.baselineReportPath || DEFAULT_BASELINE_REPORT_PATH,
+    singleFile,
   };
 };
 

@@ -3,6 +3,10 @@
    ========================= */
 @import "tailwindcss" important;
 
+/* Scan this theme directory so Tailwind generates utilities for all Vue components here.
+   Required when building with a Vite root outside this directory (e.g. file-browsable-reporter). */
+@source ".";
+
 /* =========================
    Custom Animations for Tailwind
    ========================= */

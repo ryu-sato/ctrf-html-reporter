@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'url';
 import { build } from 'vitepress';
+import { build as viteBuild } from 'vite';
 import path from 'path';
 import type { CommandArguments } from './command-parameters.mjs';
 
@@ -52,8 +53,40 @@ const buildReport = (commandArgs: CommandArguments) => {
   build(reporterPath, { outDir: outputPath });
 };
 
+/**
+ * Resolves the path to the 'file-browsable-reporter' directory relative to this module.
+ * @returns The absolute path to the file-browsable-reporter directory
+ */
+const resolveFileBrowsableReporterPath = (): string => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  return path.resolve(__dirname, '..', 'file-browsable-reporter');
+};
+
+/**
+ * Builds a single self-contained HTML file report using Vite.
+ * Sets the CTRF report path as an environment variable for the Vite plugin
+ * which injects the data during the build, producing a file:// compatible HTML file.
+ * @param commandArgs - The command arguments containing input file path and output path
+ */
+const buildFileReport = (commandArgs: CommandArguments) => {
+  console.log(`Processing report file...: ${commandArgs.inputFilePath}`);
+  console.log(`Output path: ${commandArgs.outputPath}`);
+
+  process.env.CTRF_REPORT_PATH = commandArgs.inputFilePath;
+
+  const fileBrowsableReporterPath = resolveFileBrowsableReporterPath();
+  const outputPath = resolveOutputPath(commandArgs.outputPath);
+  viteBuild({
+    configFile: path.join(fileBrowsableReporterPath, 'vite.config.ts'),
+    build: { outDir: outputPath, emptyOutDir: true },
+  });
+};
+
 export {
   buildReport,
+  buildFileReport,
   resolveOutputPath,
   resolveReporterPath,
+  resolveFileBrowsableReporterPath,
 };
