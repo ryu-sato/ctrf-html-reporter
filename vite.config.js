@@ -18,6 +18,7 @@ export default defineConfig({
         "fsevents",
         "vitepress",
         "ctrf",
+        "vite",
         ...builtinModules,
         ...builtinModules.map(m => `node:${m}`)
       ],
@@ -55,7 +56,14 @@ export default defineConfig({
         console.log('Copying reporter files...')
         copyDir(srcDir, destDir, ['node_modules', 'cache'])
         console.log('Reporter files copied successfully!')
-        
+
+        // Copy src/file-browsable-reporter to dist/file-browsable-reporter (source for runtime Vite build)
+        const srcFBRDir = path.resolve('src/file-browsable-reporter')
+        const destFBRDir = path.resolve('dist/file-browsable-reporter')
+        console.log('Copying file-browsable-reporter files...')
+        copyDir(srcFBRDir, destFBRDir, ['node_modules'])
+        console.log('File-browsable-reporter files copied successfully!')
+
         // Copy package.json to dist (for npm publishing)
         console.log('Creating package.json for distribution...')
         copyFile('./package.json', './dist/package.json');
