@@ -75,7 +75,7 @@ const buildFileReport = (commandArgs: CommandArguments) => {
   console.log(`Output path: ${commandArgs.outputPath}`);
 
   const inputPath = path.resolve(process.cwd(), commandArgs.inputFilePath);
-  const outputPath = resolveOutputPath(commandArgs.outputPath);
+  const outputPath = resolveOutputPath(path.join(commandArgs.outputPath, 'index.html'));
 
   const rawReport = JSON.parse(fs.readFileSync(inputPath, 'utf-8'));
   const enrichedReport = enrichReportWithInsights(rawReport);

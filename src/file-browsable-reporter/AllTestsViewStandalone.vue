@@ -2,6 +2,14 @@
   <div class="all-tests-view">
     <h1 class="text-2xl font-bold mb-6 text-[var(--vp-c-text-1)]">All Tests</h1>
 
+    <!-- Error: no data -->
+    <div v-if="!report" class="p-6 rounded-lg border border-[var(--vp-c-red-1)] bg-[var(--vp-c-bg-soft)] text-[var(--vp-c-text-1)]">
+      <p class="font-semibold mb-1">No report data found.</p>
+      <p class="text-sm text-[var(--vp-c-text-2)]">This is a template file. Generate a report using the CLI:</p>
+      <pre class="mt-2 text-sm font-mono">See README.md</pre>
+    </div>
+
+    <template v-else>
     <!-- Summary -->
     <SummaryView :summary="report.results.summary" class="mb-8" />
 
@@ -127,6 +135,7 @@
         Next
       </button>
     </div>
+    </template>
   </div>
 </template>
 
@@ -135,7 +144,7 @@ import { inject, ref, computed } from 'vue'
 import type { CtrfReport } from 'ctrf'
 import AllTestsCard from '../reporter/.vitepress/theme/features/all-tests/AllTestsCard.vue'
 
-const report = inject<CtrfReport>('report') as CtrfReport
+const report = inject<CtrfReport | null>('report', null)
 
 // Filter and sort state
 const searchText = ref('')
