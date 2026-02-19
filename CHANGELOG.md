@@ -1,5 +1,13 @@
 # ctrf-html-reporter
 
+## 1.1.22
+
+### Patch Changes
+
+- [#74](https://github.com/ryu-sato/ctrf-html-reporter/pull/74) [`64e3668`](https://github.com/ryu-sato/ctrf-html-reporter/commit/64e3668dd900556db742832b179eb687fe455729) Thanks [@ryu-sato](https://github.com/ryu-sato)! - Update pnpm-lock.yaml
+
+- [#73](https://github.com/ryu-sato/ctrf-html-reporter/pull/73) [`03ad377`](https://github.com/ryu-sato/ctrf-html-reporter/commit/03ad37732965f96f6eeb7546e3ab9d5ceb60cb1e) Thanks [@ryu-sato](https://github.com/ryu-sato)! - feat: Add file-browsable reporter and single-file report generation
+
 ## 1.1.21
 
 ### Patch Changes
